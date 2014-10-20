@@ -18,10 +18,15 @@ Daten werden in einer h2 in-memory Datenbank gespeichert. Auf diese kann während
 java -jar h2-database-console/h2-1.4.178.jar
 
 Connection Informationen:
+
 Generic H2 Embedded
+
 Driver: org.h2.Driver
+
 URL: jdbc:h2:tcp://localhost:8043/mem:photoplatformdb
+
 Nutzer: sa
+
 Passwort:
 
 Das Fronend befindet sich im Ordner src/webapp
