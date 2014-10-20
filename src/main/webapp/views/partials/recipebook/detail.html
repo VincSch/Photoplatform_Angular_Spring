@@ -1,0 +1,49 @@
+<form novalidate class="form-horizontal"  ng-controller="RecipeBookDetailCtrl" >
+    <fieldset>
+    <!-- INFORMATION -->
+    <legend>Rezeptbuch bearbeiten</legend>
+    <div class="control-group">
+    
+        <label class="control-label" for="name">Name</label>
+        <div class="controls">
+            <input type="text" ng-model="recipeBook.name" id="name"/>
+        </div> 
+    </div>
+    </fieldset>
+    
+    <!-- RECIPES -->
+    <fieldset>
+    <legend>Rezepte</legend>
+    <div class="control-group">
+  <table class="table table-striped">
+  <thead>
+    <tr>
+        <th>Name</th>
+        <th>Zutaten</th>
+        <th>Erstellt am</th>
+    </tr>
+ </thead>
+ <tbody>
+    <tr ng-repeat="usedRecipe in recipeBook.usedRecipes">
+        <td>{{usedRecipe.recipe.name}}</td>
+        <td><span ng-repeat="usedIngredient in usedRecipe.recipe.usedIngredients">{{ usedIngredient.ingredient.name }} </span></td>
+        <td>um <strong>{{usedRecipe.recipe.createdAt | date:'HH:mm'}}</strong> Uhr am <strong>{{usedRecipe.recipe.createdAt | date:'dd.MM.yyyy'}}</strong></td>
+        <td>
+        	<button ng-click="removeRecipe(usedRecipe)" type="button" class="btn btn-danger btn-sm">
+			  <span class="glyphicon glyphicon-remove"></span>
+			</button>
+        </td>
+    </tr>
+  </tbody>
+  </table>
+	  
+	  <label class="control-label" for="name">Rezept hinzufügen</label>
+      <div class="controls">
+            <select id="recipe" ng-model="recipe" ng-options="recipe.name for recipe in recipes"></select> 
+            <button type="button" class="btn btn-primary btn-sm" ng-click="addRecipe(recipeBook, recipe)">
+                 <span class="glyphicon glyphicon-add">Hinzufügen</span>
+             </button>
+      </div>
+    </fieldset>
+    <button type="submit" ng-click="updateRecipeBook(recipeBook)" class="btn btn-primary">Aktualisieren</button>
+</form>

@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		Informationen zu Nuter {{profile.username}}
+	</div>
+	<div class="panel-body">
+		<div class="row-fluid marketing">
+			<div class="span3">
+				<img src="/img/index.jpeg">
+			</div>
+
+			<div class="span3">
+				Mitglied seit: <strong>{{profile.createdAt | date:'dd.MM.yyyy'}}</strong>
+				<br>
+				Benutzername: <strong>{{profile.username}}</strong>
+				<br>
+				E-Mail: <strong>{{profile.email}}</strong>
+				<br>
+				Wohnort: <strong>{{profile.city}}</strong>
+				<br>
+				Geburstag: <strong>{{profile.birthday | date:'dd.MM.yyyy'}}</strong>
+				<br>
+				<span class="badge badge-info">{{recipeamount}}</span> Rezepte
+				<br>
+				<span class="badge badge-info">{{recipebookamount}}</span> Kochbücher 
+			</div>
+		</div>
+	</div>
+</div>

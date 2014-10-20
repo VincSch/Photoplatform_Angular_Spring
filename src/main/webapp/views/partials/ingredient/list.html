@@ -1,0 +1,34 @@
+<div class = "navbar-inner">
+	<form class="navbar-search pull-left">
+		<input type="text" class="search-query" placeholder="Zutaten durchsuchen..." ng-model="query">
+	</form>
+</div>
+<div class="panel panel-default">
+	<!-- Table -->
+	<table class="table table-striped">
+		<p>
+			{{status}}
+		</p>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Erstellt am</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="ingredient in ingredients | filter:query">
+				<td>{{ingredient.name}}</td>
+				<td>um <strong>{{ingredient.createdAt | date:'HH:mm'}}</strong> Uhr am <strong>{{ingredient.createdAt | date:'dd.MM.yyyy'}}</strong></td>
+				<td><a href="#/ingredient/edit/{{ingredient.name}}">
+				<button class="btn btn-small btn-primary" type="button" ng-show = "isLoggedIn()" >
+					bearbeiten
+				</button></a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<a href="#/ingredient/create">
+<button class="btn btn-small btn-primary" type="button" ng-show = "isAdmin()" >
+	Neue Zutat anlegen
+</button></a>

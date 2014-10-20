@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		Übersicht {{recipe.name}}
+	</div>
+	<div class="panel-body">
+		<div class="row-fluid marketing">
+			<div class="span3">
+				<img src="/img/recipe.png" width="130px" height="130px">
+			</div>
+
+			<div class="span6">
+				Erstellt am: <strong>{{recipe.createdAt | date:'dd.MM.yyyy'}}</strong>
+				<br>
+				Name: <strong>{{recipe.name}}</strong>
+				<br>
+				<strong>Kalorien:</strong> {{nutritions.calories}} <strong>Fett:</strong> {{nutritions.fat}}(g) <strong>Eiweiß:</strong> {{nutritions.protein}}(g) <strong>Kohlenhydrate:</strong> {{nutritions.carbohydrate}}(g)
+				<br>
+				Erstellt von: <strong>{{recipe.createdBy}}</strong>
+				<br>
+				Schwierigkeit: <strong>{{recipe.difficulty.name}}</strong>
+				<br>
+				Portionen: <strong>{{recipe.serves}}</strong>
+				<br>
+				Vorbereitet in: <strong>{{recipe.preperationTime}} min</strong>
+				<br>
+				Ablauf: <strong>{{recipe.preperation}}</strong>
+				<br>
+				Bemerkungen: <strong>{{recipe.notes}}</strong>
+				<br>
+				Zutaten:
+				<br>
+				<ul>
+					<li ng-repeat="usedIngredient in recipe.usedIngredients">
+						<strong>{{ usedIngredient.amount}} {{ usedIngredient.unit.germanUnitName}}</strong>  {{ usedIngredient.ingredient.name }}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

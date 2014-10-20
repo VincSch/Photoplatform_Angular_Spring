@@ -1,0 +1,94 @@
+<form novalidate class="form-horizontal"  ng-controller="RecipeCreateCtrl" >
+    <fieldset>
+    <!-- INFORMATION -->
+    <legend>Informationen</legend>
+    <div class="control-group">
+    
+        <label class="control-label" for="name">Name</label>
+        <div class="controls">
+            <input type="text" ng-model="recipe.name" id="name"/>
+        </div>
+        
+        <label class="control-label" for="difficulty">Schwierigkeitsgrad</label>
+        <div class="controls">
+            <select id="difficulty" ng-change="setNewDifficulty(difficulty)" ng-model="difficulty" ng-options="difficulty.name for difficulty in difficulties track by difficulty.name"></select> 
+        </div>
+       
+        <label class="control-label" for="serves">Portionen</label>
+        <div class="controls">
+            <select id="serves" ng-change="setServesAmount(servesAmount)" ng-model="servesAmount" ng-options="servesAmount for servesAmount in serves"></select> 
+        </div>   
+            
+    </div>
+    </fieldset>
+    
+    <!-- INGREDIENTS -->
+    <fieldset>
+    <legend>Zutaten bestimmen</legend>
+    <div class="control-group">
+    <div ng-show="showSuccess" class="alert alert-success">
+        {{success}}
+    </div>
+	   <table class="table table-bordered">
+	   <thead>
+	    <tr>
+	        <th>Name</th>
+	        <th>Anzahl</th>
+	        <th>Einheit</th>
+	        <th>Entfernen</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+		    <tr ng-repeat="usedIngredient in recipe.usedIngredients">
+		      <td>{{usedIngredient.ingredient.name}}</td>
+		      <td>{{usedIngredient.amount}}</td>
+		      <td>{{usedIngredient.unit.germanUnitName}}</td>
+		      <td>
+		        <button ng-click="removeIngredient(usedIngredient)" type="button" class="btn btn-danger btn-sm">
+				  <span class="glyphicon glyphicon-remove"></span>
+				</button>
+		      </td>
+		    </tr>
+	  </tbody>
+	  </table> 
+	  
+	  <label class="control-label" for="name">Zutat hinzufügen</label>
+      <div class="controls">
+            <select id="ingredient" ng-model="ingredient" ng-options="ingredient.name for ingredient in ingredients"></select> 
+            <input type="number" step="0.1" ng-model="amount" id="name"/>
+            <select id="unit" ng-model="unit" ng-options="unit.germanUnitName for unit in units"></select> 
+            <button type="button" class="btn btn-primary btn-sm" ng-click="addIngredient(recipe, ingredient, amount, unit)">
+                 <span class="glyphicon glyphicon-add">Hinzufügen</span>
+             </button>
+      </div>
+    </fieldset>
+    
+      <!-- PREPERATION -->
+    <fieldset>
+        <legend>Vorbereiten</legend>
+        <div class="control-group">
+            <label class="control-label" for="preperationTime">vorbereit in </label>
+            <div class="controls">
+                <input type="text" ng-model="recipe.preperationTime" id="preperationTime"/> <strong>min</strong>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="preperation">Beschreibung:</label>
+            <div class="controls">
+                <textarea rows="10" cols="100" ng-model="recipe.preperation" id="preperation"></textarea>
+            </div>
+        </div>
+    </fieldset>
+    
+      <!-- COOKING -->
+    <fieldset>
+         <legend>Kochen</legend>
+        <div class="control-group">
+            <label class="control-label" for="notes">Ablauf</label>
+            <div class="controls">
+                <textarea rows="10" cols="100" ng-model="recipe.notes" id="notes"></textarea>
+            </div>
+        </div>
+    </fieldset>
+    <button type="submit" ng-click="createRecipe(recipe)" class="btn btn-primary">Speichern</button>
+</form>

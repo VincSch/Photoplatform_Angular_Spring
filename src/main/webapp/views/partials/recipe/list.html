@@ -1,0 +1,37 @@
+<div class = "navbar-inner">
+<form class="navbar-search pull-left">
+	<input type="text" class="search-query" placeholder="Rezepte durchsuchen..." ng-model="query">
+</form>
+</div>
+<div class="panel panel-default">
+	<!-- Table -->
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Bild</th>
+				<th>Name</th>
+				<th>Zutaten</th>
+				<th>Erstellt am</th>
+				<th>Erstellt von</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="recipe in recipes | filter:query">
+				<td><img src="/img/recipe.png" style="with:100px; height:100px;"></td>
+				<td><a href="#/recipe/view/{{recipe.id}}">{{recipe.name}}</a></td>
+				<td><span ng-repeat="usedIngredient in recipe.usedIngredients">{{ usedIngredient.ingredient.name }} </span></td>
+				<td>um <strong>{{recipe.createdAt | date:'HH:mm'}}</strong> Uhr am <strong>{{recipe.createdAt | date:'dd.MM.yyyy'}}</strong></td>
+				<td><a href="#/profile/view/{{recipe.createdBy}}">{{recipe.createdBy}}</a></td>
+				<td><a href="#/recipe/edit/{{recipe.name}}">
+				<button class="btn btn-small btn-primary" type="button" ng-show = "isAdmin()">
+					bearbeiten
+				</button></a></td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+<a href="#/recipe/create">
+<button class="btn btn-small btn-primary" type="button" ng-show = "isAdmin()">
+	Neues Rezept erstellen
+</button></a>
