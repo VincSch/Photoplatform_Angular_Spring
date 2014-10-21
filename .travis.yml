@@ -1,4 +1,2 @@
 language: java
-after_success:
-  - clear
-  - mvn -q clean cobertura:cobertura coveralls:report
+script: "./run-ci-tests.sh"
