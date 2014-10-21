@@ -1,1 +1,1 @@
-script: "./run-ci-tests.sh"
+script: "./travis-ci-runscript.sh"
