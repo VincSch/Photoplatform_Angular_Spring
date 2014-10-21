@@ -1,4 +1,5 @@
 photoplatform-sdf
+[![Coverage Status](https://img.shields.io/coveralls/VincSch/photoplatform-sdf.svg)](https://coveralls.io/r/VincSch/photoplatform-sdf?branch=master)
 =================
 Beispielprojekte Rezeptverwaltung - RESTful Webservice mit Spring MVC, Spring Boot, Hibernate, und Angular JS Frontend.
 Wir könnten das Projekt von mir als Grundlage für die Photoplattform benutzen. 
