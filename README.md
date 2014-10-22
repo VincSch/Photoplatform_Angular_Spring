@@ -14,6 +14,12 @@ mvn clean install
 Run:
 mvn spring-boot:run
 
+Run in IDE:
+Im Packet de.htw.sdf.photoplatform befindet sich ein Klasse mit dem Namen Application.java. Diese dient als Entry-Point und kann einfach als normale
+Java-Anwendung gestartet werden (enthält main Methode). Spring Boot startet dann einen Tomcat-Server und deployed die Anwendung. Zusätzlich wird eine H2-Datenbank gestartet.
+
+Erreichbar ist die Anwendung lokal unter folgenden Link: http://localhost:8080/
+
 Daten werden in einer h2 in-memory Datenbank gespeichert. Auf diese kann während der laufenden Applikation mit Hilfe der H2-Console zugegriffen werden.
 
 java -jar h2-database-console/h2-1.4.178.jar
