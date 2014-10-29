@@ -25,19 +25,11 @@ import org.springframework.context.annotation.ImportResource;
 @ComponentScan
 @EnableAutoConfiguration
 @ImportResource("classpath:applicationContext.xml")
-public final class Application
+public class Application
 {
 
     static Logger log = Logger.getLogger(Application.class.getName());
     private static ConfigurableApplicationContext context;
-
-    /**
-     * Private constructor.
-     */
-    private Application()
-    {
-
-    }
 
     /**
      * Main method.

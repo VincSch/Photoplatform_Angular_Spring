@@ -5,4 +5,8 @@
 <suppressions>
 	<!-- Resource files -->
 	<suppress files="\.properties" checks=".*"/>
+
+	<!-- Application final -->
+	<suppress files="de.htw.sdf.photoplatform.Application" checks="FinalClassCheck" />
+	<suppress files="de.htw.sdf.photoplatform.Application" checks="HideUtilityClassConstructorCheck" />
 </suppressions>
