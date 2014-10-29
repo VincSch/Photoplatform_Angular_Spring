@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.webservice;
 
 import static org.junit.Assert.assertTrue;
@@ -15,71 +21,78 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
 import de.htw.sdf.photoplatform.persistence.Ingredient;
-import de.htw.sdf.photoplatform.webservice.IngredientController;
-import de.htw.sdf.photoplatform.webservice.RecipeController;
 
-public class IngredientControllerTest extends BaseTester {
+public class IngredientControllerTest extends BaseTester
+{
 
-	@Autowired
-	private IngredientController ingredientController;
+    @Autowired
+    private IngredientController ingredientController;
 
-	@Autowired
-	private RecipeController recipeController;
+    @Autowired
+    private RecipeController recipeController;
 
-	private MockMvc mockMvcRecipe;
+    private MockMvc mockMvcRecipe;
 
-	@Before
-	public void setUp() throws Exception {
-		mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
-		mockMvcRecipe = MockMvcBuilders.standaloneSetup(recipeController)
-				.build();
-		insertDestData();
-	}
+    @Before
+    public void setUp() throws Exception
+    {
+        mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
+        mockMvcRecipe = MockMvcBuilders
+                .standaloneSetup(recipeController)
+                .build();
+        insertDestData();
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		clearTables();
-	}
+    @After
+    public void tearDown() throws Exception
+    {
+        clearTables();
+    }
 
-	@Test
-	public void testGetIngredientByName() throws Exception {
-		mockMvc.perform(
-				get("/api/ingredient/byname/Mehl").accept(
-						MediaType.APPLICATION_JSON).characterEncoding("UTF-8"))
-				.andExpect(status().isOk());
-	}
+    @Test
+    public void testGetIngredientByName() throws Exception
+    {
+        mockMvc
+                .perform(
+                        get("/api/ingredient/byname/Mehl").accept(
+                                MediaType.APPLICATION_JSON).characterEncoding(
+																	 "UTF-8"))
+                .andExpect(status().isOk());
+    }
 
-	//@Test
-	public void testCreateIngredient() throws Exception {
-		Ingredient test = new Ingredient();
-		test.setName("TestIngredient");
-		this.mockMvc.perform(
-				post("/api/ingredient/create")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(mapper.writeValueAsString(test))
-						.accept(MediaType.APPLICATION_JSON)).andExpect(
-				status().isCreated());
+    // @Test
+    public void testCreateIngredient() throws Exception
+    {
+        Ingredient test = new Ingredient();
+        test.setName("TestIngredient");
+        this.mockMvc.perform(
+                post("/api/ingredient/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(test))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isCreated());
 
-		assertTrue(ingredientManager.findAll().size() == 5);
+        assertTrue(ingredientManager.findAll().size() == 5);
 
-	}
+    }
 
-	//@Test
-	public void testDeleteIngredient() throws Exception {
+    // @Test
+    public void testDeleteIngredient() throws Exception
+    {
 
-		Ingredient test = new Ingredient();
-		test.setName("TestIngredient");
-		this.mockMvc.perform(
-				post("/api/ingredient/create")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(mapper.writeValueAsString(test))
-						.accept(MediaType.APPLICATION_JSON)).andExpect(
-				status().isCreated());
+        Ingredient test = new Ingredient();
+        test.setName("TestIngredient");
+        this.mockMvc.perform(
+                post("/api/ingredient/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(test))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isCreated());
 
-		mockMvc.perform(
-				get("/api/ingredient/delete/TestIngredient").accept(
-						MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        mockMvc.perform(
+                get("/api/ingredient/delete/TestIngredient").accept(
+                        MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
-		assertTrue(ingredientManager.findAll().size() == 4);
-	}
+        assertTrue(ingredientManager.findAll().size() == 4);
+    }
 }

@@ -32,6 +32,8 @@ import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.common.Endpoints;
 
+import javax.annotation.Resource;
+
 /**
  * This controller generates the token that must be present in subsequent REST
  * invocations.
@@ -52,7 +54,7 @@ public class AuthenticationController extends BaseAPIController
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
+    @Resource
     private UserManager userManager;
 
     /**

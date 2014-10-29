@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.common;
 
 import org.apache.log4j.Logger;
@@ -16,32 +22,35 @@ import de.htw.sdf.photoplatform.manager.RecipeManager;
 import de.htw.sdf.photoplatform.manager.UnitManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { Application.class })
-public class BaseTester {
+@ContextConfiguration(classes = {Application.class})
+public class BaseTester
+{
 
-	protected Logger log = Logger.getLogger(this.getClass().getName());
+    protected Logger log = Logger.getLogger(this.getClass().getName());
 
-	protected ObjectMapper mapper = new ObjectMapper();
+    protected ObjectMapper mapper = new ObjectMapper();
 
-	protected MockMvc mockMvc;
+    protected MockMvc mockMvc;
 
-	@Autowired
-	protected IngredientManager ingredientManager;
+    @Autowired
+    protected IngredientManager ingredientManager;
 
-	@Autowired
-	protected UnitManager unitManager;
+    @Autowired
+    protected UnitManager unitManager;
 
-	@Autowired
-	protected RecipeManager receiptManager;
-	
-	@Autowired
-	protected DBUtil dbUtil;
+    @Autowired
+    protected RecipeManager receiptManager;
 
-	public void insertDestData() {
-		dbUtil.insertDestData();
-	}
+    @Autowired
+    protected DBUtil dbUtil;
 
-	protected void clearTables() {
-		dbUtil.clearTables();
-	}
+    public void insertDestData()
+    {
+        dbUtil.insertDestData();
+    }
+
+    protected void clearTables()
+    {
+        dbUtil.clearTables();
+    }
 }
