@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.webservice;
 
 import java.util.List;
@@ -19,56 +25,118 @@ import de.htw.sdf.photoplatform.persistence.Ingredient;
 import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.common.Endpoints;
 
+/**
+ * 
+ */
 @Controller
-public class IngredientController extends BaseAPIController {
+public class IngredientController extends BaseAPIController
+{
 
-	@Autowired
-	IngredientManager ingredientManager;
+    @Autowired
+    IngredientManager ingredientManager;
 
-	@RequestMapping(value = Endpoints.INGREDIENT_BY_NAME, method = RequestMethod.GET)
-	@ResponseBody
-	public Ingredient ingredientByName(@PathVariable String name)
-			throws NotFoundException {
-		Ingredient ingredient = ingredientManager.findByName(name);
-		if (ingredient == null)
-			throw new NotFoundException("No Ingredient found!");
-		else
-			return ingredient;
-	}
+    /**
+     * Ingredient by name.
+     * 
+     * @param name
+     *            the name
+     * 
+     * @return the ingredient
+     * 
+     * @throws NotFoundException
+     *             the exception
+     */
+    @RequestMapping(value = Endpoints.INGREDIENT_BY_NAME, method = RequestMethod.GET)
+    @ResponseBody
+    public Ingredient ingredientByName(@PathVariable String name)
+            throws NotFoundException
+    {
+        Ingredient ingredient = ingredientManager.findByName(name);
+        if (ingredient == null)
+        {
+            throw new NotFoundException("No Ingredient found!");
+        }
+        else
+        {
+            return ingredient;
+        }
+    }
 
-	@RequestMapping(value = Endpoints.INGREDIENT_ALL, method = RequestMethod.GET)
-	@ResponseBody
-	public List<Ingredient> retrieveAllIngredients() throws NotFoundException {
-		List<Ingredient> ingredientList = ingredientManager.findAll();
-		if (ingredientList.isEmpty())
-			throw new NotFoundException("No Ingredients found!");
-		else
-			return ingredientList;
-	}
+    /**
+     * Get all ingredients.
+     * 
+     * @return list of ingredients
+     * @throws NotFoundException
+     *             the exception
+     */
+    @RequestMapping(value = Endpoints.INGREDIENT_ALL, method = RequestMethod.GET)
+    @ResponseBody
+    public List<Ingredient> retrieveAllIngredients() throws NotFoundException
+    {
+        List<Ingredient> ingredientList = ingredientManager.findAll();
+        if (ingredientList.isEmpty())
+        {
+            throw new NotFoundException("No Ingredients found!");
+        }
+        else
+        {
+            return ingredientList;
+        }
+    }
 
-	@RequestMapping(value = Endpoints.INGREDIENT_DELETE_BY_NAME, method = RequestMethod.GET)
-	@ResponseBody
-	public boolean deleteIngredientByName(@PathVariable String name) {
-		Ingredient ingredientToDelete = ingredientManager.findByName(name);
-		ingredientManager.delete(ingredientToDelete);
-		return true;
-	}
+    /**
+     * Delete ingredient by name.
+     * 
+     * @param name
+     *            the name
+     * 
+     * @return true if delete was successfully
+     */
+    @RequestMapping(value = Endpoints.INGREDIENT_DELETE_BY_NAME, method = RequestMethod.GET)
+    @ResponseBody
+    public boolean deleteIngredientByName(@PathVariable String name)
+    {
+        Ingredient ingredientToDelete = ingredientManager.findByName(name);
+        ingredientManager.delete(ingredientToDelete);
+        return true;
+    }
 
-	@RequestMapping(value = Endpoints.INGREDIENT_CREATE, method = RequestMethod.POST)
-	@ResponseBody
-	@Secured("USER")
-	@ResponseStatus(HttpStatus.CREATED)
-	public boolean createIngredient(@RequestBody Ingredient ingredient) {
-		ingredientManager.create(ingredient);
-		return true;
-	}
+    /**
+     * Create ingredient.
+     * 
+     * @param ingredient
+     *            the ingredient
+     * 
+     * @return true if create was successfully
+     */
+    @RequestMapping(value = Endpoints.INGREDIENT_CREATE, method = RequestMethod.POST)
+    @ResponseBody
+    @Secured("USER")
+    @ResponseStatus(HttpStatus.CREATED)
+    public boolean createIngredient(@RequestBody Ingredient ingredient)
+    {
+        ingredientManager.create(ingredient);
+        return true;
+    }
 
-	@RequestMapping(value = Endpoints.INGREDIENT_UPDATE, method = RequestMethod.PUT)
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	public boolean updateRecipe(@PathVariable long id,
-			@RequestBody Ingredient ingredient) {
-		ingredientManager.update(ingredient);
-		return true;
-	}
+    /**
+     * Update recipe.
+     * 
+     * @param id
+     *            the id
+     * @param ingredient
+     *            the ingredient
+     * 
+     * @return true if update was successfully
+     */
+    @RequestMapping(value = Endpoints.INGREDIENT_UPDATE, method = RequestMethod.PUT)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public boolean updateRecipe(
+            @PathVariable long id,
+            @RequestBody Ingredient ingredient)
+    {
+        ingredientManager.update(ingredient);
+        return true;
+    }
 }

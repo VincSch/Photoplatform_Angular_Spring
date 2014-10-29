@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.webservice;
 
 import java.util.List;
@@ -18,69 +24,151 @@ import de.htw.sdf.photoplatform.persistence.UsedRecipe;
 import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.common.Endpoints;
 
+/**
+ *
+ */
 @Controller
-public class RecipeBookController extends BaseAPIController {
+public class RecipeBookController extends BaseAPIController
+{
 
-	@Autowired
-	RecipeBookManager recipeBookManager;
+    @Autowired
+    RecipeBookManager recipeBookManager;
 
-	@RequestMapping(value = Endpoints.RECIPEBOOK_BY_NAME, method = RequestMethod.GET)
-	@ResponseBody
-	public RecipeBook recipeBookByName(@PathVariable String name)
-			throws Exception {
-		RecipeBook recipeBook = recipeBookManager.findByName(name);
-		return recipeBook;
-	}
+    /**
+     * Get recipe book by name.
+     * 
+     * @param name
+     *            the name
+     * 
+     * @return the recipe
+     * 
+     * @throws Exception
+     *             the exception
+     */
+    @RequestMapping(value = Endpoints.RECIPEBOOK_BY_NAME, method = RequestMethod.GET)
+    @ResponseBody
+    public RecipeBook recipeBookByName(@PathVariable String name)
+            throws Exception
+    {
+        RecipeBook recipeBook = recipeBookManager.findByName(name);
+        return recipeBook;
+    }
 
-	@RequestMapping(value = Endpoints.RECIPEBOOK_BY_USERNAME, method = RequestMethod.GET)
-	@ResponseBody
-	public List<RecipeBook> recipeByUserName(@PathVariable String name) {
-		return recipeBookManager.findByUserName(name);
-	}
+    /**
+     * Get Recipe by user name.
+     * 
+     * @param name
+     *            the name
+     * 
+     * @return the recipe
+     */
+    @RequestMapping(value = Endpoints.RECIPEBOOK_BY_USERNAME, method = RequestMethod.GET)
+    @ResponseBody
+    public List<RecipeBook> recipeByUserName(@PathVariable String name)
+    {
+        return recipeBookManager.findByUserName(name);
+    }
 
-	@RequestMapping(value = Endpoints.RECIPEBOOK_ALL, method = RequestMethod.GET)
-	@ResponseBody
-	public List<RecipeBook> retrieveAllRecipeBooks() throws Exception {
-		List<RecipeBook> recipeBookList = recipeBookManager.findAll();
-		return recipeBookList;
-	}
+    /**
+     * Retrieve all recipe books.
+     * 
+     * @return a list of recipe books
+     * 
+     * @throws Exception
+     *             the exception
+     */
+    @RequestMapping(value = Endpoints.RECIPEBOOK_ALL, method = RequestMethod.GET)
+    @ResponseBody
+    public List<RecipeBook> retrieveAllRecipeBooks() throws Exception
+    {
+        List<RecipeBook> recipeBookList = recipeBookManager.findAll();
+        return recipeBookList;
+    }
 
-	@RequestMapping(value = Endpoints.RECIPEBOOK_DELETE_BY_NAME, method = RequestMethod.GET)
-	@ResponseBody
-	public boolean deleteRecipeBookByName(@PathVariable String name) {
-		RecipeBook recipeBookToDelete = recipeBookManager.findByName(name);
-		recipeBookManager.delete(recipeBookToDelete);
-		return true;
-	}
+    /**
+     * Delete recipe book by name.
+     * 
+     * @param name
+     *            the name
+     * 
+     * @return true if delete was successfully
+     */
+    @RequestMapping(value = Endpoints.RECIPEBOOK_DELETE_BY_NAME, method = RequestMethod.GET)
+    @ResponseBody
+    public boolean deleteRecipeBookByName(@PathVariable String name)
+    {
+        RecipeBook recipeBookToDelete = recipeBookManager.findByName(name);
+        recipeBookManager.delete(recipeBookToDelete);
+        return true;
+    }
 
-	@RequestMapping(value = Endpoints.RECIPEBOOK_CREATE, method = RequestMethod.POST)
-	@ResponseBody
-	@ResponseStatus(HttpStatus.CREATED)
-	public RecipeBook createRecipeBook(@RequestBody RecipeBook recipeBook) {
-		recipeBookManager.create(recipeBook);
-		return recipeBook;
-	}
+    /**
+     * Create recipe book.
+     * 
+     * @param recipeBook
+     *            the recipe book
+     * 
+     * @return the created recipe book
+     */
+    @RequestMapping(value = Endpoints.RECIPEBOOK_CREATE, method = RequestMethod.POST)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    public RecipeBook createRecipeBook(@RequestBody RecipeBook recipeBook)
+    {
+        recipeBookManager.create(recipeBook);
+        return recipeBook;
+    }
 
-	@RequestMapping(value = Endpoints.RECIPEBOOK_UPDATE, method = RequestMethod.PUT)
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	public boolean updateRecipe(@PathVariable long id,
-			@RequestBody RecipeBook recipeBook) {
-		recipeBookManager.update(recipeBook);
-		return true;
-	}
+    /**
+     * Update recipe.
+     * 
+     * @param id
+     *            the id
+     * @param recipeBook
+     *            the recipe book
+     * 
+     * @return true if update was successfully
+     */
+    @RequestMapping(value = Endpoints.RECIPEBOOK_UPDATE, method = RequestMethod.PUT)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public boolean updateRecipe(
+            @PathVariable long id,
+            @RequestBody RecipeBook recipeBook)
+    {
+        recipeBookManager.update(recipeBook);
+        return true;
+    }
 
-	@RequestMapping(value = Endpoints.RECIPEBOOK_REMOVE_RECIPE, method = RequestMethod.POST)
-	@ResponseBody
-	public boolean removeRecipe(@RequestBody UsedRecipe usedRecipe) {
-		recipeBookManager.deleteRecipe(usedRecipe);
-		return true;
-	}
+    /**
+     * Remove recipe.
+     * 
+     * @param usedRecipe
+     *            the used recipe
+     * 
+     * @return true if remove was successfully
+     */
+    @RequestMapping(value = Endpoints.RECIPEBOOK_REMOVE_RECIPE, method = RequestMethod.POST)
+    @ResponseBody
+    public boolean removeRecipe(@RequestBody UsedRecipe usedRecipe)
+    {
+        recipeBookManager.deleteRecipe(usedRecipe);
+        return true;
+    }
 
-	@RequestMapping(value = Endpoints.RECIPEBOOK_ADD_RECIPE, method = RequestMethod.POST)
-	@ResponseBody
-	public boolean addRecipe(@RequestBody UsedRecipe usedRecipe) {
-		recipeBookManager.addRecipe(usedRecipe);
-		return true;
-	}
+    /**
+     * Add recipe.
+     * 
+     * @param usedRecipe
+     *            the used recipe
+     * 
+     * @return true if add was successfully
+     */
+    @RequestMapping(value = Endpoints.RECIPEBOOK_ADD_RECIPE, method = RequestMethod.POST)
+    @ResponseBody
+    public boolean addRecipe(@RequestBody UsedRecipe usedRecipe)
+    {
+        recipeBookManager.addRecipe(usedRecipe);
+        return true;
+    }
 }

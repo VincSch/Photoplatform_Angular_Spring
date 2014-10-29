@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.webservice;
 
 import java.util.List;
@@ -12,19 +18,36 @@ import de.htw.sdf.photoplatform.manager.UnitManager;
 import de.htw.sdf.photoplatform.persistence.Unit;
 import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
 
+/**
+ * 
+ */
 @Controller
-public class UnitController extends BaseAPIController {
+public class UnitController extends BaseAPIController
+{
 
-	@Autowired
-	UnitManager unitManager;
+    @Autowired
+    UnitManager unitManager;
 
-	@RequestMapping(value = "/unit/all", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Unit> retrieveAllUnits() throws Exception {
-		List<Unit> unitList = unitManager.findAll();
-		if (unitList == null)
-			throw new Exception("No recipes found!");
-		else
-			return unitList;
-	}
+    /**
+     * Retrieve all units.
+     * 
+     * @return the units
+     * 
+     * @throws Exception
+     *             the exception
+     */
+    @RequestMapping(value = "/unit/all", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Unit> retrieveAllUnits() throws Exception
+    {
+        List<Unit> unitList = unitManager.findAll();
+        if (unitList == null)
+        {
+            throw new Exception("No recipes found!");
+        }
+        else
+        {
+            return unitList;
+        }
+    }
 }

@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.manager.impl;
 
 import java.util.List;
@@ -10,72 +16,80 @@ import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import de.htw.sdf.photoplatform.persistence.Ingredient;
 
 /**
- * business methods for ingredients
- * 
- * @author Vincent Schwarzer
+ * business methods for ingredients.
+ *
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
 @Service
 @Transactional
 public class IngredientManagerImpl extends DAOReferenceCollector implements
-		IngredientManager {
+        IngredientManager
+{
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void create(Ingredient entity) {
-		ingredientDAO.create(entity);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void create(Ingredient entity)
+    {
+        ingredientDAO.create(entity);
 
-	}
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void delete(Ingredient entity) {
-		ingredientDAO.delete(entity);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void delete(Ingredient entity)
+    {
+        ingredientDAO.delete(entity);
 
-	}
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Ingredient findById(long id) {
-		return ingredientDAO.findOne(id);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Ingredient findById(long id)
+    {
+        return ingredientDAO.findOne(id);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Ingredient> findAll() {
-		return ingredientDAO.findAll();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Ingredient> findAll()
+    {
+        return ingredientDAO.findAll();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Ingredient findByName(String name) {
-		return ingredientDAO.findByName(name);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Ingredient findByName(String name)
+    {
+        return ingredientDAO.findByName(name);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Ingredient update(Ingredient entity) {
-		return ingredientDAO.update(entity);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Ingredient update(Ingredient entity)
+    {
+        return ingredientDAO.update(entity);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void deleteAll() {
-		ingredientDAO.deleteAll();		
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteAll()
+    {
+        ingredientDAO.deleteAll();
+    }
 
 }

@@ -1,6 +1,11 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.persistence;
 
-import java.sql.Date;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -19,161 +24,267 @@ import org.springframework.security.core.userdetails.UserDetails;
 import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
 
 /**
- * Entity class for a user representing the corresponding database table
- * 
- * @author Vincent Schwarzer
+ * Entity class for a user representing the corresponding database table.
+ *
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
 @Entity
 @Table(name = "RB_USER")
-public class User extends BaseAuditEntity implements UserDetails {
+public class User extends BaseAuditEntity implements UserDetails
+{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3719799602561353931L;
+    private static final long serialVersionUID = 3719799602561353931L;
 
-	public User() {
-		super();
-	}
+    @Column(name = "NAME")
+    private String username;
 
-	@Column(name = "NAME")
-	private String username;
+    @Column(name = "PASSWORD")
+    private String password;
 
-	@Column(name = "PASSWORD")
-	private String password;
-	
-	@Column(name = "EMAIL")
-	private String email;
-	
-	@Column(name = "BIRTHDAY")
-	private String birthday;
-	
-	@Column(name = "ABOUT")
-	private String about;
-	
-	@Column(name = "CITY")
-	private String city;
+    @Column(name = "EMAIL")
+    private String email;
 
-	@Column(name = "SECTOKEN")
-	private String secToken;
+    @Column(name = "BIRTHDAY")
+    private String birthday;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private List<UserRole> userRoles;
+    @Column(name = "ABOUT")
+    private String about;
 
-	@Column(name = "IS_ACCOUNT_NON_LOCKED")
-	private boolean accountNonLocked;
+    @Column(name = "CITY")
+    private String city;
 
-	@Column(name = "IS_ENABLED")
-	private boolean enabled;
+    @Column(name = "SECTOKEN")
+    private String secToken;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Set<String> roles = new HashSet<String>();
-		for (UserRole userRole : getUserRoles()) {
-			roles.add(userRole.getRole().getName());
-		}
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<UserRole> userRoles;
 
-		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		for (String role : roles) {
-			authorities.add(new SimpleGrantedAuthority(role));
-		}
+    @Column(name = "IS_ACCOUNT_NON_LOCKED")
+    private boolean accountNonLocked;
 
-		return authorities;
-	}
+    @Column(name = "IS_ENABLED")
+    private boolean enabled;
 
-	@Override
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * User constructor.
+     */
+    public User()
+    {
+        super();
+    }
 
-	@Override
-	public String getUsername() {
-		return username;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection< ? extends GrantedAuthority> getAuthorities()
+    {
+        Set<String> roles = new HashSet<String>();
+        for (UserRole userRole : getUserRoles())
+        {
+            roles.add(userRole.getRole().getName());
+        }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        for (String role : roles)
+        {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return accountNonLocked;
-	}
+        return authorities;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getUsername()
+    {
+        return username;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
+    /**
+     * @param name
+     *            the user name to set
+     */
+    public void setUserName(String name)
+    {
+        this.username = name;
+    }
 
-	public String getSecToken() {
-		return secToken;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getPassword()
+    {
+        return password;
+    }
 
-	public void setSecToken(String secToken) {
-		this.secToken = secToken;
-	}
+    /**
+     * @param password
+     *            the password to set
+     */
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
 
-	public List<UserRole> getUserRoles() {
-		return userRoles;
-	}
+    /**
+     * @return the email
+     */
+    public String getEmail()
+    {
+        return email;
+    }
 
-	public void setUserRole(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
+    /**
+     * @param email
+     *            the email to set
+     */
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
 
-	public void setUserName(String name) {
-		this.username = name;
-	}
+    /**
+     * @return the birthday
+     */
+    public String getBirthday()
+    {
+        return birthday;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * @param birthday
+     *            the birthday to set
+     */
+    public void setBirthday(String birthday)
+    {
+        this.birthday = birthday;
+    }
 
-	public void setEnabled(boolean isEnabled) {
-		this.enabled = isEnabled;
-	}
+    /**
+     * @return the about
+     */
+    public String getAbout()
+    {
+        return about;
+    }
 
-	public void setAccountNonLocked(boolean isAccountNonLocked) {
-		this.accountNonLocked = isAccountNonLocked;
-	}
+    /**
+     * @param about
+     *            the about to set
+     */
+    public void setAbout(String about)
+    {
+        this.about = about;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * @return the city
+     */
+    public String getCity()
+    {
+        return city;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * @param city
+     *            the city to set
+     */
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
 
-	public String getBirthday() {
-		return birthday;
-	}
+    /**
+     * @return the sec toke
+     */
+    public String getSecToken()
+    {
+        return secToken;
+    }
 
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
-	}
+    /**
+     * @param secToken
+     *            the sec token to set
+     */
+    public void setSecToken(String secToken)
+    {
+        this.secToken = secToken;
+    }
 
-	public String getAbout() {
-		return about;
-	}
+    /**
+     * @return the user roles
+     */
+    public List<UserRole> getUserRoles()
+    {
+        return userRoles;
+    }
 
-	public void setAbout(String about) {
-		this.about = about;
-	}
+    /**
+     * @param userRoles
+     *            the user roles to set
+     */
+    public void setUserRole(List<UserRole> userRoles)
+    {
+        this.userRoles = userRoles;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAccountNonLocked()
+    {
+        return accountNonLocked;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    /**
+     * @param isAccountNonLocked
+     *            the account non locked to set
+     */
+    public void setAccountNonLocked(boolean isAccountNonLocked)
+    {
+        this.accountNonLocked = isAccountNonLocked;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isEnabled()
+    {
+        return enabled;
+    }
+
+    /**
+     * @param isEnabled
+     *            the enable to set
+     */
+    public void setEnabled(boolean isEnabled)
+    {
+        this.enabled = isEnabled;
+    }
 
 }

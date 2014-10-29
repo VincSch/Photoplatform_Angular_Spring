@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.repository.common;
 
 import java.io.Serializable;
@@ -13,8 +19,8 @@ import org.springframework.stereotype.Repository;
 /**
  * Generic abstract data access class implementing the most important functions.
  * Should be the super class of each and every other DAO class.
- * 
- * @author Vincent Schwarzer
+ *
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  * @param <T>
  *            the corresponding entity class
@@ -22,91 +28,107 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Transactional
 public abstract class GenericDAOImpl<T extends Serializable> implements
-		GenericDAO<T> {
+        GenericDAO<T>
+{
 
-	private Class<T> clazz;
+    private Class<T> clazz;
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public final void setClazz(final Class<T> clazzToSet) {
-		this.clazz = clazzToSet;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setClazz(final Class<T> clazzToSet)
+    {
+        this.clazz = clazzToSet;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public T findOne(final long id) {
-		return entityManager.find(clazz, id);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T findOne(final long id)
+    {
+        return entityManager.find(clazz, id);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<T> findAll() {
-		return entityManager.createQuery("from " + clazz.getName())
-				.getResultList();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<T> findAll()
+    {
+        return entityManager
+                .createQuery("from " + clazz.getName())
+                .getResultList();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void create(final T entity) {
-		entityManager.persist(entity);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void create(final T entity)
+    {
+        entityManager.persist(entity);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public T update(final T entity) {
-		return entityManager.merge(entity);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T update(final T entity)
+    {
+        return entityManager.merge(entity);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void delete(final T entity) {
-		entityManager.remove(entityManager.contains(entity) ? entity
-				: entityManager.merge(entity));
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void delete(final T entity)
+    {
+        entityManager.remove(entityManager.contains(entity) ? entity
+                : entityManager.merge(entity));
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void deleteAll() {
-		entityManager.createQuery("delete from " + clazz.getName())
-				.executeUpdate();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteAll()
+    {
+        entityManager
+                .createQuery("delete from " + clazz.getName())
+                .executeUpdate();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void deleteById(final long entityId) {
-		final T entity = findOne(entityId);
-		delete(entity);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteById(final long entityId)
+    {
+        final T entity = findOne(entityId);
+        delete(entity);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Query createQuery(String queryString) {
-		return entityManager.createQuery(queryString);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Query createQuery(String queryString)
+    {
+        return entityManager.createQuery(queryString);
+    }
 
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
+    /**
+     * @return the entity manager
+     */
+    public EntityManager getEntityManager()
+    {
+        return entityManager;
+    }
 }

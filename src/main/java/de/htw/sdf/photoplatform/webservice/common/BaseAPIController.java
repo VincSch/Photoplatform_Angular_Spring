@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.webservice.common;
 
 import org.apache.log4j.Logger;
@@ -7,15 +13,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import de.htw.sdf.photoplatform.exception.NotFoundException;
 
+/**
+ * 
+ */
 @Controller
 @RequestMapping(Endpoints.API_PREFIX)
-public class BaseAPIController {
+public class BaseAPIController
+{
 
-	protected Logger log = Logger.getLogger(this.getClass().getName());
+    protected final Logger log = Logger.getLogger(this.getClass().getName());
 
-	@ExceptionHandler({ RuntimeException.class })
-	public void handleException() throws NotFoundException {
-		throw new NotFoundException("Ressource not found!");
-	}
+    /**
+     * Handle exception.
+     * 
+     * @throws NotFoundException
+     *             the not found exception
+     */
+    @ExceptionHandler(RuntimeException.class)
+    public void handleException() throws NotFoundException
+    {
+        throw new NotFoundException("Ressource not found!");
+    }
 
 }

@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.persistence;
 
 import javax.persistence.Column;
@@ -9,41 +15,78 @@ import javax.persistence.Table;
 import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
 
 /**
- * Entity class for a unit representing the corresponding database table
- * 
- * @author Vincent Schwarzer
+ * Entity class for a unit representing the corresponding database table.
+ *
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
 @Entity
 @Table(name = "RB_UNIT")
-public class Unit extends BaseAuditEntity {
+public class Unit extends BaseAuditEntity
+{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4144282015263601060L;
+    private static final long serialVersionUID = 4144282015263601060L;
 
-	public Unit() {
-		super();
-	}
+    /**
+     * German Unit Names.
+     */
+    public enum GermanUnitName
+    {
+        /** Esslöfel. */
+        EL,
+        /** Teelöfel. */
+        TL,
+        /** Milligram. */
+        mg,
+        /** Gram. */
+        g,
+        /** Kg. */
+        Kg,
+        /** t. */
+        t,
+        /** l. */
+        l,
+        /** ml. */
+        ml;
 
-	public Unit(GermanUnitName unitName) {
-		setGermanUnitName(unitName);
-	}
+    }
 
-	public enum GermanUnitName {
-		EL, TL, mg, g, Kg, t, l, ml
-	}
+    @Column(name = "NAME")
+    @Enumerated(EnumType.STRING)
+    private GermanUnitName germanUnitName;
 
-	@Column(name = "NAME")
-	@Enumerated(EnumType.STRING)
-	private GermanUnitName germanUnitName;
+    /**
+     * Unit consctructor.
+     */
+    public Unit()
+    {
+        super();
+    }
 
-	public GermanUnitName getGermanUnitName() {
-		return germanUnitName;
-	}
+    /**
+     * Unit constructor.
+     *
+     * @param unitName
+     *            the unit name
+     */
+    public Unit(GermanUnitName unitName)
+    {
+        setGermanUnitName(unitName);
+    }
 
-	public void setGermanUnitName(GermanUnitName germanUnitName) {
-		this.germanUnitName = germanUnitName;
-	}
+    /**
+     * @return the german unit name
+     */
+    public GermanUnitName getGermanUnitName()
+    {
+        return germanUnitName;
+    }
+
+    /**
+     * @param germanUnitName the the german unit name to set
+     */
+    public void setGermanUnitName(GermanUnitName germanUnitName)
+    {
+        this.germanUnitName = germanUnitName;
+    }
 }

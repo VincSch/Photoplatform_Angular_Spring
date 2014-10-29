@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.persistence;
 
 import javax.persistence.Entity;
@@ -10,46 +16,66 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
 
 /**
- * Entity class for a recipe books recipes corresponding database table
- * 
- * @author Vincent Schwarzer
+ * Entity class for a recipe books recipes corresponding database table.
+ *
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
 @Entity
 @Table(name = "RB_RECIPEBOOK_HAS_RECIPE")
-public class UsedRecipe extends BaseAuditEntity {
+public class UsedRecipe extends BaseAuditEntity
+{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2140082125469640164L;
+    private static final long serialVersionUID = -2140082125469640164L;
 
-	public UsedRecipe() {
-		super();
-	}
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "RECIPEBOOK_ID", referencedColumnName = "ID")
+    private RecipeBook recipeBook;
 
-	@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name = "RECIPEBOOK_ID", referencedColumnName = "ID")
-	private RecipeBook recipeBook;
+    @ManyToOne
+    @JoinColumn(name = "RECIPE_ID", referencedColumnName = "ID")
+    private Recipe recipe;
 
-	@ManyToOne
-	@JoinColumn(name = "RECIPE_ID", referencedColumnName = "ID")
-	private Recipe recipe;
+    /**
+     * Used recipe constructor.
+     */
+    public UsedRecipe()
+    {
+        super();
+    }
 
-	public RecipeBook getRecipeBook() {
-		return recipeBook;
-	}
+    /**
+     * @return the recipe book
+     */
+    public RecipeBook getRecipeBook()
+    {
+        return recipeBook;
+    }
 
-	public void setRecipeBook(RecipeBook recipeBook) {
-		this.recipeBook = recipeBook;
-	}
+    /**
+     * @param recipeBook
+     *            the recipe book to set
+     */
+    public void setRecipeBook(RecipeBook recipeBook)
+    {
+        this.recipeBook = recipeBook;
+    }
 
-	public Recipe getRecipe() {
-		return recipe;
-	}
+    /**
+     * @return the recipe
+     */
+    public Recipe getRecipe()
+    {
+        return recipe;
+    }
 
-	public void setRecipe(Recipe recipe) {
-		this.recipe = recipe;
-	}
+    /**
+     * @param recipe
+     *            the recipe to set
+     */
+    public void setRecipe(Recipe recipe)
+    {
+        this.recipe = recipe;
+    }
 }
