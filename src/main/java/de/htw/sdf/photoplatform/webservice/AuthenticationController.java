@@ -8,6 +8,8 @@ package de.htw.sdf.photoplatform.webservice;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,11 +34,8 @@ import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.common.Endpoints;
 
-import javax.annotation.Resource;
-
 /**
- * This controller generates the token that must be present in subsequent REST
- * invocations.
+ * This controller generates the token that must be present in subsequent REST invocations.
  *
  * @author <a href="mailto:philip@sorst.net">Philip W. Sorst</a>
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
@@ -71,17 +70,12 @@ public class AuthenticationController extends BaseAPIController
      *             the io exception
      */
     @RequestMapping(value = Endpoints.USER_LOGIN, method = {RequestMethod.POST})
-    public User login(@RequestBody String param)
-            throws JsonProcessingException, IOException
+    public User login(@RequestBody String param) throws JsonProcessingException, IOException
     {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(param);
-        String username = mapper.convertValue(
-                node.get("username"),
-                String.class);
-        String password = mapper.convertValue(
-                node.get("password"),
-                String.class);
+        String username = mapper.convertValue(node.get("username"), String.class);
+        String password = mapper.convertValue(node.get("password"), String.class);
 
         try
         {
@@ -89,19 +83,15 @@ public class AuthenticationController extends BaseAPIController
                     username,
                     password);
 
-            Authentication authentication = this.authenticationManager
-                    .authenticate(token);
-            SecurityContextHolder
-                    .getContext()
-                    .setAuthentication(authentication);
+            Authentication authentication = this.authenticationManager.authenticate(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         catch (RuntimeException e)
         {
             throw new RuntimeException(e);
         }
 
-        User details = (User) this.userDetailsService
-                .loadUserByUsername(username);
+        User details = (User) this.userDetailsService.loadUserByUsername(username);
 
         details.setSecToken(tokenUtils.createToken(details));
         return details;
