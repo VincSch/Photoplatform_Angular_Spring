@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.webservice;
+package de.htw.sdf.photoplatform.webservice.controller;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import de.htw.sdf.photoplatform.manager.UnitManager;
-import de.htw.sdf.photoplatform.persistence.Unit;
-import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
+import de.htw.sdf.photoplatform.persistence.models.Unit;
+import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 
 /**
  * 

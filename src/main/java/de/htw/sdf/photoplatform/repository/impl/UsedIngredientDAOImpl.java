@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.UsedIngredient;
+import de.htw.sdf.photoplatform.persistence.models.UsedIngredient;
 import de.htw.sdf.photoplatform.repository.UsedIngredientsDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -25,8 +25,8 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class UsedIngredientDAOImpl extends GenericDAOImpl<UsedIngredient>
-        implements UsedIngredientsDAO
+public class UsedIngredientDAOImpl extends GenericDAOImpl<UsedIngredient> implements
+        UsedIngredientsDAO
 {
 
     /**
@@ -46,8 +46,7 @@ public class UsedIngredientDAOImpl extends GenericDAOImpl<UsedIngredient>
     {
         String queryString = "SELECT usedIngredient FROM UsedIngredient usedIngredient "
                 + "LEFT JOIN FETCH usedIngredient.ingredient ingredient "
-                + "LEFT JOIN FETCH usedIngredient.recipe recipe "
-                + "WHERE recipe.id = ?1";
+                + "LEFT JOIN FETCH usedIngredient.recipe recipe " + "WHERE recipe.id = ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, id);
@@ -62,8 +61,7 @@ public class UsedIngredientDAOImpl extends GenericDAOImpl<UsedIngredient>
     {
         String queryString = "SELECT usedIngredient FROM UsedIngredient usedIngredient "
                 + "LEFT JOIN FETCH usedIngredient.ingredient ingredient "
-                + "LEFT JOIN FETCH usedIngredient.recipe recipe "
-                + "WHERE ingredient.id = ?1";
+                + "LEFT JOIN FETCH usedIngredient.recipe recipe " + "WHERE ingredient.id = ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, id);
@@ -74,9 +72,7 @@ public class UsedIngredientDAOImpl extends GenericDAOImpl<UsedIngredient>
      * {@inheritDoc}
      */
     @Override
-    public UsedIngredient findByIngredientAndRecipeId(
-            Long ingredientId,
-            Long recipeId)
+    public UsedIngredient findByIngredientAndRecipeId(Long ingredientId, Long recipeId)
     {
         String queryString = "SELECT usedIngredient FROM UsedIngredient usedIngredient "
                 + "LEFT JOIN FETCH usedIngredient.ingredient ingredient "

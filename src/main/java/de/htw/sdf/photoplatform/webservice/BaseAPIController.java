@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.webservice.common;
+package de.htw.sdf.photoplatform.webservice;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;

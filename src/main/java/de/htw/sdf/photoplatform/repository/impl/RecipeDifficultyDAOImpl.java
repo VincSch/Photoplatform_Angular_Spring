@@ -11,8 +11,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.Recipe;
-import de.htw.sdf.photoplatform.persistence.RecipeDifficulty;
+import de.htw.sdf.photoplatform.persistence.models.Recipe;
+import de.htw.sdf.photoplatform.persistence.models.RecipeDifficulty;
 import de.htw.sdf.photoplatform.repository.RecipeDifficultyDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -24,8 +24,8 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class RecipeDifficultyDAOImpl extends GenericDAOImpl<RecipeDifficulty>
-        implements RecipeDifficultyDAO
+public class RecipeDifficultyDAOImpl extends GenericDAOImpl<RecipeDifficulty> implements
+        RecipeDifficultyDAO
 {
 
     /**

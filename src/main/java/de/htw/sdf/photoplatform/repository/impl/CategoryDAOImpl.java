@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.Category;
+import de.htw.sdf.photoplatform.persistence.models.Category;
 import de.htw.sdf.photoplatform.repository.CategoryDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -23,8 +23,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class CategoryDAOImpl extends GenericDAOImpl<Category> implements
-        CategoryDAO
+public class CategoryDAOImpl extends GenericDAOImpl<Category> implements CategoryDAO
 {
 
     /**

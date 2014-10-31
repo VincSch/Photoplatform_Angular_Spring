@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.User;
+import de.htw.sdf.photoplatform.persistence.models.user.User;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -24,8 +24,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
-        UserDetailsService
+public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDetailsService
 {
 
     /**
@@ -41,8 +40,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     public User findByUserName(String userName)
     {
         String queryString = "SELECT user FROM User user "
-                + "LEFT JOIN FETCH user.userRoles userRoles "
-                + "WHERE user.username like ?1";
+                + "LEFT JOIN FETCH user.userRoles userRoles " + "WHERE user.username like ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, userName);
@@ -53,8 +51,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     public UserDetails loadUserByUsername(String username)
     {
         String queryString = "SELECT user FROM User user "
-                + "LEFT JOIN FETCH user.userRoles userRoles "
-                + "WHERE user.username like ?1";
+                + "LEFT JOIN FETCH user.userRoles userRoles " + "WHERE user.username like ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, username);

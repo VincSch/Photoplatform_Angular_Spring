@@ -87,8 +87,7 @@ public interface GenericDAO<T extends Serializable>
     void deleteById(final long entityId);
 
     /**
-     * creates a JPA query out of a given query string without exposing the
-     * entity manager.
+     * creates a JPA query out of a given query string without exposing the entity manager.
      * 
      * @param queryString
      *            your query string

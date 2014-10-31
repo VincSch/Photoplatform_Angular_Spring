@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.NutritionFact;
+import de.htw.sdf.photoplatform.persistence.models.NutritionFact;
 import de.htw.sdf.photoplatform.repository.NutritionFactDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -23,8 +23,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class NutritionFactDAOImpl extends GenericDAOImpl<NutritionFact>
-        implements NutritionFactDAO
+public class NutritionFactDAOImpl extends GenericDAOImpl<NutritionFact> implements NutritionFactDAO
 {
 
     /**

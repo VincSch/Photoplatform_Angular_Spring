@@ -8,7 +8,7 @@ package de.htw.sdf.photoplatform.manager;
 
 import java.util.List;
 
-import de.htw.sdf.photoplatform.persistence.UsedIngredient;
+import de.htw.sdf.photoplatform.persistence.models.UsedIngredient;
 
 /**
  * Interface defining business methods for recipe ingredient mapping.

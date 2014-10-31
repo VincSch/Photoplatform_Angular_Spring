@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence;
+package de.htw.sdf.photoplatform.persistence.models;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a recipe books corresponding database table.
@@ -26,7 +26,7 @@ import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
  */
 @Entity
 @Table(name = "RB_RECIPEBOOK")
-public class RecipeBook extends BaseAuditEntity
+public class RecipeBook extends AbstractBaseAuditEntity
 {
 
     private static final long serialVersionUID = 316132395359811636L;

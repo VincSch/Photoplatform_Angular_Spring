@@ -4,12 +4,12 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence;
+package de.htw.sdf.photoplatform.persistence.models.user;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a unit representing the corresponding database table.
@@ -19,7 +19,7 @@ import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
  */
 @Entity
 @Table(name = "RB_USER_PROFILE")
-public class UserProfile extends BaseAuditEntity
+public class UserProfile extends AbstractBaseAuditEntity
 {
 
     private static final long serialVersionUID = 2595993675256650125L;

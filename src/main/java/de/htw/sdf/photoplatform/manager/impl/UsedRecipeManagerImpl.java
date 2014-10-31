@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.htw.sdf.photoplatform.manager.UsedRecipeManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.UsedRecipe;
+import de.htw.sdf.photoplatform.persistence.models.UsedRecipe;
 
 /**
  * business methods for recipe book recipe mappings.
@@ -23,8 +23,7 @@ import de.htw.sdf.photoplatform.persistence.UsedRecipe;
  */
 @Service
 @Transactional
-public class UsedRecipeManagerImpl extends DAOReferenceCollector implements
-        UsedRecipeManager
+public class UsedRecipeManagerImpl extends DAOReferenceCollector implements UsedRecipeManager
 {
 
     @Override
@@ -77,13 +76,9 @@ public class UsedRecipeManagerImpl extends DAOReferenceCollector implements
     }
 
     @Override
-    public UsedRecipe findByRecipeBookAndRecipeId(
-            Long recipeBookId,
-            Long recipeId)
+    public UsedRecipe findByRecipeBookAndRecipeId(Long recipeBookId, Long recipeId)
     {
-        return recipeBookHasRecipeDAO.findByRecipeBookAndRecipeId(
-                recipeBookId,
-                recipeId);
+        return recipeBookHasRecipeDAO.findByRecipeBookAndRecipeId(recipeBookId, recipeId);
     }
 
 }

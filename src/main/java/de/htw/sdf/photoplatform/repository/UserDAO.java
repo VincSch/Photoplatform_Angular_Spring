@@ -8,7 +8,7 @@ package de.htw.sdf.photoplatform.repository;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import de.htw.sdf.photoplatform.persistence.User;
+import de.htw.sdf.photoplatform.persistence.models.user.User;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**

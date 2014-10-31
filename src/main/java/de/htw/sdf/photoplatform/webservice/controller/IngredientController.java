@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.webservice;
+package de.htw.sdf.photoplatform.webservice.controller;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import de.htw.sdf.photoplatform.exception.NotFoundException;
 import de.htw.sdf.photoplatform.manager.IngredientManager;
-import de.htw.sdf.photoplatform.persistence.Ingredient;
-import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
-import de.htw.sdf.photoplatform.webservice.common.Endpoints;
+import de.htw.sdf.photoplatform.persistence.models.Ingredient;
+import de.htw.sdf.photoplatform.webservice.BaseAPIController;
+import de.htw.sdf.photoplatform.webservice.Endpoints;
 
 /**
  * 
@@ -48,8 +48,7 @@ public class IngredientController extends BaseAPIController
      */
     @RequestMapping(value = Endpoints.INGREDIENT_BY_NAME, method = RequestMethod.GET)
     @ResponseBody
-    public Ingredient ingredientByName(@PathVariable String name)
-            throws NotFoundException
+    public Ingredient ingredientByName(@PathVariable String name) throws NotFoundException
     {
         Ingredient ingredient = ingredientManager.findByName(name);
         if (ingredient == null)
@@ -132,9 +131,7 @@ public class IngredientController extends BaseAPIController
     @RequestMapping(value = Endpoints.INGREDIENT_UPDATE, method = RequestMethod.PUT)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public boolean updateRecipe(
-            @PathVariable long id,
-            @RequestBody Ingredient ingredient)
+    public boolean updateRecipe(@PathVariable long id, @RequestBody Ingredient ingredient)
     {
         ingredientManager.update(ingredient);
         return true;

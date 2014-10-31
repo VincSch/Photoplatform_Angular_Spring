@@ -10,7 +10,7 @@ import java.util.List;
 
 import de.htw.sdf.photoplatform.manager.CategoryManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.Category;
+import de.htw.sdf.photoplatform.persistence.models.Category;
 
 /**
  * Interface defining business methods for recipes.
@@ -18,8 +18,7 @@ import de.htw.sdf.photoplatform.persistence.Category;
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  *
  */
-public class CategoryManagerImpl extends DAOReferenceCollector implements
-        CategoryManager
+public class CategoryManagerImpl extends DAOReferenceCollector implements CategoryManager
 {
 
     /**

@@ -8,7 +8,7 @@ package de.htw.sdf.photoplatform.repository;
 
 import java.util.List;
 
-import de.htw.sdf.photoplatform.persistence.UserRole;
+import de.htw.sdf.photoplatform.persistence.models.user.UserRole;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**

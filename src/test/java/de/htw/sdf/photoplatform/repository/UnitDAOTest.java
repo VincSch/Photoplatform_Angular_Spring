@@ -16,8 +16,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.persistence.Unit;
-import de.htw.sdf.photoplatform.persistence.Unit.GermanUnitName;
+import de.htw.sdf.photoplatform.persistence.models.Unit;
+import de.htw.sdf.photoplatform.persistence.models.Unit.GermanUnitName;
 
 public class UnitDAOTest extends BaseTester
 {

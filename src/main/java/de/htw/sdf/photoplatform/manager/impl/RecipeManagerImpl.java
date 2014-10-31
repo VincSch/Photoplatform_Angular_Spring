@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.htw.sdf.photoplatform.manager.RecipeManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.Ingredient;
-import de.htw.sdf.photoplatform.persistence.Recipe;
-import de.htw.sdf.photoplatform.persistence.RecipeDifficulty;
-import de.htw.sdf.photoplatform.persistence.Unit;
-import de.htw.sdf.photoplatform.persistence.UsedIngredient;
+import de.htw.sdf.photoplatform.persistence.models.Ingredient;
+import de.htw.sdf.photoplatform.persistence.models.Recipe;
+import de.htw.sdf.photoplatform.persistence.models.RecipeDifficulty;
+import de.htw.sdf.photoplatform.persistence.models.Unit;
+import de.htw.sdf.photoplatform.persistence.models.UsedIngredient;
 
 /**
  *
@@ -25,8 +25,7 @@ import de.htw.sdf.photoplatform.persistence.UsedIngredient;
  */
 @Service
 @Transactional
-public class RecipeManagerImpl extends DAOReferenceCollector implements
-        RecipeManager
+public class RecipeManagerImpl extends DAOReferenceCollector implements RecipeManager
 {
 
     /**
@@ -115,11 +114,7 @@ public class RecipeManagerImpl extends DAOReferenceCollector implements
      * {@inheritDoc}
      */
     @Override
-    public Recipe addIngredient(
-            Recipe recipe,
-            Ingredient ingredient,
-            double amount,
-            Unit unit)
+    public Recipe addIngredient(Recipe recipe, Ingredient ingredient, double amount, Unit unit)
     {
         UsedIngredient newUsedIngredient = new UsedIngredient();
         newUsedIngredient.setAmount(amount);
@@ -183,8 +178,7 @@ public class RecipeManagerImpl extends DAOReferenceCollector implements
      * {@inheritDoc}
      */
     @Override
-    public Recipe deleteListOfUsedIngredients(
-            List<UsedIngredient> usedIngredients)
+    public Recipe deleteListOfUsedIngredients(List<UsedIngredient> usedIngredients)
     {
         Recipe recipe = usedIngredients.get(0).getRecipe();
         for (UsedIngredient recipeIngredient : usedIngredients)

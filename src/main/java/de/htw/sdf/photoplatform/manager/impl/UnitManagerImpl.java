@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.htw.sdf.photoplatform.manager.UnitManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.Unit;
-import de.htw.sdf.photoplatform.persistence.Unit.GermanUnitName;
+import de.htw.sdf.photoplatform.persistence.models.Unit;
+import de.htw.sdf.photoplatform.persistence.models.Unit.GermanUnitName;
 
 /**
  * repository methods for units.
@@ -24,8 +24,7 @@ import de.htw.sdf.photoplatform.persistence.Unit.GermanUnitName;
  */
 @Service
 @Transactional
-public class UnitManagerImpl extends DAOReferenceCollector implements
-        UnitManager
+public class UnitManagerImpl extends DAOReferenceCollector implements UnitManager
 {
 
     /**

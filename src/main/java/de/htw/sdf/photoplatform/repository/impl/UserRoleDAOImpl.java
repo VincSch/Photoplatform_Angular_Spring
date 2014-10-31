@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.UserRole;
+import de.htw.sdf.photoplatform.persistence.models.user.UserRole;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -25,8 +25,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements
-        UserRoleDAO
+public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements UserRoleDAO
 {
 
     /**
@@ -42,8 +41,8 @@ public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements
     public List<UserRole> findByUserId(Long id)
     {
         String queryString = "SELECT userRole FROM UserRole userRole "
-                + "LEFT JOIN FETCH userRole.user user "
-                + "LEFT JOIN FETCH userRole.role role " + "WHERE user.id = ?1";
+                + "LEFT JOIN FETCH userRole.user user " + "LEFT JOIN FETCH userRole.role role "
+                + "WHERE user.id = ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, id);
@@ -54,8 +53,8 @@ public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements
     public List<UserRole> findByRecipeRoleId(Long id)
     {
         String queryString = "SELECT userRole FROM UserRole userRole "
-                + "LEFT JOIN FETCH userRole.user user "
-                + "LEFT JOIN FETCH userRole.role role " + "WHERE role.id = ?1";
+                + "LEFT JOIN FETCH userRole.user user " + "LEFT JOIN FETCH userRole.role role "
+                + "WHERE role.id = ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, id);
@@ -66,8 +65,7 @@ public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements
     public List<UserRole> findByUserAndRoleId(Long userId, Long roleId)
     {
         String queryString = "SELECT userRole FROM UserRole userRole "
-                + "LEFT JOIN FETCH userRole.user user "
-                + "LEFT JOIN FETCH userRole.role role "
+                + "LEFT JOIN FETCH userRole.user user " + "LEFT JOIN FETCH userRole.role role "
                 + "WHERE user.id = ?1 AND role.id = ?2";
 
         Query query = createQuery(queryString);

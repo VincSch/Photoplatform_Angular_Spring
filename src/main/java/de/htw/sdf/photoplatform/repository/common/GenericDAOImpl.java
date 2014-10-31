@@ -17,8 +17,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 /**
- * Generic abstract data access class implementing the most important functions.
- * Should be the super class of each and every other DAO class.
+ * Generic abstract data access class implementing the most important functions. Should be the super
+ * class of each and every other DAO class.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
@@ -27,8 +27,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Transactional
-public abstract class GenericDAOImpl<T extends Serializable> implements
-        GenericDAO<T>
+public abstract class GenericDAOImpl<T extends Serializable> implements GenericDAO<T>
 {
 
     private Class<T> clazz;
@@ -61,9 +60,7 @@ public abstract class GenericDAOImpl<T extends Serializable> implements
     @SuppressWarnings("unchecked")
     public List<T> findAll()
     {
-        return entityManager
-                .createQuery("from " + clazz.getName())
-                .getResultList();
+        return entityManager.createQuery("from " + clazz.getName()).getResultList();
     }
 
     /**
@@ -90,8 +87,7 @@ public abstract class GenericDAOImpl<T extends Serializable> implements
     @Override
     public void delete(final T entity)
     {
-        entityManager.remove(entityManager.contains(entity) ? entity
-                : entityManager.merge(entity));
+        entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
     }
 
     /**
@@ -100,9 +96,7 @@ public abstract class GenericDAOImpl<T extends Serializable> implements
     @Override
     public void deleteAll()
     {
-        entityManager
-                .createQuery("delete from " + clazz.getName())
-                .executeUpdate();
+        entityManager.createQuery("delete from " + clazz.getName()).executeUpdate();
     }
 
     /**

@@ -6,8 +6,8 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.persistence.Unit;
-import de.htw.sdf.photoplatform.persistence.Unit.GermanUnitName;
+import de.htw.sdf.photoplatform.persistence.models.Unit;
+import de.htw.sdf.photoplatform.persistence.models.Unit.GermanUnitName;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**

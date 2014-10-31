@@ -11,6 +11,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import de.htw.sdf.photoplatform.webservice.controller.IngredientController;
+import de.htw.sdf.photoplatform.webservice.controller.RecipeController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.persistence.Ingredient;
+import de.htw.sdf.photoplatform.persistence.models.Ingredient;
 
 public class IngredientControllerTest extends BaseTester
 {
@@ -37,9 +39,7 @@ public class IngredientControllerTest extends BaseTester
     public void setUp() throws Exception
     {
         mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
-        mockMvcRecipe = MockMvcBuilders
-                .standaloneSetup(recipeController)
-                .build();
+        mockMvcRecipe = MockMvcBuilders.standaloneSetup(recipeController).build();
         insertDestData();
     }
 
@@ -52,12 +52,10 @@ public class IngredientControllerTest extends BaseTester
     @Test
     public void testGetIngredientByName() throws Exception
     {
-        mockMvc
-                .perform(
-                        get("/api/ingredient/byname/Mehl").accept(
-                                MediaType.APPLICATION_JSON).characterEncoding(
-																	 "UTF-8"))
-                .andExpect(status().isOk());
+        mockMvc.perform(
+                get("/api/ingredient/byname/Mehl")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")).andExpect(status().isOk());
     }
 
     // @Test
@@ -69,8 +67,7 @@ public class IngredientControllerTest extends BaseTester
                 post("/api/ingredient/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(test))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(
-                status().isCreated());
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
 
         assertTrue(ingredientManager.findAll().size() == 5);
 
@@ -86,12 +83,13 @@ public class IngredientControllerTest extends BaseTester
                 post("/api/ingredient/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(test))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(
-                status().isCreated());
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
 
-        mockMvc.perform(
-                get("/api/ingredient/delete/TestIngredient").accept(
-                        MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        mockMvc
+                .perform(
+                        get("/api/ingredient/delete/TestIngredient").accept(
+                                MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
 
         assertTrue(ingredientManager.findAll().size() == 4);
     }

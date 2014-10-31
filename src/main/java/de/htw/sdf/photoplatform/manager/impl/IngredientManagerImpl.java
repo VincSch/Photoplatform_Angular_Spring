@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.htw.sdf.photoplatform.manager.IngredientManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.Ingredient;
+import de.htw.sdf.photoplatform.persistence.models.Ingredient;
 
 /**
  * business methods for ingredients.
@@ -23,8 +23,7 @@ import de.htw.sdf.photoplatform.persistence.Ingredient;
  */
 @Service
 @Transactional
-public class IngredientManagerImpl extends DAOReferenceCollector implements
-        IngredientManager
+public class IngredientManagerImpl extends DAOReferenceCollector implements IngredientManager
 {
 
     /**

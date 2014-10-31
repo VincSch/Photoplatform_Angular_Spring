@@ -6,8 +6,8 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.persistence.Recipe;
-import de.htw.sdf.photoplatform.persistence.RecipeDifficulty;
+import de.htw.sdf.photoplatform.persistence.models.Recipe;
+import de.htw.sdf.photoplatform.persistence.models.RecipeDifficulty;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**

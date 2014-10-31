@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence.common;
+package de.htw.sdf.photoplatform.persistence;
 
 import java.util.Date;
 
@@ -23,20 +23,17 @@ import javax.validation.constraints.Size;
  *
  */
 @MappedSuperclass
-public abstract class BaseAuditEntity extends BaseEntity
+public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity
 {
 
     private static final long serialVersionUID = -3699932723300487164L;
 
-    @Column(name = "CREATED_AT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Size(max = 20)
-    @Column(name = "CREATED_BY", length = 20)
     private String createdBy;
 
-    @Column(name = "UPDATED_AT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 

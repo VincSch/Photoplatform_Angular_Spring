@@ -8,7 +8,7 @@ package de.htw.sdf.photoplatform.repository;
 
 import java.util.List;
 
-import de.htw.sdf.photoplatform.persistence.RecipeBook;
+import de.htw.sdf.photoplatform.persistence.models.RecipeBook;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**

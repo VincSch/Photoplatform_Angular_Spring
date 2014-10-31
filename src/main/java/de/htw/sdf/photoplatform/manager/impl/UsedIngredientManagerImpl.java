@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.htw.sdf.photoplatform.manager.UsedIngredientManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.UsedIngredient;
+import de.htw.sdf.photoplatform.persistence.models.UsedIngredient;
 
 /**
  * business methods for used ingredients.
@@ -103,9 +103,7 @@ public class UsedIngredientManagerImpl extends DAOReferenceCollector implements
      * {@inheritDoc}
      */
     @Override
-    public UsedIngredient findByIngredientAndRecipeId(
-            Long ingredientId,
-            Long recipeId)
+    public UsedIngredient findByIngredientAndRecipeId(Long ingredientId, Long recipeId)
     {
         return findByIngredientAndRecipeId(ingredientId, recipeId);
     }

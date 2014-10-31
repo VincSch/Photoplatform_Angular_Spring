@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.webservice;
+package de.htw.sdf.photoplatform.webservice.controller;
 
 import java.util.List;
 
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import de.htw.sdf.photoplatform.manager.RecipeBookManager;
-import de.htw.sdf.photoplatform.persistence.RecipeBook;
-import de.htw.sdf.photoplatform.persistence.UsedRecipe;
-import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
-import de.htw.sdf.photoplatform.webservice.common.Endpoints;
+import de.htw.sdf.photoplatform.persistence.models.RecipeBook;
+import de.htw.sdf.photoplatform.persistence.models.UsedRecipe;
+import de.htw.sdf.photoplatform.webservice.BaseAPIController;
+import de.htw.sdf.photoplatform.webservice.Endpoints;
 
 /**
  *
@@ -47,8 +47,7 @@ public class RecipeBookController extends BaseAPIController
      */
     @RequestMapping(value = Endpoints.RECIPEBOOK_BY_NAME, method = RequestMethod.GET)
     @ResponseBody
-    public RecipeBook recipeBookByName(@PathVariable String name)
-            throws Exception
+    public RecipeBook recipeBookByName(@PathVariable String name) throws Exception
     {
         RecipeBook recipeBook = recipeBookManager.findByName(name);
         return recipeBook;
@@ -132,9 +131,7 @@ public class RecipeBookController extends BaseAPIController
     @RequestMapping(value = Endpoints.RECIPEBOOK_UPDATE, method = RequestMethod.PUT)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public boolean updateRecipe(
-            @PathVariable long id,
-            @RequestBody RecipeBook recipeBook)
+    public boolean updateRecipe(@PathVariable long id, @RequestBody RecipeBook recipeBook)
     {
         recipeBookManager.update(recipeBook);
         return true;

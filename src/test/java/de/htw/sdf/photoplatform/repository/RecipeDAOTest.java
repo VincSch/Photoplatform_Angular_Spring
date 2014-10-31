@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.persistence.Recipe;
+import de.htw.sdf.photoplatform.persistence.models.Recipe;
 
 public class RecipeDAOTest extends BaseTester
 {

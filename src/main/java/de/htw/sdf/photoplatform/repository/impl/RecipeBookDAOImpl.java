@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.RecipeBook;
+import de.htw.sdf.photoplatform.persistence.models.RecipeBook;
 import de.htw.sdf.photoplatform.repository.RecipeBookDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -25,8 +25,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class RecipeBookDAOImpl extends GenericDAOImpl<RecipeBook> implements
-        RecipeBookDAO
+public class RecipeBookDAOImpl extends GenericDAOImpl<RecipeBook> implements RecipeBookDAO
 {
 
     /**
@@ -43,8 +42,7 @@ public class RecipeBookDAOImpl extends GenericDAOImpl<RecipeBook> implements
     {
         String queryString = "SELECT recipeBook FROM RecipeBook recipeBook "
                 + "LEFT JOIN FETCH recipeBook.usedRecipes usedRecipes "
-                + "LEFT JOIN FETCH usedRecipes.recipe recipe "
-                + "WHERE recipeBook.name like ?1";
+                + "LEFT JOIN FETCH usedRecipes.recipe recipe " + "WHERE recipeBook.name like ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, name);

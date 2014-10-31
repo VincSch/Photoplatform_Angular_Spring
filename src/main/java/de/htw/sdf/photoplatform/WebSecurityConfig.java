@@ -23,7 +23,7 @@ import org.springframework.security.web.DefaultSecurityFilterChain;
 
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.security.XAuthTokenConfigurer;
-import de.htw.sdf.photoplatform.webservice.common.Endpoints;
+import de.htw.sdf.photoplatform.webservice.Endpoints;
 
 /**
  *
@@ -47,15 +47,11 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter
     {
 
         http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(
-                SessionCreationPolicy.STATELESS);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         for (String endpoint : Endpoints.securedUserEndpoints())
         {
-            http
-                    .authorizeRequests()
-                    .antMatchers(endpoint)
-                    .hasAnyRole("USER", "ADMIN");
+            http.authorizeRequests().antMatchers(endpoint).hasAnyRole("USER", "ADMIN");
         }
 
         for (String endpoint : Endpoints.securedAdminEndpoints())
@@ -73,8 +69,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter
      * {@inheritDoc}
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder authManagerBuilder)
-            throws Exception
+    protected void configure(AuthenticationManagerBuilder authManagerBuilder) throws Exception
     {
         UserDAO userDAO = context.getBean(UserDAO.class);
         authManagerBuilder.userDetailsService(userDAO);
