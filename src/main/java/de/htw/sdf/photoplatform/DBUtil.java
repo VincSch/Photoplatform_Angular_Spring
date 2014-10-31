@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,252 +20,289 @@ import de.htw.sdf.photoplatform.persistence.Recipe;
 import de.htw.sdf.photoplatform.persistence.RecipeDifficulty;
 import de.htw.sdf.photoplatform.persistence.Role;
 import de.htw.sdf.photoplatform.persistence.Unit;
+import de.htw.sdf.photoplatform.persistence.Unit.GermanUnitName;
 import de.htw.sdf.photoplatform.persistence.UsedIngredient;
 import de.htw.sdf.photoplatform.persistence.User;
 import de.htw.sdf.photoplatform.persistence.UserRole;
-import de.htw.sdf.photoplatform.persistence.Unit.GermanUnitName;
 import de.htw.sdf.photoplatform.repository.NutritionFactDAO;
 import de.htw.sdf.photoplatform.repository.RecipeDifficultyDAO;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 
+/**
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
+ *
+ */
 @Service
-public class DBUtil {
+public class DBUtil
+{
 
-	@Autowired
-	protected IngredientManager ingredientManager;
+    @Autowired
+    protected IngredientManager ingredientManager;
 
-	@Autowired
-	protected UnitManager unitManager;
+    @Autowired
+    protected UnitManager unitManager;
 
-	@Autowired
-	protected RecipeManager recipeManager;
+    @Autowired
+    protected RecipeManager recipeManager;
 
-	@Autowired
-	protected UsedIngredientManager usedIngredientManager;
-	
-	@Autowired
-	protected NutritionFactDAO nutritionFactDAO;
-	
-	@Autowired
-	protected NutritionFactManager nutritionManager;
+    @Autowired
+    protected UsedIngredientManager usedIngredientManager;
 
-	@Autowired
-	protected RecipeDifficultyDAO difficultyDAO;
+    @Autowired
+    protected NutritionFactDAO nutritionFactDAO;
 
-	@Autowired
-	protected UserDAO userDAO;
+    @Autowired
+    protected NutritionFactManager nutritionManager;
 
-	@Autowired
-	protected RoleDAO roleDAO;
+    @Autowired
+    protected RecipeDifficultyDAO difficultyDAO;
 
-	@Autowired
-	protected UserRoleDAO userRoleDAO;
-	
-	public void insertDestData() {
-		createUnits();
-		createIngredients();
-		createRecipes();
-		createRecipeIngredients();
-		createUser();
-		createCaloriesForIngredients();
-	}
+    @Autowired
+    protected UserDAO userDAO;
 
-	private void createUser() {
-		Role userRole = new Role();
-		userRole.setName("ROLE_USER");
-		Role adminRole = new Role();
-		adminRole.setName("ROLE_ADMIN");
-		roleDAO.create(userRole);
-		roleDAO.create(adminRole);
+    @Autowired
+    protected RoleDAO roleDAO;
 
-		User vincent = new User();
-		vincent.setUserName("Vincent");
-		vincent.setPassword("123");
-		vincent.setEnabled(true);
-		vincent.setAccountNonLocked(true);
-		vincent.setBirthday("29.10.1987");
-		vincent.setAbout("Mal sehen");
-		vincent.setCity("Berlin");
-		vincent.setEmail("test@test.de");
-		userDAO.create(vincent);
+    @Autowired
+    protected UserRoleDAO userRoleDAO;
 
-		User peter = new User();
-		peter.setUserName("Peter");
-		peter.setPassword("123");
-		peter.setEnabled(true);
-		peter.setAccountNonLocked(true);
-		userDAO.create(peter);
+    /**
+     * Insert dest data.
+     */
+    public void insertDestData()
+    {
+        createUnits();
+        createIngredients();
+        createRecipes();
+        createRecipeIngredients();
+        createUser();
+        createCaloriesForIngredients();
+    }
 
-		UserRole mapping1 = new UserRole();
-		mapping1.setRole(userRole);
-		mapping1.setUser(vincent);
-		userRoleDAO.create(mapping1);
+    /**
+     * Create user.
+     */
+    private void createUser()
+    {
+        Role userRole = new Role();
+        userRole.setName("ROLE_USER");
+        Role adminRole = new Role();
+        adminRole.setName("ROLE_ADMIN");
+        roleDAO.create(userRole);
+        roleDAO.create(adminRole);
 
-		UserRole mapping3 = new UserRole();
-		mapping3.setRole(adminRole);
-		mapping3.setUser(vincent);
-		userRoleDAO.create(mapping3);
+        User vincent = new User();
+        vincent.setUserName("Vincent");
+        vincent.setPassword("123");
+        vincent.setEnabled(true);
+        vincent.setAccountNonLocked(true);
+        vincent.setBirthday("29.10.1987");
+        vincent.setAbout("Mal sehen");
+        vincent.setCity("Berlin");
+        vincent.setEmail("test@test.de");
+        userDAO.create(vincent);
 
-		UserRole mapping2 = new UserRole();
-		mapping2.setRole(userRole);
-		mapping2.setUser(peter);
-		userRoleDAO.create(mapping2);
+        User peter = new User();
+        peter.setUserName("Peter");
+        peter.setPassword("123");
+        peter.setEnabled(true);
+        peter.setAccountNonLocked(true);
+        userDAO.create(peter);
 
-	}
+        UserRole mapping1 = new UserRole();
+        mapping1.setRole(userRole);
+        mapping1.setUser(vincent);
+        userRoleDAO.create(mapping1);
 
-	private void createUnits() {
-		Unit el = new Unit();
-		el.setGermanUnitName(GermanUnitName.EL);
-		unitManager.create(el);
+        UserRole mapping3 = new UserRole();
+        mapping3.setRole(adminRole);
+        mapping3.setUser(vincent);
+        userRoleDAO.create(mapping3);
 
-		Unit g = new Unit();
-		g.setGermanUnitName(GermanUnitName.g);
-		unitManager.create(g);
+        UserRole mapping2 = new UserRole();
+        mapping2.setRole(userRole);
+        mapping2.setUser(peter);
+        userRoleDAO.create(mapping2);
 
-		Unit kg = new Unit();
-		kg.setGermanUnitName(GermanUnitName.Kg);
-		unitManager.create(kg);
+    }
 
-		Unit mg = new Unit();
-		mg.setGermanUnitName(GermanUnitName.mg);
-		unitManager.create(mg);
+    /**
+     * Create units.
+     */
+    private void createUnits()
+    {
+        Unit el = new Unit();
+        el.setGermanUnitName(GermanUnitName.EL);
+        unitManager.create(el);
 
-		Unit t = new Unit();
-		t.setGermanUnitName(GermanUnitName.t);
-		unitManager.create(t);
+        Unit g = new Unit();
+        g.setGermanUnitName(GermanUnitName.g);
+        unitManager.create(g);
 
-		Unit tl = new Unit();
-		tl.setGermanUnitName(GermanUnitName.TL);
-		unitManager.create(tl);
+        Unit kg = new Unit();
+        kg.setGermanUnitName(GermanUnitName.Kg);
+        unitManager.create(kg);
 
-		Unit l = new Unit();
-		l.setGermanUnitName(GermanUnitName.l);
-		unitManager.create(l);
+        Unit mg = new Unit();
+        mg.setGermanUnitName(GermanUnitName.mg);
+        unitManager.create(mg);
 
-		Unit ml = new Unit();
-		ml.setGermanUnitName(GermanUnitName.ml);
-		unitManager.create(ml);
-	}
+        Unit t = new Unit();
+        t.setGermanUnitName(GermanUnitName.t);
+        unitManager.create(t);
 
-	private void createIngredients() {
+        Unit tl = new Unit();
+        tl.setGermanUnitName(GermanUnitName.TL);
+        unitManager.create(tl);
 
-		Ingredient mehl = new Ingredient();
-		mehl.setName("Mehl");
-		ingredientManager.create(mehl);
+        Unit l = new Unit();
+        l.setGermanUnitName(GermanUnitName.l);
+        unitManager.create(l);
 
-		Ingredient zucker = new Ingredient();
-		zucker.setName("Zucker");
-		ingredientManager.create(zucker);
+        Unit ml = new Unit();
+        ml.setGermanUnitName(GermanUnitName.ml);
+        unitManager.create(ml);
+    }
 
-		Ingredient salz = new Ingredient();
-		salz.setName("Salz");
-		ingredientManager.create(salz);
+    /**
+     * Create ingredients.
+     */
+    private void createIngredients()
+    {
 
-		Ingredient pfeffer = new Ingredient();
-		pfeffer.setName("Pfeffer");
-		ingredientManager.create(pfeffer);
+        Ingredient mehl = new Ingredient();
+        mehl.setName("Mehl");
+        ingredientManager.create(mehl);
 
-	}
+        Ingredient zucker = new Ingredient();
+        zucker.setName("Zucker");
+        ingredientManager.create(zucker);
 
-	private void createRecipes() {
+        Ingredient salz = new Ingredient();
+        salz.setName("Salz");
+        ingredientManager.create(salz);
 
-		/**
-		 * create recipe difficulties
-		 */
-		RecipeDifficulty easy = new RecipeDifficulty();
-		easy.setName("leicht");
-		difficultyDAO.create(easy);
+        Ingredient pfeffer = new Ingredient();
+        pfeffer.setName("Pfeffer");
+        ingredientManager.create(pfeffer);
 
-		RecipeDifficulty intermediate = new RecipeDifficulty();
-		intermediate.setName("mittel");
-		difficultyDAO.create(intermediate);
+    }
 
-		RecipeDifficulty advanced = new RecipeDifficulty();
-		advanced.setName("schwer");
-		difficultyDAO.create(advanced);
+    /**
+     * Create recipes.
+     */
+    private void createRecipes()
+    {
 
-		/**
-		 * create recipes
-		 */
-		Recipe eierkuchen = new Recipe();
-		eierkuchen.setName("Eierkuchen");
-		eierkuchen.setNotes("Weniger ist mehr!");
-		eierkuchen.setPreperation("Rühren wenden essen :)");
-		eierkuchen.setDifficulty(advanced);
-		eierkuchen.setCreatedBy("Vincent");
-		recipeManager.create(eierkuchen);
+        /**
+         * create recipe difficulties
+         */
+        RecipeDifficulty easy = new RecipeDifficulty();
+        easy.setName("leicht");
+        difficultyDAO.create(easy);
 
-		Recipe eintopf = new Recipe();
-		eintopf.setName("Eintopf");
-		eintopf.setCreatedBy("Vincent");
-		recipeManager.create(eintopf);
+        RecipeDifficulty intermediate = new RecipeDifficulty();
+        intermediate.setName("mittel");
+        difficultyDAO.create(intermediate);
 
-		Recipe pizza = new Recipe();
-		pizza.setName("Pizza");
-		pizza.setCreatedBy("Vincent");
-		recipeManager.create(pizza);
+        RecipeDifficulty advanced = new RecipeDifficulty();
+        advanced.setName("schwer");
+        difficultyDAO.create(advanced);
 
-		Recipe rolade = new Recipe();
-		rolade.setName("Roladen");
-		rolade.setCreatedBy("Vincent");
-		recipeManager.create(rolade);
+        /**
+         * create recipes
+         */
+        Recipe eierkuchen = new Recipe();
+        eierkuchen.setName("Eierkuchen");
+        eierkuchen.setNotes("Weniger ist mehr!");
+        eierkuchen.setPreperation("Rühren wenden essen :)");
+        eierkuchen.setDifficulty(advanced);
+        eierkuchen.setCreatedBy("Vincent");
+        recipeManager.create(eierkuchen);
 
-	}
+        Recipe eintopf = new Recipe();
+        eintopf.setName("Eintopf");
+        eintopf.setCreatedBy("Vincent");
+        recipeManager.create(eintopf);
 
-	private void createRecipeIngredients() {
-		UsedIngredient mapping1 = new UsedIngredient();
-		mapping1.setAmount(2.0);
-		mapping1.setRecipe(recipeManager.findByName("Eierkuchen"));
-		mapping1.setIngredient(ingredientManager.findByName("Zucker"));
-		mapping1.setUnit(unitManager.findByName(GermanUnitName.EL));
-		recipeManager.addIngredient(mapping1);
+        Recipe pizza = new Recipe();
+        pizza.setName("Pizza");
+        pizza.setCreatedBy("Vincent");
+        recipeManager.create(pizza);
 
-		UsedIngredient mapping5 = new UsedIngredient();
-		mapping5.setAmount(500.0);
-		mapping5.setRecipe(recipeManager.findByName("Eierkuchen"));
-		mapping5.setIngredient(ingredientManager.findByName("Mehl"));
-		mapping5.setUnit(unitManager.findByName(GermanUnitName.g));
-		recipeManager.addIngredient(mapping5);
+        Recipe rolade = new Recipe();
+        rolade.setName("Roladen");
+        rolade.setCreatedBy("Vincent");
+        recipeManager.create(rolade);
 
-		UsedIngredient mapping2 = new UsedIngredient();
-		mapping2.setAmount(1.0);
-		mapping2.setRecipe(recipeManager.findByName("Pizza"));
-		mapping2.setIngredient(ingredientManager.findByName("Mehl"));
-		mapping2.setUnit(unitManager.findByName(GermanUnitName.Kg));
-		recipeManager.addIngredient(mapping2);
+    }
 
-		UsedIngredient mapping3 = new UsedIngredient();
-		mapping3.setAmount(10.0);
-		mapping3.setRecipe(recipeManager.findByName("Pizza"));
-		mapping3.setIngredient(ingredientManager.findByName("Salz"));
-		mapping3.setUnit(unitManager.findByName(GermanUnitName.mg));
-		recipeManager.addIngredient(mapping3);
+    /**
+     * Create recipe ingredients.
+     */
+    private void createRecipeIngredients()
+    {
+        UsedIngredient mapping1 = new UsedIngredient();
+        mapping1.setAmount(2.0);
+        mapping1.setRecipe(recipeManager.findByName("Eierkuchen"));
+        mapping1.setIngredient(ingredientManager.findByName("Zucker"));
+        mapping1.setUnit(unitManager.findByName(GermanUnitName.EL));
+        recipeManager.addIngredient(mapping1);
 
-	}
-	
-	private void createCaloriesForIngredients() {
-		NutritionFact mapping2 = new NutritionFact();
-		mapping2.setAmount(1.0);
-		mapping2.setUnit(unitManager.findByName(GermanUnitName.g));
-		mapping2.setIngredient(ingredientManager.findByName("Mehl"));
-		mapping2.setCalories(3.2);
-		mapping2.setFat(0.02);
-		mapping2.setProtein(0.1);
-		mapping2.setCarbohydrate(0.6);
-		nutritionManager.create(mapping2);
-	}
+        UsedIngredient mapping5 = new UsedIngredient();
+        mapping5.setAmount(500.0);
+        mapping5.setRecipe(recipeManager.findByName("Eierkuchen"));
+        mapping5.setIngredient(ingredientManager.findByName("Mehl"));
+        mapping5.setUnit(unitManager.findByName(GermanUnitName.g));
+        recipeManager.addIngredient(mapping5);
 
-	public void clearTables() {
-		usedIngredientManager.deleteAll();
-		recipeManager.deleteAll();
-		nutritionFactDAO.deleteAll();;
-		ingredientManager.deleteAll();
-		unitManager.deleteAll();
-		userRoleDAO.deleteAll();
-		userDAO.deleteAll();
-		roleDAO.deleteAll();
-		difficultyDAO.deleteAll();	
-	}
+        UsedIngredient mapping2 = new UsedIngredient();
+        mapping2.setAmount(1.0);
+        mapping2.setRecipe(recipeManager.findByName("Pizza"));
+        mapping2.setIngredient(ingredientManager.findByName("Mehl"));
+        mapping2.setUnit(unitManager.findByName(GermanUnitName.Kg));
+        recipeManager.addIngredient(mapping2);
+
+        UsedIngredient mapping3 = new UsedIngredient();
+        mapping3.setAmount(10.0);
+        mapping3.setRecipe(recipeManager.findByName("Pizza"));
+        mapping3.setIngredient(ingredientManager.findByName("Salz"));
+        mapping3.setUnit(unitManager.findByName(GermanUnitName.mg));
+        recipeManager.addIngredient(mapping3);
+
+    }
+
+    /**
+     * Create Calories For Ingredients.
+     */
+    private void createCaloriesForIngredients()
+    {
+        NutritionFact mapping2 = new NutritionFact();
+        mapping2.setAmount(1.0);
+        mapping2.setUnit(unitManager.findByName(GermanUnitName.g));
+        mapping2.setIngredient(ingredientManager.findByName("Mehl"));
+        mapping2.setCalories(3.2);
+        mapping2.setFat(0.02);
+        mapping2.setProtein(0.1);
+        mapping2.setCarbohydrate(0.6);
+        nutritionManager.create(mapping2);
+    }
+
+    /**
+     * Clear tables.
+     */
+    public void clearTables()
+    {
+        usedIngredientManager.deleteAll();
+        recipeManager.deleteAll();
+        nutritionFactDAO.deleteAll();
+        ingredientManager.deleteAll();
+        unitManager.deleteAll();
+        userRoleDAO.deleteAll();
+        userDAO.deleteAll();
+        roleDAO.deleteAll();
+        difficultyDAO.deleteAll();
+    }
 }

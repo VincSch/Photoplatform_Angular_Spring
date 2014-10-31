@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.persistence;
 
 import javax.persistence.Column;
@@ -10,97 +16,150 @@ import javax.persistence.Table;
 import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
 
 /**
- * Entity mapping class for a nutrition fact of an ingredient and a specific amount representing the corresponding
- * database table
- * 
- * @author Vincent Schwarzer
- * 
+ * Entity mapping class for a nutrition fact of an ingredient and a specific
+ * amount representing the corresponding database table.
+ *
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */
 @Entity
 @Table(name = "RB_NUTRITIONFACT")
-public class NutritionFact extends BaseAuditEntity {
+public class NutritionFact extends BaseAuditEntity
+{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -768981160936776172L;
+    private static final long serialVersionUID = -768981160936776172L;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "INGREDIENT_ID", referencedColumnName = "ID")
-	private Ingredient ingredient;
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "UNIT_ID", referencedColumnName = "ID")
-	private Unit unit;
-	
-	@Column(name = "AMOUNT")
-	private double amount;
-	
-	@Column(name = "CALORIES")
-	private double calories;
-	
-	@Column(name = "CARBOHYDRATE")
-	private double carbohydrate;
-	
-	@Column(name = "PROTEIN")
-	private double protein;
-	
-	@Column(name = "FAT")
-	private double fat;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "INGREDIENT_ID", referencedColumnName = "ID")
+    private Ingredient ingredient;
 
-	public Ingredient getIngredient() {
-		return ingredient;
-	}
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "UNIT_ID", referencedColumnName = "ID")
+    private Unit unit;
 
-	public void setIngredient(Ingredient ingredient) {
-		this.ingredient = ingredient;
-	}
+    @Column(name = "AMOUNT")
+    private double amount;
 
-	public Unit getUnit() {
-		return unit;
-	}
+    @Column(name = "CALORIES")
+    private double calories;
 
-	public void setUnit(Unit unit) {
-		this.unit = unit;
-	}
+    @Column(name = "CARBOHYDRATE")
+    private double carbohydrate;
 
-	public double getAmount() {
-		return amount;
-	}
+    @Column(name = "PROTEIN")
+    private double protein;
 
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
+    @Column(name = "FAT")
+    private double fat;
 
-	public double getCalories() {
-		return calories;
-	}
+    /**
+     * @return the ingredient
+     */
+    public Ingredient getIngredient()
+    {
+        return ingredient;
+    }
 
-	public void setCalories(double calories) {
-		this.calories = calories;
-	}
+    /**
+     * @param ingredient the ingredient
+     */
+    public void setIngredient(Ingredient ingredient)
+    {
+        this.ingredient = ingredient;
+    }
 
-	public double getCarbohydrate() {
-		return carbohydrate;
-	}
+    /**
+     * @return the unit
+     */
+    public Unit getUnit()
+    {
+        return unit;
+    }
 
-	public void setCarbohydrate(double carbohydrate) {
-		this.carbohydrate = carbohydrate;
-	}
+    /**
+     * @param unit the unit to set
+     */
+    public void setUnit(Unit unit)
+    {
+        this.unit = unit;
+    }
 
-	public double getProtein() {
-		return protein;
-	}
+    /**
+     * @return the amount
+     */
+    public double getAmount()
+    {
+        return amount;
+    }
 
-	public void setProtein(double protein) {
-		this.protein = protein;
-	}
+    /**
+     * @param amount the amount to set
+     */
+    public void setAmount(double amount)
+    {
+        this.amount = amount;
+    }
 
-	public double getFat() {
-		return fat;
-	}
+    /**
+     * @return the calories
+     */
+    public double getCalories()
+    {
+        return calories;
+    }
 
-	public void setFat(double fat) {
-		this.fat = fat;
-	}
+    /**
+     * @param calories the calories to set
+     */
+    public void setCalories(double calories)
+    {
+        this.calories = calories;
+    }
+
+    /**
+     * @return the carbohydrate
+     */
+    public double getCarbohydrate()
+    {
+        return carbohydrate;
+    }
+
+    /**
+     * @param carbohydrate the carbohydrate to set
+     */
+    public void setCarbohydrate(double carbohydrate)
+    {
+        this.carbohydrate = carbohydrate;
+    }
+
+    /**
+     * @return the protein
+     */
+    public double getProtein()
+    {
+        return protein;
+    }
+
+    /**
+     * @param protein the protein to set
+     */
+    public void setProtein(double protein)
+    {
+        this.protein = protein;
+    }
+
+    /**
+     * @return the fat
+     */
+    public double getFat()
+    {
+        return fat;
+    }
+
+    /**
+     * @param fat the fat to set
+     */
+    public void setFat(double fat)
+    {
+        this.fat = fat;
+    }
 }

@@ -1,45 +1,68 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.persistence;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
 
 /**
- * Entity class for a ingredient representing the corresponding database table
- * 
- * @author Vincent Schwarzer
+ * Entity class for a ingredient representing the corresponding database table.
+ *
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
 @Entity
 @Table(name = "RB_INGREDIENT")
-public class Ingredient extends BaseAuditEntity {
+public class Ingredient extends BaseAuditEntity
+{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6769576720889667073L;
+    private static final long serialVersionUID = 6769576720889667073L;
 
-	public Ingredient() {
-		super();
-	}
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
-	public Ingredient(String name, Unit uni) {
-		setName(name);
-	}
+    /**
+     * Ingredient constructor.
+     */
+    public Ingredient()
+    {
+        super();
+    }
 
-	@Column(name = "NAME", nullable = false)
-	private String name;
+    /**
+     * Ingredient constructor.
+     * 
+     * @param name
+     *            the name
+     * @param uni
+     *            the uni
+     */
+    public Ingredient(String name, Unit uni)
+    {
+        setName(name);
+    }
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * @return the name
+     */
+    public String getName()
+    {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @param name
+     *            the name
+     */
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 }

@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.persistence;
 
 import java.util.List;
@@ -13,60 +19,96 @@ import javax.persistence.Table;
 import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
 
 /**
- * Entity class for a recipe books corresponding database table
- * 
- * @author Vincent Schwarzer
+ * Entity class for a recipe books corresponding database table.
+ *
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
 @Entity
 @Table(name = "RB_RECIPEBOOK")
-public class RecipeBook extends BaseAuditEntity {
+public class RecipeBook extends BaseAuditEntity
+{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 316132395359811636L;
+    private static final long serialVersionUID = 316132395359811636L;
 
-	public RecipeBook() {
-		super();
-	}
+    @Column(name = "NAME", nullable = false, unique = true)
+    private String name;
 
-	@Column(name = "NAME", nullable = false, unique = true)
-	private String name;
+    /**
+     * Type.
+     */
+    public enum Type
+    {
+        /** Privat. */
+        priv,
+        /** Public. */
+        pub;
+    }
 
-	public enum Type {
-		priv, pub
-	}
+    @Column(name = "TYPE")
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
-	@Column(name = "TYPE")
-	@Enumerated(EnumType.STRING)
-	private Type type;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipeBook")
+    private List<UsedRecipe> usedRecipes;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipeBook")
-	private List<UsedRecipe> usedRecipes;
+    /**
+     * Recipe Book constructor.
+     */
+    public RecipeBook()
+    {
+        super();
+    }
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * @return the name
+     */
+    public String getName()
+    {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
-	public Type getType() {
-		return type;
-	}
+    /**
+     * @return the type
+     */
+    public Type getType()
+    {
+        return type;
+    }
 
-	public void setType(Type type) {
-		this.type = type;
-	}
+    /**
+     * @param type
+     *            the type to set
+     */
+    public void setType(Type type)
+    {
+        this.type = type;
+    }
 
-	public List<UsedRecipe> getUsedRecipes() {
-		return usedRecipes;
-	}
+    /**
+     * @return the used recipes
+     */
+    public List<UsedRecipe> getUsedRecipes()
+    {
+        return usedRecipes;
+    }
 
-	public void setUsedRecipes(List<UsedRecipe> usedRecipes) {
-		this.usedRecipes = usedRecipes;
-	}
+    /**
+     * @param usedRecipes
+     *            the used recipes to set
+     */
+    public void setUsedRecipes(List<UsedRecipe> usedRecipes)
+    {
+        this.usedRecipes = usedRecipes;
+    }
 
 }

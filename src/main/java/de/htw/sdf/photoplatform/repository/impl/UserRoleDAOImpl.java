@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.repository.impl;
 
 import java.util.List;
@@ -12,54 +18,62 @@ import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
- * repository methods for user roles
- * 
- * @author Vincent Schwarzer
+ * repository methods for user roles.
+ *
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
 @Repository
 @Transactional
 public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements
-		UserRoleDAO {
+        UserRoleDAO
+{
 
-	public UserRoleDAOImpl() {
-		super();
-		setClazz(UserRole.class);
-	}
+    /**
+     * User Role DAO constructor.
+     */
+    public UserRoleDAOImpl()
+    {
+        super();
+        setClazz(UserRole.class);
+    }
 
-	@Override
-	public List<UserRole> findByUserId(Long id) {
-		String queryString = "SELECT userRole FROM UserRole userRole "
-				+ "LEFT JOIN FETCH userRole.user user "
-				+ "LEFT JOIN FETCH userRole.role role " + "WHERE user.id = ?1";
+    @Override
+    public List<UserRole> findByUserId(Long id)
+    {
+        String queryString = "SELECT userRole FROM UserRole userRole "
+                + "LEFT JOIN FETCH userRole.user user "
+                + "LEFT JOIN FETCH userRole.role role " + "WHERE user.id = ?1";
 
-		Query query = createQuery(queryString);
-		query.setParameter(1, id);
-		return query.getResultList();
-	}
+        Query query = createQuery(queryString);
+        query.setParameter(1, id);
+        return query.getResultList();
+    }
 
-	@Override
-	public List<UserRole> findByRecipeRoleId(Long id) {
-		String queryString = "SELECT userRole FROM UserRole userRole "
-				+ "LEFT JOIN FETCH userRole.user user "
-				+ "LEFT JOIN FETCH userRole.role role " + "WHERE role.id = ?1";
+    @Override
+    public List<UserRole> findByRecipeRoleId(Long id)
+    {
+        String queryString = "SELECT userRole FROM UserRole userRole "
+                + "LEFT JOIN FETCH userRole.user user "
+                + "LEFT JOIN FETCH userRole.role role " + "WHERE role.id = ?1";
 
-		Query query = createQuery(queryString);
-		query.setParameter(1, id);
-		return query.getResultList();
-	}
+        Query query = createQuery(queryString);
+        query.setParameter(1, id);
+        return query.getResultList();
+    }
 
-	@Override
-	public List<UserRole> findByUserAndRoleId(Long userId, Long roleId) {
-		String queryString = "SELECT userRole FROM UserRole userRole "
-				+ "LEFT JOIN FETCH userRole.user user "
-				+ "LEFT JOIN FETCH userRole.role role "
-				+ "WHERE user.id = ?1 AND role.id = ?2";
+    @Override
+    public List<UserRole> findByUserAndRoleId(Long userId, Long roleId)
+    {
+        String queryString = "SELECT userRole FROM UserRole userRole "
+                + "LEFT JOIN FETCH userRole.user user "
+                + "LEFT JOIN FETCH userRole.role role "
+                + "WHERE user.id = ?1 AND role.id = ?2";
 
-		Query query = createQuery(queryString);
-		query.setParameter(1, userId);
-		query.setParameter(2, roleId);
-		return query.getResultList();
-	}
+        Query query = createQuery(queryString);
+        query.setParameter(1, userId);
+        query.setParameter(2, roleId);
+        return query.getResultList();
+    }
 
 }

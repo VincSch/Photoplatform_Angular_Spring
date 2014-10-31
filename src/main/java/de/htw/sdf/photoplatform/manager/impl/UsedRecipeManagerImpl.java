@@ -1,3 +1,9 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
+
 package de.htw.sdf.photoplatform.manager.impl;
 
 import java.util.List;
@@ -10,62 +16,74 @@ import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import de.htw.sdf.photoplatform.persistence.UsedRecipe;
 
 /**
- * business methods for recipe book recipe mappings
- * 
- * @author Vincent Schwarzer
+ * business methods for recipe book recipe mappings.
+ *
+ * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
 @Service
 @Transactional
-public class UsedRecipeManagerImpl extends DAOReferenceCollector
-		implements UsedRecipeManager {
+public class UsedRecipeManagerImpl extends DAOReferenceCollector implements
+        UsedRecipeManager
+{
 
-	@Override
-	public void create(UsedRecipe entity) {
-		recipeBookHasRecipeDAO.create(entity);
+    @Override
+    public void create(UsedRecipe entity)
+    {
+        recipeBookHasRecipeDAO.create(entity);
 
-	}
+    }
 
-	@Override
-	public UsedRecipe update(UsedRecipe entity) {
-		return recipeBookHasRecipeDAO.update(entity);
-	}
+    @Override
+    public UsedRecipe update(UsedRecipe entity)
+    {
+        return recipeBookHasRecipeDAO.update(entity);
+    }
 
-	@Override
-	public void delete(UsedRecipe entity) {
-		recipeBookHasRecipeDAO.delete(entity);
-	}
+    @Override
+    public void delete(UsedRecipe entity)
+    {
+        recipeBookHasRecipeDAO.delete(entity);
+    }
 
-	@Override
-	public UsedRecipe findById(long id) {
-		return recipeBookHasRecipeDAO.findOne(id);
-	}
+    @Override
+    public UsedRecipe findById(long id)
+    {
+        return recipeBookHasRecipeDAO.findOne(id);
+    }
 
-	@Override
-	public List<UsedRecipe> findAll() {
-		return recipeBookHasRecipeDAO.findAll();
-	}
+    @Override
+    public List<UsedRecipe> findAll()
+    {
+        return recipeBookHasRecipeDAO.findAll();
+    }
 
-	@Override
-	public void deleteAll() {
-		recipeBookHasRecipeDAO.deleteAll();
-	}
+    @Override
+    public void deleteAll()
+    {
+        recipeBookHasRecipeDAO.deleteAll();
+    }
 
-	@Override
-	public List<UsedRecipe> findByRecipeId(Long id) {
-		return recipeBookHasRecipeDAO.findByRecipeId(id);
-	}
+    @Override
+    public List<UsedRecipe> findByRecipeId(Long id)
+    {
+        return recipeBookHasRecipeDAO.findByRecipeId(id);
+    }
 
-	@Override
-	public List<UsedRecipe> findByRecipeBookId(Long id) {
-		return recipeBookHasRecipeDAO.findByRecipeBookId(id);
-	}
+    @Override
+    public List<UsedRecipe> findByRecipeBookId(Long id)
+    {
+        return recipeBookHasRecipeDAO.findByRecipeBookId(id);
+    }
 
-	@Override
-	public UsedRecipe findByRecipeBookAndRecipeId(Long recipeBookId,
-			Long recipeId) {
-		return recipeBookHasRecipeDAO.findByRecipeBookAndRecipeId(recipeBookId,
-				recipeId);
-	}
+    @Override
+    public UsedRecipe findByRecipeBookAndRecipeId(
+            Long recipeBookId,
+            Long recipeId)
+    {
+        return recipeBookHasRecipeDAO.findByRecipeBookAndRecipeId(
+                recipeBookId,
+                recipeId);
+    }
 
 }
