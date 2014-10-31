@@ -8,8 +8,8 @@ package de.htw.sdf.photoplatform.manager;
 
 import java.util.List;
 
-import de.htw.sdf.photoplatform.persistence.RecipeBook;
-import de.htw.sdf.photoplatform.persistence.UsedRecipe;
+import de.htw.sdf.photoplatform.persistence.models.RecipeBook;
+import de.htw.sdf.photoplatform.persistence.models.UsedRecipe;
 
 /**
  * Interface defining business methods for recipe books.

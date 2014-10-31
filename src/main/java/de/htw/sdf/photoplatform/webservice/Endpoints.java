@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.webservice.common;
+package de.htw.sdf.photoplatform.webservice;
 
 /**
  * Constant class keeping track of all service endpoints.
@@ -124,11 +124,10 @@ public final class Endpoints
     }
 
     /**
-     * End points as strings which have to be secured and can only be accessed
-     * by an admin or user.
+     * End points as strings which have to be secured and can only be accessed by an admin or user.
      * 
-     * @return array of end points as strings which have to be secured and can
-     *         only be accessed by an admin or user
+     * @return array of end points as strings which have to be secured and can only be accessed by
+     *         an admin or user
      */
     public static String[] securedUserEndpoints()
     {
@@ -139,16 +138,13 @@ public final class Endpoints
                 restBuilder(INGREDIENT_DELETE_BY_NAME),
                 restBuilder(INGREDIENT_BY_NAME),
                 // Recipes
-                restBuilder(RECIPE_DELETE_BY_NAME),
-                restBuilder(RECIPE_CREATE),
-                restBuilder(RECIPE_UPDATE),
-                restBuilder(RECIPE_DIFFICULTY_ALL),
+                restBuilder(RECIPE_DELETE_BY_NAME), restBuilder(RECIPE_CREATE),
+                restBuilder(RECIPE_UPDATE), restBuilder(RECIPE_DIFFICULTY_ALL),
                 restBuilder(RECIPEBOOK_REMOVE_RECIPE),
                 restBuilder(RECIPEBOOK_ADD_RECIPE),
                 // Recipe books
-                restBuilder(RECIPEBOOK_DELETE_BY_NAME),
-                restBuilder(RECIPEBOOK_CREATE), restBuilder(RECIPEBOOK_UPDATE),
-                restBuilder(RECIPEBOOK_REMOVE_RECIPE),
+                restBuilder(RECIPEBOOK_DELETE_BY_NAME), restBuilder(RECIPEBOOK_CREATE),
+                restBuilder(RECIPEBOOK_UPDATE), restBuilder(RECIPEBOOK_REMOVE_RECIPE),
                 restBuilder(RECIPEBOOK_ADD_RECIPE),
                 // Nutrition facts
                 restBuilder(NUTRITIONFACT_CREATE),
@@ -160,11 +156,10 @@ public final class Endpoints
     }
 
     /**
-     * End points as strings which have to be secured and can only be accessed
-     * by an admin.
+     * End points as strings which have to be secured and can only be accessed by an admin.
      * 
-     * @return array of end points as strings which have to be secured and can
-     *         only be accessed by an admin
+     * @return array of end points as strings which have to be secured and can only be accessed by
+     *         an admin
      */
     public static String[] securedAdminEndpoints()
     {

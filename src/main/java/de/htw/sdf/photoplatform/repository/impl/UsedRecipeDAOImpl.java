@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.UsedRecipe;
+import de.htw.sdf.photoplatform.persistence.models.UsedRecipe;
 import de.htw.sdf.photoplatform.repository.UsedRecipeDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -25,8 +25,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class UsedRecipeDAOImpl extends GenericDAOImpl<UsedRecipe> implements
-        UsedRecipeDAO
+public class UsedRecipeDAOImpl extends GenericDAOImpl<UsedRecipe> implements UsedRecipeDAO
 {
 
     /**
@@ -46,8 +45,7 @@ public class UsedRecipeDAOImpl extends GenericDAOImpl<UsedRecipe> implements
     {
         String queryString = "SELECT usedRecipe FROM RecipeBookHasRecipeDAO usedRecipe "
                 + "LEFT JOIN FETCH usedRecipe.recipeBook recipeBook "
-                + "LEFT JOIN FETCH usedRecipe.recipe recipe "
-                + "WHERE recipe.id = ?1";
+                + "LEFT JOIN FETCH usedRecipe.recipe recipe " + "WHERE recipe.id = ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, id);
@@ -62,8 +60,7 @@ public class UsedRecipeDAOImpl extends GenericDAOImpl<UsedRecipe> implements
     {
         String queryString = "SELECT usedRecipe FROM RecipeBookHasRecipeDAO usedRecipe "
                 + "LEFT JOIN FETCH usedRecipe.recipeBook recipeBook "
-                + "LEFT JOIN FETCH usedRecipe.recipe recipe "
-                + "WHERE recipeBook.id = ?1";
+                + "LEFT JOIN FETCH usedRecipe.recipe recipe " + "WHERE recipeBook.id = ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, id);
@@ -74,9 +71,7 @@ public class UsedRecipeDAOImpl extends GenericDAOImpl<UsedRecipe> implements
      * {@inheritDoc}
      */
     @Override
-    public UsedRecipe findByRecipeBookAndRecipeId(
-            Long recipeBookId,
-            Long recipeId)
+    public UsedRecipe findByRecipeBookAndRecipeId(Long recipeBookId, Long recipeId)
     {
         String queryString = "SELECT usedRecipe FROM RecipeBookHasRecipeDAO usedRecipe "
                 + "LEFT JOIN FETCH usedRecipe.recipeBook recipeBook "

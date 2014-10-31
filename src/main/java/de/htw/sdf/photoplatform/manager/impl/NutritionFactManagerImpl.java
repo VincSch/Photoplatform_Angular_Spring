@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.htw.sdf.photoplatform.manager.NutritionFactManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.Ingredient;
-import de.htw.sdf.photoplatform.persistence.NutritionFact;
-import de.htw.sdf.photoplatform.persistence.Unit;
-import de.htw.sdf.photoplatform.persistence.Unit.GermanUnitName;
-import de.htw.sdf.photoplatform.persistence.UsedIngredient;
+import de.htw.sdf.photoplatform.persistence.models.Ingredient;
+import de.htw.sdf.photoplatform.persistence.models.NutritionFact;
+import de.htw.sdf.photoplatform.persistence.models.Unit;
+import de.htw.sdf.photoplatform.persistence.models.Unit.GermanUnitName;
+import de.htw.sdf.photoplatform.persistence.models.UsedIngredient;
 
 /**
  *
@@ -26,8 +26,7 @@ import de.htw.sdf.photoplatform.persistence.UsedIngredient;
  */
 @Service
 @Transactional
-public class NutritionFactManagerImpl extends DAOReferenceCollector implements
-        NutritionFactManager
+public class NutritionFactManagerImpl extends DAOReferenceCollector implements NutritionFactManager
 {
 
     /**
@@ -90,8 +89,7 @@ public class NutritionFactManagerImpl extends DAOReferenceCollector implements
      * {@inheritDoc}
      */
     @Override
-    public HashMap<String, Double> calculateCalories(
-            List<UsedIngredient> usedIngredients)
+    public HashMap<String, Double> calculateCalories(List<UsedIngredient> usedIngredients)
     {
         double calories = 0;
         double carbohydrate = 0;
@@ -130,15 +128,11 @@ public class NutritionFactManagerImpl extends DAOReferenceCollector implements
      * 
      * @return calculated calories
      */
-    private double calculateCalories(
-            double amount,
-            Unit unit,
-            NutritionFact nutrition)
+    private double calculateCalories(double amount, Unit unit, NutritionFact nutrition)
     {
         double calories = 0;
 
-        if (unit.getGermanUnitName().equals(
-                nutrition.getUnit().getGermanUnitName()))
+        if (unit.getGermanUnitName().equals(nutrition.getUnit().getGermanUnitName()))
         {
             calories = (amount * nutrition.getCalories());
         }
@@ -189,15 +183,11 @@ public class NutritionFactManagerImpl extends DAOReferenceCollector implements
      * 
      * @return calculated carbohydrate
      */
-    private double calculateCarbohydrate(
-            double amount,
-            Unit unit,
-            NutritionFact nutrition)
+    private double calculateCarbohydrate(double amount, Unit unit, NutritionFact nutrition)
     {
         double carbohydrate = 0;
 
-        if (unit.getGermanUnitName().equals(
-                nutrition.getUnit().getGermanUnitName()))
+        if (unit.getGermanUnitName().equals(nutrition.getUnit().getGermanUnitName()))
         {
             carbohydrate = (amount * nutrition.getCarbohydrate());
         }
@@ -248,15 +238,11 @@ public class NutritionFactManagerImpl extends DAOReferenceCollector implements
      * 
      * @return calculated fat
      */
-    private double calculateFat(
-            double amount,
-            Unit unit,
-            NutritionFact nutrition)
+    private double calculateFat(double amount, Unit unit, NutritionFact nutrition)
     {
         double fat = 0;
 
-        if (unit.getGermanUnitName().equals(
-                nutrition.getUnit().getGermanUnitName()))
+        if (unit.getGermanUnitName().equals(nutrition.getUnit().getGermanUnitName()))
         {
             fat = (amount * nutrition.getFat());
         }
@@ -307,15 +293,11 @@ public class NutritionFactManagerImpl extends DAOReferenceCollector implements
      * 
      * @return calculated protein
      */
-    private double calculateProtein(
-            double amount,
-            Unit unit,
-            NutritionFact nutrition)
+    private double calculateProtein(double amount, Unit unit, NutritionFact nutrition)
     {
         double protein = 0;
 
-        if (unit.getGermanUnitName().equals(
-                nutrition.getUnit().getGermanUnitName()))
+        if (unit.getGermanUnitName().equals(nutrition.getUnit().getGermanUnitName()))
         {
             protein = (amount * nutrition.getProtein());
         }

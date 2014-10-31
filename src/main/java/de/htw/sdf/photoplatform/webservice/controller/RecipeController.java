@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.webservice;
+package de.htw.sdf.photoplatform.webservice.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,13 +25,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.htw.sdf.photoplatform.exception.NotFoundException;
 import de.htw.sdf.photoplatform.manager.RecipeManager;
-import de.htw.sdf.photoplatform.persistence.Ingredient;
-import de.htw.sdf.photoplatform.persistence.Recipe;
-import de.htw.sdf.photoplatform.persistence.RecipeDifficulty;
-import de.htw.sdf.photoplatform.persistence.Unit;
-import de.htw.sdf.photoplatform.persistence.UsedIngredient;
-import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
-import de.htw.sdf.photoplatform.webservice.common.Endpoints;
+import de.htw.sdf.photoplatform.persistence.models.Ingredient;
+import de.htw.sdf.photoplatform.persistence.models.Recipe;
+import de.htw.sdf.photoplatform.persistence.models.RecipeDifficulty;
+import de.htw.sdf.photoplatform.persistence.models.Unit;
+import de.htw.sdf.photoplatform.persistence.models.UsedIngredient;
+import de.htw.sdf.photoplatform.webservice.BaseAPIController;
+import de.htw.sdf.photoplatform.webservice.Endpoints;
 
 /**
  * 
@@ -160,9 +160,7 @@ public class RecipeController extends BaseAPIController
     @RequestMapping(value = Endpoints.RECIPE_UPDATE, method = RequestMethod.PUT)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public boolean updateRecipe(
-            @PathVariable long id,
-            @RequestBody Recipe recipe)
+    public boolean updateRecipe(@PathVariable long id, @RequestBody Recipe recipe)
     {
         recipeManager.update(recipe);
         return true;
@@ -178,11 +176,9 @@ public class RecipeController extends BaseAPIController
      */
     @RequestMapping(value = Endpoints.RECIPE_DIFFICULTY_ALL, method = RequestMethod.GET)
     @ResponseBody
-    public List<RecipeDifficulty> retrieveAllRecipeDifficulties()
-            throws Exception
+    public List<RecipeDifficulty> retrieveAllRecipeDifficulties() throws Exception
     {
-        List<RecipeDifficulty> recipeDifficultyList = recipeManager
-                .findAllRecipeDifficulties();
+        List<RecipeDifficulty> recipeDifficultyList = recipeManager.findAllRecipeDifficulties();
         if (recipeDifficultyList == null)
         {
             throw new Exception("No difficulties found!");
@@ -203,8 +199,7 @@ public class RecipeController extends BaseAPIController
      */
     @RequestMapping(value = Endpoints.RECIPE_DELETE_BY_NAME, method = RequestMethod.POST)
     @ResponseBody
-    public boolean removeUsedIngredientByName(
-            @RequestBody UsedIngredient usedIngredient)
+    public boolean removeUsedIngredientByName(@RequestBody UsedIngredient usedIngredient)
     {
         recipeManager.deleteUsedIngredient(usedIngredient);
         return true;
@@ -231,15 +226,9 @@ public class RecipeController extends BaseAPIController
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(param);
         UsedIngredient usedIngredient = new UsedIngredient();
-        usedIngredient.setAmount(mapper.convertValue(
-                node.get("webAmount"),
-                Double.class));
-        usedIngredient.setUnit(mapper.convertValue(
-                node.get("webUnit"),
-                Unit.class));
-        usedIngredient.setRecipe(mapper.convertValue(
-                node.get("webRecipe"),
-                Recipe.class));
+        usedIngredient.setAmount(mapper.convertValue(node.get("webAmount"), Double.class));
+        usedIngredient.setUnit(mapper.convertValue(node.get("webUnit"), Unit.class));
+        usedIngredient.setRecipe(mapper.convertValue(node.get("webRecipe"), Recipe.class));
         usedIngredient.setIngredient(mapper.convertValue(
                 node.get("webIngredient"),
                 Ingredient.class));

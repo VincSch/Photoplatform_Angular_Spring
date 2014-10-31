@@ -9,8 +9,8 @@ package de.htw.sdf.photoplatform.manager;
 import java.util.HashMap;
 import java.util.List;
 
-import de.htw.sdf.photoplatform.persistence.NutritionFact;
-import de.htw.sdf.photoplatform.persistence.UsedIngredient;
+import de.htw.sdf.photoplatform.persistence.models.NutritionFact;
+import de.htw.sdf.photoplatform.persistence.models.UsedIngredient;
 
 /**
  * Interface defining business methods for nutrition facts.
@@ -82,6 +82,5 @@ public interface NutritionFactManager
      * 
      * @return the calories
      */
-    HashMap<String, Double> calculateCalories(
-            List<UsedIngredient> usedIngredients);
+    HashMap<String, Double> calculateCalories(List<UsedIngredient> usedIngredients);
 }

@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.webservice;
+package de.htw.sdf.photoplatform.webservice.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import de.htw.sdf.photoplatform.manager.IngredientManager;
 import de.htw.sdf.photoplatform.manager.NutritionFactManager;
 import de.htw.sdf.photoplatform.manager.UnitManager;
-import de.htw.sdf.photoplatform.persistence.NutritionFact;
-import de.htw.sdf.photoplatform.persistence.Unit.GermanUnitName;
-import de.htw.sdf.photoplatform.persistence.UsedIngredient;
-import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
-import de.htw.sdf.photoplatform.webservice.common.Endpoints;
+import de.htw.sdf.photoplatform.persistence.models.NutritionFact;
+import de.htw.sdf.photoplatform.persistence.models.Unit.GermanUnitName;
+import de.htw.sdf.photoplatform.persistence.models.UsedIngredient;
+import de.htw.sdf.photoplatform.webservice.BaseAPIController;
+import de.htw.sdf.photoplatform.webservice.Endpoints;
 
 /**
  *
@@ -57,8 +57,7 @@ public class NutritionFactController extends BaseAPIController
      */
     @RequestMapping(value = Endpoints.NUTRITION_BY_INGREDIENT, method = RequestMethod.GET)
     @ResponseBody
-    public NutritionFact recipeBookByName(@PathVariable Long id)
-            throws Exception
+    public NutritionFact recipeBookByName(@PathVariable Long id) throws Exception
     {
         NutritionFact fact = nutritionFactManager.findByIngredientId(id);
         return fact;
@@ -97,9 +96,7 @@ public class NutritionFactController extends BaseAPIController
     public NutritionFact createRecipe(@RequestBody NutritionFact fact)
     {
         fact.setUnit(unitManager.findByName(GermanUnitName.g));
-        fact.setIngredient(ingredientManager.findByName(fact
-                .getIngredient()
-                .getName()));
+        fact.setIngredient(ingredientManager.findByName(fact.getIngredient().getName()));
         nutritionFactManager.create(fact);
         return fact;
     }

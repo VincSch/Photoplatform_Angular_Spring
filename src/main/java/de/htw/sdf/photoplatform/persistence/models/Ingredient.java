@@ -4,13 +4,13 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence;
+package de.htw.sdf.photoplatform.persistence.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a ingredient representing the corresponding database table.
@@ -20,7 +20,7 @@ import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
  */
 @Entity
 @Table(name = "RB_INGREDIENT")
-public class Ingredient extends BaseAuditEntity
+public class Ingredient extends AbstractBaseAuditEntity
 {
 
     private static final long serialVersionUID = 6769576720889667073L;

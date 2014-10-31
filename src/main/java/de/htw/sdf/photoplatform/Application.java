@@ -15,8 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
 /**
- * This class represents the application config, which is done in java instead
- * of XML.
+ * This class represents the application config, which is done in java instead of XML.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  *

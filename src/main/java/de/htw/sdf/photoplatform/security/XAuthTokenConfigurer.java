@@ -47,12 +47,8 @@ public class XAuthTokenConfigurer extends
     @Override
     public void configure(HttpSecurity http) throws Exception
     {
-        XAuthTokenFilter customFilter = new XAuthTokenFilter(
-                detailsService,
-                authenticationManager);
-        http.addFilterBefore(
-                customFilter,
-                UsernamePasswordAuthenticationFilter.class);
+        XAuthTokenFilter customFilter = new XAuthTokenFilter(detailsService, authenticationManager);
+        http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 }

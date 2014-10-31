@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.webservice;
+package de.htw.sdf.photoplatform.webservice.controller;
 
 import java.io.IOException;
 
@@ -29,10 +29,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.htw.sdf.photoplatform.manager.UserManager;
-import de.htw.sdf.photoplatform.persistence.User;
+import de.htw.sdf.photoplatform.persistence.models.user.User;
 import de.htw.sdf.photoplatform.security.TokenUtils;
-import de.htw.sdf.photoplatform.webservice.common.BaseAPIController;
-import de.htw.sdf.photoplatform.webservice.common.Endpoints;
+import de.htw.sdf.photoplatform.webservice.BaseAPIController;
+import de.htw.sdf.photoplatform.webservice.Endpoints;
 
 /**
  * This controller generates the token that must be present in subsequent REST invocations.

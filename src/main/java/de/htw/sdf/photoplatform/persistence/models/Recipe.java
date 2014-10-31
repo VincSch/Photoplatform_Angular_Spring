@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence;
+package de.htw.sdf.photoplatform.persistence.models;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a recipe representing the corresponding database table.
@@ -28,7 +28,7 @@ import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
  */
 @Entity
 @Table(name = "RB_RECIPE")
-public class Recipe extends BaseAuditEntity
+public class Recipe extends AbstractBaseAuditEntity
 {
 
     private static final long serialVersionUID = 1086441426865570028L;
@@ -275,7 +275,8 @@ public class Recipe extends BaseAuditEntity
     }
 
     /**
-     * @param difficulty the difficulty to set
+     * @param difficulty
+     *            the difficulty to set
      */
     public void setDifficulty(RecipeDifficulty difficulty)
     {

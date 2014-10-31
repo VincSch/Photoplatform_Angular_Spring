@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence;
+package de.htw.sdf.photoplatform.persistence.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,17 +13,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
- * Entity mapping class for a nutrition fact of an ingredient and a specific
- * amount representing the corresponding database table.
+ * Entity mapping class for a nutrition fact of an ingredient and a specific amount representing the
+ * corresponding database table.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */
 @Entity
 @Table(name = "RB_NUTRITIONFACT")
-public class NutritionFact extends BaseAuditEntity
+public class NutritionFact extends AbstractBaseAuditEntity
 {
 
     private static final long serialVersionUID = -768981160936776172L;
@@ -60,7 +60,8 @@ public class NutritionFact extends BaseAuditEntity
     }
 
     /**
-     * @param ingredient the ingredient
+     * @param ingredient
+     *            the ingredient
      */
     public void setIngredient(Ingredient ingredient)
     {
@@ -76,7 +77,8 @@ public class NutritionFact extends BaseAuditEntity
     }
 
     /**
-     * @param unit the unit to set
+     * @param unit
+     *            the unit to set
      */
     public void setUnit(Unit unit)
     {
@@ -92,7 +94,8 @@ public class NutritionFact extends BaseAuditEntity
     }
 
     /**
-     * @param amount the amount to set
+     * @param amount
+     *            the amount to set
      */
     public void setAmount(double amount)
     {
@@ -108,7 +111,8 @@ public class NutritionFact extends BaseAuditEntity
     }
 
     /**
-     * @param calories the calories to set
+     * @param calories
+     *            the calories to set
      */
     public void setCalories(double calories)
     {
@@ -124,7 +128,8 @@ public class NutritionFact extends BaseAuditEntity
     }
 
     /**
-     * @param carbohydrate the carbohydrate to set
+     * @param carbohydrate
+     *            the carbohydrate to set
      */
     public void setCarbohydrate(double carbohydrate)
     {
@@ -140,7 +145,8 @@ public class NutritionFact extends BaseAuditEntity
     }
 
     /**
-     * @param protein the protein to set
+     * @param protein
+     *            the protein to set
      */
     public void setProtein(double protein)
     {
@@ -156,7 +162,8 @@ public class NutritionFact extends BaseAuditEntity
     }
 
     /**
-     * @param fat the fat to set
+     * @param fat
+     *            the fat to set
      */
     public void setFat(double fat)
     {

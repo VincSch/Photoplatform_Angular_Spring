@@ -8,7 +8,7 @@ package de.htw.sdf.photoplatform.manager;
 
 import java.util.List;
 
-import de.htw.sdf.photoplatform.persistence.Ingredient;
+import de.htw.sdf.photoplatform.persistence.models.Ingredient;
 
 /**
  * Interface defining business methods for ingredients.

@@ -4,12 +4,10 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence.common;
+package de.htw.sdf.photoplatform.persistence;
 
 import java.io.Serializable;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,18 +21,15 @@ import javax.persistence.Version;
  *
  */
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable
+public abstract class AbstractBaseEntity implements Serializable
 {
 
     private static final long serialVersionUID = -4678948635896701029L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
     protected Long id;
 
-    @Column(name = "version")
     @Version
     private Long version;
 
@@ -99,7 +94,7 @@ public abstract class BaseEntity implements Serializable
             return false;
         }
 
-        BaseEntity other = (BaseEntity) object;
+        AbstractBaseEntity other = (AbstractBaseEntity) object;
 
         return !(!this.getId().equals(other.getId()) && (this.getId() == null || !this.id
                 .equals(other.id)));

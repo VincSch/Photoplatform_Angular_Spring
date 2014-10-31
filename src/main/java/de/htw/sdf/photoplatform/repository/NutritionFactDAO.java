@@ -6,7 +6,7 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.persistence.NutritionFact;
+import de.htw.sdf.photoplatform.persistence.models.NutritionFact;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**

@@ -65,9 +65,7 @@ public class TokenUtils
         {
             throw new IllegalStateException("No MD5 algorithm available!");
         }
-        return new String(Hex.encode(digest.digest(signatureBuilder
-                .toString()
-                .getBytes())));
+        return new String(Hex.encode(digest.digest(signatureBuilder.toString().getBytes())));
     }
 
     /**
@@ -104,7 +102,6 @@ public class TokenUtils
         long expires = Long.parseLong(parts[1]);
         String signature = parts[2];
         String signatureToMatch = computeSignature(userDetails, expires);
-        return expires >= System.currentTimeMillis()
-                && signature.equals(signatureToMatch);
+        return expires >= System.currentTimeMillis() && signature.equals(signatureToMatch);
     }
 }

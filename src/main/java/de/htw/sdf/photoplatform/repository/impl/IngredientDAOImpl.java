@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.Ingredient;
+import de.htw.sdf.photoplatform.persistence.models.Ingredient;
 import de.htw.sdf.photoplatform.repository.IngredientDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -23,8 +23,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class IngredientDAOImpl extends GenericDAOImpl<Ingredient> implements
-        IngredientDAO
+public class IngredientDAOImpl extends GenericDAOImpl<Ingredient> implements IngredientDAO
 {
 
     /**

@@ -11,8 +11,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.Unit;
-import de.htw.sdf.photoplatform.persistence.Unit.GermanUnitName;
+import de.htw.sdf.photoplatform.persistence.models.Unit;
+import de.htw.sdf.photoplatform.persistence.models.Unit.GermanUnitName;
 import de.htw.sdf.photoplatform.repository.UnitDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -42,8 +42,7 @@ public class UnitDAOImpl extends GenericDAOImpl<Unit> implements UnitDAO
     @Override
     public Unit findByGermanName(GermanUnitName name)
     {
-        String queryString = "SELECT unit FROM Unit unit "
-                + "WHERE unit.germanUnitName like ?1";
+        String queryString = "SELECT unit FROM Unit unit " + "WHERE unit.germanUnitName like ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, name);

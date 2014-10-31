@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence;
+package de.htw.sdf.photoplatform.persistence.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a unit representing the corresponding database table.
@@ -22,7 +22,7 @@ import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
  */
 @Entity
 @Table(name = "RB_UNIT")
-public class Unit extends BaseAuditEntity
+public class Unit extends AbstractBaseAuditEntity
 {
 
     private static final long serialVersionUID = 4144282015263601060L;
@@ -83,7 +83,8 @@ public class Unit extends BaseAuditEntity
     }
 
     /**
-     * @param germanUnitName the the german unit name to set
+     * @param germanUnitName
+     *            the the german unit name to set
      */
     public void setGermanUnitName(GermanUnitName germanUnitName)
     {

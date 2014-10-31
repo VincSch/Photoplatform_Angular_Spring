@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence;
+package de.htw.sdf.photoplatform.persistence.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,18 +16,17 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
- * Entity mapping class for a recipe-ingredient representing the corresponding.
- * database table
+ * Entity mapping class for a recipe-ingredient representing the corresponding. database table
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
 @Entity
 @Table(name = "RB_USED_INGREDIENTS")
-public class UsedIngredient extends BaseAuditEntity
+public class UsedIngredient extends AbstractBaseAuditEntity
 {
 
     private static final long serialVersionUID = 8433747680888337645L;

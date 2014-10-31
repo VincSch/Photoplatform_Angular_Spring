@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.htw.sdf.photoplatform.manager.RecipeBookManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.RecipeBook;
-import de.htw.sdf.photoplatform.persistence.UsedRecipe;
+import de.htw.sdf.photoplatform.persistence.models.RecipeBook;
+import de.htw.sdf.photoplatform.persistence.models.UsedRecipe;
 
 /**
  *
@@ -22,8 +22,7 @@ import de.htw.sdf.photoplatform.persistence.UsedRecipe;
  */
 @Service
 @Transactional
-public class RecipeBookManagerImpl extends DAOReferenceCollector implements
-        RecipeBookManager
+public class RecipeBookManagerImpl extends DAOReferenceCollector implements RecipeBookManager
 {
 
     /**

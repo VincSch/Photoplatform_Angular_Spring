@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.User;
-import de.htw.sdf.photoplatform.persistence.UserRole;
+import de.htw.sdf.photoplatform.persistence.models.user.User;
+import de.htw.sdf.photoplatform.persistence.models.user.UserRole;
 
 /**
  * business methods for users.
@@ -24,8 +24,7 @@ import de.htw.sdf.photoplatform.persistence.UserRole;
  */
 @Service
 @Transactional
-public class UserManagerImpl extends DAOReferenceCollector implements
-        UserManager
+public class UserManagerImpl extends DAOReferenceCollector implements UserManager
 {
 
     @Override
@@ -36,7 +35,6 @@ public class UserManagerImpl extends DAOReferenceCollector implements
         userRole.setUser(entity);
         userRole.setRole(roleDAO.findByName("ROLE_USER"));
         userRoleDAO.create(userRole);
-
     }
 
     @Override

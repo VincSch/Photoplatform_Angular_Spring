@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence;
+package de.htw.sdf.photoplatform.persistence.models.user;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -21,17 +21,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a user representing the corresponding database table.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- * 
+ *
  */
 @Entity
 @Table(name = "RB_USER")
-public class User extends BaseAuditEntity implements UserDetails
+public class User extends AbstractBaseAuditEntity implements UserDetails
 {
 
     private static final long serialVersionUID = 3719799602561353931L;
@@ -80,13 +80,18 @@ public class User extends BaseAuditEntity implements UserDetails
     @Override
     public Collection< ? extends GrantedAuthority> getAuthorities()
     {
-        Set<String> roles = new HashSet<String>();
-        for (UserRole userRole : getUserRoles())
+        Set<String> roles = new HashSet<>();
+        if (userRoles == null)
+        {
+            return null;
+        }
+
+        for (UserRole userRole : userRoles)
         {
             roles.add(userRole.getRole().getName());
         }
 
-        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        Set<GrantedAuthority> authorities = new HashSet<>();
         for (String role : roles)
         {
             authorities.add(new SimpleGrantedAuthority(role));

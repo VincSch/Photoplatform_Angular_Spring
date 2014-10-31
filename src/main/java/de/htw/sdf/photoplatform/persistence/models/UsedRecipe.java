@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence;
+package de.htw.sdf.photoplatform.persistence.models;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a recipe books recipes corresponding database table.
@@ -23,7 +23,7 @@ import de.htw.sdf.photoplatform.persistence.common.BaseAuditEntity;
  */
 @Entity
 @Table(name = "RB_RECIPEBOOK_HAS_RECIPE")
-public class UsedRecipe extends BaseAuditEntity
+public class UsedRecipe extends AbstractBaseAuditEntity
 {
 
     private static final long serialVersionUID = -2140082125469640164L;

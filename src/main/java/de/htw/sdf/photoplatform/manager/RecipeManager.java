@@ -8,11 +8,11 @@ package de.htw.sdf.photoplatform.manager;
 
 import java.util.List;
 
-import de.htw.sdf.photoplatform.persistence.Ingredient;
-import de.htw.sdf.photoplatform.persistence.Recipe;
-import de.htw.sdf.photoplatform.persistence.RecipeDifficulty;
-import de.htw.sdf.photoplatform.persistence.Unit;
-import de.htw.sdf.photoplatform.persistence.UsedIngredient;
+import de.htw.sdf.photoplatform.persistence.models.Ingredient;
+import de.htw.sdf.photoplatform.persistence.models.Recipe;
+import de.htw.sdf.photoplatform.persistence.models.RecipeDifficulty;
+import de.htw.sdf.photoplatform.persistence.models.Unit;
+import de.htw.sdf.photoplatform.persistence.models.UsedIngredient;
 
 /**
  * Interface defining business methods for recipes.
@@ -138,11 +138,7 @@ public interface RecipeManager
      * 
      * @return updated Recipe entity
      */
-    Recipe addIngredient(
-            Recipe recipe,
-            Ingredient ingredient,
-            double amount,
-            Unit unit);
+    Recipe addIngredient(Recipe recipe, Ingredient ingredient, double amount, Unit unit);
 
     /**
      * Add ingredient.
@@ -155,8 +151,8 @@ public interface RecipeManager
     Recipe addIngredient(UsedIngredient recipesIngredient);
 
     /**
-     * delete the recipe and the used ingredients recipesIngredients list of
-     * RecipeUsesIngredients entity.
+     * delete the recipe and the used ingredients recipesIngredients list of RecipeUsesIngredients
+     * entity.
      * 
      * @param recipesIngredients
      *            the recipes
