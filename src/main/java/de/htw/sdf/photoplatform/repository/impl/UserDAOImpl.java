@@ -6,20 +6,20 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
+import java.util.List;
+
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
-import de.htw.sdf.photoplatform.common.Constants;
-import de.htw.sdf.photoplatform.persistence.models.user.Role;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Repository;
 
+import de.htw.sdf.photoplatform.common.Constants;
+import de.htw.sdf.photoplatform.persistence.models.user.Role;
 import de.htw.sdf.photoplatform.persistence.models.user.User;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
-
-import java.util.List;
 
 /**
  * repository methods for users.
