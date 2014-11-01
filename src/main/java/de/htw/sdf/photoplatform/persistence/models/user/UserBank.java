@@ -1,9 +1,14 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
 
 package de.htw.sdf.photoplatform.persistence.models.user;
 
-import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
-
 import javax.persistence.*;
+
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Created by Sergej Meister
@@ -119,7 +124,9 @@ public class UserBank extends AbstractBaseAuditEntity
      * {@inheritDoc}
      */
     @Override
-    public String toString(){
-        return "ID" + this.id + " USER: " + this.user.getId() + " IBAN: " + this.iban + " BIC: " + this.bic;
+    public String toString()
+    {
+        return "ID" + this.id + " USER: " + this.user.getId() + " IBAN: " + this.iban + " BIC: "
+                + this.bic;
     }
 }

@@ -1,10 +1,14 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
 
 package de.htw.sdf.photoplatform.persistence.models.user;
 
-import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
-
 import javax.persistence.*;
-import java.util.Date;
+
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a user details representing the corresponding database table.

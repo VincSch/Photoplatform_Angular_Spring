@@ -1,13 +1,19 @@
+/*
+ *
+ * Copyright (C) 2014
+ *
+ */
 
 package de.htw.sdf.photoplatform.repository.impl;
+
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.models.user.UserBank;
 import de.htw.sdf.photoplatform.repository.UserBankDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
-import org.springframework.stereotype.Repository;
-
-import javax.persistence.Query;
-import javax.transaction.Transactional;
 
 /**
  * Created by Sergej Meister
