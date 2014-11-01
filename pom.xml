@@ -139,7 +139,7 @@
 						config/checkstyle/checkstyle-maven.properties
 					</propertiesLocation>
 					<encoding>UTF-8</encoding>
-					<consoleOutput>false</consoleOutput>
+					<consoleOutput>true</consoleOutput>
 					<failsOnError>true</failsOnError>
 					<linkXRef>false</linkXRef>
 				</configuration>
