@@ -30,9 +30,6 @@ public abstract class AbstractBaseEntity implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @Version
-    private Long version;
-
     /**
      * @return the id
      */
@@ -48,23 +45,6 @@ public abstract class AbstractBaseEntity implements Serializable
     public void setId(Long id)
     {
         this.id = id;
-    }
-
-    /**
-     * @return the version
-     */
-    public Long getVersion()
-    {
-        return version;
-    }
-
-    /**
-     * @param version
-     *            the version to set
-     */
-    public void setVersion(Long version)
-    {
-        this.version = version;
     }
 
     /**

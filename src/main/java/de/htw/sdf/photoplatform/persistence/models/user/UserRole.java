@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
-import de.htw.sdf.photoplatform.persistence.models.Role;
 
 /**
  * Entity class for a user and his role/s recipes corresponding database table.
@@ -23,7 +22,7 @@ import de.htw.sdf.photoplatform.persistence.models.Role;
  * 
  */
 @Entity
-@Table(name = "RB_USER_ROLE")
+@Table(name = "SYS_USER_ROLE")
 public class UserRole extends AbstractBaseAuditEntity
 {
 

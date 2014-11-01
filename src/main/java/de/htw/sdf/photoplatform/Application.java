@@ -40,7 +40,7 @@ public class Application
     {
         context = SpringApplication.run(Application.class);
         DBUtil dbUtil = context.getBean(DBUtil.class);
-        dbUtil.insertDestData();
+        dbUtil.insertTestData();
     }
 
     /**

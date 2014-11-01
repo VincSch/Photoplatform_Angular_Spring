@@ -4,13 +4,14 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence.models;
+package de.htw.sdf.photoplatform.persistence.models.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseEntity;
 
 /**
  * Entity class for a role representing the corresponding database table.
@@ -19,8 +20,8 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  * 
  */
 @Entity
-@Table(name = "RB_ROLE")
-public class Role extends AbstractBaseAuditEntity
+@Table(name = "SYS_ROLE")
+public class Role extends AbstractBaseEntity
 {
 
     private static final long serialVersionUID = -219754255462744875L;
@@ -29,7 +30,7 @@ public class Role extends AbstractBaseAuditEntity
     private String name;
 
     /**
-     * Role conscructor.
+     * Role constructor.
      */
     public Role()
     {

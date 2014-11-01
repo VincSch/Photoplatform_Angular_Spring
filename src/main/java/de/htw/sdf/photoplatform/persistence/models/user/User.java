@@ -11,11 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,35 +26,31 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  *
  */
 @Entity
-@Table(name = "RB_USER")
+@Table(name = "SYS_USER")
 public class User extends AbstractBaseAuditEntity implements UserDetails
 {
-
     private static final long serialVersionUID = 3719799602561353931L;
 
-    @Column(name = "NAME")
+    @Column(name = "USERNAME")
     private String username;
 
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "EMAIL")
-    private String email;
-
-    @Column(name = "BIRTHDAY")
-    private String birthday;
-
-    @Column(name = "ABOUT")
-    private String about;
-
-    @Column(name = "CITY")
-    private String city;
-
     @Column(name = "SECTOKEN")
     private String secToken;
 
+    @Column(name = "EMAIL")
+    private String email;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<UserRole> userRoles;
+
+    @OneToOne(mappedBy = "user")
+    private UserProfile userProfile;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    private UserBank userBank;
 
     @Column(name = "IS_ACCOUNT_NON_LOCKED")
     private boolean accountNonLocked;
@@ -98,6 +90,38 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
         }
 
         return authorities;
+    }
+
+    /**
+     * Set username
+     * 
+     * @param username
+     *            username
+     */
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+
+    /**
+     * Returns user profile
+     *
+     * @return user profile
+     */
+    public UserProfile getUserProfile()
+    {
+        return userProfile;
+    }
+
+    /**
+     * Set user profile
+     *
+     * @param userProfile
+     *            user profile
+     */
+    public void setUserProfile(UserProfile userProfile)
+    {
+        this.userProfile = userProfile;
     }
 
     /**
@@ -151,57 +175,6 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     public void setEmail(String email)
     {
         this.email = email;
-    }
-
-    /**
-     * @return the birthday
-     */
-    public String getBirthday()
-    {
-        return birthday;
-    }
-
-    /**
-     * @param birthday
-     *            the birthday to set
-     */
-    public void setBirthday(String birthday)
-    {
-        this.birthday = birthday;
-    }
-
-    /**
-     * @return the about
-     */
-    public String getAbout()
-    {
-        return about;
-    }
-
-    /**
-     * @param about
-     *            the about to set
-     */
-    public void setAbout(String about)
-    {
-        this.about = about;
-    }
-
-    /**
-     * @return the city
-     */
-    public String getCity()
-    {
-        return city;
-    }
-
-    /**
-     * @param city
-     *            the city to set
-     */
-    public void setCity(String city)
-    {
-        this.city = city;
     }
 
     /**
@@ -292,4 +265,34 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
         this.enabled = isEnabled;
     }
 
+    /**
+     * Sets user roles
+     * 
+     * @param userRoles
+     */
+    public void setUserRoles(List<UserRole> userRoles)
+    {
+        this.userRoles = userRoles;
+    }
+
+    /**
+     * Return user bank account
+     * 
+     * @return user bank account
+     */
+    public UserBank getUserBank()
+    {
+        return userBank;
+    }
+
+    /**
+     * Sets user bank account
+     * 
+     * @param userBank
+     *            bank account
+     */
+    public void setUserBank(UserBank userBank)
+    {
+        this.userBank = userBank;
+    }
 }

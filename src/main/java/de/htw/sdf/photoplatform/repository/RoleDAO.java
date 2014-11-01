@@ -6,8 +6,10 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.persistence.models.Role;
+import de.htw.sdf.photoplatform.persistence.models.user.Role;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
+
+import java.util.List;
 
 /**
  * Interface defining repository methods for roles.
@@ -27,4 +29,18 @@ public interface RoleDAO extends GenericDAO<Role>
      * @return the role entity
      */
     Role findByName(String name);
+
+    /**
+     * find a admin role.
+     *
+     * @return the admin role entity
+     */
+    Role getAdmin();
+
+    /**
+     * Returns all roles without admin role
+     *
+     * @return all roles without admin role
+     */
+    List<Role> findAllNotAdminRoles();
 }

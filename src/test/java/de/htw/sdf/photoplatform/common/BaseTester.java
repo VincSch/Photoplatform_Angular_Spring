@@ -6,6 +6,7 @@
 
 package de.htw.sdf.photoplatform.common;
 
+import de.htw.sdf.photoplatform.repository.RoleDAO;
 import org.apache.log4j.Logger;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class BaseTester
 
     public void insertDestData()
     {
-        dbUtil.insertDestData();
+        dbUtil.insertTestData();
     }
 
     protected void clearTables()
