@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 import de.htw.sdf.photoplatform.persistence.AbstractBaseEntity;
 
 /**

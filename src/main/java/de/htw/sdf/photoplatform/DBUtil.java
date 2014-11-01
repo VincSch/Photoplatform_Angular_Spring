@@ -13,8 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.htw.sdf.photoplatform.common.Constants;
-import de.htw.sdf.photoplatform.persistence.models.user.*;
-import de.htw.sdf.photoplatform.repository.*;
+import de.htw.sdf.photoplatform.persistence.models.user.Role;
+import de.htw.sdf.photoplatform.persistence.models.user.User;
+import de.htw.sdf.photoplatform.persistence.models.user.UserBank;
+import de.htw.sdf.photoplatform.persistence.models.user.UserProfile;
+import de.htw.sdf.photoplatform.persistence.models.user.UserRole;
+import de.htw.sdf.photoplatform.repository.RoleDAO;
+import de.htw.sdf.photoplatform.repository.UserBankDAO;
+import de.htw.sdf.photoplatform.repository.UserDAO;
+import de.htw.sdf.photoplatform.repository.UserProfileDAO;
+import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 
 /**
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>

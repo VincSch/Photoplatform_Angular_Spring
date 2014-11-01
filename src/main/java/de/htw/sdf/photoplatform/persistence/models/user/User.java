@@ -11,7 +11,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -93,17 +98,6 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
-     * Set username
-     * 
-     * @param username
-     *            username
-     */
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
-
-    /**
      * Returns user profile
      *
      * @return user profile
@@ -131,6 +125,17 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     public String getUsername()
     {
         return username;
+    }
+
+    /**
+     * Set username
+     * 
+     * @param username
+     *            username
+     */
+    public void setUsername(String username)
+    {
+        this.username = username;
     }
 
     /**
@@ -203,6 +208,16 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
+     * Sets user roles
+     * 
+     * @param userRoles
+     */
+    public void setUserRoles(List<UserRole> userRoles)
+    {
+        this.userRoles = userRoles;
+    }
+
+    /**
      * @param userRoles
      *            the user roles to set
      */
@@ -263,16 +278,6 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     public void setEnabled(boolean isEnabled)
     {
         this.enabled = isEnabled;
-    }
-
-    /**
-     * Sets user roles
-     * 
-     * @param userRoles
-     */
-    public void setUserRoles(List<UserRole> userRoles)
-    {
-        this.userRoles = userRoles;
     }
 
     /**

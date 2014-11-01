@@ -6,7 +6,11 @@
 
 package de.htw.sdf.photoplatform.persistence.models.user;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 

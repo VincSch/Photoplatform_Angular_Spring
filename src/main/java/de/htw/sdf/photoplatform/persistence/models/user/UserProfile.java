@@ -6,7 +6,11 @@
 
 package de.htw.sdf.photoplatform.persistence.models.user;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
@@ -98,6 +102,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * Set address
      * 
      * @param address
+     *            address
      */
     public void setAddress(String address)
     {
@@ -118,6 +123,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * Set phone
      * 
      * @param phone
+     *            phone
      */
     public void setPhone(String phone)
     {
@@ -138,6 +144,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * Set company
      * 
      * @param company
+     *            company
      */
     public void setCompany(String company)
     {
@@ -158,6 +165,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * Set homepage
      * 
      * @param homepage
+     *            homepage
      */
     public void setHomepage(String homepage)
     {
