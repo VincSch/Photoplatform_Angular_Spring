@@ -57,7 +57,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Set user
+     * Set user.
      * 
      * @param user
      *            user
@@ -68,7 +68,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Returns birthday
+     * Returns birthday.
      * 
      * @return birthday
      */
@@ -78,7 +78,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Set birthday
+     * Set birthday.
      * 
      * @param birthday
      *            birthday
@@ -89,7 +89,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Returns address
+     * Returns address.
      * 
      * @return address
      */
@@ -99,7 +99,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Set address
+     * Set address.
      * 
      * @param address
      *            address
@@ -110,7 +110,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Returns phone
+     * Returns phone.
      * 
      * @return phone
      */
@@ -120,7 +120,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Set phone
+     * Set phone.
      * 
      * @param phone
      *            phone
@@ -131,7 +131,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Returns company
+     * Returns company.
      * 
      * @return company
      */
@@ -141,7 +141,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Set company
+     * Set company.
      * 
      * @param company
      *            company
@@ -152,7 +152,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Returns homepage
+     * Returns homepage.
      * 
      * @return homepage
      */
@@ -162,7 +162,7 @@ public class UserProfile extends AbstractBaseAuditEntity
     }
 
     /**
-     * Set homepage
+     * Set homepage.
      * 
      * @param homepage
      *            homepage

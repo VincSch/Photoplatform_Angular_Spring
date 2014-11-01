@@ -16,7 +16,7 @@ import de.htw.sdf.photoplatform.repository.UserProfileDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
- * Created by Sergej Meister
+ * Created by Sergej Meister.
  */
 @Repository
 @Transactional

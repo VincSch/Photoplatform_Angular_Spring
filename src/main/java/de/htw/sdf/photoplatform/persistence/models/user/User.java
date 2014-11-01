@@ -98,7 +98,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
-     * Returns user profile
+     * Returns user profile.
      *
      * @return user profile
      */
@@ -108,7 +108,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
-     * Set user profile
+     * Set user profile.
      *
      * @param userProfile
      *            user profile
@@ -128,7 +128,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
-     * Set username
+     * Set username.
      * 
      * @param username
      *            username
@@ -139,6 +139,8 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
+     * Set username.
+     * 
      * @param name
      *            the user name to set
      */
@@ -157,6 +159,8 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
+     * Set password.
+     *
      * @param password
      *            the password to set
      */
@@ -166,6 +170,8 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
+     * Returns email.
+     *
      * @return the email
      */
     public String getEmail()
@@ -174,6 +180,8 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
+     * Set email.
+     *
      * @param email
      *            the email to set
      */
@@ -183,6 +191,8 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
+     * Returns token.
+     *
      * @return the sec toke
      */
     public String getSecToken()
@@ -191,6 +201,8 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
+     * Set token.
+     *
      * @param secToken
      *            the sec token to set
      */
@@ -200,6 +212,8 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
+     * Returns user roles.
+     *
      * @return the user roles
      */
     public List<UserRole> getUserRoles()
@@ -208,20 +222,11 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
-     * Sets user roles
+     * Set user roles.
      * 
      * @param userRoles
      */
     public void setUserRoles(List<UserRole> userRoles)
-    {
-        this.userRoles = userRoles;
-    }
-
-    /**
-     * @param userRoles
-     *            the user roles to set
-     */
-    public void setUserRole(List<UserRole> userRoles)
     {
         this.userRoles = userRoles;
     }
@@ -236,6 +241,8 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
+     * Set locked value. If true than locked, else non locked
+     *
      * @param isAccountNonLocked
      *            the account non locked to set
      */
@@ -281,7 +288,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
-     * Return user bank account
+     * Return user bank account.
      * 
      * @return user bank account
      */
@@ -291,7 +298,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     }
 
     /**
-     * Sets user bank account
+     * Sets user bank account.
      * 
      * @param userBank
      *            bank account

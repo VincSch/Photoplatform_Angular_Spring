@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
- * Created by Sergej Meister
+ * Created by Sergej Meister.
  */
 @Entity
 @Table(name = "SYS_USERBANK")
@@ -37,7 +37,7 @@ public class UserBank extends AbstractBaseAuditEntity
     private String bic;
 
     /**
-     * Default Constructor
+     * Default Constructor.
      */
     public UserBank()
     {
@@ -45,7 +45,7 @@ public class UserBank extends AbstractBaseAuditEntity
     }
 
     /**
-     * Returns user
+     * Returns user.
      * 
      * @return user
      */
@@ -55,7 +55,7 @@ public class UserBank extends AbstractBaseAuditEntity
     }
 
     /**
-     * Set user
+     * Set user.
      * 
      * @param user
      */
@@ -65,7 +65,7 @@ public class UserBank extends AbstractBaseAuditEntity
     }
 
     /**
-     * Returns receiver
+     * Returns receiver.
      * 
      * @return receiver
      */
@@ -75,7 +75,7 @@ public class UserBank extends AbstractBaseAuditEntity
     }
 
     /**
-     * Set receiver
+     * Set receiver.
      * 
      * @param receiver
      */
@@ -85,7 +85,7 @@ public class UserBank extends AbstractBaseAuditEntity
     }
 
     /**
-     * Returns iban
+     * Returns iban.
      * 
      * @return iban
      */
@@ -95,7 +95,7 @@ public class UserBank extends AbstractBaseAuditEntity
     }
 
     /**
-     * Set iban
+     * Set iban.
      * 
      * @param iban
      */
@@ -105,7 +105,7 @@ public class UserBank extends AbstractBaseAuditEntity
     }
 
     /**
-     * Returns bic
+     * Returns bic.
      * 
      * @return ic
      */
@@ -115,7 +115,7 @@ public class UserBank extends AbstractBaseAuditEntity
     }
 
     /**
-     * Set bic
+     * Set bic.
      * 
      * @param bic
      */

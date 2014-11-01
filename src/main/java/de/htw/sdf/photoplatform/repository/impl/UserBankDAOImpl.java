@@ -16,7 +16,7 @@ import de.htw.sdf.photoplatform.repository.UserBankDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
- * Created by Sergej Meister
+ * Created by Sergej Meister.
  */
 @Repository
 @Transactional
@@ -24,7 +24,7 @@ public class UserBankDAOImpl extends GenericDAOImpl<UserBank> implements UserBan
 {
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public UserBankDAOImpl()
     {
