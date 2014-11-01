@@ -53,15 +53,11 @@
         </module>
         <module name="MethodLength">
             <property name="severity" value="warning"/>
-        </module>
-        <module name="MethodLength">
             <property name="max" value="362"/>
         </module>
         <module name="ParameterNumber">
             <property name="severity" value="info"/>
-        </module>
-        <!-- Maximum is currently 12, never use more! -->
-        <module name="ParameterNumber">
+            <!-- Maximum is currently 12, never use more! -->
             <property name="max" value="12"/>
             <property name="tokens" value="METHOD_DEF"/>
         </module>
