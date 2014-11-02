@@ -31,7 +31,7 @@ import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 @Service
 public class DBUtil
 {
-    private static int instanceCounter = 0;
+    private static int instanceCounter;
 
     @Autowired
     protected UserDAO userDAO;
