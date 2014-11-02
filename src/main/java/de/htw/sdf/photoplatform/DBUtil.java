@@ -31,6 +31,8 @@ import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 @Service
 public class DBUtil
 {
+    private static int instanceCounter = 0;
+
     @Autowired
     protected UserDAO userDAO;
 
@@ -51,8 +53,13 @@ public class DBUtil
      */
     public void insertTestData()
     {
-        createRoles();
+        if (instanceCounter == 0)
+        {
+            createRoles();
+        }
+
         createUser();
+        instanceCounter++;
     }
 
     private void createRoles()
@@ -128,6 +135,5 @@ public class DBUtil
         userProfileDAO.deleteAll();
         userRoleDAO.deleteAll();
         userDAO.deleteAll();
-        roleDAO.deleteAll();
     }
 }

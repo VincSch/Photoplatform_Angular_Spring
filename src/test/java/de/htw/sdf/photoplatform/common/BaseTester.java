@@ -6,7 +6,6 @@
 
 package de.htw.sdf.photoplatform.common;
 
-import de.htw.sdf.photoplatform.repository.RoleDAO;
 import org.apache.log4j.Logger;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,8 @@ import de.htw.sdf.photoplatform.manager.UnitManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Application.class})
-public class BaseTester
+public abstract class BaseTester
 {
-
     protected Logger log = Logger.getLogger(this.getClass().getName());
 
     protected ObjectMapper mapper = new ObjectMapper();

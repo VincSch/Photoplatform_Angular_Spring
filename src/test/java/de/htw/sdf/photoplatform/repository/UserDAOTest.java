@@ -1,22 +1,28 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.common.Constants;
-import de.htw.sdf.photoplatform.persistence.models.user.*;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class UserDAOTest extends BaseTester {
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import de.htw.sdf.photoplatform.common.BaseTester;
+import de.htw.sdf.photoplatform.common.Constants;
+import de.htw.sdf.photoplatform.persistence.models.user.Role;
+import de.htw.sdf.photoplatform.persistence.models.user.User;
+import de.htw.sdf.photoplatform.persistence.models.user.UserBank;
+import de.htw.sdf.photoplatform.persistence.models.user.UserProfile;
+import de.htw.sdf.photoplatform.persistence.models.user.UserRole;
+
+public class UserDAOTest extends BaseTester
+{
     @Autowired
     protected UserDAO userDAO;
 
@@ -33,17 +39,20 @@ public class UserDAOTest extends BaseTester {
     protected UserBankDAO userBankDAO;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         insertDestData();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         clearTables();
     }
 
     @Test
-    public void createAndUpdateTest() {
+    public void createAndUpdateTest()
+    {
         Role rolePhotographer = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
         String photographerTesterUsername = "PhotographerTester";
         String photographerTesterPassword = "photographerTestPass";
@@ -56,7 +65,7 @@ public class UserDAOTest extends BaseTester {
                 Boolean.FALSE,
                 Boolean.FALSE);
 
-        //Ein bisschen russisch stoert doch nicht :)
+        // Ein bisschen russisch stoert doch nicht :)
         String address = "мой адрес не дом и не улица мой адрес советский союз";
         String phone = "018765032";
         String company = "Photo AG";
@@ -92,7 +101,12 @@ public class UserDAOTest extends BaseTester {
         Assert.assertFalse(createdPhotographer.isAccountNonLocked());
         Assert.assertTrue(createdPhotographer.getEmail().equals(photographerTesterMail));
         Assert.assertTrue(createdPhotographer.getUserRoles().size() == 1);
-        Assert.assertTrue(createdPhotographer.getUserRoles().get(0).getRole().getId().equals(Constants.ROLE_PHOTOGRAPHER));
+        Assert.assertTrue(createdPhotographer
+                .getUserRoles()
+                .get(0)
+                .getRole()
+                .getId()
+                .equals(Constants.ROLE_PHOTOGRAPHER));
 
         UserProfile createdPhotographerProfile = createdPhotographer.getUserProfile();
         Assert.assertNotNull(createdPhotographerProfile.getId());
@@ -120,7 +134,9 @@ public class UserDAOTest extends BaseTester {
         String newPhone = "987653234";
         createdPhotographer.getUserProfile().setPhone(newPhone);
         userProfileDAO.update(createdPhotographer.getUserProfile());
-        UserProfile updatedUserProfile = userProfileDAO.findOne(createdPhotographer.getUserProfile().getId());
+        UserProfile updatedUserProfile = userProfileDAO.findOne(createdPhotographer
+                .getUserProfile()
+                .getId());
         Assert.assertTrue(updatedUserProfile.getPhone().equals(newPhone));
 
         String newBic = "RUSBANK";
@@ -131,7 +147,8 @@ public class UserDAOTest extends BaseTester {
     }
 
     @Test
-    public void findTest() {
+    public void findTest()
+    {
         // Init test Data
         Role admin = roleDAO.findOne(Constants.ROLE_ADMIN);
         String adminTesterUsername = "AdminTester";
@@ -181,8 +198,10 @@ public class UserDAOTest extends BaseTester {
                 "Drei Users: Peter-Customer; Sergej-Photographer: PhotographerTester-Photographer",
                 notAdminUsers.size() == 3);
         Set<Long> existedRoles = new HashSet<Long>();
-        for (User notAdminUser : notAdminUsers) {
-            for (UserRole notAdminRole : notAdminUser.getUserRoles()) {
+        for (User notAdminUser : notAdminUsers)
+        {
+            for (UserRole notAdminRole : notAdminUser.getUserRoles())
+            {
                 existedRoles.add(notAdminRole.getRole().getId());
             }
         }
@@ -196,8 +215,10 @@ public class UserDAOTest extends BaseTester {
                 .assertTrue(
                         "Der PhotographerTester darf nicht dabei sein.",
                         enabledUsers.size() == 4);
-        for (User enabledUser : enabledUsers) {
-            if (enabledUser.getUsername().equals(photographerTesterUsername)) {
+        for (User enabledUser : enabledUsers)
+        {
+            if (enabledUser.getUsername().equals(photographerTesterUsername))
+            {
                 Assert.fail("Der PhotographerTester darf nicht dabei sein.");
             }
         }
@@ -211,8 +232,10 @@ public class UserDAOTest extends BaseTester {
         // Do test findByAccountLocked
         List<User> lockedUsers = userDAO.findByAccountLocked(Boolean.TRUE);
         Assert.assertTrue("Der PhotographerTester darf nicht dabei sein.", lockedUsers.size() == 4);
-        for (User lockedUser : lockedUsers) {
-            if (lockedUser.getUsername().equals(photographerTesterUsername)) {
+        for (User lockedUser : lockedUsers)
+        {
+            if (lockedUser.getUsername().equals(photographerTesterUsername))
+            {
                 Assert.fail("Der PhotographerTester darf nicht dabei sein.");
             }
         }
@@ -231,7 +254,8 @@ public class UserDAOTest extends BaseTester {
             String email,
             Role role,
             Boolean enabled,
-            Boolean locked) {
+            Boolean locked)
+    {
         User defaultUser = new User();
         defaultUser.setUserName(username);
         defaultUser.setPassword(password);

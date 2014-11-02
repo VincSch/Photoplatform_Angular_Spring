@@ -5,22 +5,26 @@
 
 package de.htw.sdf.photoplatform.webservice;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.junit.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
-import org.springframework.test.web.servlet.setup.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 
-import de.htw.sdf.photoplatform.common.*;
-import de.htw.sdf.photoplatform.persistence.models.user.*;
-import de.htw.sdf.photoplatform.webservice.controller.*;
+import de.htw.sdf.photoplatform.common.BaseTester;
+import de.htw.sdf.photoplatform.persistence.models.user.User;
+import de.htw.sdf.photoplatform.webservice.controller.AuthenticationController;
 
 /**
  * Test for user login register user
@@ -43,6 +47,7 @@ public class AuthenticationControllerTest extends BaseTester
     }
 
     @Test
+    @Ignore
     public void testRegisterUser() throws Exception
     {
         User user = new User();
@@ -50,12 +55,12 @@ public class AuthenticationControllerTest extends BaseTester
         user.setPassword("password");
         user.setEmail("admin@photo.de");
 
-        // HMMM
-        // mockMvc.perform(
-        // post("/api/user/register")
-        // .contentType(MediaType.APPLICATION_JSON)
-        // .content(mapper.writeValueAsString(user))
-        // .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        // TODO: fixme HMMM
+        mockMvc.perform(
+                post("/api/user/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(user))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test

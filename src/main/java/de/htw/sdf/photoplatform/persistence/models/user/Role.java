@@ -25,7 +25,7 @@ public class Role extends AbstractBaseEntity
 
     private static final long serialVersionUID = -219754255462744875L;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", unique = true)
     private String name;
 
     /**

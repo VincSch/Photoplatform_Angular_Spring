@@ -36,7 +36,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
 {
     private static final long serialVersionUID = 3719799602561353931L;
 
-    @Column(name = "USERNAME")
+    @Column(name = "USERNAME", unique = true)
     private String username;
 
     @Column(name = "PASSWORD")
@@ -45,7 +45,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     @Column(name = "SECTOKEN")
     private String secToken;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

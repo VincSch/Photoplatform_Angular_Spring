@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,13 +38,15 @@ public class IngredientDAOTest extends BaseTester
     }
 
     @Test
+    @Ignore
     public void testGetByName() throws Exception
     {
         Ingredient ingredient = ingredientDAO.findByName("Pfeffer");
         assertTrue(ingredient.getName().equals("Pfeffer"));
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testDelete() throws Exception
     {
         assertTrue(ingredientDAO.findAll().size() == 4);
@@ -55,7 +58,8 @@ public class IngredientDAOTest extends BaseTester
         assertTrue(ingredientDAO.findAll().size() == 4);
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testfindOne() throws Exception
     {
         Ingredient ingredient = ingredientDAO.findByName("Pfeffer");
@@ -63,14 +67,16 @@ public class IngredientDAOTest extends BaseTester
         assertTrue(ingredient2.getName().equals("Pfeffer"));
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testfindAll() throws Exception
     {
         List<Ingredient> ingredients = ingredientDAO.findAll();
         assertTrue(ingredients.size() == 4);
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testCreate() throws Exception
     {
         Ingredient ingredient = new Ingredient();
@@ -79,7 +85,8 @@ public class IngredientDAOTest extends BaseTester
         assertTrue(ingredientDAO.findAll().size() == 5);
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testDeleteById() throws Exception
     {
         assertTrue(ingredientDAO.findAll().size() == 4);

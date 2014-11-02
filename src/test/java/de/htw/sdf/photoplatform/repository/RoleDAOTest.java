@@ -1,17 +1,17 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.common.Constants;
-import de.htw.sdf.photoplatform.persistence.models.user.Role;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.SQLException;
-import java.util.List;
+import de.htw.sdf.photoplatform.common.BaseTester;
+import de.htw.sdf.photoplatform.common.Constants;
+import de.htw.sdf.photoplatform.persistence.models.user.Role;
 
 public class RoleDAOTest extends BaseTester
 {
@@ -75,6 +75,9 @@ public class RoleDAOTest extends BaseTester
         List<Role> allRoles = roleDAO.findAll();
         Assert.assertTrue(allRoles.size() == 4);
         Assert.assertTrue(allRoles.get(3).getName().equals("TestRole"));
+
+        // Roolback
+        roleDAO.deleteById(newRole.getId());
     }
 
     @Test

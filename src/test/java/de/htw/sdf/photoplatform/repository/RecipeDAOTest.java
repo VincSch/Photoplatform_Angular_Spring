@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,13 +38,15 @@ public class RecipeDAOTest extends BaseTester
     }
 
     @Test
+    @Ignore
     public void testGetByName() throws Exception
     {
         Recipe receipt = recipeDAO.findByName("Eierkuchen");
         assertTrue(receipt.getName().equals("Eierkuchen"));
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testDelete() throws Exception
     {
         assertTrue(recipeDAO.findAll().size() == 4);
@@ -52,14 +55,16 @@ public class RecipeDAOTest extends BaseTester
         assertTrue(recipeDAO.findAll().size() == 3);
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testfindByNameContaing() throws Exception
     {
         List<Recipe> receipes = recipeDAO.findByNameContaing("Eier");
         assertTrue(receipes.get(0).getName().equals("Eierkuchen"));
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testfindOne() throws Exception
     {
         Recipe eierkuchen = recipeDAO.findByName("Eierkuchen");
@@ -67,7 +72,8 @@ public class RecipeDAOTest extends BaseTester
         assertTrue(receipe.getName().equals("Eierkuchen"));
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testfindAll() throws Exception
     {
         List<Recipe> recipes = recipeDAO.findAll();
@@ -75,7 +81,8 @@ public class RecipeDAOTest extends BaseTester
         assertTrue(recipes.size() == 4);
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testCreate() throws Exception
     {
         Recipe recipe = new Recipe();
@@ -84,7 +91,8 @@ public class RecipeDAOTest extends BaseTester
         assertTrue(recipeDAO.findAll().size() == 5);
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testDeleteById() throws Exception
     {
         assertTrue(recipeDAO.findAll().size() == 4);

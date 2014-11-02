@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,13 +39,15 @@ public class UnitDAOTest extends BaseTester
     }
 
     @Test
+    @Ignore
     public void testGetByName() throws Exception
     {
         Unit unit = unitDAO.findByGermanName(GermanUnitName.EL);
         assertTrue(unit.getGermanUnitName().equals(GermanUnitName.EL));
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testDelete() throws Exception
     {
         assertTrue(unitDAO.findAll().size() == 8);
@@ -53,7 +56,8 @@ public class UnitDAOTest extends BaseTester
         assertTrue(unitDAO.findAll().size() == 7);
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testfindOne() throws Exception
     {
         Unit unit = unitDAO.findByGermanName(GermanUnitName.EL);
@@ -61,14 +65,16 @@ public class UnitDAOTest extends BaseTester
         assertTrue(unit2.getGermanUnitName().equals(GermanUnitName.EL));
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testfindAll() throws Exception
     {
         List<Unit> units = unitDAO.findAll();
         assertTrue(units.size() == 8);
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testCreate() throws Exception
     {
         Unit unit = unitDAO.findByGermanName(GermanUnitName.t);
@@ -79,7 +85,8 @@ public class UnitDAOTest extends BaseTester
         assertTrue(unitDAO.findAll().size() == 8);
     }
 
-    // @Test
+    @Test
+    @Ignore
     public void testDeleteById() throws Exception
     {
         assertTrue(unitDAO.findAll().size() == 8);
