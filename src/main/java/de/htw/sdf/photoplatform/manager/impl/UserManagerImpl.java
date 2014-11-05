@@ -8,13 +8,21 @@ package de.htw.sdf.photoplatform.manager.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
+import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
-import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
+import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.persistence.models.UserRole;
+import de.htw.sdf.photoplatform.repository.RoleDAO;
+import de.htw.sdf.photoplatform.repository.UserDAO;
+import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 
 /**
  * business methods for users.
@@ -24,25 +32,86 @@ import de.htw.sdf.photoplatform.persistence.models.UserRole;
  */
 @Service
 @Transactional
-public class UserManagerImpl extends DAOReferenceCollector implements UserManager
+public class UserManagerImpl implements UserManager
 {
 
+    @Resource
+    private UserDAO userDAO;
+
+    @Resource
+    private RoleDAO roleDAO;
+
+    @Resource
+    private UserRoleDAO userRoleDAO;
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void create(User entity)
+    public void createCustomer(User customer)
     {
-        userDAO.create(entity);
+        userDAO.create(customer);
         UserRole userRole = new UserRole();
-        userRole.setUser(entity);
-        userRole.setRole(roleDAO.findByName("ROLE_USER"));
+        userRole.setUser(customer);
+        Role role = roleDAO.findByName(Role.CUSTOMER);
+        if (role == null)
+        {
+            throw new RuntimeException("User role = " + Role.CUSTOMER + " does not exists.");
+        }
+
+        userRole.setRole(role);
         userRoleDAO.create(userRole);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void registerUser(String username, String email, String password)
+            throws ManagerException
+    {
+        if (username == null || email == null || password == null)
+        {
+            throw new RuntimeException("This should not happen");
+        }
+
+        // 1. check if username or email already exists in DB
+        User user = userDAO.findByUserName(username);
+        if (user != null)
+        {
+            throw new ManagerException(AbstractBaseException.USER_USERNAME_EXISTS);
+        }
+
+        user = userDAO.findByEmail(email);
+        if (user != null)
+        {
+            throw new ManagerException(AbstractBaseException.USER_EMAIL_EXISTS);
+        }
+
+        user = new User();
+        user.setUsername(username);
+        user.setPassword(new BCryptPasswordEncoder().encode(password));
+
+        // Enable user
+        user.setAccountNonLocked(true);
+        user.setEnabled(true);
+        user.setEmail(email);
+
+        createCustomer(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User update(User entity)
     {
         return userDAO.update(entity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(User entity)
     {
@@ -50,20 +119,27 @@ public class UserManagerImpl extends DAOReferenceCollector implements UserManage
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User findById(long id)
     {
-
         return userDAO.findOne(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<User> findAll()
     {
-
         return userDAO.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deleteAll()
     {
@@ -71,10 +147,12 @@ public class UserManagerImpl extends DAOReferenceCollector implements UserManage
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public User findByName(String name)
+    public User findByName(String username)
     {
-
-        return userDAO.findByUserName(name);
+        return userDAO.findByUserName(username);
     }
 }

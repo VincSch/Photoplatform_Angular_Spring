@@ -8,6 +8,7 @@ package de.htw.sdf.photoplatform.manager;
 
 import java.util.List;
 
+import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.models.User;
 
 /**
@@ -20,12 +21,24 @@ public interface UserManager
 {
 
     /**
-     * persist a User mapping.
+     * Create and persist a customer.
      * 
-     * @param entity
+     * @param customer
      *            the user to create
      */
-    void create(final User entity);
+    void createCustomer(final User customer);
+
+    /**
+     * Register user.
+     *
+     * @param username
+     *            the username
+     * @param email
+     *            the email
+     * @param password
+     *            the password
+     */
+    void registerUser(String username, String email, String password) throws ManagerException;
 
     /**
      * update a User.

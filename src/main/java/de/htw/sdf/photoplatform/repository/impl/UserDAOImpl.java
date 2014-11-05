@@ -8,6 +8,7 @@ package de.htw.sdf.photoplatform.repository.impl;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
@@ -50,12 +51,36 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
     @Override
     public User findByUserName(String userName)
     {
-        String queryString = "SELECT user FROM User user "
-                + "LEFT JOIN FETCH user.userRoles userRoles " + "WHERE user.username like ?1";
+        Query query = createQuery("SELECT u FROM User u WHERE u.username = :username");
+        query.setParameter("username", userName);
 
-        Query query = createQuery(queryString);
-        query.setParameter(1, userName);
-        return (User) query.getSingleResult();
+        try
+        {
+            return (User) query.getSingleResult();
+        }
+        catch (NoResultException ex)
+        {
+            return null;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User findByEmail(String email)
+    {
+        Query query = createQuery("SELECT u FROM User u WHERE u.email = :email");
+        query.setParameter("email", email);
+
+        try
+        {
+            return (User) query.getSingleResult();
+        }
+        catch (NoResultException ex)
+        {
+            return null;
+        }
     }
 
     /**

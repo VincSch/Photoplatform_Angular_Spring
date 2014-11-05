@@ -76,17 +76,12 @@ public class DBUtil
 
     private void createRoles()
     {
-        Role admin = new Role();
-        admin.setName("ADMIN");
-        roleDAO.create(admin);
-
-        Role customer = new Role();
-        customer.setName("CUSTOMER");
-        roleDAO.create(customer);
-
-        Role photographer = new Role();
-        photographer.setName("PHOTOGRAPHER");
-        roleDAO.create(photographer);
+        for (String defaultRole : Role.DEFAULT_ROLES)
+        {
+            Role role = new Role();
+            role.setName(defaultRole);
+            roleDAO.create(role);
+        }
     }
 
     /**
