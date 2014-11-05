@@ -145,8 +145,8 @@
 				</configuration>
 				<executions>
 					<execution>
-						<id>validate</id>
-						<phase>validate</phase>
+						<id>install</id>
+						<phase>install</phase>
 						<goals>
 							<goal>check</goal>
 						</goals>
