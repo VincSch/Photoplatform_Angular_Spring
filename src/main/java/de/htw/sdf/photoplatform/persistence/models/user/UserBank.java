@@ -15,11 +15,12 @@ import javax.persistence.Table;
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
- * Created by Sergej Meister
+ * Created by Sergej Meister.
  */
 @Entity
 @Table(name = "SYS_USERBANK")
-public class UserBank extends AbstractBaseAuditEntity {
+public class UserBank extends AbstractBaseAuditEntity
+{
     private static final long serialVersionUID = 1179519484452211533L;
 
     @OneToOne
