@@ -10,7 +10,7 @@ import java.util.List;
 
 import de.htw.sdf.photoplatform.manager.CategoryManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.models.Category;
+import de.htw.sdf.photoplatform.persistence.models.CategoryRecept;
 
 /**
  * Interface defining business methods for recipes.
@@ -25,7 +25,7 @@ public class CategoryManagerImpl extends DAOReferenceCollector implements Catego
      * {@inheritDoc}
      */
     @Override
-    public void create(Category entity)
+    public void create(CategoryRecept entity)
     {
         categoryDAO.create(entity);
     }
@@ -34,7 +34,7 @@ public class CategoryManagerImpl extends DAOReferenceCollector implements Catego
      * {@inheritDoc}
      */
     @Override
-    public Category update(Category entity)
+    public CategoryRecept update(CategoryRecept entity)
     {
         return categoryDAO.update(entity);
     }
@@ -43,7 +43,7 @@ public class CategoryManagerImpl extends DAOReferenceCollector implements Catego
      * {@inheritDoc}
      */
     @Override
-    public void delete(Category entity)
+    public void delete(CategoryRecept entity)
     {
         categoryDAO.delete(entity);
     }
@@ -52,7 +52,7 @@ public class CategoryManagerImpl extends DAOReferenceCollector implements Catego
      * {@inheritDoc}
      */
     @Override
-    public Category findById(long id)
+    public CategoryRecept findById(long id)
     {
         return categoryDAO.findOne(id);
     }
@@ -61,7 +61,7 @@ public class CategoryManagerImpl extends DAOReferenceCollector implements Catego
      * {@inheritDoc}
      */
     @Override
-    public List<Category> findAll()
+    public List<CategoryRecept> findAll()
     {
         return categoryDAO.findAll();
     }
@@ -70,7 +70,7 @@ public class CategoryManagerImpl extends DAOReferenceCollector implements Catego
      * {@inheritDoc}
      */
     @Override
-    public Category findByName(String name)
+    public CategoryRecept findByName(String name)
     {
         return categoryDAO.findByName(name);
     }

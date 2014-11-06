@@ -4,19 +4,19 @@
  *
  */
 
-package de.htw.sdf.photoplatform.repository.impl;
+package de.htw.sdf.photoplatform.repository.user.impl;
+
+import java.util.List;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
-import de.htw.sdf.photoplatform.common.Constants;
 import org.springframework.stereotype.Repository;
 
+import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.user.Role;
-import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
-
-import java.util.List;
+import de.htw.sdf.photoplatform.repository.user.RoleDAO;
 
 /**
  * repository methods for roles.
@@ -41,7 +41,7 @@ public class RoleDAOImpl extends GenericDAOImpl<Role> implements RoleDAO
      * {@inheritDoc}
      */
     @Override
-    public Role findByName(String name)
+    public Role findByName(final String name)
     {
         String queryString = "SELECT role FROM Role role " + "WHERE role.name like ?1";
 

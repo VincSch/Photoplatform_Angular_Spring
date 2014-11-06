@@ -8,18 +8,18 @@ package de.htw.sdf.photoplatform.manager.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.htw.sdf.photoplatform.repository.CategoryDAO;
+import de.htw.sdf.photoplatform.repository.CategoryReceptDAO;
 import de.htw.sdf.photoplatform.repository.IngredientDAO;
 import de.htw.sdf.photoplatform.repository.NutritionFactDAO;
 import de.htw.sdf.photoplatform.repository.RecipeBookDAO;
 import de.htw.sdf.photoplatform.repository.RecipeDAO;
 import de.htw.sdf.photoplatform.repository.RecipeDifficultyDAO;
-import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UnitDAO;
 import de.htw.sdf.photoplatform.repository.UsedIngredientsDAO;
 import de.htw.sdf.photoplatform.repository.UsedRecipeDAO;
-import de.htw.sdf.photoplatform.repository.UserDAO;
-import de.htw.sdf.photoplatform.repository.UserRoleDAO;
+import de.htw.sdf.photoplatform.repository.user.RoleDAO;
+import de.htw.sdf.photoplatform.repository.user.UserDAO;
+import de.htw.sdf.photoplatform.repository.user.UserRoleDAO;
 
 /**
  *
@@ -47,7 +47,7 @@ public class DAOReferenceCollector
     protected UsedRecipeDAO recipeBookHasRecipeDAO;
 
     @Autowired
-    protected CategoryDAO categoryDAO;
+    protected CategoryReceptDAO categoryDAO;
 
     @Autowired
     protected RecipeBookDAO recipeBookDAO;

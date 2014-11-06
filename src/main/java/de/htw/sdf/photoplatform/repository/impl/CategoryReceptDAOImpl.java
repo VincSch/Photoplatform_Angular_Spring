@@ -11,8 +11,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.persistence.models.Category;
-import de.htw.sdf.photoplatform.repository.CategoryDAO;
+import de.htw.sdf.photoplatform.persistence.models.CategoryRecept;
+import de.htw.sdf.photoplatform.repository.CategoryReceptDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
@@ -23,30 +23,31 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class CategoryDAOImpl extends GenericDAOImpl<Category> implements CategoryDAO
+public class CategoryReceptDAOImpl extends GenericDAOImpl<CategoryRecept> implements
+        CategoryReceptDAO
 {
 
     /**
      * Category DAO constructor.
      */
-    public CategoryDAOImpl()
+    public CategoryReceptDAOImpl()
     {
         super();
-        setClazz(Category.class);
+        setClazz(CategoryRecept.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Category findByName(String name)
+    public CategoryRecept findByName(String name)
     {
         String queryString = "SELECT category FROM Category category "
                 + "WHERE category.name like ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, name);
-        return (Category) query.getSingleResult();
+        return (CategoryRecept) query.getSingleResult();
     }
 
 }

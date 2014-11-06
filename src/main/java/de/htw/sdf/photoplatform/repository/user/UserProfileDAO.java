@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.repository;
+package de.htw.sdf.photoplatform.repository.user;
 
 import de.htw.sdf.photoplatform.persistence.models.user.UserProfile;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
@@ -22,5 +22,5 @@ public interface UserProfileDAO extends GenericDAO<UserProfile>
      *            unique user id
      * @return UserProfile objects
      */
-    UserProfile findByUserId(Long id);
+    UserProfile findByUserId(final Long id);
 }

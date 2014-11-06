@@ -8,7 +8,7 @@ package de.htw.sdf.photoplatform.manager;
 
 import java.util.List;
 
-import de.htw.sdf.photoplatform.persistence.models.Category;
+import de.htw.sdf.photoplatform.persistence.models.CategoryRecept;
 
 /**
  * Interface defining business methods for categories.
@@ -25,7 +25,7 @@ public interface CategoryManager
      * @param entity
      *            ingredient
      */
-    void create(final Category entity);
+    void create(final CategoryRecept entity);
 
     /**
      * update a category.
@@ -34,7 +34,7 @@ public interface CategoryManager
      *            the category you want to update
      * @return the updated category
      */
-    Category update(final Category entity);
+    CategoryRecept update(final CategoryRecept entity);
 
     /**
      * delete an category.
@@ -42,7 +42,7 @@ public interface CategoryManager
      * @param entity
      *            to be deleted
      */
-    void delete(final Category entity);
+    void delete(final CategoryRecept entity);
 
     /**
      * find a category by its id.
@@ -52,14 +52,14 @@ public interface CategoryManager
      * 
      * @return category class
      */
-    Category findById(final long id);
+    CategoryRecept findById(final long id);
 
     /**
      * find all categories.
      * 
      * @return a list of all categories
      */
-    List<Category> findAll();
+    List<CategoryRecept> findAll();
 
     /**
      * find a category by its unique name.
@@ -68,7 +68,7 @@ public interface CategoryManager
      *            unique name
      * @return the category entity
      */
-    Category findByName(String name);
+    CategoryRecept findByName(String name);
 
     /**
      * delete all categories .

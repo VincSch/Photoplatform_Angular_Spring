@@ -20,6 +20,11 @@ import de.htw.sdf.photoplatform.persistence.models.user.User;
 import de.htw.sdf.photoplatform.persistence.models.user.UserBank;
 import de.htw.sdf.photoplatform.persistence.models.user.UserProfile;
 import de.htw.sdf.photoplatform.persistence.models.user.UserRole;
+import de.htw.sdf.photoplatform.repository.user.RoleDAO;
+import de.htw.sdf.photoplatform.repository.user.UserBankDAO;
+import de.htw.sdf.photoplatform.repository.user.UserDAO;
+import de.htw.sdf.photoplatform.repository.user.UserProfileDAO;
+import de.htw.sdf.photoplatform.repository.user.UserRoleDAO;
 
 public class UserDAOTest extends BaseTester
 {

@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.repository;
+package de.htw.sdf.photoplatform.repository.user;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public interface RoleDAO extends GenericDAO<Role>
      * 
      * @return the role entity
      */
-    Role findByName(String name);
+    Role findByName(final String name);
 
     /**
      * find a admin role.

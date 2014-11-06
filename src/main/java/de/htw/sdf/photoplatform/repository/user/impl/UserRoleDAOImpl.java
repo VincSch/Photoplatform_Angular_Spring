@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.repository.impl;
+package de.htw.sdf.photoplatform.repository.user.impl;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.models.user.UserRole;
-import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import de.htw.sdf.photoplatform.repository.user.UserRoleDAO;
 
 /**
  * repository methods for user roles.
@@ -38,7 +38,7 @@ public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements UserRol
     }
 
     @Override
-    public List<UserRole> findByUserId(Long id)
+    public List<UserRole> findByUserId(final Long id)
     {
         String queryString = "SELECT userRole FROM UserRole userRole "
                 + "LEFT JOIN FETCH userRole.user user " + "LEFT JOIN FETCH userRole.role role "
@@ -50,7 +50,7 @@ public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements UserRol
     }
 
     @Override
-    public List<UserRole> findByRecipeRoleId(Long id)
+    public List<UserRole> findByRecipeRoleId(final Long id)
     {
         String queryString = "SELECT userRole FROM UserRole userRole "
                 + "LEFT JOIN FETCH userRole.user user " + "LEFT JOIN FETCH userRole.role role "
@@ -62,7 +62,7 @@ public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements UserRol
     }
 
     @Override
-    public List<UserRole> findByUserAndRoleId(Long userId, Long roleId)
+    public List<UserRole> findByUserAndRoleId(final Long userId, final Long roleId)
     {
         String queryString = "SELECT userRole FROM UserRole userRole "
                 + "LEFT JOIN FETCH userRole.user user " + "LEFT JOIN FETCH userRole.role role "

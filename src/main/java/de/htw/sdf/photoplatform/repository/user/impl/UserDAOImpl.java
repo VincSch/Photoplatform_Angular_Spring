@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.repository.impl;
+package de.htw.sdf.photoplatform.repository.user.impl;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ import org.springframework.stereotype.Repository;
 import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.user.Role;
 import de.htw.sdf.photoplatform.persistence.models.user.User;
-import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import de.htw.sdf.photoplatform.repository.user.UserDAO;
 
 /**
  * repository methods for users.
@@ -62,7 +62,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
      * {@inheritDoc}
      */
     @Override
-    public UserDetails loadUserByUsername(String username)
+    public UserDetails loadUserByUsername(final String username)
     {
         String queryString = "SELECT user FROM User user "
                 + "LEFT JOIN FETCH user.userRoles userRoles " + "WHERE user.username like ?1";
@@ -76,7 +76,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
      * {@inheritDoc}
      */
     @Override
-    public List<User> findByRole(Role role)
+    public List<User> findByRole(final Role role)
     {
         return findByRoleId(role.getId());
     }
@@ -85,7 +85,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
      * {@inheritDoc}
      */
     @Override
-    public List<User> findByRoleId(Long roleId)
+    public List<User> findByRoleId(final Long roleId)
     {
         StringBuilder queryBuilder = new StringBuilder("SELECT user FROM User user ");
         queryBuilder.append("LEFT JOIN FETCH user.userRoles userRoles ");
@@ -154,7 +154,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
     // can be removed later
 
     @Override
-    public Long getRecipeAmount(String userName)
+    public Long getRecipeAmount(final String userName)
     {
         String queryString = "SELECT COUNT(recipe.id) FROM Recipe recipe "
                 + "WHERE recipe.createdBy like ?1";
@@ -165,7 +165,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
     }
 
     @Override
-    public Long getRecipeBookAmount(String userName)
+    public Long getRecipeBookAmount(final String userName)
     {
         String queryString = "SELECT COUNT(book.id) FROM RecipeBook book "
                 + "WHERE book.createdBy like ?1";

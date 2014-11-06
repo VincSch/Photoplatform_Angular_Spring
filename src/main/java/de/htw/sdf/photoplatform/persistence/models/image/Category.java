@@ -18,8 +18,8 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  * Created by Sergej Meister.
  */
 @Entity
-@Table(name = "SYS_CATEGORY")
-public class SysCategory extends AbstractBaseAuditEntity
+@Table(name = "RES_CATEGORY")
+public class Category extends AbstractBaseAuditEntity
 {
 
     private static final long serialVersionUID = -5734114755016412092L;

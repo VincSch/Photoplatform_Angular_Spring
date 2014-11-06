@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.repository;
+package de.htw.sdf.photoplatform.repository.user;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User>
      * 
      * @return the user entity
      */
-    User findByUserName(String userName);
+    User findByUserName(final String userName);
 
     /**
      * Returns all user by role.
@@ -43,7 +43,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User>
      *            role entity
      * @return all users by role
      */
-    List<User> findByRole(Role role);
+    List<User> findByRole(final Role role);
 
     /**
      * Returns all user by role id.
@@ -52,7 +52,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User>
      *            role id
      * @return all users by role id
      */
-    List<User> findByRoleId(Long roleId);
+    List<User> findByRoleId(final Long roleId);
 
     /**
      * Returns all not admin users.
@@ -88,7 +88,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User>
      * 
      * @return amount of recipes
      */
-    Long getRecipeAmount(String userName);
+    Long getRecipeAmount(final String userName);
 
     /**
      * find a number of recipe books belonging to this user.
@@ -98,5 +98,5 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User>
      * 
      * @return amount of recipe books
      */
-    Long getRecipeBookAmount(String userName);
+    Long getRecipeBookAmount(final String userName);
 }

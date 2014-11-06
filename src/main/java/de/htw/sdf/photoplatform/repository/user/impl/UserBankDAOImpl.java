@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.repository.impl;
+package de.htw.sdf.photoplatform.repository.user.impl;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
@@ -12,8 +12,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.models.user.UserBank;
-import de.htw.sdf.photoplatform.repository.UserBankDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import de.htw.sdf.photoplatform.repository.user.UserBankDAO;
 
 /**
  * Created by Sergej Meister.
@@ -36,7 +36,7 @@ public class UserBankDAOImpl extends GenericDAOImpl<UserBank> implements UserBan
      * {@inheritDoc}
      */
     @Override
-    public UserBank findByUserId(Long id)
+    public UserBank findByUserId(final Long id)
     {
         String queryString = "SELECT userBank FROM UserBank userBank "
                 + "LEFT JOIN FETCH userBank.user user " + "WHERE user.id = ?1";

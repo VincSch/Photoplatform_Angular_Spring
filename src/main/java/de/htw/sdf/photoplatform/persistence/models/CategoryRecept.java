@@ -19,7 +19,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "RB_CATEGORY")
-public class Category extends AbstractBaseAuditEntity
+public class CategoryRecept extends AbstractBaseAuditEntity
 {
 
     private static final long serialVersionUID = 318495786260623088L;
@@ -28,7 +28,7 @@ public class Category extends AbstractBaseAuditEntity
     private String name;
 
     /** Category. */
-    public Category()
+    public CategoryRecept()
     {
         super();
     }

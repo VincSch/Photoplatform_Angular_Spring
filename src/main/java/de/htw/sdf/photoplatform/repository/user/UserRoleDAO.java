@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.repository;
+package de.htw.sdf.photoplatform.repository.user;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public interface UserRoleDAO extends GenericDAO<UserRole>
      *            unique user id
      * @return list of UserRole objects
      */
-    List<UserRole> findByUserId(Long id);
+    List<UserRole> findByUserId(final Long id);
 
     /**
      * find a user role mapping by a role id.
@@ -34,7 +34,7 @@ public interface UserRoleDAO extends GenericDAO<UserRole>
      * 
      * @return list of UserRole objects
      */
-    List<UserRole> findByRecipeRoleId(Long id);
+    List<UserRole> findByRecipeRoleId(final Long id);
 
     /**
      * find a user role mapping by user and role id.
@@ -46,5 +46,5 @@ public interface UserRoleDAO extends GenericDAO<UserRole>
      * 
      * @return list of UserRole object
      */
-    List<UserRole> findByUserAndRoleId(Long userId, Long recipeId);
+    List<UserRole> findByUserAndRoleId(final Long userId, final Long recipeId);
 }

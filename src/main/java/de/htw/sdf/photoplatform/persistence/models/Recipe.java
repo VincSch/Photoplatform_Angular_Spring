@@ -57,25 +57,10 @@ public class Recipe extends AbstractBaseAuditEntity
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
-    private Category category;
-
-    /** The Rating. */
-    public enum Rating
-    {
-        /** Good. */
-        good,
-
-        /** Very Good. */
-        very_good,
-
-        /** Excellent. */
-        excellent;
-    }
-
+    private CategoryRecept category;
     @Column(name = "RATING")
     @Enumerated(EnumType.STRING)
     private Rating rating;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe")
     private List<UsedIngredient> usedIngredients;
 
@@ -281,6 +266,19 @@ public class Recipe extends AbstractBaseAuditEntity
     public void setDifficulty(RecipeDifficulty difficulty)
     {
         this.difficulty = difficulty;
+    }
+
+    /** The Rating. */
+    public enum Rating
+    {
+        /** Good. */
+        good,
+
+        /** Very Good. */
+        very_good,
+
+        /** Excellent. */
+        excellent;
     }
 
 }

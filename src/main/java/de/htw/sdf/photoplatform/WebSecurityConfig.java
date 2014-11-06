@@ -21,7 +21,7 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 
-import de.htw.sdf.photoplatform.repository.UserDAO;
+import de.htw.sdf.photoplatform.repository.user.UserDAO;
 import de.htw.sdf.photoplatform.security.XAuthTokenConfigurer;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
 

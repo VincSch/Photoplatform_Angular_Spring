@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.repository.impl;
+package de.htw.sdf.photoplatform.repository.user.impl;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
@@ -12,8 +12,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.models.user.UserProfile;
-import de.htw.sdf.photoplatform.repository.UserProfileDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import de.htw.sdf.photoplatform.repository.user.UserProfileDAO;
 
 /**
  * Created by Sergej Meister.
@@ -36,7 +36,7 @@ public class UserProfileDAOImpl extends GenericDAOImpl<UserProfile> implements U
      * {@inheritDoc}
      */
     @Override
-    public UserProfile findByUserId(Long id)
+    public UserProfile findByUserId(final Long id)
     {
         String queryString = "SELECT userProfile FROM UserProfile userProfile "
                 + "LEFT JOIN FETCH userProfile.user user " + "WHERE user.id = ?1";

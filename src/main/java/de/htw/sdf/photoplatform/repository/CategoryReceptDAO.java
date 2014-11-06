@@ -6,7 +6,7 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.persistence.models.Category;
+import de.htw.sdf.photoplatform.persistence.models.CategoryRecept;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**
@@ -15,7 +15,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
-public interface CategoryDAO extends GenericDAO<Category>
+public interface CategoryReceptDAO extends GenericDAO<CategoryRecept>
 {
 
     /**
@@ -26,5 +26,5 @@ public interface CategoryDAO extends GenericDAO<Category>
      * 
      * @return the category entity
      */
-    Category findByName(String name);
+    CategoryRecept findByName(String name);
 }
