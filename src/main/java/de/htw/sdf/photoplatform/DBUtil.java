@@ -92,6 +92,8 @@ public class DBUtil
         User sergej = createDefaultUser("Sergej", "123", "sergej@test.de", photographer);
 
         UserProfile sergejProfile = new UserProfile();
+        sergejProfile.setFirstName("Sergej");
+        sergejProfile.setSurname("Meister");
         sergejProfile.setAddress("Berlinerstraße 12,12207 Berlin");
         sergejProfile.setCompany("Burg");
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);

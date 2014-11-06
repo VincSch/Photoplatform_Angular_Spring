@@ -28,6 +28,12 @@ public class UserProfile extends AbstractBaseAuditEntity
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
 
+    @Column(name = "FIRSTNAME")
+    private String firstName;
+
+    @Column(name = "SURNAME")
+    private String surname;
+
     @Column(name = "BIRTHDAY")
     private String birthday;
 
@@ -65,6 +71,48 @@ public class UserProfile extends AbstractBaseAuditEntity
     public void setUser(User user)
     {
         this.user = user;
+    }
+
+    /**
+     * Returns user firts name.
+     *
+     * @return first name.
+     */
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    /**
+     * Sets user first name.
+     *
+     * @param firstName
+     *            first name.
+     */
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    /**
+     * Returns user surname.
+     *
+     * @return surname.
+     */
+    public String getSurname()
+    {
+        return surname;
+    }
+
+    /**
+     * Sets user surname.
+     *
+     * @param surname
+     *            surname.
+     */
+    public void setSurname(String surname)
+    {
+        this.surname = surname;
     }
 
     /**

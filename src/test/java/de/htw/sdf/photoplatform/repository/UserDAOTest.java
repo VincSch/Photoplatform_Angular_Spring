@@ -66,11 +66,15 @@ public class UserDAOTest extends BaseTester
                 Boolean.FALSE);
 
         // Ein bisschen russisch stoert doch nicht :)
+        String firstname = "TestFirstname";
+        String surname = "TestSurname";
         String address = "мой адрес не дом и не улица мой адрес советский союз";
         String phone = "018765032";
         String company = "Photo AG";
         String homepage = "photo.de";
         UserProfile photographerProfile = new UserProfile();
+        photographerProfile.setFirstName(firstname);
+        photographerProfile.setSurname(surname);
         photographerProfile.setUser(photographer);
         photographerProfile.setAddress(address);
         photographerProfile.setPhone(phone);
