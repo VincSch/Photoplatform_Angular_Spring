@@ -19,8 +19,10 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "SYS_CATEGORY")
-public class Category extends AbstractBaseAuditEntity
+public class SysCategory extends AbstractBaseAuditEntity
 {
+
+    private static final long serialVersionUID = -5734114755016412092L;
 
     @Column(name = "NAME")
     private String name;
@@ -70,6 +72,9 @@ public class Category extends AbstractBaseAuditEntity
         this.description = description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString()
     {
