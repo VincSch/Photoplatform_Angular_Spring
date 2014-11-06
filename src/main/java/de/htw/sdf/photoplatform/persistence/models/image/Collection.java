@@ -32,12 +32,6 @@ public class Collection extends AbstractBaseAuditEntity
     private static final long serialVersionUID = -5509450928421280686L;
 
     /**
-     * Image.
-     */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "collection")
-    Set<CollectionImage> collectionImages;
-
-    /**
      * User.
      */
     @OneToOne
@@ -62,6 +56,18 @@ public class Collection extends AbstractBaseAuditEntity
     @OneToOne
     @JoinColumn(name = "THUMBNAIL_ID", referencedColumnName = "ID")
     private Image thumbnail;
+
+    /**
+     * Image.
+     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "collection")
+    private Set<CollectionImage> collectionImages;
+
+    /**
+     * Category.
+     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "collection")
+    private Set<CollectionCategory> collectionCategories;
 
     /**
      * Returns album owner.
@@ -166,6 +172,27 @@ public class Collection extends AbstractBaseAuditEntity
     public void setCollectionImages(Set<CollectionImage> collectionImages)
     {
         this.collectionImages = collectionImages;
+    }
+
+    /**
+     * Returns list of collection categories.
+     *
+     * @return list of collection categories.
+     */
+    public Set<CollectionCategory> getCollectionCategories()
+    {
+        return collectionCategories;
+    }
+
+    /**
+     * Sets collection categories.
+     *
+     * @param collectionCategories
+     *            collection categories.
+     */
+    public void setCollectionCategories(Set<CollectionCategory> collectionCategories)
+    {
+        this.collectionCategories = collectionCategories;
     }
 
     /**
