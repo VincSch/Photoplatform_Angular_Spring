@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.persistence.models.user.User;
+import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.webservice.controller.AuthenticationController;
 
 /**

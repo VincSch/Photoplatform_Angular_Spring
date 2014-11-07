@@ -17,9 +17,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.htw.sdf.photoplatform.Application;
 import de.htw.sdf.photoplatform.DBUtil;
-import de.htw.sdf.photoplatform.manager.IngredientManager;
-import de.htw.sdf.photoplatform.manager.RecipeManager;
-import de.htw.sdf.photoplatform.manager.UnitManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Application.class})
@@ -30,15 +27,6 @@ public abstract class BaseTester
     protected ObjectMapper mapper = new ObjectMapper();
 
     protected MockMvc mockMvc;
-
-    @Autowired
-    protected IngredientManager ingredientManager;
-
-    @Autowired
-    protected UnitManager unitManager;
-
-    @Autowired
-    protected RecipeManager receiptManager;
 
     @Autowired
     protected DBUtil dbUtil;

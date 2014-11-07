@@ -14,9 +14,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htw.sdf.photoplatform.common.BaseImageTester;
-import de.htw.sdf.photoplatform.persistence.models.image.Collection;
-import de.htw.sdf.photoplatform.persistence.models.image.CollectionImage;
-import de.htw.sdf.photoplatform.persistence.models.image.Image;
+import de.htw.sdf.photoplatform.persistence.models.Collection;
+import de.htw.sdf.photoplatform.persistence.models.CollectionImage;
+import de.htw.sdf.photoplatform.persistence.models.Image;
 
 public class CollectionDAOTest extends BaseImageTester
 {

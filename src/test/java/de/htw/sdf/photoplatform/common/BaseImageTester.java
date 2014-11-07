@@ -5,14 +5,14 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.htw.sdf.photoplatform.persistence.models.image.Collection;
-import de.htw.sdf.photoplatform.persistence.models.image.CollectionImage;
-import de.htw.sdf.photoplatform.persistence.models.image.Image;
-import de.htw.sdf.photoplatform.persistence.models.user.User;
-import de.htw.sdf.photoplatform.repository.image.CollectionDAO;
-import de.htw.sdf.photoplatform.repository.image.CollectionImageDAO;
-import de.htw.sdf.photoplatform.repository.image.ImageDAO;
-import de.htw.sdf.photoplatform.repository.user.UserDAO;
+import de.htw.sdf.photoplatform.persistence.models.Collection;
+import de.htw.sdf.photoplatform.persistence.models.CollectionImage;
+import de.htw.sdf.photoplatform.persistence.models.Image;
+import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.repository.CollectionDAO;
+import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
+import de.htw.sdf.photoplatform.repository.ImageDAO;
+import de.htw.sdf.photoplatform.repository.UserDAO;
 
 public abstract class BaseImageTester extends BaseTester
 {

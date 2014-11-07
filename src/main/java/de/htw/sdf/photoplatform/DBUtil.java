@@ -13,19 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.htw.sdf.photoplatform.common.Constants;
-import de.htw.sdf.photoplatform.persistence.models.user.Role;
-import de.htw.sdf.photoplatform.persistence.models.user.User;
-import de.htw.sdf.photoplatform.persistence.models.user.UserBank;
-import de.htw.sdf.photoplatform.persistence.models.user.UserProfile;
-import de.htw.sdf.photoplatform.persistence.models.user.UserRole;
-import de.htw.sdf.photoplatform.repository.image.CollectionDAO;
-import de.htw.sdf.photoplatform.repository.image.CollectionImageDAO;
-import de.htw.sdf.photoplatform.repository.image.ImageDAO;
-import de.htw.sdf.photoplatform.repository.user.RoleDAO;
-import de.htw.sdf.photoplatform.repository.user.UserBankDAO;
-import de.htw.sdf.photoplatform.repository.user.UserDAO;
-import de.htw.sdf.photoplatform.repository.user.UserProfileDAO;
-import de.htw.sdf.photoplatform.repository.user.UserRoleDAO;
+import de.htw.sdf.photoplatform.persistence.models.Role;
+import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.persistence.models.UserBank;
+import de.htw.sdf.photoplatform.persistence.models.UserProfile;
+import de.htw.sdf.photoplatform.persistence.models.UserRole;
+import de.htw.sdf.photoplatform.repository.CollectionDAO;
+import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
+import de.htw.sdf.photoplatform.repository.ImageDAO;
+import de.htw.sdf.photoplatform.repository.RoleDAO;
+import de.htw.sdf.photoplatform.repository.UserBankDAO;
+import de.htw.sdf.photoplatform.repository.UserDAO;
+import de.htw.sdf.photoplatform.repository.UserProfileDAO;
+import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 
 /**
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>

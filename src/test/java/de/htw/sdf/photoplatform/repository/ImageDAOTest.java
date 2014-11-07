@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htw.sdf.photoplatform.common.BaseImageTester;
-import de.htw.sdf.photoplatform.persistence.models.image.Image;
+import de.htw.sdf.photoplatform.persistence.models.Image;
 
 public class ImageDAOTest extends BaseImageTester // BaseTester
 {

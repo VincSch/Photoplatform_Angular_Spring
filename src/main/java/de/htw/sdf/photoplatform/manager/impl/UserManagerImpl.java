@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.models.user.User;
-import de.htw.sdf.photoplatform.persistence.models.user.UserRole;
+import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.persistence.models.UserRole;
 
 /**
  * business methods for users.

@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
 import de.htw.sdf.photoplatform.common.Constants;
-import de.htw.sdf.photoplatform.persistence.models.user.Role;
-import de.htw.sdf.photoplatform.repository.user.RoleDAO;
+import de.htw.sdf.photoplatform.persistence.models.Role;
 
 public class RoleDAOTest extends BaseTester
 {

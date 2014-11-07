@@ -15,16 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
 import de.htw.sdf.photoplatform.common.Constants;
-import de.htw.sdf.photoplatform.persistence.models.user.Role;
-import de.htw.sdf.photoplatform.persistence.models.user.User;
-import de.htw.sdf.photoplatform.persistence.models.user.UserBank;
-import de.htw.sdf.photoplatform.persistence.models.user.UserProfile;
-import de.htw.sdf.photoplatform.persistence.models.user.UserRole;
-import de.htw.sdf.photoplatform.repository.user.RoleDAO;
-import de.htw.sdf.photoplatform.repository.user.UserBankDAO;
-import de.htw.sdf.photoplatform.repository.user.UserDAO;
-import de.htw.sdf.photoplatform.repository.user.UserProfileDAO;
-import de.htw.sdf.photoplatform.repository.user.UserRoleDAO;
+import de.htw.sdf.photoplatform.persistence.models.Role;
+import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.persistence.models.UserBank;
+import de.htw.sdf.photoplatform.persistence.models.UserProfile;
+import de.htw.sdf.photoplatform.persistence.models.UserRole;
 
 public class UserDAOTest extends BaseTester
 {
