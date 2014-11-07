@@ -85,4 +85,13 @@ public class ShowCase extends AbstractBaseAuditEntity
     {
         this.showCaseCollections = showCaseCollections;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString()
+    {
+        return "ShowCase{" + "user=" + user + ", showCaseCollections=" + showCaseCollections + '}';
+    }
 }
