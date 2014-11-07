@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
 import de.htw.sdf.photoplatform.common.Constants;
@@ -15,10 +14,6 @@ import de.htw.sdf.photoplatform.persistence.models.Role;
 
 public class RoleDAOTest extends BaseTester
 {
-
-    @Autowired
-    protected RoleDAO roleDAO;
-
     @Before
     public void setUp() throws Exception
     {

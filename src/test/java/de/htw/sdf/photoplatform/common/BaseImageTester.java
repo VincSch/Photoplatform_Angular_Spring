@@ -76,7 +76,7 @@ public abstract class BaseImageTester extends BaseTester
     }
 
     /**
-     * Init simple collect with Sergej as user :).
+     * Init simple collection with Sergej as user :).
      * 
      * @param name
      *            collection name
@@ -85,9 +85,23 @@ public abstract class BaseImageTester extends BaseTester
     protected Collection initEmptyCollection(String name)
     {
         User sergejTestUser = userDAO.findByUserName("Sergej");
+        return initEmptyCollection(name, sergejTestUser);
+    }
+
+    /**
+     * Init simple collection
+     *
+     * @param name
+     *            collection name
+     * @param user
+     *            owner
+     * @return collection with id = null
+     */
+    protected Collection initEmptyCollection(String name, User user)
+    {
         Collection collection = new Collection();
         collection.setName(name);
-        collection.setUser(sergejTestUser);
+        collection.setUser(user);
         return collection;
     }
 

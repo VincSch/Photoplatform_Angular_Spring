@@ -6,6 +6,10 @@
 
 package de.htw.sdf.photoplatform.repository;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.NoResultException;
 
 import org.junit.After;
@@ -14,9 +18,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htw.sdf.photoplatform.common.BaseImageTester;
+import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.Collection;
 import de.htw.sdf.photoplatform.persistence.models.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.models.Image;
+import de.htw.sdf.photoplatform.persistence.models.Role;
+import de.htw.sdf.photoplatform.persistence.models.User;
 
 public class CollectionDAOTest extends BaseImageTester
 {
@@ -113,7 +120,38 @@ public class CollectionDAOTest extends BaseImageTester
             Assert.assertTrue(collectionImage.getImage().getName().equals(firstImageName)
                     || collectionImage.getImage().getName().equals(secondImageName));
         }
-
     }
 
+    @Test
+    public void testGetByUser(){
+        //INIT TEST DATA
+        Role photographerRole = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
+        User userOne = createDefaultUser("CollectionUser1","67854","collctionuser1@web.de",photographerRole,Boolean.TRUE,Boolean.TRUE);
+        String collectionOneName = "MyFirstCollection";
+        Collection collectionOne = initEmptyCollection(collectionOneName,userOne);
+        collectionDAO.create(collectionOne);
+
+        User userTwo = createDefaultUser("CollectionUser2","67854","collctionuser2@web.de",photographerRole,Boolean.TRUE,Boolean.TRUE);
+        Collection collectionTwo = initEmptyCollection(collectionOneName,userTwo);
+        collectionDAO.create(collectionTwo);
+        String collectionTwoName = "MySecondCollection";
+        Collection collectionThree = initEmptyCollection(collectionTwoName,userTwo);
+        collectionDAO.create(collectionThree);
+
+        //DO TEST
+        List<Collection> collectionListUserOne = collectionDAO.findByUser(userOne);
+        Assert.assertTrue(collectionListUserOne.size() == 1);
+        Assert.assertTrue(collectionListUserOne.get(0).getName().equals(collectionOneName));
+        Assert.assertTrue(collectionListUserOne.get(0).getUser().getId().equals(userOne.getId()));
+
+        List<Collection> collectionListUserTwo = collectionDAO.findByUser(userTwo);
+        Assert.assertTrue(collectionListUserTwo.size() == 2);
+        Set<String> collectionsNameSet = new HashSet<>();
+        collectionsNameSet.add(collectionOneName);
+        collectionsNameSet.add(collectionTwoName);
+        Assert.assertTrue(collectionListUserTwo.get(0).getUser().getId().equals(userTwo.getId()));
+        Assert.assertTrue(collectionsNameSet.contains(collectionListUserTwo.get(0).getName()));
+        Assert.assertTrue(collectionListUserTwo.get(1).getUser().getId().equals(userTwo.getId()));
+        Assert.assertTrue(collectionsNameSet.contains(collectionListUserTwo.get(1).getName()));
+    }
 }

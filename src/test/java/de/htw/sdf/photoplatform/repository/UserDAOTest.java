@@ -11,7 +11,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
 import de.htw.sdf.photoplatform.common.Constants;
@@ -23,21 +22,6 @@ import de.htw.sdf.photoplatform.persistence.models.UserRole;
 
 public class UserDAOTest extends BaseTester
 {
-    @Autowired
-    protected UserDAO userDAO;
-
-    @Autowired
-    protected UserRoleDAO userRoleDAO;
-
-    @Autowired
-    protected RoleDAO roleDAO;
-
-    @Autowired
-    protected UserProfileDAO userProfileDAO;
-
-    @Autowired
-    protected UserBankDAO userBankDAO;
-
     @Before
     public void setUp() throws Exception
     {
@@ -252,27 +236,4 @@ public class UserDAOTest extends BaseTester
         Assert.assertTrue(notLockedUsers.get(0).getUsername().equals(photographerTesterUsername));
     }
 
-    private User createDefaultUser(
-            String username,
-            String password,
-            String email,
-            Role role,
-            Boolean enabled,
-            Boolean locked)
-    {
-        User defaultUser = new User();
-        defaultUser.setUserName(username);
-        defaultUser.setPassword(password);
-        defaultUser.setEnabled(enabled);
-        defaultUser.setAccountNonLocked(locked);
-        defaultUser.setEmail(email);
-        userDAO.create(defaultUser);
-
-        UserRole userRole = new UserRole();
-        userRole.setRole(role);
-        userRole.setUser(defaultUser);
-        userRoleDAO.create(userRole);
-
-        return defaultUser;
-    }
 }
