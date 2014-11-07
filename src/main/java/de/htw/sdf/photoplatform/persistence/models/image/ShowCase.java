@@ -20,7 +20,7 @@ import de.htw.sdf.photoplatform.persistence.models.user.User;
 /**
  * Entity class for a showcase representing the corresponding database table.
  *
- * @autor by Sergej Meister.
+ * @author by Sergej Meister.
  */
 @Entity
 @Table(name = "RES_SHOWCASE")
@@ -35,14 +35,6 @@ public class ShowCase extends AbstractBaseAuditEntity
     @OneToOne
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
-
-    /**
-     * ShowCase collections.
-     *
-     * FetchType.EAGER default.
-     */
-    @OneToMany(mappedBy = "showCase")
-    private Set<ShowCaseCollection> showCaseCollections;
 
     /**
      * Returns show case owner.
@@ -66,32 +58,11 @@ public class ShowCase extends AbstractBaseAuditEntity
     }
 
     /**
-     * Returns all collection in showCase.
-     *
-     * @return list of showCase collections.
-     */
-    public Set<ShowCaseCollection> getShowCaseCollections()
-    {
-        return showCaseCollections;
-    }
-
-    /**
-     * Sets showCase collections.
-     *
-     * @param showCaseCollections
-     *            showCase collections.
-     */
-    public void setShowCaseCollections(Set<ShowCaseCollection> showCaseCollections)
-    {
-        this.showCaseCollections = showCaseCollections;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
     public String toString()
     {
-        return "ShowCase{" + "user=" + user + ", showCaseCollections=" + showCaseCollections + '}';
+        return "ShowCase{" + "user=" + user + '}';
     }
 }

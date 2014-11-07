@@ -72,6 +72,7 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements Col
         queryBuilder.append("LEFT JOIN FETCH collection.user owner ");
         queryBuilder.append("LEFT JOIN FETCH collection.thumbnail thumbnail ");
         queryBuilder.append("LEFT JOIN FETCH collection.collectionImages collectionImages ");
+        queryBuilder.append("LEFT JOIN FETCH collection.showCase showCase ");
 
         return queryBuilder;
     }

@@ -58,8 +58,16 @@ public class Collection extends AbstractBaseAuditEntity
     private Image thumbnail;
 
     /**
+     * Showcase for this collection.
+     */
+    @OneToOne
+    @JoinColumn(name = "SHOWCASE_ID", referencedColumnName = "ID")
+    private ShowCase showCase;
+
+    /**
      * Image.
      */
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "collection")
     private Set<CollectionImage> collectionImages;
 
@@ -196,11 +204,30 @@ public class Collection extends AbstractBaseAuditEntity
     }
 
     /**
+     * Sets a showcase.
+     *
+     * @param showCase
+     *            showcase object.
+     */
+    public void setShowCase(ShowCase showCase) {
+        this.showCase = showCase;
+    }
+
+    /**
+     * Gets the showcase for this collection.
+     *
+     * @return a showcase.
+     */
+    public ShowCase getShowCase() {
+        return showCase;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public String toString()
     {
-        return "Album{" + "user=" + user + ", name='" + name + '\'' + '}';
+        return "Collection{" + "user=" + user + ", name='" + name + '\'' + '}';
     }
 }
