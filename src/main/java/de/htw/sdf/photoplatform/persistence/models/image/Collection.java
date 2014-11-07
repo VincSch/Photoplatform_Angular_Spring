@@ -22,7 +22,7 @@ import de.htw.sdf.photoplatform.persistence.models.user.User;
 /**
  * Entity class for a collection representing the corresponding database table.
  *
- * Created by Sergej Meister.
+ * @autor Sergej Meister.
  */
 @Entity
 @Table(name = "RES_COLLECTION")
