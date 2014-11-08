@@ -16,4 +16,13 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
  */
 public interface CategoryDAO extends GenericDAO<Category>
 {
+    /**
+     * Returns category by name.
+     *
+     * @param name
+     *            category name.
+     *
+     * @return category.
+     */
+    Category findByName(String name);
 }

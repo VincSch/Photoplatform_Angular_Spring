@@ -10,16 +10,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.NoResultException;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import de.htw.sdf.photoplatform.common.BaseImageTester;
 import de.htw.sdf.photoplatform.common.Constants;
+import de.htw.sdf.photoplatform.persistence.models.Category;
 import de.htw.sdf.photoplatform.persistence.models.Collection;
+import de.htw.sdf.photoplatform.persistence.models.CollectionCategory;
 import de.htw.sdf.photoplatform.persistence.models.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.models.Image;
 import de.htw.sdf.photoplatform.persistence.models.Role;
@@ -27,6 +28,11 @@ import de.htw.sdf.photoplatform.persistence.models.User;
 
 public class CollectionDAOTest extends BaseImageTester
 {
+    @Autowired
+    CategoryDAO categoryDAO;
+
+    @Autowired
+    CollectionCategoryDAO collectionCategoryDAO;
 
     @Before
     public void setUp() throws Exception
@@ -37,6 +43,8 @@ public class CollectionDAOTest extends BaseImageTester
     @After
     public void tearDown() throws Exception
     {
+        collectionCategoryDAO.deleteAll();
+        categoryDAO.deleteAll();
         clearTables();
     }
 
@@ -67,15 +75,7 @@ public class CollectionDAOTest extends BaseImageTester
         // Test Delete
         Long idToDelete = updatedCollection.getId();
         collectionDAO.deleteById(idToDelete);
-        try
-        {
-            collectionDAO.findById(idToDelete);
-            Assert.fail("Should be an exception!");
-        }
-        catch (NoResultException nre)
-        {
-            Assert.assertNotNull(nre);
-        }
+        Assert.assertNull(collectionDAO.findById(idToDelete));
     }
 
     @Test
@@ -153,5 +153,47 @@ public class CollectionDAOTest extends BaseImageTester
         Assert.assertTrue(collectionsNameSet.contains(collectionListUserTwo.get(0).getName()));
         Assert.assertTrue(collectionListUserTwo.get(1).getUser().getId().equals(userTwo.getId()));
         Assert.assertTrue(collectionsNameSet.contains(collectionListUserTwo.get(1).getName()));
+    }
+
+    @Test
+    public void testGetCategories()
+    {
+        // Init Test Data
+        User userOne = userDAO.findByUserName("Vincent");
+        String collectionName = "CollectionNaturOcean";
+        Collection testCollection = initEmptyCollection(collectionName, userOne);
+        collectionDAO.create(testCollection);
+
+        Category categoryNature = createCategory("Nature");
+        Category categoryNight = createCategory("Night");
+        Category categoryOcean = createCategory("Ocean");
+
+        CollectionCategory testCollectionNature = new CollectionCategory();
+        testCollectionNature.setCollection(testCollection);
+        testCollectionNature.setCategory(categoryNature);
+        collectionCategoryDAO.create(testCollectionNature);
+
+        CollectionCategory testCollectionNight = new CollectionCategory();
+        testCollectionNight.setCollection(testCollection);
+        testCollectionNight.setCategory(categoryNight);
+        collectionCategoryDAO.create(testCollectionNight);
+
+        CollectionCategory testCollectionOcean = new CollectionCategory();
+        testCollectionOcean.setCollection(testCollection);
+        testCollectionOcean.setCategory(categoryOcean);
+        collectionCategoryDAO.create(testCollectionOcean);
+
+        List<Collection> userCollections = collectionDAO.findByUser(userOne);
+        Assert.assertTrue(userCollections.size() == 1);
+        Collection collection = userCollections.get(0);
+        Assert.assertTrue(collection.getCollectionCategories().size() == 3);
+    }
+
+    private Category createCategory(String categoryName)
+    {
+        Category category = new Category();
+        category.setName(categoryName);
+        categoryDAO.create(category);
+        return category;
     }
 }

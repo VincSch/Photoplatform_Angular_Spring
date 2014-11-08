@@ -18,8 +18,8 @@ import org.springframework.stereotype.Repository;
 import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 import de.htw.sdf.photoplatform.repository.UserDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
  * repository methods for users.
@@ -150,29 +150,4 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
 
         return queryBuilder;
     }
-
-    // can be removed later
-
-    @Override
-    public Long getRecipeAmount(final String userName)
-    {
-        String queryString = "SELECT COUNT(recipe.id) FROM Recipe recipe "
-                + "WHERE recipe.createdBy like ?1";
-
-        Query query = createQuery(queryString);
-        query.setParameter(1, userName);
-        return (Long) query.getSingleResult();
-    }
-
-    @Override
-    public Long getRecipeBookAmount(final String userName)
-    {
-        String queryString = "SELECT COUNT(book.id) FROM RecipeBook book "
-                + "WHERE book.createdBy like ?1";
-
-        Query query = createQuery(queryString);
-        query.setParameter(1, userName);
-        return (Long) query.getSingleResult();
-    }
-
 }

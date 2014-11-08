@@ -79,24 +79,4 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User>
      * @return not admin users
      */
     List<User> findByAccountLocked(boolean locked);
-
-    /**
-     * find a number of recipes belonging to this user.
-     * 
-     * @param userName
-     *            unique name
-     * 
-     * @return amount of recipes
-     */
-    Long getRecipeAmount(final String userName);
-
-    /**
-     * find a number of recipe books belonging to this user.
-     * 
-     * @param userName
-     *            unique name
-     * 
-     * @return amount of recipe books
-     */
-    Long getRecipeBookAmount(final String userName);
 }

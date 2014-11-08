@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
@@ -128,7 +129,7 @@ public class Collection extends AbstractBaseAuditEntity
     }
 
     /**
-     * Sets album decription.
+     * Sets album description.
      *
      * @param description
      *            album description.
@@ -202,6 +203,16 @@ public class Collection extends AbstractBaseAuditEntity
     }
 
     /**
+     * Gets the showcase for this collection.
+     *
+     * @return a showcase.
+     */
+    public ShowCase getShowCase()
+    {
+        return showCase;
+    }
+
+    /**
      * Sets a showcase.
      *
      * @param showCase
@@ -210,16 +221,6 @@ public class Collection extends AbstractBaseAuditEntity
     public void setShowCase(ShowCase showCase)
     {
         this.showCase = showCase;
-    }
-
-    /**
-     * Gets the showcase for this collection.
-     *
-     * @return a showcase.
-     */
-    public ShowCase getShowCase()
-    {
-        return showCase;
     }
 
     /**

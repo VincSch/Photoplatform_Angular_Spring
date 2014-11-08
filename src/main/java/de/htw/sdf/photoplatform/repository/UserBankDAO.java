@@ -10,7 +10,8 @@ import de.htw.sdf.photoplatform.persistence.models.UserBank;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**
- * Created by Sergej Meister.
+ *
+ * @author Sergej Meister.
  */
 public interface UserBankDAO extends GenericDAO<UserBank>
 {

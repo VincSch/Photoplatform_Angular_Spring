@@ -27,5 +27,5 @@ public interface UserImageDAO extends GenericDAO<UserImage>
      *
      * @return Return List of user images.
      */
-    List<UserImage> findUserImagesBy(User user);
+    List<UserImage> getUserImagesBy(User user);
 }

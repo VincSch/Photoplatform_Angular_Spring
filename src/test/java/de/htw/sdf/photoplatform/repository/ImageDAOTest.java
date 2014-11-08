@@ -16,7 +16,7 @@ import org.junit.Test;
 import de.htw.sdf.photoplatform.common.BaseImageTester;
 import de.htw.sdf.photoplatform.persistence.models.Image;
 
-public class ImageDAOTest extends BaseImageTester // BaseTester
+public class ImageDAOTest extends BaseImageTester
 {
     @Before
     public void setUp() throws Exception
@@ -33,7 +33,7 @@ public class ImageDAOTest extends BaseImageTester // BaseTester
     @Test
     public void testBasic()
     {
-        // test create
+        // Test create
         String testImageName = "TestPhoto";
         String path = "srs/test/testphoto.jpg";
         Image testImage = initDefaultImage(testImageName, Boolean.TRUE, Boolean.TRUE, path);

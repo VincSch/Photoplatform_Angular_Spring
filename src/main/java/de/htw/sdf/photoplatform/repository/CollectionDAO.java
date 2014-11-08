@@ -8,8 +8,6 @@ package de.htw.sdf.photoplatform.repository;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
-
 import de.htw.sdf.photoplatform.persistence.models.Collection;
 import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
@@ -32,7 +30,7 @@ public interface CollectionDAO extends GenericDAO<Collection>
      *
      * @return collection
      */
-    Collection findById(final Long collectionId) throws NoResultException;
+    Collection findById(final Long collectionId);
 
     /**
      * Returns list of user's collection.
@@ -42,5 +40,5 @@ public interface CollectionDAO extends GenericDAO<Collection>
      *
      * @return list of user's collection
      */
-    List<Collection> findByUser(final User user) throws NoResultException;
+    List<Collection> findByUser(final User user);
 }
