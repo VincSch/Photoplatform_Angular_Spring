@@ -14,8 +14,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.models.UserRole;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
  * repository methods for user roles.
@@ -40,7 +40,7 @@ public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements UserRol
     @Override
     public List<UserRole> findByUserId(final Long id)
     {
-        String queryString = "SELECT userRole FROM UserRole userRole "
+        String queryString = "SELECT DISTINCT(userRole) FROM UserRole userRole "
                 + "LEFT JOIN FETCH userRole.user user " + "LEFT JOIN FETCH userRole.role role "
                 + "WHERE user.id = ?1";
 

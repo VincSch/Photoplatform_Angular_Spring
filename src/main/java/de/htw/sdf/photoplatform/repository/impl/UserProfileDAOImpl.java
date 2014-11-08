@@ -12,8 +12,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.models.UserProfile;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 import de.htw.sdf.photoplatform.repository.UserProfileDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
  * Created by Sergej Meister.
@@ -38,7 +38,7 @@ public class UserProfileDAOImpl extends GenericDAOImpl<UserProfile> implements U
     @Override
     public UserProfile findByUserId(final Long id)
     {
-        String queryString = "SELECT userProfile FROM UserProfile userProfile "
+        String queryString = "SELECT DISTINCT(userProfile) FROM UserProfile userProfile "
                 + "LEFT JOIN FETCH userProfile.user user " + "WHERE user.id = ?1";
 
         Query query = createQuery(queryString);

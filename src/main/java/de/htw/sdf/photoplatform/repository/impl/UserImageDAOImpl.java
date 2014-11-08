@@ -52,7 +52,8 @@ public class UserImageDAOImpl extends GenericDAOImpl<UserImage> implements UserI
 
     private StringBuilder initSelectQuery()
     {
-        StringBuilder queryBuilder = new StringBuilder("SELECT userImage FROM UserImage userImage ");
+        StringBuilder queryBuilder = new StringBuilder(
+                "SELECT DISTINCT(userImage) FROM UserImage userImage ");
         queryBuilder.append("LEFT JOIN FETCH userImage.image image ");
         queryBuilder.append("LEFT JOIN FETCH userImage.user user ");
 

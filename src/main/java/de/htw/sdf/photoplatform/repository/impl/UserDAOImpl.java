@@ -50,7 +50,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
     @Override
     public User findByUserName(String userName)
     {
-        String queryString = "SELECT user FROM User user "
+        String queryString = "SELECT DISTINCT(user) FROM User user "
                 + "LEFT JOIN FETCH user.userRoles userRoles " + "WHERE user.username like ?1";
 
         Query query = createQuery(queryString);

@@ -51,7 +51,7 @@ public class CollectionCategoryDAOImpl extends GenericDAOImpl<CollectionCategory
     private StringBuilder initSelectQuery()
     {
         StringBuilder queryBuilder = new StringBuilder(
-                "SELECT collectionCategory FROM CollectionCategory collectionCategory ");
+                "SELECT DISTINCT(collectionCategory) FROM CollectionCategory collectionCategory ");
         queryBuilder.append("LEFT JOIN FETCH collectionCategory.collection collection ");
         queryBuilder.append("LEFT JOIN FETCH collectionCategory.category category ");
 
