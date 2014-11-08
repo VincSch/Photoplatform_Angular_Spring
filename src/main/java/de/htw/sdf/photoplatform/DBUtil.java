@@ -34,7 +34,7 @@ import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 @Service
 public class DBUtil
 {
-    private static int instanceCounter;
+    // private static int instanceCounter;
 
     @Autowired
     protected UserDAO userDAO;
@@ -65,29 +65,29 @@ public class DBUtil
      */
     public void insertTestData()
     {
-        if (instanceCounter == 0)
-        {
-            createRoles();
-        }
+        // if (instanceCounter == 0)
+        // {
+        // createRoles();
+        // }
 
         createUser();
-        instanceCounter++;
+        // instanceCounter++;
     }
 
-    private void createRoles()
-    {
-        Role admin = new Role();
-        admin.setName("ADMIN");
-        roleDAO.create(admin);
-
-        Role customer = new Role();
-        customer.setName("CUSTOMER");
-        roleDAO.create(customer);
-
-        Role photographer = new Role();
-        photographer.setName("PHOTOGRAPHER");
-        roleDAO.create(photographer);
-    }
+    // private void createRoles()
+    // {
+    // Role admin = new Role();
+    // admin.setName("ADMIN");
+    // roleDAO.create(admin);
+    //
+    // Role customer = new Role();
+    // customer.setName("CUSTOMER");
+    // roleDAO.create(customer);
+    //
+    // Role photographer = new Role();
+    // photographer.setName("PHOTOGRAPHER");
+    // roleDAO.create(photographer);
+    // }
 
     /**
      * Create user.
