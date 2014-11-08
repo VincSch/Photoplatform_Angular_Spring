@@ -30,5 +30,4 @@ public class CategoryDAOImpl extends GenericDAOImpl<Category> implements Categor
         super();
         setClazz(Category.class);
     }
-
 }

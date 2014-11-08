@@ -16,13 +16,14 @@ import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.models.Collection;
 import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 import de.htw.sdf.photoplatform.repository.CollectionDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
- * repository methods for image collection.
+ * Repository methods for image collection.
  *
  * @author Sergej Meister.
+ *
  */
 @Repository
 @Transactional
