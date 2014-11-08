@@ -17,7 +17,7 @@ public class RoleDAOTest extends BaseTester
     @Before
     public void setUp() throws Exception
     {
-        insertDestData();
+        insertTestData();
     }
 
     @After

@@ -25,7 +25,7 @@ public class UserDAOTest extends BaseTester
     @Before
     public void setUp() throws Exception
     {
-        insertDestData();
+        insertTestData();
     }
 
     @After

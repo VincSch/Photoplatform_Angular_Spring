@@ -31,7 +31,7 @@ public class CollectionDAOTest extends BaseImageTester
     @Before
     public void setUp() throws Exception
     {
-        insertDestData();
+        insertTestData();
     }
 
     @After

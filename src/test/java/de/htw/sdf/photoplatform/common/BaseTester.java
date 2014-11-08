@@ -54,7 +54,7 @@ public abstract class BaseTester
     @Autowired
     protected DBUtil dbUtil;
 
-    public void insertDestData()
+    public void insertTestData()
     {
         dbUtil.insertTestData();
     }

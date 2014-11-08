@@ -6,10 +6,8 @@
 
 package de.htw.sdf.photoplatform.manager.common;
 
+import de.htw.sdf.photoplatform.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import de.htw.sdf.photoplatform.repository.RoleDAO;
-import de.htw.sdf.photoplatform.repository.UserDAO;
-import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 
 /**
  *
@@ -27,4 +25,15 @@ public class DAOReferenceCollector
     @Autowired
     protected RoleDAO roleDAO;
 
+    @Autowired
+    protected CollectionDAO collectionDAO;
+
+    @Autowired
+    protected CategoryDAO categoryDAO;
+
+    @Autowired
+    protected ImageDAO imageDAO;
+
+    @Autowired
+    protected CollectionImageDAO collectionImageDAO;
 }

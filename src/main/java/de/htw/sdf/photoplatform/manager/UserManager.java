@@ -11,7 +11,7 @@ import java.util.List;
 import de.htw.sdf.photoplatform.persistence.models.User;
 
 /**
- * Interface defining business methods for recipe ingredient mapping.
+ * Interface defining business methods for users.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
@@ -76,23 +76,4 @@ public interface UserManager
      */
     User findByName(String name);
 
-    /**
-     * find a number of recipes belonging to this user.
-     * 
-     * @param userName
-     *            unique name
-     * 
-     * @return amount of recipes
-     */
-    Long getRecipeAmount(String userName);
-
-    /**
-     * find a number of recipe books belonging to this user.
-     * 
-     * @param userName
-     *            unique name
-     * 
-     * @return amount of recipe books
-     */
-    Long getRecipeBookAmount(String userName);
 }

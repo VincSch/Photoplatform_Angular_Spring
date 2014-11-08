@@ -53,12 +53,14 @@ public class UserManagerImpl extends DAOReferenceCollector implements UserManage
     @Override
     public User findById(long id)
     {
+
         return userDAO.findOne(id);
     }
 
     @Override
     public List<User> findAll()
     {
+
         return userDAO.findAll();
     }
 
@@ -72,19 +74,7 @@ public class UserManagerImpl extends DAOReferenceCollector implements UserManage
     @Override
     public User findByName(String name)
     {
+
         return userDAO.findByUserName(name);
     }
-
-    @Override
-    public Long getRecipeAmount(String userName)
-    {
-        return userDAO.getRecipeAmount(userName);
-    }
-
-    @Override
-    public Long getRecipeBookAmount(String userName)
-    {
-        return userDAO.getRecipeBookAmount(userName);
-    }
-
 }

@@ -21,7 +21,7 @@ public class ImageDAOTest extends BaseImageTester // BaseTester
     @Before
     public void setUp() throws Exception
     {
-        insertDestData();
+        insertTestData();
     }
 
     @After

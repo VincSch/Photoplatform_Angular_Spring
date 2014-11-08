@@ -144,33 +144,4 @@ public class AuthenticationController extends BaseAPIController
         return user;
     }
 
-    /**
-     * Get amount of recipes.
-     * 
-     * @param name
-     *            the name
-     * 
-     * @return the amount of recipes
-     */
-    @RequestMapping(value = Endpoints.USER_GET_RECIPE_COUNT, method = RequestMethod.GET)
-    @ResponseBody
-    public Long getAmountOfRecipes(@PathVariable String name)
-    {
-        return userManager.getRecipeAmount(name);
-    }
-
-    /**
-     * Get Amount of recipe in book.
-     * 
-     * @param name
-     *            the name
-     * 
-     * @return the amount of recipe in book
-     */
-    @RequestMapping(value = Endpoints.USER_GET_RECIPEBOOK_COUNT, method = RequestMethod.GET)
-    @ResponseBody
-    public Long getAmountOfRecipeBooks(@PathVariable String name)
-    {
-        return userManager.getRecipeBookAmount(name);
-    }
 }

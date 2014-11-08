@@ -32,7 +32,7 @@
 //    public void setUp() throws Exception
 //    {
 //        mockMvc = MockMvcBuilders.standaloneSetup(receiptController).build();
-//        insertDestData();
+//        insertTestData();
 //    }
 //
 //    @After

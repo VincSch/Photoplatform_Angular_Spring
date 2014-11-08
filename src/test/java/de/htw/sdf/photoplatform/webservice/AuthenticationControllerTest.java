@@ -43,7 +43,7 @@ public class AuthenticationControllerTest extends BaseTester
         mockMvc = MockMvcBuilders.standaloneSetup(authenticationController).build();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        insertDestData();
+        insertTestData();
     }
 
     @Test

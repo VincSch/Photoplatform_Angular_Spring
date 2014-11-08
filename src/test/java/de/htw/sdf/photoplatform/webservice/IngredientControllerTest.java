@@ -38,7 +38,7 @@
 //    {
 //        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
 //        MockMvc mockMvcRecipe = MockMvcBuilders.standaloneSetup(recipeController).build();
-//        insertDestData();
+//        insertTestData();
 //    }
 //
 //    @After
