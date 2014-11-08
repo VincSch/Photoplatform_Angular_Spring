@@ -10,7 +10,8 @@ import de.htw.sdf.photoplatform.persistence.models.UserProfile;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**
- * Created by Sergej Meister.
+ *
+ * @author Sergej Meister.
  */
 public interface UserProfileDAO extends GenericDAO<UserProfile>
 {

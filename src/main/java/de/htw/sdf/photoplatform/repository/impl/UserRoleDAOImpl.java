@@ -50,18 +50,6 @@ public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements UserRol
     }
 
     @Override
-    public List<UserRole> findByRecipeRoleId(final Long id)
-    {
-        String queryString = "SELECT userRole FROM UserRole userRole "
-                + "LEFT JOIN FETCH userRole.user user " + "LEFT JOIN FETCH userRole.role role "
-                + "WHERE role.id = ?1";
-
-        Query query = createQuery(queryString);
-        query.setParameter(1, id);
-        return query.getResultList();
-    }
-
-    @Override
     public List<UserRole> findByUserAndRoleId(final Long userId, final Long roleId)
     {
         String queryString = "SELECT DISTINCT(userRole) FROM UserRole userRole "

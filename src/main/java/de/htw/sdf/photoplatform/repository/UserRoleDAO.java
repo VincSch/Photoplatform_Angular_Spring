@@ -27,16 +27,6 @@ public interface UserRoleDAO extends GenericDAO<UserRole>
     List<UserRole> findByUserId(final Long id);
 
     /**
-     * find a user role mapping by a role id.
-     * 
-     * @param id
-     *            unique role id
-     * 
-     * @return list of UserRole objects
-     */
-    List<UserRole> findByRecipeRoleId(final Long id);
-
-    /**
      * find a user role mapping by user and role id.
      * 
      * @param userId
