@@ -16,8 +16,7 @@ import de.htw.sdf.photoplatform.persistence.models.User;
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
-public interface UserManager
-{
+public interface UserManager {
 
     /**
      * persist a User mapping.

@@ -1,4 +1,3 @@
-
 package de.htw.sdf.photoplatform.repository;
 
 import java.util.List;
@@ -15,8 +14,7 @@ import de.htw.sdf.photoplatform.persistence.models.Category;
 import de.htw.sdf.photoplatform.persistence.models.Collection;
 import de.htw.sdf.photoplatform.persistence.models.CollectionCategory;
 
-public class CollectionCategoryDAOTest extends BaseImageTester
-{
+public class CollectionCategoryDAOTest extends BaseImageTester {
     @Autowired
     CategoryDAO categoryDAO;
 
@@ -24,22 +22,19 @@ public class CollectionCategoryDAOTest extends BaseImageTester
     CollectionCategoryDAO collectionCategoryDAO;
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() throws Exception {
         collectionCategoryDAO.deleteAll();
         categoryDAO.deleteAll();
         clearTables();
     }
 
     @Test
-    public void testGetCollectionCategoryBy()
-    {
+    public void testGetCollectionCategoryBy() {
         // INIT TEST DATA
         Collection myFamily = initEmptyCollection("MyFamily");
         collectionDAO.create(myFamily);
@@ -74,19 +69,13 @@ public class CollectionCategoryDAOTest extends BaseImageTester
         List<CollectionCategory> natureCollections = collectionCategoryDAO
                 .getCollectionCategoryBy(categoryNature);
         Assert.assertTrue(natureCollections.size() == 1);
-        Assert.assertTrue(natureCollections
-                .get(0)
-                .getCategory()
-                .getId()
+        Assert.assertTrue(natureCollections.get(0).getCategory().getId()
                 .equals(categoryNature.getId()));
 
         List<CollectionCategory> nightCollections = collectionCategoryDAO
                 .getCollectionCategoryBy(categoryNight);
         Assert.assertTrue(nightCollections.size() == 1);
-        Assert.assertTrue(nightCollections
-                .get(0)
-                .getCategory()
-                .getId()
+        Assert.assertTrue(nightCollections.get(0).getCategory().getId()
                 .equals(categoryNight.getId()));
 
         List<CollectionCategory> oceanCollections = collectionCategoryDAO
@@ -94,8 +83,7 @@ public class CollectionCategoryDAOTest extends BaseImageTester
         Assert.assertTrue(oceanCollections.size() == 2);
     }
 
-    private Category createCategory(String categoryName)
-    {
+    private Category createCategory(String categoryName) {
         Category category = new Category();
         category.setName(categoryName);
         categoryDAO.create(category);

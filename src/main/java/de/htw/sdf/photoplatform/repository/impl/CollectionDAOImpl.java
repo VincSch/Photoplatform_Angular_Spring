@@ -28,14 +28,13 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements CollectionDAO
-{
+public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
+        CollectionDAO {
 
     /**
      * Collection DAO constructor.
      */
-    public CollectionDAOImpl()
-    {
+    public CollectionDAOImpl() {
         super();
         setClazz(Collection.class);
     }
@@ -44,18 +43,14 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements Col
      * {@inheritDoc}
      */
     @Override
-    public Collection findById(final Long collectionId)
-    {
+    public Collection findById(final Long collectionId) {
         StringBuilder queryBuilder = initFullDataCollectionSelect();
         queryBuilder.append("WHERE collection.id = ?1");
         Query query = createQuery(queryBuilder.toString());
         query.setParameter(1, collectionId);
-        try
-        {
+        try {
             return (Collection) query.getSingleResult();
-        }
-        catch (NoResultException nre)
-        {
+        } catch (NoResultException nre) {
             return null;
         }
     }
@@ -64,28 +59,26 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements Col
      * {@inheritDoc}
      */
     @Override
-    public List<Collection> findByUser(final User user)
-    {
+    public List<Collection> findByUser(final User user) {
         StringBuilder queryBuilder = initFullDataCollectionSelect();
         queryBuilder.append("WHERE owner.id = ?1");
         Query query = createQuery(queryBuilder.toString());
         query.setParameter(1, user.getId());
-        try{
+        try {
             return (List<Collection>) query.getResultList();
-        }catch (NoResultException nre){
+        } catch (NoResultException nre) {
             return new ArrayList<>();
         }
 
-
     }
 
-    private StringBuilder initFullDataCollectionSelect()
-    {
+    private StringBuilder initFullDataCollectionSelect() {
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT DISTINCT(collection) FROM Collection collection ");
         queryBuilder.append("LEFT JOIN FETCH collection.user owner ");
         queryBuilder.append("LEFT JOIN FETCH collection.thumbnail thumbnail ");
-        queryBuilder.append("LEFT JOIN FETCH collection.collectionImages collectionImages ");
+        queryBuilder
+                .append("LEFT JOIN FETCH collection.collectionImages collectionImages ");
         queryBuilder
                 .append("LEFT JOIN FETCH collection.collectionCategories collectionCategories ");
         queryBuilder.append("LEFT JOIN FETCH collection.showCase showCase ");

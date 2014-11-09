@@ -20,14 +20,13 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class UserProfileDAOImpl extends GenericDAOImpl<UserProfile> implements UserProfileDAO
-{
+public class UserProfileDAOImpl extends GenericDAOImpl<UserProfile> implements
+        UserProfileDAO {
 
     /**
      * User Profile dao constructor.
      */
-    public UserProfileDAOImpl()
-    {
+    public UserProfileDAOImpl() {
         super();
         setClazz(UserProfile.class);
     }
@@ -36,10 +35,10 @@ public class UserProfileDAOImpl extends GenericDAOImpl<UserProfile> implements U
      * {@inheritDoc}
      */
     @Override
-    public UserProfile findByUserId(final Long id)
-    {
+    public UserProfile findByUserId(final Long id) {
         String queryString = "SELECT DISTINCT(userProfile) FROM UserProfile userProfile "
-                + "LEFT JOIN FETCH userProfile.user user " + "WHERE user.id = ?1";
+                + "LEFT JOIN FETCH userProfile.user user "
+                + "WHERE user.id = ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, id);

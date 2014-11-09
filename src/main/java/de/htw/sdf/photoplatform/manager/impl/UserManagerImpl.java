@@ -24,12 +24,11 @@ import de.htw.sdf.photoplatform.persistence.models.UserRole;
  */
 @Service
 @Transactional
-public class UserManagerImpl extends DAOReferenceCollector implements UserManager
-{
+public class UserManagerImpl extends DAOReferenceCollector implements
+        UserManager {
 
     @Override
-    public void create(User entity)
-    {
+    public void create(User entity) {
         userDAO.create(entity);
         UserRole userRole = new UserRole();
         userRole.setUser(entity);
@@ -38,42 +37,36 @@ public class UserManagerImpl extends DAOReferenceCollector implements UserManage
     }
 
     @Override
-    public User update(User entity)
-    {
+    public User update(User entity) {
         return userDAO.update(entity);
     }
 
     @Override
-    public void delete(User entity)
-    {
+    public void delete(User entity) {
         userDAO.delete(entity);
 
     }
 
     @Override
-    public User findById(long id)
-    {
+    public User findById(long id) {
 
         return userDAO.findOne(id);
     }
 
     @Override
-    public List<User> findAll()
-    {
+    public List<User> findAll() {
 
         return userDAO.findAll();
     }
 
     @Override
-    public void deleteAll()
-    {
+    public void deleteAll() {
         userDAO.deleteAll();
 
     }
 
     @Override
-    public User findByName(String name)
-    {
+    public User findByName(String name) {
 
         return userDAO.findByUserName(name);
     }

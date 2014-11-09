@@ -7,6 +7,7 @@
 package de.htw.sdf.photoplatform.manager;
 
 import java.util.List;
+
 import de.htw.sdf.photoplatform.persistence.models.Collection;
 import de.htw.sdf.photoplatform.persistence.models.User;
 
@@ -16,8 +17,7 @@ import de.htw.sdf.photoplatform.persistence.models.User;
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
-public interface CollectionManager
-{
+public interface CollectionManager {
 
     /**
      * persist a collection.

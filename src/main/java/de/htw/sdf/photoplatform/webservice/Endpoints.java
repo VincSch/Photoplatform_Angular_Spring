@@ -12,8 +12,7 @@ package de.htw.sdf.photoplatform.webservice;
  * @author Vincent Schwarzer
  * 
  */
-public final class Endpoints
-{
+public final class Endpoints {
 
     /**
      * API entry point.
@@ -40,36 +39,35 @@ public final class Endpoints
     /**
      * Private Endpoint constructor.
      */
-    private Endpoints()
-    {
+    private Endpoints() {
         // Private
     }
 
     /**
-     * End points as strings which have to be secured and can only be accessed by an admin or user.
+     * End points as strings which have to be secured and can only be accessed
+     * by an admin or user.
      * 
-     * @return array of end points as strings which have to be secured and can only be accessed by
-     *         an admin or user
+     * @return array of end points as strings which have to be secured and can
+     *         only be accessed by an admin or user
      */
-    public static String[] securedUserEndpoints()
-    {
+    public static String[] securedUserEndpoints() {
         String[] securedEnpoints = {
         // User
-        restBuilder(USER_UPDATE)};
+        restBuilder(USER_UPDATE) };
         return securedEnpoints;
     }
 
     /**
-     * End points as strings which have to be secured and can only be accessed by an admin.
+     * End points as strings which have to be secured and can only be accessed
+     * by an admin.
      * 
-     * @return array of end points as strings which have to be secured and can only be accessed by
-     *         an admin
+     * @return array of end points as strings which have to be secured and can
+     *         only be accessed by an admin
      */
-    public static String[] securedAdminEndpoints()
-    {
+    public static String[] securedAdminEndpoints() {
         String[] securedEnpoints = {
         // Ingredients
-        restBuilder(MAINTENANCE_STATISTIC)};
+        restBuilder(MAINTENANCE_STATISTIC) };
         return securedEnpoints;
     }
 
@@ -81,8 +79,7 @@ public final class Endpoints
      * 
      * @return res builder
      */
-    private static String restBuilder(String endPoint)
-    {
+    private static String restBuilder(String endPoint) {
         return API_PREFIX + endPoint;
     }
 }

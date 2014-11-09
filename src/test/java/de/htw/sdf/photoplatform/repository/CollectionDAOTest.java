@@ -26,8 +26,7 @@ import de.htw.sdf.photoplatform.persistence.models.Image;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
 
-public class CollectionDAOTest extends BaseImageTester
-{
+public class CollectionDAOTest extends BaseImageTester {
     @Autowired
     CategoryDAO categoryDAO;
 
@@ -35,22 +34,19 @@ public class CollectionDAOTest extends BaseImageTester
     CollectionCategoryDAO collectionCategoryDAO;
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() throws Exception {
         collectionCategoryDAO.deleteAll();
         categoryDAO.deleteAll();
         clearTables();
     }
 
     @Test
-    public void testBasic()
-    {
+    public void testBasic() {
         // Test Create
         String collectionName = "TestCreateCollection";
         Collection testCollection = initEmptyCollection(collectionName);
@@ -58,8 +54,10 @@ public class CollectionDAOTest extends BaseImageTester
         Assert.assertNotNull(testCollection.getId());
 
         // Test Find
-        Collection createdCollection = collectionDAO.findById(testCollection.getId());
-        Assert.assertTrue(createdCollection.getUser().getUsername().equals("Sergej"));
+        Collection createdCollection = collectionDAO.findById(testCollection
+                .getId());
+        Assert.assertTrue(createdCollection.getUser().getUsername()
+                .equals("Sergej"));
         Assert.assertTrue(createdCollection.getName().equals(collectionName));
         Assert.assertNull(createdCollection.getThumbnail());
         Assert.assertTrue(createdCollection.getCollectionImages().isEmpty());
@@ -68,8 +66,10 @@ public class CollectionDAOTest extends BaseImageTester
         String newCollectionName = "TestUpdateCollection";
         createdCollection.setName(newCollectionName);
         collectionDAO.update(createdCollection);
-        Collection updatedCollection = collectionDAO.findById(testCollection.getId());
-        Assert.assertTrue(updatedCollection.getId().equals(testCollection.getId()));
+        Collection updatedCollection = collectionDAO.findById(testCollection
+                .getId());
+        Assert.assertTrue(updatedCollection.getId().equals(
+                testCollection.getId()));
         Assert.assertTrue(createdCollection.getName().equals(newCollectionName));
 
         // Test Delete
@@ -79,85 +79,95 @@ public class CollectionDAOTest extends BaseImageTester
     }
 
     @Test
-    public void testGetImages()
-    {
+    public void testGetImages() {
         // Init Test Data
         String collectionName = "CollectionWithTwoImages";
         Collection testCollection = initEmptyCollection(collectionName);
         collectionDAO.create(testCollection);
 
         String firstImageName = "FirstImage";
-        Image firstImage = initDefaultImage(
-                firstImageName,
-                Boolean.TRUE,
-                Boolean.FALSE,
-                "C:/users/firstImage.jpg");
+        Image firstImage = initDefaultImage(firstImageName, Boolean.TRUE,
+                Boolean.FALSE, "C:/users/firstImage.jpg");
         imageDAO.create(firstImage);
-        CollectionImage firstCollectionImage = initCollectionImage(testCollection, firstImage);
+        CollectionImage firstCollectionImage = initCollectionImage(
+                testCollection, firstImage);
         collectionImageDAO.create(firstCollectionImage);
 
         String secondImageName = "SecondImage";
-        Image secondImage = initDefaultImage(
-                secondImageName,
-                Boolean.TRUE,
-                Boolean.FALSE,
-                "C:/users/secondImage.jpg");
+        Image secondImage = initDefaultImage(secondImageName, Boolean.TRUE,
+                Boolean.FALSE, "C:/users/secondImage.jpg");
         imageDAO.create(secondImage);
 
-        CollectionImage secondCollectionImage = initCollectionImage(testCollection, secondImage);
+        CollectionImage secondCollectionImage = initCollectionImage(
+                testCollection, secondImage);
         collectionImageDAO.create(secondCollectionImage);
 
         // Do test
-        Collection createdCollection = collectionDAO.findById(testCollection.getId());
+        Collection createdCollection = collectionDAO.findById(testCollection
+                .getId());
         Assert.assertFalse("Should not be empty!", createdCollection
-                .getCollectionImages()
-                .isEmpty());
-        Assert.assertTrue(
-                "Should have 2 entry!",
-                createdCollection.getCollectionImages().size() == 2);
-        for (CollectionImage collectionImage : createdCollection.getCollectionImages())
-        {
-            Assert.assertTrue(collectionImage.getImage().getName().equals(firstImageName)
-                    || collectionImage.getImage().getName().equals(secondImageName));
+                .getCollectionImages().isEmpty());
+        Assert.assertTrue("Should have 2 entry!", createdCollection
+                .getCollectionImages().size() == 2);
+        for (CollectionImage collectionImage : createdCollection
+                .getCollectionImages()) {
+            Assert.assertTrue(collectionImage.getImage().getName()
+                    .equals(firstImageName)
+                    || collectionImage.getImage().getName()
+                            .equals(secondImageName));
         }
     }
 
     @Test
-    public void testGetByUser(){
-        //INIT TEST DATA
+    public void testGetByUser() {
+        // INIT TEST DATA
         Role photographerRole = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
-        User userOne = createDefaultUser("CollectionUser1","67854","collctionuser1@web.de",photographerRole,Boolean.TRUE,Boolean.TRUE);
+        User userOne = createDefaultUser("CollectionUser1", "67854",
+                "collctionuser1@web.de", photographerRole, Boolean.TRUE,
+                Boolean.TRUE);
         String collectionOneName = "MyFirstCollection";
-        Collection collectionOne = initEmptyCollection(collectionOneName,userOne);
+        Collection collectionOne = initEmptyCollection(collectionOneName,
+                userOne);
         collectionDAO.create(collectionOne);
 
-        User userTwo = createDefaultUser("CollectionUser2","67854","collctionuser2@web.de",photographerRole,Boolean.TRUE,Boolean.TRUE);
-        Collection collectionTwo = initEmptyCollection(collectionOneName,userTwo);
+        User userTwo = createDefaultUser("CollectionUser2", "67854",
+                "collctionuser2@web.de", photographerRole, Boolean.TRUE,
+                Boolean.TRUE);
+        Collection collectionTwo = initEmptyCollection(collectionOneName,
+                userTwo);
         collectionDAO.create(collectionTwo);
         String collectionTwoName = "MySecondCollection";
-        Collection collectionThree = initEmptyCollection(collectionTwoName,userTwo);
+        Collection collectionThree = initEmptyCollection(collectionTwoName,
+                userTwo);
         collectionDAO.create(collectionThree);
 
-        //DO TEST
-        List<Collection> collectionListUserOne = collectionDAO.findByUser(userOne);
+        // DO TEST
+        List<Collection> collectionListUserOne = collectionDAO
+                .findByUser(userOne);
         Assert.assertTrue(collectionListUserOne.size() == 1);
-        Assert.assertTrue(collectionListUserOne.get(0).getName().equals(collectionOneName));
-        Assert.assertTrue(collectionListUserOne.get(0).getUser().getId().equals(userOne.getId()));
+        Assert.assertTrue(collectionListUserOne.get(0).getName()
+                .equals(collectionOneName));
+        Assert.assertTrue(collectionListUserOne.get(0).getUser().getId()
+                .equals(userOne.getId()));
 
-        List<Collection> collectionListUserTwo = collectionDAO.findByUser(userTwo);
+        List<Collection> collectionListUserTwo = collectionDAO
+                .findByUser(userTwo);
         Assert.assertTrue(collectionListUserTwo.size() == 2);
         Set<String> collectionsNameSet = new HashSet<>();
         collectionsNameSet.add(collectionOneName);
         collectionsNameSet.add(collectionTwoName);
-        Assert.assertTrue(collectionListUserTwo.get(0).getUser().getId().equals(userTwo.getId()));
-        Assert.assertTrue(collectionsNameSet.contains(collectionListUserTwo.get(0).getName()));
-        Assert.assertTrue(collectionListUserTwo.get(1).getUser().getId().equals(userTwo.getId()));
-        Assert.assertTrue(collectionsNameSet.contains(collectionListUserTwo.get(1).getName()));
+        Assert.assertTrue(collectionListUserTwo.get(0).getUser().getId()
+                .equals(userTwo.getId()));
+        Assert.assertTrue(collectionsNameSet.contains(collectionListUserTwo
+                .get(0).getName()));
+        Assert.assertTrue(collectionListUserTwo.get(1).getUser().getId()
+                .equals(userTwo.getId()));
+        Assert.assertTrue(collectionsNameSet.contains(collectionListUserTwo
+                .get(1).getName()));
     }
 
     @Test
-    public void testGetCategories()
-    {
+    public void testGetCategories() {
         // Init Test Data
         User userOne = userDAO.findByUserName("Vincent");
         String collectionName = "CollectionNaturOcean";
@@ -189,8 +199,7 @@ public class CollectionDAOTest extends BaseImageTester
         Assert.assertTrue(collection.getCollectionCategories().size() == 3);
     }
 
-    private Category createCategory(String categoryName)
-    {
+    private Category createCategory(String categoryName) {
         Category category = new Category();
         category.setName(categoryName);
         categoryDAO.create(category);

@@ -20,8 +20,7 @@ import javax.persistence.MappedSuperclass;
  *
  */
 @MappedSuperclass
-public abstract class AbstractBaseEntity implements Serializable
-{
+public abstract class AbstractBaseEntity implements Serializable {
 
     private static final long serialVersionUID = -4678948635896701029L;
 
@@ -32,8 +31,7 @@ public abstract class AbstractBaseEntity implements Serializable
     /**
      * @return the id
      */
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 
@@ -41,8 +39,7 @@ public abstract class AbstractBaseEntity implements Serializable
      * @param id
      *            the id to set
      */
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,8 +47,7 @@ public abstract class AbstractBaseEntity implements Serializable
      * {@inheritDoc}
      */
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hash = 0;
         hash += (this.getId() != null ? this.getId().hashCode() : 0);
 
@@ -62,14 +58,11 @@ public abstract class AbstractBaseEntity implements Serializable
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object object)
-    {
-        if (this == object)
-        {
+    public boolean equals(Object object) {
+        if (this == object) {
             return true;
         }
-        if (object == null || getClass() != object.getClass())
-        {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
 
@@ -83,8 +76,7 @@ public abstract class AbstractBaseEntity implements Serializable
      * {@inheritDoc}
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.getClass().getName() + " [ID=" + id + "]";
     }
 }

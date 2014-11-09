@@ -31,16 +31,15 @@ import de.htw.sdf.photoplatform.webservice.controller.AuthenticationController;
  *
  * @author <a href="mailto:s0531603@htw-berlin.de">Daniil Tomilow</a>
  */
-public class AuthenticationControllerTest extends BaseTester
-{
+public class AuthenticationControllerTest extends BaseTester {
 
     @Autowired
     private AuthenticationController authenticationController;
 
     @Before
-    public void setUp() throws Exception
-    {
-        mockMvc = MockMvcBuilders.standaloneSetup(authenticationController).build();
+    public void setUp() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(authenticationController)
+                .build();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         insertTestData();
@@ -48,8 +47,7 @@ public class AuthenticationControllerTest extends BaseTester
 
     @Test
     @Ignore
-    public void testRegisterUser() throws Exception
-    {
+    public void testRegisterUser() throws Exception {
         User user = new User();
         user.setUserName("admin");
         user.setPassword("password");
@@ -60,26 +58,25 @@ public class AuthenticationControllerTest extends BaseTester
                 post("/api/user/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(user))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
     }
 
     @Test
-    public void testLoginUser() throws Exception
-    {
+    public void testLoginUser() throws Exception {
         Map<String, String> login = new HashMap<>();
         login.put("username", "Vincent");
         login.put("password", "123");
 
         mockMvc.perform(
-                post("/api/user/login")
-                        .contentType(MediaType.APPLICATION_JSON)
+                post("/api/user/login").contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(login))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
     }
 
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() throws Exception {
         clearTables();
     }
 }

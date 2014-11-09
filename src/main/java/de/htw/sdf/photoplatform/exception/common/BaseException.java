@@ -12,8 +12,7 @@ import org.apache.log4j.Logger;
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */
-public class BaseException extends Exception
-{
+public class BaseException extends Exception {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,8 +24,7 @@ public class BaseException extends Exception
      * @param msg
      *            the message
      */
-    public BaseException(String msg)
-    {
+    public BaseException(String msg) {
         super(msg);
     }
 }

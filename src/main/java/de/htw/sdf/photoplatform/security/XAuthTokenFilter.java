@@ -26,14 +26,13 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 /**
- * Sifts through all incoming requests and installs a Spring Security principal if a header
- * corresponding to a valid user is found.
+ * Sifts through all incoming requests and installs a Spring Security principal
+ * if a header corresponding to a valid user is found.
  *
  * @author <a href="mailto:philip@sorst.net">Philip W. Sorst</a>
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
  */
-public class XAuthTokenFilter extends GenericFilterBean
-{
+public class XAuthTokenFilter extends GenericFilterBean {
 
     static final String FILTER_APPLIED = "__spring_security_scpf_applied";
     protected Logger log = Logger.getLogger(XAuthTokenFilter.class);
@@ -51,52 +50,49 @@ public class XAuthTokenFilter extends GenericFilterBean
      * @param authenticationManager
      *            the authentication manager
      */
-    public XAuthTokenFilter(
-            UserDetailsService userDetailsService,
-            AuthenticationManager authenticationManager)
-    {
+    public XAuthTokenFilter(UserDetailsService userDetailsService,
+            AuthenticationManager authenticationManager) {
         this.detailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
     }
 
     @Override
-    public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain filterChain)
-            throws IOException, ServletException
-    {
-        try
-        {
+    public void doFilter(ServletRequest arg0, ServletResponse arg1,
+            FilterChain filterChain) throws IOException, ServletException {
+        try {
             HttpServletRequest httpServletRequest = (HttpServletRequest) arg0;
-            String authToken = httpServletRequest.getHeader(this.xAuthTokenHeaderName);
+            String authToken = httpServletRequest
+                    .getHeader(this.xAuthTokenHeaderName);
 
             arg0.setAttribute(FILTER_APPLIED, Boolean.TRUE);
 
-            if (StringUtils.hasText(authToken))
-            {
-                String username = this.tokenUtils.getUserNameFromToken(authToken);
+            if (StringUtils.hasText(authToken)) {
+                String username = this.tokenUtils
+                        .getUserNameFromToken(authToken);
 
-                UserDetails details = this.detailsService.loadUserByUsername(username);
+                UserDetails details = this.detailsService
+                        .loadUserByUsername(username);
 
-                if (this.tokenUtils.validateToken(authToken, details))
-                {
+                if (this.tokenUtils.validateToken(authToken, details)) {
                     UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                            details,
-                            details.getPassword(),
+                            details, details.getPassword(),
                             details.getAuthorities());
 
                     token.setDetails(new WebAuthenticationDetailsSource()
                             .buildDetails(httpServletRequest));
-                    Authentication authentication = this.authenticationManager.authenticate(token);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                    log.debug("========================> " + authentication.getName() + " , "
+                    Authentication authentication = this.authenticationManager
+                            .authenticate(token);
+                    SecurityContextHolder.getContext().setAuthentication(
+                            authentication);
+                    log.debug("========================> "
+                            + authentication.getName() + " , "
                             + authentication.isAuthenticated());
 
                 }
 
             }
             filterChain.doFilter(arg0, arg1);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.debug("================> " + ex.getMessage());
         }
     }

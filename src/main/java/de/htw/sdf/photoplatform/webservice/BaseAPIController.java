@@ -18,8 +18,7 @@ import de.htw.sdf.photoplatform.exception.NotFoundException;
  */
 @Controller
 @RequestMapping(Endpoints.API_PREFIX)
-public class BaseAPIController
-{
+public class BaseAPIController {
 
     protected final Logger log = Logger.getLogger(this.getClass().getName());
 
@@ -30,8 +29,7 @@ public class BaseAPIController
      *             the not found exception
      */
     @ExceptionHandler(RuntimeException.class)
-    public void handleException() throws NotFoundException
-    {
+    public void handleException() throws NotFoundException {
         throw new NotFoundException("Ressource not found!");
     }
 

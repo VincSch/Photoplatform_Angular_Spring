@@ -1,4 +1,3 @@
-
 package de.htw.sdf.photoplatform.repository;
 
 import junit.framework.Assert;
@@ -13,35 +12,27 @@ import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.persistence.models.UserProfile;
 
-public class UserProfileDAOTest extends BaseTester
-{
+public class UserProfileDAOTest extends BaseTester {
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() throws Exception {
         clearTables();
     }
 
     @Test
-    public void testFindByUserId() throws Exception
-    {
+    public void testFindByUserId() throws Exception {
         Role rolePhotographer = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
         String photographerTesterUsername = "PhotographerBankTester";
         String photographerTesterPassword = "photographerBankTestPass";
         String photographerTesterMail = "photographerbank@web.de";
-        User photographer = createDefaultUser(
-                photographerTesterUsername,
-                photographerTesterPassword,
-                photographerTesterMail,
-                rolePhotographer,
-                Boolean.TRUE,
-                Boolean.TRUE);
+        User photographer = createDefaultUser(photographerTesterUsername,
+                photographerTesterPassword, photographerTesterMail,
+                rolePhotographer, Boolean.TRUE, Boolean.TRUE);
 
         String firstName = "TestFirstname";
         String surname = "TestSurname";
@@ -60,8 +51,10 @@ public class UserProfileDAOTest extends BaseTester
         userProfileDAO.create(photographerProfile);
 
         // Do TEST
-        UserProfile createdProfile = userProfileDAO.findByUserId(photographer.getId());
-        Assert.assertTrue(createdProfile.getUser().getId().equals(photographer.getId()));
+        UserProfile createdProfile = userProfileDAO.findByUserId(photographer
+                .getId());
+        Assert.assertTrue(createdProfile.getUser().getId()
+                .equals(photographer.getId()));
         Assert.assertTrue(createdProfile.getAddress().equals(address));
         Assert.assertTrue(createdProfile.getFirstName().equals(firstName));
         Assert.assertTrue(createdProfile.getSurname().equals(surname));

@@ -17,8 +17,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
  *
  * @author Sergej Meister.
  */
-public interface CollectionDAO extends GenericDAO<Collection>
-{
+public interface CollectionDAO extends GenericDAO<Collection> {
 
     /**
      * Returns exact one with all data.

@@ -25,14 +25,13 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class UserImageDAOImpl extends GenericDAOImpl<UserImage> implements UserImageDAO
-{
+public class UserImageDAOImpl extends GenericDAOImpl<UserImage> implements
+        UserImageDAO {
 
     /**
      * UserImage DAO constructor.
      */
-    public UserImageDAOImpl()
-    {
+    public UserImageDAOImpl() {
         super();
         setClazz(UserImage.class);
     }
@@ -41,8 +40,7 @@ public class UserImageDAOImpl extends GenericDAOImpl<UserImage> implements UserI
      * {@inheritDoc}
      */
     @Override
-    public List<UserImage> getUserImagesBy(User user)
-    {
+    public List<UserImage> getUserImagesBy(User user) {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("WHERE user.id = ?1");
         Query query = createQuery(queryBuilder.toString());
@@ -50,8 +48,7 @@ public class UserImageDAOImpl extends GenericDAOImpl<UserImage> implements UserI
         return (List<UserImage>) query.getResultList();
     }
 
-    private StringBuilder initSelectQuery()
-    {
+    private StringBuilder initSelectQuery() {
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT DISTINCT(userImage) FROM UserImage userImage ");
         queryBuilder.append("LEFT JOIN FETCH userImage.image image ");

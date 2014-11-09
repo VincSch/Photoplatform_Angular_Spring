@@ -14,8 +14,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.models.Image;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 import de.htw.sdf.photoplatform.repository.ImageDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
  * Repository methods for image.
@@ -24,14 +24,12 @@ import de.htw.sdf.photoplatform.repository.ImageDAO;
  */
 @Repository
 @Transactional
-public class ImageDAOImpl extends GenericDAOImpl<Image> implements ImageDAO
-{
+public class ImageDAOImpl extends GenericDAOImpl<Image> implements ImageDAO {
 
     /**
      * Image DAO constructor.
      */
-    public ImageDAOImpl()
-    {
+    public ImageDAOImpl() {
         super();
         setClazz(Image.class);
     }
@@ -40,10 +38,9 @@ public class ImageDAOImpl extends GenericDAOImpl<Image> implements ImageDAO
      * {@inheritDoc}
      */
     @Override
-    public List<Image> getPublicImages()
-    {
-        String queryString = "SELECT image FROM Image image " + "WHERE image.isPublic = "
-                + Boolean.TRUE;
+    public List<Image> getPublicImages() {
+        String queryString = "SELECT image FROM Image image "
+                + "WHERE image.isPublic = " + Boolean.TRUE;
         Query query = createQuery(queryString);
         return (List<Image>) query.getResultList();
     }

@@ -12,4 +12,3 @@
 
 package de.htw.sdf.photoplatform.security;
 
-

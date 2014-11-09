@@ -28,19 +28,17 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDetailsService
-{
+public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
+        UserDetailsService {
     /**
      * User DAO constructor.
      */
-    public UserDAOImpl()
-    {
+    public UserDAOImpl() {
         super();
         setClazz(User.class);
     }
 
-    public void create(User entity)
-    {
+    public void create(User entity) {
         super.create(entity);
     }
 
@@ -48,10 +46,10 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
      * {@inheritDoc}
      */
     @Override
-    public User findByUserName(String userName)
-    {
+    public User findByUserName(String userName) {
         String queryString = "SELECT DISTINCT(user) FROM User user "
-                + "LEFT JOIN FETCH user.userRoles userRoles " + "WHERE user.username like ?1";
+                + "LEFT JOIN FETCH user.userRoles userRoles "
+                + "WHERE user.username like ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, userName);
@@ -62,10 +60,10 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
      * {@inheritDoc}
      */
     @Override
-    public UserDetails loadUserByUsername(final String username)
-    {
+    public UserDetails loadUserByUsername(final String username) {
         String queryString = "SELECT user FROM User user "
-                + "LEFT JOIN FETCH user.userRoles userRoles " + "WHERE user.username like ?1";
+                + "LEFT JOIN FETCH user.userRoles userRoles "
+                + "WHERE user.username like ?1";
 
         Query query = createQuery(queryString);
         query.setParameter(1, username);
@@ -76,8 +74,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
      * {@inheritDoc}
      */
     @Override
-    public List<User> findByRole(final Role role)
-    {
+    public List<User> findByRole(final Role role) {
         return findByRoleId(role.getId());
     }
 
@@ -85,12 +82,11 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
      * {@inheritDoc}
      */
     @Override
-    public List<User> findByRoleId(final Long roleId)
-    {
-        StringBuilder queryBuilder = new StringBuilder("SELECT user FROM User user ");
+    public List<User> findByRoleId(final Long roleId) {
+        StringBuilder queryBuilder = new StringBuilder(
+                "SELECT user FROM User user ");
         queryBuilder.append("LEFT JOIN FETCH user.userRoles userRoles ");
-        if (Constants.ROLE_PHOTOGRAPHER.equals(roleId))
-        {
+        if (Constants.ROLE_PHOTOGRAPHER.equals(roleId)) {
             queryBuilder.append("LEFT JOIN FETCH user.userBank ");
         }
         queryBuilder.append("WHERE userRoles.role.id = ?1");
@@ -104,8 +100,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
      * {@inheritDoc}
      */
     @Override
-    public List<User> findAllNotAdminUsers()
-    {
+    public List<User> findAllNotAdminUsers() {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("WHERE userRoles.role.id != ?1");
 
@@ -118,8 +113,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
      * {@inheritDoc}
      */
     @Override
-    public List<User> findByEnabled(boolean enabled)
-    {
+    public List<User> findByEnabled(boolean enabled) {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("WHERE user.enabled = ?1");
 
@@ -132,8 +126,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
      * {@inheritDoc}
      */
     @Override
-    public List<User> findByAccountLocked(boolean locked)
-    {
+    public List<User> findByAccountLocked(boolean locked) {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("WHERE user.accountNonLocked = ?1");
 
@@ -142,9 +135,9 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO, UserDe
         return (List<User>) query.getResultList();
     }
 
-    private StringBuilder initSelectQuery()
-    {
-        StringBuilder queryBuilder = new StringBuilder("SELECT user FROM User user ");
+    private StringBuilder initSelectQuery() {
+        StringBuilder queryBuilder = new StringBuilder(
+                "SELECT user FROM User user ");
         queryBuilder.append("LEFT JOIN FETCH user.userRoles userRoles ");
         queryBuilder.append("LEFT JOIN FETCH user.userBank ");
 

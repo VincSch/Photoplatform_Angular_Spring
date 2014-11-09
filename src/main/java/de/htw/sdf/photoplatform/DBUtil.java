@@ -32,8 +32,7 @@ import de.htw.sdf.photoplatform.repository.UserRoleDAO;
  *
  */
 @Service
-public class DBUtil
-{
+public class DBUtil {
     // private static int instanceCounter;
 
     @Autowired
@@ -63,8 +62,7 @@ public class DBUtil
     /**
      * Insert test data.
      */
-    public void insertTestData()
-    {
+    public void insertTestData() {
         // if (instanceCounter == 0)
         // {
         // createRoles();
@@ -92,8 +90,7 @@ public class DBUtil
     /**
      * Create user.
      */
-    private void createUser()
-    {
+    private void createUser() {
         Role admin = roleDAO.findOne(Constants.ROLE_ADMIN);
         createDefaultUser("Vincent", "123", "vincent@test.de", admin);
 
@@ -101,7 +98,8 @@ public class DBUtil
         createDefaultUser("Peter", "123", "peter@test.de", customer);
 
         Role photographer = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
-        User sergej = createDefaultUser("Sergej", "123", "sergej@test.de", photographer);
+        User sergej = createDefaultUser("Sergej", "123", "sergej@test.de",
+                photographer);
 
         UserProfile sergejProfile = new UserProfile();
         sergejProfile.setFirstName("Sergej");
@@ -122,8 +120,8 @@ public class DBUtil
         userBankDAO.create(sergejBank);
     }
 
-    private User createDefaultUser(String username, String password, String email, Role role)
-    {
+    private User createDefaultUser(String username, String password,
+            String email, Role role) {
         User defaultUser = new User();
         defaultUser.setUserName(username);
         defaultUser.setPassword(password);
@@ -143,8 +141,7 @@ public class DBUtil
     /**
      * Clear tables.
      */
-    public void clearTables()
-    {
+    public void clearTables() {
         collectionImageDAO.deleteAll();
         imageDAO.deleteAll();
         collectionDAO.deleteAll();

@@ -11,8 +11,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.models.CollectionImage;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
  * repository methods for relation between collection and image.
@@ -21,14 +21,12 @@ import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
  */
 @Repository
 @Transactional
-public class CollectionImageDAOImpl extends GenericDAOImpl<CollectionImage> implements
-        CollectionImageDAO
-{
+public class CollectionImageDAOImpl extends GenericDAOImpl<CollectionImage>
+        implements CollectionImageDAO {
     /**
      * CollectionImage DAO constructor.
      */
-    public CollectionImageDAOImpl()
-    {
+    public CollectionImageDAOImpl() {
         super();
         setClazz(CollectionImage.class);
     }

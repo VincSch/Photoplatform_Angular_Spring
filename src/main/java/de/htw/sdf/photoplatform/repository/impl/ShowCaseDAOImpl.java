@@ -21,6 +21,6 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class ShowCaseDAOImpl extends GenericDAOImpl<ShowCase> implements ShowCaseDAO
-{
+public class ShowCaseDAOImpl extends GenericDAOImpl<ShowCase> implements
+        ShowCaseDAO {
 }

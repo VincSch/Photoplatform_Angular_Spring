@@ -20,8 +20,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "RES_COLLECTION_IMAGE")
-public class CollectionImage extends AbstractBaseAuditEntity
-{
+public class CollectionImage extends AbstractBaseAuditEntity {
 
     private static final long serialVersionUID = -5332090503705930932L;
 
@@ -38,8 +37,7 @@ public class CollectionImage extends AbstractBaseAuditEntity
      *
      * @return collection.
      */
-    public Collection getCollection()
-    {
+    public Collection getCollection() {
         return collection;
     }
 
@@ -48,8 +46,7 @@ public class CollectionImage extends AbstractBaseAuditEntity
      *
      * @param collection
      */
-    public void setCollection(Collection collection)
-    {
+    public void setCollection(Collection collection) {
         this.collection = collection;
     }
 
@@ -58,8 +55,7 @@ public class CollectionImage extends AbstractBaseAuditEntity
      *
      * @return return image.
      */
-    public Image getImage()
-    {
+    public Image getImage() {
         return image;
     }
 
@@ -69,8 +65,7 @@ public class CollectionImage extends AbstractBaseAuditEntity
      * @param image
      *            image.
      */
-    public void setImage(Image image)
-    {
+    public void setImage(Image image) {
         this.image = image;
     }
 }

@@ -25,8 +25,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "RES_COLLECTION")
-public class Collection extends AbstractBaseAuditEntity
-{
+public class Collection extends AbstractBaseAuditEntity {
 
     private static final long serialVersionUID = -5509450928421280686L;
 
@@ -81,8 +80,7 @@ public class Collection extends AbstractBaseAuditEntity
      *
      * @return user.
      */
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
@@ -92,8 +90,7 @@ public class Collection extends AbstractBaseAuditEntity
      * @param user
      *            owner.
      */
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -102,8 +99,7 @@ public class Collection extends AbstractBaseAuditEntity
      *
      * @return album name.
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -113,8 +109,7 @@ public class Collection extends AbstractBaseAuditEntity
      * @param name
      *            album name.
      */
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -123,8 +118,7 @@ public class Collection extends AbstractBaseAuditEntity
      *
      * @return album description.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -134,8 +128,7 @@ public class Collection extends AbstractBaseAuditEntity
      * @param description
      *            album description.
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -144,8 +137,7 @@ public class Collection extends AbstractBaseAuditEntity
      *
      * @return thumbnail.
      */
-    public Image getThumbnail()
-    {
+    public Image getThumbnail() {
         return thumbnail;
     }
 
@@ -155,8 +147,7 @@ public class Collection extends AbstractBaseAuditEntity
      * @param thumbnail
      *            thumbnail.
      */
-    public void setThumbnail(Image thumbnail)
-    {
+    public void setThumbnail(Image thumbnail) {
         this.thumbnail = thumbnail;
     }
 
@@ -165,8 +156,7 @@ public class Collection extends AbstractBaseAuditEntity
      * 
      * @return collection images.
      */
-    public Set<CollectionImage> getCollectionImages()
-    {
+    public Set<CollectionImage> getCollectionImages() {
         return collectionImages;
     }
 
@@ -176,8 +166,7 @@ public class Collection extends AbstractBaseAuditEntity
      * @param collectionImages
      *            list of images
      */
-    public void setCollectionImages(Set<CollectionImage> collectionImages)
-    {
+    public void setCollectionImages(Set<CollectionImage> collectionImages) {
         this.collectionImages = collectionImages;
     }
 
@@ -186,8 +175,7 @@ public class Collection extends AbstractBaseAuditEntity
      *
      * @return list of collection categories.
      */
-    public Set<CollectionCategory> getCollectionCategories()
-    {
+    public Set<CollectionCategory> getCollectionCategories() {
         return collectionCategories;
     }
 
@@ -197,8 +185,8 @@ public class Collection extends AbstractBaseAuditEntity
      * @param collectionCategories
      *            collection categories.
      */
-    public void setCollectionCategories(Set<CollectionCategory> collectionCategories)
-    {
+    public void setCollectionCategories(
+            Set<CollectionCategory> collectionCategories) {
         this.collectionCategories = collectionCategories;
     }
 
@@ -207,8 +195,7 @@ public class Collection extends AbstractBaseAuditEntity
      *
      * @return a showcase.
      */
-    public ShowCase getShowCase()
-    {
+    public ShowCase getShowCase() {
         return showCase;
     }
 
@@ -218,8 +205,7 @@ public class Collection extends AbstractBaseAuditEntity
      * @param showCase
      *            showcase object.
      */
-    public void setShowCase(ShowCase showCase)
-    {
+    public void setShowCase(ShowCase showCase) {
         this.showCase = showCase;
     }
 
@@ -227,8 +213,7 @@ public class Collection extends AbstractBaseAuditEntity
      * {@inheritDoc}
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Collection{" + "user=" + user + ", name='" + name + '\'' + '}';
     }
 }

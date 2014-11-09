@@ -16,27 +16,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import de.htw.sdf.photoplatform.common.BaseImageTester;
 import de.htw.sdf.photoplatform.persistence.models.Category;
 
-public class CategoryDAOTest extends BaseImageTester
-{
+public class CategoryDAOTest extends BaseImageTester {
     @Autowired
     CategoryDAO categoryDAO;
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() throws Exception {
         categoryDAO.deleteAll();
         clearTables();
     }
 
     @Test
-    public void testBasic()
-    {
+    public void testBasic() {
         // Test create
         Category category = new Category();
         String categoryNature = "Nature";

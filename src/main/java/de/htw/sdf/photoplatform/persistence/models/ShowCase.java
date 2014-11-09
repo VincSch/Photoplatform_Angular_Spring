@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
@@ -19,8 +20,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "RES_SHOWCASE")
-public class ShowCase extends AbstractBaseAuditEntity
-{
+public class ShowCase extends AbstractBaseAuditEntity {
 
     private static final long serialVersionUID = 1985899279694176344L;
 
@@ -36,8 +36,7 @@ public class ShowCase extends AbstractBaseAuditEntity
      *
      * @return user.
      */
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
@@ -47,8 +46,7 @@ public class ShowCase extends AbstractBaseAuditEntity
      * @param user
      *            user.
      */
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -56,8 +54,7 @@ public class ShowCase extends AbstractBaseAuditEntity
      * {@inheritDoc}
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "ShowCase{" + "user=" + user + '}';
     }
 }

@@ -1,4 +1,3 @@
-
 package de.htw.sdf.photoplatform.common;
 
 import java.util.List;
@@ -18,46 +17,43 @@ import de.htw.sdf.photoplatform.persistence.models.Role;
  * @author Sergej Meister
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ImportSQLTester extends BaseTester
-{
+public class ImportSQLTester extends BaseTester {
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() throws Exception {
         clearTables();
         // roleDAO.deleteAll();
     }
 
     @Test
-    public void test1InitSqlData()
-    {
+    public void test1InitSqlData() {
         List<Role> roles = roleDAO.findAll();
         Assert.assertTrue(roles.size() == 3);
         Assert.assertTrue(roles.get(0).getId().equals(Constants.ROLE_ADMIN));
         Assert.assertTrue(roles.get(0).getName().equals("ADMIN"));
         Assert.assertTrue(roles.get(1).getId().equals(Constants.ROLE_CUSTOMER));
         Assert.assertTrue(roles.get(1).getName().equals("CUSTOMER"));
-        Assert.assertTrue(roles.get(2).getId().equals(Constants.ROLE_PHOTOGRAPHER));
+        Assert.assertTrue(roles.get(2).getId()
+                .equals(Constants.ROLE_PHOTOGRAPHER));
         Assert.assertTrue(roles.get(2).getName().equals("PHOTOGRAPHER"));
     }
 
     @Test
     @Ignore
-    public void test2AfterDelete()
-    {
+    public void test2AfterDelete() {
         List<Role> roles = roleDAO.findAll();
         Assert.assertTrue(roles.size() == 3);
         Assert.assertTrue(roles.get(0).getId().equals(Constants.ROLE_ADMIN));
         Assert.assertTrue(roles.get(0).getName().equals("ADMIN"));
         Assert.assertTrue(roles.get(1).getId().equals(Constants.ROLE_CUSTOMER));
         Assert.assertTrue(roles.get(1).getName().equals("CUSTOMER"));
-        Assert.assertTrue(roles.get(2).getId().equals(Constants.ROLE_PHOTOGRAPHER));
+        Assert.assertTrue(roles.get(2).getId()
+                .equals(Constants.ROLE_PHOTOGRAPHER));
         Assert.assertTrue(roles.get(2).getName().equals("PHOTOGRAPHER"));
     }
 }

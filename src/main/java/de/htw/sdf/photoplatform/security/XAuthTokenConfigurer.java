@@ -19,8 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
  */
 public class XAuthTokenConfigurer extends
-        SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>
-{
+        SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     private UserDetailsService detailsService;
     private AuthenticationManager authenticationManager;
@@ -33,10 +32,8 @@ public class XAuthTokenConfigurer extends
      * @param authenticationManager
      *            the authentication manager
      */
-    public XAuthTokenConfigurer(
-            UserDetailsService detailsService,
-            AuthenticationManager authenticationManager)
-    {
+    public XAuthTokenConfigurer(UserDetailsService detailsService,
+            AuthenticationManager authenticationManager) {
         this.detailsService = detailsService;
         this.authenticationManager = authenticationManager;
     }
@@ -45,10 +42,11 @@ public class XAuthTokenConfigurer extends
      * {@inheritDoc}
      */
     @Override
-    public void configure(HttpSecurity http) throws Exception
-    {
-        XAuthTokenFilter customFilter = new XAuthTokenFilter(detailsService, authenticationManager);
-        http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
+    public void configure(HttpSecurity http) throws Exception {
+        XAuthTokenFilter customFilter = new XAuthTokenFilter(detailsService,
+                authenticationManager);
+        http.addFilterBefore(customFilter,
+                UsernamePasswordAuthenticationFilter.class);
     }
 
 }

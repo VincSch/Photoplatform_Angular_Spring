@@ -1,4 +1,3 @@
-
 package de.htw.sdf.photoplatform.common;
 
 import org.junit.AfterClass;
@@ -14,8 +13,7 @@ import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
 import de.htw.sdf.photoplatform.repository.ImageDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 
-public abstract class BaseImageTester extends BaseTester
-{
+public abstract class BaseImageTester extends BaseTester {
     @Autowired
     protected UserDAO userDAO;
 
@@ -29,14 +27,12 @@ public abstract class BaseImageTester extends BaseTester
     protected CollectionImageDAO collectionImageDAO;
 
     @BeforeClass
-    public static void initTest()
-    {
+    public static void initTest() {
         // init test data
     }
 
     @AfterClass
-    public static void close()
-    {
+    public static void close() {
         // clear data
     }
 
@@ -55,8 +51,8 @@ public abstract class BaseImageTester extends BaseTester
      *            path to image, should be unique!
      * @return image with id = null
      */
-    protected Image initDefaultImage(String name, boolean isPublic, boolean isEnabled, String path)
-    {
+    protected Image initDefaultImage(String name, boolean isPublic,
+            boolean isEnabled, String path) {
         Image image = new Image();
         image.setName(name);
         image.setCompression("jpg");
@@ -82,8 +78,7 @@ public abstract class BaseImageTester extends BaseTester
      *            collection name
      * @return collection with id = null
      */
-    protected Collection initEmptyCollection(String name)
-    {
+    protected Collection initEmptyCollection(String name) {
         User sergejTestUser = userDAO.findByUserName("Sergej");
         return initEmptyCollection(name, sergejTestUser);
     }
@@ -97,16 +92,15 @@ public abstract class BaseImageTester extends BaseTester
      *            owner
      * @return collection with id = null
      */
-    protected Collection initEmptyCollection(String name, User user)
-    {
+    protected Collection initEmptyCollection(String name, User user) {
         Collection collection = new Collection();
         collection.setName(name);
         collection.setUser(user);
         return collection;
     }
 
-    protected CollectionImage initCollectionImage(Collection collection, Image image)
-    {
+    protected CollectionImage initCollectionImage(Collection collection,
+            Image image) {
         CollectionImage collectionImage = new CollectionImage();
         collectionImage.setCollection(collection);
         collectionImage.setImage(image);

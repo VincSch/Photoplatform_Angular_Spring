@@ -17,8 +17,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 /**
- * Generic abstract data access class implementing the most important functions. Should be the super
- * class of each and every other DAO class.
+ * Generic abstract data access class implementing the most important functions.
+ * Should be the super class of each and every other DAO class.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
@@ -27,8 +27,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Transactional
-public abstract class GenericDAOImpl<T extends Serializable> implements GenericDAO<T>
-{
+public abstract class GenericDAOImpl<T extends Serializable> implements
+        GenericDAO<T> {
 
     private Class<T> clazz;
 
@@ -39,8 +39,7 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
      * {@inheritDoc}
      */
     @Override
-    public final void setClazz(final Class<T> clazzToSet)
-    {
+    public final void setClazz(final Class<T> clazzToSet) {
         this.clazz = clazzToSet;
     }
 
@@ -48,8 +47,7 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
      * {@inheritDoc}
      */
     @Override
-    public T findOne(final long id)
-    {
+    public T findOne(final long id) {
         return entityManager.find(clazz, id);
     }
 
@@ -58,17 +56,16 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<T> findAll()
-    {
-        return entityManager.createQuery("from " + clazz.getName()).getResultList();
+    public List<T> findAll() {
+        return entityManager.createQuery("from " + clazz.getName())
+                .getResultList();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void create(final T entity)
-    {
+    public void create(final T entity) {
         entityManager.persist(entity);
     }
 
@@ -76,8 +73,7 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
      * {@inheritDoc}
      */
     @Override
-    public T update(final T entity)
-    {
+    public T update(final T entity) {
         return entityManager.merge(entity);
     }
 
@@ -85,26 +81,25 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
      * {@inheritDoc}
      */
     @Override
-    public void delete(final T entity)
-    {
-        entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+    public void delete(final T entity) {
+        entityManager.remove(entityManager.contains(entity) ? entity
+                : entityManager.merge(entity));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void deleteAll()
-    {
-        entityManager.createQuery("delete from " + clazz.getName()).executeUpdate();
+    public void deleteAll() {
+        entityManager.createQuery("delete from " + clazz.getName())
+                .executeUpdate();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void deleteById(final long entityId)
-    {
+    public void deleteById(final long entityId) {
         final T entity = findOne(entityId);
         delete(entity);
     }
@@ -113,16 +108,14 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
      * {@inheritDoc}
      */
     @Override
-    public Query createQuery(String queryString)
-    {
+    public Query createQuery(String queryString) {
         return entityManager.createQuery(queryString);
     }
 
     /**
      * @return the entity manager
      */
-    public EntityManager getEntityManager()
-    {
+    public EntityManager getEntityManager() {
         return entityManager;
     }
 }

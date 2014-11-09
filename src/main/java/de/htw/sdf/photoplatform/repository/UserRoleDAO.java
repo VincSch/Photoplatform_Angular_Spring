@@ -14,8 +14,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 /**
  *
  */
-public interface UserRoleDAO extends GenericDAO<UserRole>
-{
+public interface UserRoleDAO extends GenericDAO<UserRole> {
 
     /**
      * find a user role mapping by a user id.

@@ -27,9 +27,8 @@ import de.htw.sdf.photoplatform.repository.UserProfileDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Application.class})
-public abstract class BaseTester
-{
+@ContextConfiguration(classes = { Application.class })
+public abstract class BaseTester {
     protected Logger log = Logger.getLogger(this.getClass().getName());
 
     @Autowired
@@ -54,24 +53,16 @@ public abstract class BaseTester
     @Autowired
     protected DBUtil dbUtil;
 
-    public void insertTestData()
-    {
+    public void insertTestData() {
         dbUtil.insertTestData();
     }
 
-    protected void clearTables()
-    {
+    protected void clearTables() {
         dbUtil.clearTables();
     }
 
-    protected User createDefaultUser(
-            String username,
-            String password,
-            String email,
-            Role role,
-            Boolean enabled,
-            Boolean locked)
-    {
+    protected User createDefaultUser(String username, String password,
+            String email, Role role, Boolean enabled, Boolean locked) {
         User defaultUser = new User();
         defaultUser.setUserName(username);
         defaultUser.setPassword(password);
