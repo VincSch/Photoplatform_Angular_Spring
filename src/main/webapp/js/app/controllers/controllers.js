@@ -1,6 +1,6 @@
-var recipeBookControllers = angular.module('recipeBookControllers', []);
+var photoplatformControllers = angular.module('photoplatformControllers', []);
 
-recipeBookControllers.controller('LoginCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
+photoplatformControllers.controller('LoginCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
 function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
 
 	$rootScope.login = function(username, password) {
@@ -14,7 +14,7 @@ function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route
 	};
 }]);
 
-recipeBookControllers.controller('RegisterCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
+photoplatformControllers.controller('RegisterCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
 function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
 
 	$rootScope.register = function(username, password, email) {

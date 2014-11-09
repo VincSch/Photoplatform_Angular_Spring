@@ -1,52 +1,10 @@
 var xAuthTokenHeaderName = 'x-auth-token';
-var recipeBook = angular.module('recipebook', ['ngRoute', 'ngCookies', 'recipeBookControllers', 'ui.bootstrap']);
+var photoplatform = angular.module('photoplatform', ['ngRoute', 'ngCookies', 'photoplatformControllers', 'ui.bootstrap']);
 
-recipeBook.config(['$routeProvider', '$locationProvider', '$httpProvider',
+photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
 function($routeProvider, $locationProvider, $httpProvider) {
-	$routeProvider.when('/recipes', {
-		templateUrl : '/views/partials/recipe/list.html',
-		controller : 'RecipeListCtrl'
-	}).when('/recipe/edit/:recipeName', {
-		templateUrl : '/views/partials/recipe/detail.html',
-		controller : 'RecipeDetailCtrl'
-	}).when('/recipe/create', {
-		templateUrl : '/views/partials/recipe/create.html',
-		controller : 'RecipeCreateCtrl'
-	}).when('/recipe/view/:id', {
-		templateUrl : '/views/partials/recipe/view.html',
-		controller : 'RecipeViewCtrl'
-	}).when('/ingredients', {
-		templateUrl : '/views/partials/ingredient/list.html',
-		controller : 'IngredientListCtrl'
-	}).when('/ingredient/edit/:ingredientName', {
-		templateUrl : '/views/partials/ingredient/detail.html',
-		controller : 'IngredientDetailCtrl'
-	}).when('/ingredient/create', {
-		templateUrl : '/views/partials/ingredient/create.html',
-		controller : 'IngredientCreateCtrl'
-	}).when('/recipebooks', {
-		templateUrl : '/views/partials/recipebook/list.html',
-		controller : 'RecipeBookListCtrl'
-	}).when('/recipebook/create', {
-		templateUrl : '/views/partials/recipebook/create.html',
-		controller : 'RecipeBookCreateCtrl'
-	}).when('/recipebook/edit/:recipeBookName', {
-		templateUrl : '/views/partials/recipebook/detail.html',
-		controller : 'RecipeBookDetailCtrl'
-	}).when('/profile', {
+	$routeProvider.when('/profile', {
 		templateUrl : '/views/partials/profile/index.html',
-		controller : 'ProfileCtrl'
-	}).when('/profile/edit/:name', {
-		templateUrl : '/views/partials/profile/detail.html',
-		controller : 'ProfileDetailCtrl'
-	}).when('/profile/view/:name', {
-		templateUrl : '/views/partials/profile/view.html',
-		controller : 'ProfileViewCtrl'
-	}).when('/profile/recipes', {
-		templateUrl : '/views/partials/profile/recipes.html',
-		controller : 'ProfileCtrl'
-	}).when('/profile/recipebooks', {
-		templateUrl : '/views/partials/profile/recipebooks.html',
 		controller : 'ProfileCtrl'
 	}).when('/login', {
 		templateUrl : '/views/partials/home/login.html',
@@ -60,6 +18,54 @@ function($routeProvider, $locationProvider, $httpProvider) {
 	}).otherwise({
 		redirectTo : '/'
 	});
+
+	//OLD routes
+	/*
+	 .when('/profile/edit/:name', {
+	 templateUrl : '/views/partials/profile/detail.html',
+	 controller : 'ProfileDetailCtrl'
+	 })
+	 '/recipes', {
+	 templateUrl : '/views/partials/recipe/list.html',
+	 controller : 'RecipeListCtrl'
+	 }).when('/profile/recipes', {
+	 templateUrl : '/views/partials/profile/recipes.html',
+	 controller : 'ProfileCtrl'
+	 }).when('/profile/recipebooks', {
+	 templateUrl : '/views/partials/profile/recipebooks.html',
+	 controller : 'ProfileCtrl'
+	 }).when('/recipe/edit/:recipeName', {
+	 templateUrl : '/views/partials/recipe/detail.html',
+	 controller : 'RecipeDetailCtrl'
+	 }).when('/recipe/create', {
+	 templateUrl : '/views/partials/recipe/create.html',
+	 controller : 'RecipeCreateCtrl'
+	 }).when('/recipe/view/:id', {
+	 templateUrl : '/views/partials/recipe/view.html',
+	 controller : 'RecipeViewCtrl'
+	 }).when('/ingredients', {
+	 templateUrl : '/views/partials/ingredient/list.html',
+	 controller : 'IngredientListCtrl'
+	 }).when('/ingredient/edit/:ingredientName', {
+	 templateUrl : '/views/partials/ingredient/detail.html',
+	 controller : 'IngredientDetailCtrl'
+	 }).when('/ingredient/create', {
+	 templateUrl : '/views/partials/ingredient/create.html',
+	 controller : 'IngredientCreateCtrl'
+	 }).when('/recipebooks', {
+	 templateUrl : '/views/partials/recipebook/list.html',
+	 controller : 'RecipeBookListCtrl'
+	 }).when('/recipebook/create', {
+	 templateUrl : '/views/partials/recipebook/create.html',
+	 controller : 'RecipeBookCreateCtrl'
+	 }).when('/recipebook/edit/:recipeBookName', {
+	 templateUrl : '/views/partials/recipebook/detail.html',
+	 controller : 'RecipeBookDetailCtrl'
+	 }).when('/profile/view/:name', {
+	 templateUrl : '/views/partials/profile/view.html',
+	 controller : 'ProfileViewCtrl'
+	 })
+	 */
 
 	// $locationProvider.hashPrefix('#');
 

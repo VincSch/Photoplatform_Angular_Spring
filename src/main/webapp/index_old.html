@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="recipebook">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" href="/css/bootstrap.css"/>
+		<link rel="stylesheet" href="/css/bootstrap-responsive.css"/>
+		<link rel="stylesheet" href="/css/custom.css"/>
+		<style>
+			body {
+				padding-top: 60px;
+			}
+		</style>
+		<title>Photoplattform</title>
+	</head>
+	<body>
+		<div class="navbar navbar-default navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="#">Photoplattform</a>
+					<div class="nav-list">
+						<ul class="nav" role="navigation">
+							<li>
+								<a href="#/recipebooks">Kochbuecher</a>
+							</li>
+							<li>
+								<a href="#/recipes">Rezepte</a>
+							</li>
+							<li>
+								<a href="#/ingredients">Zutaten</a>
+							</li>
+							<li>
+								<a href="#/profile" ng-show = "isLoggedIn()" >Profil</a>
+							</li>
+						</ul>
+						<ul class="nav pull-right" ng-hide = "isLoggedIn()">
+							<a href="#/login">
+							<button class="btn  btn-small btn-primary"  type="button">
+								Einloggen
+							</button></a>
+						</ul>
+
+						<ul class="nav pull-right" style="margin-right: 10px;" ng-hide = "isLoggedIn()">
+							<a href="#/register">
+							<button class="btn  btn-small btn-primary"  type="button">
+								Registrieren
+							</button></a>
+						</ul>
+
+						<ul class="nav pull-right" ng-show = "isLoggedIn()">
+							<button class="btn  btn-small btn-primary" ng-click="logout()" type="button">
+								Ausloggen
+							</button>
+						</ul>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="alert alert-error" ng-show = "error !== undefined">
+				{{error}}
+			</div>
+			<div class="alert alert-success" ng-show = "success !== undefined">
+				{{success}}
+			</div>
+		</div>
+		<div class="container" ng-view>
+	    </div>
+		<hr>
+		<footer class="container">
+		<div style="float:left">
+			<p>
+				&copy; Photoplattform 2014
+			</p>
+		</div>	
+		    <div style="float:right;">CI-Status: <img src="https://travis-ci.org/VincSch/photoplatform-sdf.svg?branch=master"></div>
+		</footer>
+		
+		<script src="/js/jquery/jquery.js"></script>
+		<script src="/js/bootstrap/bootstrap.js"></script>
+		<script src="/js/angular/angular.js"></script>
+		<script src="/js/angular/angular-route.js"></script>
+		<script src="/js/angular/angular-resource.js"></script>
+		<script src="/js/angular/angular-cookies.js"></script>
+		<script src="/js/angular/ui-bootstrap-tpls-0.11.0.min.js"></script>
+		<script src="/js/app/app.js"></script>
+		<script src="/js/app/models.js"></script>
+		<script src="/js/app/services.js"></script>
+		<script src="/js/app/controllers/controllers.js"></script>
+		<script src="/js/app/controllers/recipecontrollers.js"></script>
+		<script src="/js/app/controllers/ingredientcontrollers.js"></script>
+		<script src="/js/app/controllers/recipebookcontrollers.js"></script>
+		<script src="/js/app/controllers/profilecontrollers.js"></script>
+	</body>
+</html>

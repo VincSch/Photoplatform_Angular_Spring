@@ -1,5 +1,5 @@
-recipeBookControllers.controller('ProfileCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', 'RecipeService', 'RecipeBookService', '$route',
-function($scope, $rootScope, $location, $http, $cookieStore, UserService, RecipeService, RecipeBookService, $route) {
+photoplatformControllers.controller('ProfileCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
+function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
 	$scope.profileProgress = function() {
 		var result = 0;
 		if ($rootScope.user !== undefined) {
@@ -17,26 +17,10 @@ function($scope, $rootScope, $location, $http, $cookieStore, UserService, Recipe
 		return result * 20;
 	};
 
-	$scope.getRecipes = function() {
-		RecipeService.getRecipesByUserName($rootScope.user.username).success(function(recipes) {
-			$scope.recipes = recipes;
-			$rootScope.cmurl = $location.path();
-		}).error(function(error) {
-		});
-	};
-
-	$scope.getRecipeBooks = function() {
-		RecipeBookService.getRecipeBooksByUserName($rootScope.user.username).success(function(recipes) {
-			$scope.recipeBooks = recipes;
-			$rootScope.cmurl = $location.path();
-		}).error(function(error) {
-			$scope.error = "Es wurden keine Kochbuecher von dir gefunden :( ";
-		});
-	};
-
 }]);
 
-recipeBookControllers.controller('ProfileDetailCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
+/*
+photoplatformControllers.controller('ProfileDetailCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
 function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
 	$scope.today = function() {
 		$scope.dt = new Date();
@@ -88,8 +72,9 @@ function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route
 	};
 	console.log($rootScope.user);
 }]);
-
-recipeBookControllers.controller('ProfileViewCtrl', ['$scope', '$rootScope', '$routeParams', '$location', '$http', '$cookieStore', 'UserService', '$route',
+*/
+/*
+photoplatformControllers.controller('ProfileViewCtrl', ['$scope', '$rootScope', '$routeParams', '$location', '$http', '$cookieStore', 'UserService', '$route',
 function($scope, $rootScope, $routeParams, $location, $http, $cookieStore, UserService, $route) {
 	UserService.getUserByName($routeParams.name).success(function(user) {
 		$scope.profile = user;
@@ -110,3 +95,4 @@ function($scope, $rootScope, $routeParams, $location, $http, $cookieStore, UserS
 	});
 
 }]);
+*/
