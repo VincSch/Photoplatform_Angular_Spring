@@ -1,8 +1,10 @@
-
+.checkstyle
+.classpath
+.settings/
 .project
 
 target/
 
 photoplatform-webservice-angular.iml
-
+.idea/
 .idea
