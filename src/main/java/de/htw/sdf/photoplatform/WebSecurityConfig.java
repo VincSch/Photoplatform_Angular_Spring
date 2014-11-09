@@ -6,6 +6,7 @@
 
 package de.htw.sdf.photoplatform;
 
+import de.htw.sdf.photoplatform.persistence.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 
 import de.htw.sdf.photoplatform.repository.UserDAO;
@@ -51,12 +54,12 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
         for (String endpoint : Endpoints.securedUserEndpoints())
         {
-            http.authorizeRequests().antMatchers(endpoint).hasAnyRole("USER", "ADMIN");
+            http.authorizeRequests().antMatchers(endpoint).hasAnyRole(Role.CUSTOMER, Role.ADMIN);
         }
 
         for (String endpoint : Endpoints.securedAdminEndpoints())
         {
-            http.authorizeRequests().antMatchers(endpoint).hasRole("ADMIN");
+            http.authorizeRequests().antMatchers(endpoint).hasRole(Role.ADMIN);
         }
 
         SecurityConfigurer<DefaultSecurityFilterChain, HttpSecurity> securityConfigurerAdapter = new XAuthTokenConfigurer(
@@ -72,7 +75,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(AuthenticationManagerBuilder authManagerBuilder) throws Exception
     {
         UserDAO userDAO = context.getBean(UserDAO.class);
-        authManagerBuilder.userDetailsService(userDAO);
+        authManagerBuilder.userDetailsService(userDAO).passwordEncoder(passwordEncoder());
     }
 
     /**
@@ -83,5 +86,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter
     public AuthenticationManager authenticationManagerBean() throws Exception
     {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }

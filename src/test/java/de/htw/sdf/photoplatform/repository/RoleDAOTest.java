@@ -33,21 +33,25 @@ public class RoleDAOTest extends BaseTester
 
         Assert.assertTrue("3. Rollen müssen immer vorhanden sein.", allRoles.size() == 3);
         Assert.assertTrue(
-                "Die erste Rolle ist Admin.",
+                "Die erste Rolle hat die ID 1.",
                 allRoles.get(0).getId().equals(Constants.ROLE_ADMIN));
-        Assert.assertTrue("Die erste Rolle ist Admin.", allRoles.get(0).getName().equals("ADMIN"));
         Assert.assertTrue(
-                "Die zweite Rolle ist Customer.",
+                "Die erste Rolle hat den Namen Admin.(" + allRoles.get(0).getName() + ")",
+                allRoles.get(0).getName().equals(Role.ADMIN));
+        Assert.assertTrue(
+                "Die zweite Rolle hat die ID 2.",
                 allRoles.get(1).getId().equals(Constants.ROLE_CUSTOMER));
+        Assert.assertTrue("Die zweite Rolle hat den Namen Customer.", allRoles
+                .get(1)
+                .getName()
+                .equals(Role.CUSTOMER));
         Assert.assertTrue(
-                "Die zweite Rolle ist Customer.",
-                allRoles.get(1).getName().equals("CUSTOMER"));
-        Assert.assertTrue(
-                "Die dritte Rolle ist Photographer.",
+                "Die dritte Rolle hat die ID 3.",
                 allRoles.get(2).getId().equals(Constants.ROLE_PHOTOGRAPHER));
-        Assert.assertTrue(
-                "Die dritte Rolle ist Photographer.",
-                allRoles.get(2).getName().equals("PHOTOGRAPHER"));
+        Assert.assertTrue("Die dritte Rolle hat den Namen Photographer.", allRoles
+                .get(2)
+                .getName()
+                .equals(Role.PHOTOGRAPHER));
 
         Role admin = roleDAO.getAdmin();
         Assert.assertTrue(admin.getId().equals(Constants.ROLE_ADMIN));
