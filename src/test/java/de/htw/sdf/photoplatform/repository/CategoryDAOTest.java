@@ -6,7 +6,7 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,21 +18,21 @@ import de.htw.sdf.photoplatform.persistence.models.Category;
 
 public class CategoryDAOTest extends BaseImageTester {
     @Autowired
-    CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO;
 
     @Before
-    public void setUp() throws Exception {
+    public final void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public final void tearDown() throws Exception {
         categoryDAO.deleteAll();
         clearTables();
     }
 
     @Test
-    public void testBasic() {
+    public final void testBasic() {
         // Test create
         Category category = new Category();
         String categoryNature = "Nature";

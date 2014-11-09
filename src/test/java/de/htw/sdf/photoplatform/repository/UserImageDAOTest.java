@@ -2,7 +2,7 @@ package de.htw.sdf.photoplatform.repository;
 
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,18 +19,18 @@ public class UserImageDAOTest extends BaseImageTester {
     protected UserImageDAO userImageDAO;
 
     @Before
-    public void setUp() throws Exception {
+    public final void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public final void tearDown() throws Exception {
         userImageDAO.deleteAll();
         clearTables();
     }
 
     @Test
-    public void testGetUserImagesBy() throws Exception {
+    public final void testGetUserImagesBy() throws Exception {
         // Init test data
         User sergej = userDAO.findByUserName("Sergej");
         String sergejImageName = "sergejImage";

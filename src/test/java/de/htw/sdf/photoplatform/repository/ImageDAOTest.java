@@ -1,9 +1,3 @@
-/*
- *
- * Copyright (C) 2014
- *
- */
-
 package de.htw.sdf.photoplatform.repository;
 
 import java.util.List;
@@ -23,17 +17,17 @@ import de.htw.sdf.photoplatform.persistence.models.Image;
  */
 public class ImageDAOTest extends BaseImageTester {
     @Before
-    public void setUp() throws Exception {
+    public final void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public final void tearDown() throws Exception {
         clearTables();
     }
 
     @Test
-    public void testBasic() {
+    public final void testBasic() {
         // Test create
         String testImageName = "TestPhoto";
         String path = "srs/test/testphoto.jpg";
@@ -67,7 +61,7 @@ public class ImageDAOTest extends BaseImageTester {
     }
 
     @Test
-    public void testGetPublicImages() throws Exception {
+    public final void testGetPublicImages() throws Exception {
         // Init test data
         String privateImageName = "TestPrivatePhoto";
         String pathPrivate = "srs/test/privateimage.jpg";

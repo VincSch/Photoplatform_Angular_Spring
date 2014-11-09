@@ -1,9 +1,3 @@
-/*
- *
- * Copyright (C) 2014
- *
- */
-
 package de.htw.sdf.photoplatform.common;
 
 import org.apache.log4j.Logger;
@@ -53,16 +47,17 @@ public abstract class BaseTester {
     @Autowired
     protected DBUtil dbUtil;
 
-    public void insertTestData() {
+    public final void insertTestData() {
         dbUtil.insertTestData();
     }
 
-    protected void clearTables() {
+    protected final void clearTables() {
         dbUtil.clearTables();
     }
 
-    protected User createDefaultUser(String username, String password,
-            String email, Role role, Boolean enabled, Boolean locked) {
+    protected final User createDefaultUser(final String username,
+            final String password, final String email, final Role role,
+            final Boolean enabled, final Boolean locked) {
         User defaultUser = new User();
         defaultUser.setUserName(username);
         defaultUser.setPassword(password);

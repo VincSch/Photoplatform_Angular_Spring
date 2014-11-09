@@ -14,6 +14,11 @@ import de.htw.sdf.photoplatform.repository.ImageDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 
 public abstract class BaseImageTester extends BaseTester {
+    private static final int IMAGE_X_DIMENSION = 1920;
+    private static final int IMAGE_Y_DIMENSION = 1080;
+    private static final int IMAGE_X_RESOLUTION = 16;
+    private static final int IMAGE_Y_RESOLUTION = 9;
+
     @Autowired
     protected UserDAO userDAO;
 
@@ -40,7 +45,7 @@ public abstract class BaseImageTester extends BaseTester {
      * Init simple image.
      *
      * NOTE: Path to image should be unique!
-     * 
+     *
      * @param name
      *            image name.
      * @param isPublic
@@ -51,8 +56,9 @@ public abstract class BaseImageTester extends BaseTester {
      *            path to image, should be unique!
      * @return image with id = null
      */
-    protected Image initDefaultImage(String name, boolean isPublic,
-            boolean isEnabled, String path) {
+    protected final Image initDefaultImage(final String name,
+            final boolean isPublic, final boolean isEnabled,
+            final String path) {
         Image image = new Image();
         image.setName(name);
         image.setCompression("jpg");
@@ -60,12 +66,12 @@ public abstract class BaseImageTester extends BaseTester {
         image.setPublic(isPublic);
         // image no exist, path is wrong!
         image.setPath(path);
-        double price = 10.18;
+        final double price = 10.18;
         image.setPrice(price);
-        image.setXDemension(1920);
-        image.setYDemension(1080);
-        image.setXResolution(16);
-        image.setYResolution(9);
+        image.setXDemension(IMAGE_X_DIMENSION);
+        image.setYDemension(IMAGE_Y_DIMENSION);
+        image.setXResolution(IMAGE_X_RESOLUTION);
+        image.setYResolution(IMAGE_Y_RESOLUTION);
         image.setResolutionUnit("Inch");
 
         return image;
@@ -73,12 +79,12 @@ public abstract class BaseImageTester extends BaseTester {
 
     /**
      * Init simple collection with Sergej as user :).
-     * 
+     *
      * @param name
      *            collection name
      * @return collection with id = null
      */
-    protected Collection initEmptyCollection(String name) {
+    protected final Collection initEmptyCollection(final String name) {
         User sergejTestUser = userDAO.findByUserName("Sergej");
         return initEmptyCollection(name, sergejTestUser);
     }
@@ -92,15 +98,17 @@ public abstract class BaseImageTester extends BaseTester {
      *            owner
      * @return collection with id = null
      */
-    protected Collection initEmptyCollection(String name, User user) {
+    protected final Collection initEmptyCollection(
+            final String name, final User user) {
         Collection collection = new Collection();
         collection.setName(name);
         collection.setUser(user);
         return collection;
     }
 
-    protected CollectionImage initCollectionImage(Collection collection,
-            Image image) {
+    protected final CollectionImage initCollectionImage(
+            final Collection collection,
+            final Image image) {
         CollectionImage collectionImage = new CollectionImage();
         collectionImage.setCollection(collection);
         collectionImage.setImage(image);

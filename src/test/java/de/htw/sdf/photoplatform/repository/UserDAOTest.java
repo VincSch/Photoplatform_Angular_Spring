@@ -21,17 +21,17 @@ import de.htw.sdf.photoplatform.persistence.models.UserRole;
 
 public class UserDAOTest extends BaseTester {
     @Before
-    public void setUp() throws Exception {
+    public final void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public final void tearDown() throws Exception {
         clearTables();
     }
 
     @Test
-    public void createAndUpdateTest() {
+    public final void createAndUpdateTest() {
         Role rolePhotographer = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
         String photographerTesterUsername = "PhotographerTester";
         String photographerTesterPassword = "photographerTestPass";
@@ -134,7 +134,7 @@ public class UserDAOTest extends BaseTester {
     }
 
     @Test
-    public void findTest() {
+    public final void findTest() {
         // Init test Data
         Role admin = roleDAO.findOne(Constants.ROLE_ADMIN);
         String adminTesterUsername = "AdminTester";
@@ -168,7 +168,8 @@ public class UserDAOTest extends BaseTester {
                 rolePhotographer, Boolean.FALSE, Boolean.FALSE);
         List<User> notAdminUsers = userDAO.findAllNotAdminUsers();
         Assert.assertTrue(
-                "Drei Users: Peter-Customer; Sergej-Photographer: PhotographerTester-Photographer",
+                "Drei Users: Peter-Customer; Sergej-Photographer: "
+                + "PhotographerTester-Photographer",
                 notAdminUsers.size() == 3);
         Set<Long> existedRoles = new HashSet<Long>();
         for (User notAdminUser : notAdminUsers) {

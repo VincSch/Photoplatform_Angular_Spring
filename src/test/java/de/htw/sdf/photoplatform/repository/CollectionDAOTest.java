@@ -28,25 +28,25 @@ import de.htw.sdf.photoplatform.persistence.models.User;
 
 public class CollectionDAOTest extends BaseImageTester {
     @Autowired
-    CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO;
 
     @Autowired
-    CollectionCategoryDAO collectionCategoryDAO;
+    private CollectionCategoryDAO collectionCategoryDAO;
 
     @Before
-    public void setUp() throws Exception {
+    public final void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public final void tearDown() throws Exception {
         collectionCategoryDAO.deleteAll();
         categoryDAO.deleteAll();
         clearTables();
     }
 
     @Test
-    public void testBasic() {
+    public final void testBasic() {
         // Test Create
         String collectionName = "TestCreateCollection";
         Collection testCollection = initEmptyCollection(collectionName);
@@ -70,7 +70,8 @@ public class CollectionDAOTest extends BaseImageTester {
                 .getId());
         Assert.assertTrue(updatedCollection.getId().equals(
                 testCollection.getId()));
-        Assert.assertTrue(createdCollection.getName().equals(newCollectionName));
+        Assert.assertTrue(createdCollection.getName()
+                .equals(newCollectionName));
 
         // Test Delete
         Long idToDelete = updatedCollection.getId();
@@ -79,7 +80,7 @@ public class CollectionDAOTest extends BaseImageTester {
     }
 
     @Test
-    public void testGetImages() {
+    public final void testGetImages() {
         // Init Test Data
         String collectionName = "CollectionWithTwoImages";
         Collection testCollection = initEmptyCollection(collectionName);
@@ -119,7 +120,7 @@ public class CollectionDAOTest extends BaseImageTester {
     }
 
     @Test
-    public void testGetByUser() {
+    public final void testGetByUser() {
         // INIT TEST DATA
         Role photographerRole = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
         User userOne = createDefaultUser("CollectionUser1", "67854",
@@ -167,11 +168,12 @@ public class CollectionDAOTest extends BaseImageTester {
     }
 
     @Test
-    public void testGetCategories() {
+    public final void testGetCategories() {
         // Init Test Data
         User userOne = userDAO.findByUserName("Vincent");
         String collectionName = "CollectionNaturOcean";
-        Collection testCollection = initEmptyCollection(collectionName, userOne);
+        Collection testCollection =
+                initEmptyCollection(collectionName, userOne);
         collectionDAO.create(testCollection);
 
         Category categoryNature = createCategory("Nature");
@@ -199,7 +201,7 @@ public class CollectionDAOTest extends BaseImageTester {
         Assert.assertTrue(collection.getCollectionCategories().size() == 3);
     }
 
-    private Category createCategory(String categoryName) {
+    private Category createCategory(final String categoryName) {
         Category category = new Category();
         category.setName(categoryName);
         categoryDAO.create(category);

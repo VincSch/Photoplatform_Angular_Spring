@@ -2,7 +2,7 @@ package de.htw.sdf.photoplatform.repository;
 
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,25 +16,25 @@ import de.htw.sdf.photoplatform.persistence.models.CollectionCategory;
 
 public class CollectionCategoryDAOTest extends BaseImageTester {
     @Autowired
-    CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO;
 
     @Autowired
-    CollectionCategoryDAO collectionCategoryDAO;
+    private CollectionCategoryDAO collectionCategoryDAO;
 
     @Before
-    public void setUp() throws Exception {
+    public final void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public final void tearDown() throws Exception {
         collectionCategoryDAO.deleteAll();
         categoryDAO.deleteAll();
         clearTables();
     }
 
     @Test
-    public void testGetCollectionCategoryBy() {
+    public final void testGetCollectionCategoryBy() {
         // INIT TEST DATA
         Collection myFamily = initEmptyCollection("MyFamily");
         collectionDAO.create(myFamily);
@@ -83,7 +83,7 @@ public class CollectionCategoryDAOTest extends BaseImageTester {
         Assert.assertTrue(oceanCollections.size() == 2);
     }
 
-    private Category createCategory(String categoryName) {
+    private Category createCategory(final String categoryName) {
         Category category = new Category();
         category.setName(categoryName);
         categoryDAO.create(category);
