@@ -87,6 +87,16 @@ public class DBUtil {
     // roleDAO.create(photographer);
     // }
 
+    private void createRoles()
+    {
+        for (String defaultRole : Role.DEFAULT_ROLES)
+        {
+            Role role = new Role();
+            role.setName(defaultRole);
+            roleDAO.create(role);
+        }
+    }
+
     /**
      * Create user.
      */

@@ -47,7 +47,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     @Column(name = "EMAIL", unique = true)
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<UserRole> userRoles;
 
     @OneToOne(mappedBy = "user")

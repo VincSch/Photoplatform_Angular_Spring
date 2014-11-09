@@ -36,6 +36,16 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
     User findByUserName(final String userName);
 
     /**
+     * Find user by specified email.
+     *
+     * @param email
+     *            the email
+     *
+     * @return the user
+     */
+    User findByEmail(String email);
+
+    /**
      * Returns all user by role.
      *
      * @param role
