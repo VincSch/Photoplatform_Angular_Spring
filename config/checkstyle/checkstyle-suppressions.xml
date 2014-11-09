@@ -11,6 +11,7 @@
 	<suppress files="de.htw.sdf.photoplatform.Application" checks="HideUtilityClassConstructorCheck" />
 
 	<!-- Test -->
+	<suppress files="[\\/]src[\\/]test[\\/].*" checks="JavadocPackage" />
 	<suppress files="[\\/]src[\\/]test[\\/].*" checks="JavadocMethod" />
 	<suppress files="[\\/]src[\\/]test[\\/].*" checks="JavadocType" />
 	<suppress files="[\\/]src[\\/]test[\\/].*" checks="JavadocStyle" />
