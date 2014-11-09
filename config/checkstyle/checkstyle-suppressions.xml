@@ -4,9 +4,15 @@
 
 <suppressions>
 	<!-- Resource files -->
-	<suppress files="\.properties" checks=".*"/>
+	<suppress files="\.properties" checks=".*" />
 
 	<!-- Application final -->
 	<suppress files="de.htw.sdf.photoplatform.Application" checks="FinalClassCheck" />
 	<suppress files="de.htw.sdf.photoplatform.Application" checks="HideUtilityClassConstructorCheck" />
+
+	<!-- Test -->
+	<suppress files="[\\/]src[\\/]test[\\/].*" checks="JavadocMethod" />
+	<!-- <suppress checks="JavadocMethod" files="${basedir}/src/.+java$"/> <suppress 
+		checks=JavadocType files="${basedir}/src/"/> <suppress checks="JavadocStyle" 
+		files="${basedir}/src/"/> <suppress checks="JavadocVariable" files="${basedir}/src/"/> -->
 </suppressions>
