@@ -23,7 +23,8 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 /**
- * This class represents the application config, which is done in java instead of XML.
+ * This class represents the application config, which is done in java instead
+ * of XML.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  *
@@ -35,17 +36,17 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 public class Application extends WebMvcConfigurerAdapter
 {
 
-    static Logger log = Logger.getLogger(Application.class.getName());
+    @SuppressWarnings("unused")
+    private static Logger log = Logger.getLogger(Application.class.getName());
     private static ConfigurableApplicationContext context;
 
     /**
      * Main method.
-     * 
+     *
      * @param args
      *            the args
      */
-    public static void main(String[] args)
-    {
+    public static void main(final String[] args) {
         context = SpringApplication.run(Application.class);
         DBUtil dbUtil = context.getBean(DBUtil.class);
         dbUtil.insertTestData();
@@ -95,8 +96,7 @@ public class Application extends WebMvcConfigurerAdapter
     /**
      * @return the context
      */
-    public static ConfigurableApplicationContext getContext()
-    {
+    public static ConfigurableApplicationContext getContext() {
         return context;
     }
 }

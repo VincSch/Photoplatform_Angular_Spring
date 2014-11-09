@@ -25,12 +25,10 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class CollectionCategoryDAOImpl extends GenericDAOImpl<CollectionCategory> implements
-        CollectionCategoryDAO
-{
+public class CollectionCategoryDAOImpl extends
+        GenericDAOImpl<CollectionCategory> implements CollectionCategoryDAO {
 
-    public CollectionCategoryDAOImpl()
-    {
+    public CollectionCategoryDAOImpl() {
         super();
         setClazz(CollectionCategory.class);
     }
@@ -39,8 +37,7 @@ public class CollectionCategoryDAOImpl extends GenericDAOImpl<CollectionCategory
      * {@inheritDoc}
      */
     @Override
-    public List<CollectionCategory> getCollectionCategoryBy(Category category)
-    {
+    public List<CollectionCategory> getCollectionCategoryBy(Category category) {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("WHERE category.id = ?1");
         Query query = createQuery(queryBuilder.toString());
@@ -48,12 +45,13 @@ public class CollectionCategoryDAOImpl extends GenericDAOImpl<CollectionCategory
         return (List<CollectionCategory>) query.getResultList();
     }
 
-    private StringBuilder initSelectQuery()
-    {
+    private StringBuilder initSelectQuery() {
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT DISTINCT(collectionCategory) FROM CollectionCategory collectionCategory ");
-        queryBuilder.append("LEFT JOIN FETCH collectionCategory.collection collection ");
-        queryBuilder.append("LEFT JOIN FETCH collectionCategory.category category ");
+        queryBuilder
+                .append("LEFT JOIN FETCH collectionCategory.collection collection ");
+        queryBuilder
+                .append("LEFT JOIN FETCH collectionCategory.category category ");
 
         return queryBuilder;
     }

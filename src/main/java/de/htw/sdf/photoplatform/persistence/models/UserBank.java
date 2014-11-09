@@ -19,8 +19,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "SYS_USERBANK")
-public class UserBank extends AbstractBaseAuditEntity
-{
+public class UserBank extends AbstractBaseAuditEntity {
     private static final long serialVersionUID = 1179519484452211533L;
 
     @OneToOne
@@ -39,8 +38,7 @@ public class UserBank extends AbstractBaseAuditEntity
     /**
      * Default Constructor.
      */
-    public UserBank()
-    {
+    public UserBank() {
         super();
     }
 
@@ -49,8 +47,7 @@ public class UserBank extends AbstractBaseAuditEntity
      * 
      * @return user
      */
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
@@ -59,8 +56,7 @@ public class UserBank extends AbstractBaseAuditEntity
      * 
      * @param user
      */
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -69,8 +65,7 @@ public class UserBank extends AbstractBaseAuditEntity
      * 
      * @return receiver
      */
-    public String getReceiver()
-    {
+    public String getReceiver() {
         return receiver;
     }
 
@@ -79,8 +74,7 @@ public class UserBank extends AbstractBaseAuditEntity
      * 
      * @param receiver
      */
-    public void setReceiver(String receiver)
-    {
+    public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
 
@@ -89,8 +83,7 @@ public class UserBank extends AbstractBaseAuditEntity
      * 
      * @return iban
      */
-    public String getIban()
-    {
+    public String getIban() {
         return iban;
     }
 
@@ -99,8 +92,7 @@ public class UserBank extends AbstractBaseAuditEntity
      * 
      * @param iban
      */
-    public void setIban(String iban)
-    {
+    public void setIban(String iban) {
         this.iban = iban;
     }
 
@@ -109,8 +101,7 @@ public class UserBank extends AbstractBaseAuditEntity
      * 
      * @return ic
      */
-    public String getBic()
-    {
+    public String getBic() {
         return bic;
     }
 
@@ -119,8 +110,7 @@ public class UserBank extends AbstractBaseAuditEntity
      * 
      * @param bic
      */
-    public void setBic(String bic)
-    {
+    public void setBic(String bic) {
         this.bic = bic;
     }
 
@@ -128,9 +118,8 @@ public class UserBank extends AbstractBaseAuditEntity
      * {@inheritDoc}
      */
     @Override
-    public String toString()
-    {
-        return "ID" + this.id + " USER: " + this.user.getId() + " IBAN: " + this.iban + " BIC: "
-                + this.bic;
+    public String toString() {
+        return "ID" + this.id + " USER: " + this.user.getId() + " IBAN: "
+                + this.iban + " BIC: " + this.bic;
     }
 }

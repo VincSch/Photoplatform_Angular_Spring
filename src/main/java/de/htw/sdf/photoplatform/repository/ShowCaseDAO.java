@@ -14,6 +14,5 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
  * 
  * @author Sergej Meister.
  */
-public interface ShowCaseDAO extends GenericDAO<ShowCase>
-{
+public interface ShowCaseDAO extends GenericDAO<ShowCase> {
 }

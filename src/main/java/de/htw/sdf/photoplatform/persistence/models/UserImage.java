@@ -20,8 +20,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "RES_USER_IMAGE")
-public class UserImage extends AbstractBaseAuditEntity
-{
+public class UserImage extends AbstractBaseAuditEntity {
 
     private static final long serialVersionUID = -2454270353359397995L;
 
@@ -42,8 +41,7 @@ public class UserImage extends AbstractBaseAuditEntity
      *
      * @return user.
      */
-    public User getOwner()
-    {
+    public User getOwner() {
         return owner;
     }
 
@@ -53,8 +51,7 @@ public class UserImage extends AbstractBaseAuditEntity
      * @param owner
      *            user.
      */
-    public void setOwner(User owner)
-    {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
@@ -63,8 +60,7 @@ public class UserImage extends AbstractBaseAuditEntity
      *
      * @return user.
      */
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
@@ -74,8 +70,7 @@ public class UserImage extends AbstractBaseAuditEntity
      * @param user
      *            user.
      */
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -84,8 +79,7 @@ public class UserImage extends AbstractBaseAuditEntity
      *
      * @return image.
      */
-    public Image getImage()
-    {
+    public Image getImage() {
         return image;
     }
 
@@ -94,8 +88,7 @@ public class UserImage extends AbstractBaseAuditEntity
      * 
      * @param image
      */
-    public void setImage(Image image)
-    {
+    public void setImage(Image image) {
         this.image = image;
     }
 

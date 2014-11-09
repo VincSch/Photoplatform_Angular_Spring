@@ -14,8 +14,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
  *
  * @author Sergej Meister.
  */
-public interface CategoryDAO extends GenericDAO<Category>
-{
+public interface CategoryDAO extends GenericDAO<Category> {
     /**
      * Returns category by name.
      *

@@ -17,8 +17,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 /**
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */
-public interface UserDAO extends UserDetailsService, GenericDAO<User>
-{
+public interface UserDAO extends UserDetailsService, GenericDAO<User> {
 
     /**
      * {@inheritDoc}
@@ -72,7 +71,8 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User>
     List<User> findAllNotAdminUsers();
 
     /**
-     * Returns not admin users. If enabled is true, than all enabled not admin users else otherwise.
+     * Returns not admin users. If enabled is true, than all enabled not admin
+     * users else otherwise.
      *
      * @param enabled
      *            true, false
@@ -81,8 +81,8 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User>
     List<User> findByEnabled(boolean enabled);
 
     /**
-     * Returns not admin users. If locked is true, than all not admin users which account is not
-     * locked else otherwise
+     * Returns not admin users. If locked is true, than all not admin users
+     * which account is not locked else otherwise
      *
      * @param locked
      *            true, false

@@ -16,8 +16,7 @@ import de.htw.sdf.photoplatform.persistence.models.Category;
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  * 
  */
-public interface CategoryManager
-{
+public interface CategoryManager {
 
     /**
      * persist a category.

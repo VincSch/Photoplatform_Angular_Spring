@@ -23,8 +23,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "SYS_USER_ROLE")
-public class UserRole extends AbstractBaseAuditEntity
-{
+public class UserRole extends AbstractBaseAuditEntity {
 
     private static final long serialVersionUID = 1517204631630105586L;
 
@@ -40,16 +39,14 @@ public class UserRole extends AbstractBaseAuditEntity
     /**
      * UserRole constructor.
      */
-    public UserRole()
-    {
+    public UserRole() {
 
     }
 
     /**
      * @return the user
      */
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
@@ -57,16 +54,14 @@ public class UserRole extends AbstractBaseAuditEntity
      * @param user
      *            the user to set
      */
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
     /**
      * @return the role
      */
-    public Role getRole()
-    {
+    public Role getRole() {
         return role;
     }
 
@@ -74,8 +69,7 @@ public class UserRole extends AbstractBaseAuditEntity
      * @param role
      *            the role to set
      */
-    public void setRole(Role role)
-    {
+    public void setRole(Role role) {
         this.role = role;
     }
 

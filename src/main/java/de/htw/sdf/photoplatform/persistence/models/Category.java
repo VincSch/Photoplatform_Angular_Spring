@@ -19,8 +19,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "RES_CATEGORY")
-public class Category extends AbstractBaseAuditEntity
-{
+public class Category extends AbstractBaseAuditEntity {
 
     private static final long serialVersionUID = -5734114755016412092L;
 
@@ -35,8 +34,7 @@ public class Category extends AbstractBaseAuditEntity
      *
      * @return category name.
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -46,8 +44,7 @@ public class Category extends AbstractBaseAuditEntity
      * @param name
      *            category name.
      */
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -56,8 +53,7 @@ public class Category extends AbstractBaseAuditEntity
      *
      * @return category description.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -67,8 +63,7 @@ public class Category extends AbstractBaseAuditEntity
      * @param description
      *            category description.
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -76,8 +71,7 @@ public class Category extends AbstractBaseAuditEntity
      * {@inheritDoc}
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Category{" + "name='" + name + '\'' + '}';
     }
 }

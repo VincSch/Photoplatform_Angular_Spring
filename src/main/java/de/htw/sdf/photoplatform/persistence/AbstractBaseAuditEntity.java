@@ -23,8 +23,7 @@ import javax.validation.constraints.Size;
  *
  */
 @MappedSuperclass
-public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity
-{
+public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity {
 
     private static final long serialVersionUID = -3699932723300487164L;
 
@@ -44,8 +43,7 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity
     /**
      * @return the createdAt
      */
-    public Date getCreatedAt()
-    {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
@@ -53,16 +51,14 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity
      * @param createdAt
      *            the createdAt to set
      */
-    public void setCreatedAt(Date createdAt)
-    {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * @return the createdBy
      */
-    public String getCreatedBy()
-    {
+    public String getCreatedBy() {
         return createdBy;
     }
 
@@ -70,16 +66,14 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity
      * @param createdBy
      *            the createdBy to set
      */
-    public void setCreatedBy(String createdBy)
-    {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
     /**
      * @return the updatedAt
      */
-    public Date getUpdatedAt()
-    {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
@@ -87,16 +81,14 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity
      * @param updatedAt
      *            the updatedAt to set
      */
-    public void setUpdatedAt(Date updatedAt)
-    {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
     /**
      * @return the updatedBy
      */
-    public String getUpdatedBy()
-    {
+    public String getUpdatedBy() {
         return updatedBy;
     }
 
@@ -104,8 +96,7 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity
      * @param updatedBy
      *            the updatedBy to set
      */
-    public void setUpdatedBy(String updatedBy)
-    {
+    public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
 
@@ -113,8 +104,7 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity
      * Sets createdAt before insert.
      */
     @PrePersist
-    public void setCreationDate()
-    {
+    public void setCreationDate() {
         this.createdAt = new Date();
     }
 
@@ -122,8 +112,7 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity
      * Sets updatedAt before update.
      */
     @PreUpdate
-    public void setChangeDate()
-    {
+    public void setChangeDate() {
         this.updatedAt = new Date();
     }
 }

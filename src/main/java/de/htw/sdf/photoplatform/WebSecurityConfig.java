@@ -36,8 +36,7 @@ import de.htw.sdf.photoplatform.webservice.Endpoints;
 @EnableWebSecurity(debug = true)
 @ComponentScan
 @Configuration
-class WebSecurityConfig extends WebSecurityConfigurerAdapter
-{
+class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ConfigurableApplicationContext context;
@@ -46,11 +45,11 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter
      * {@inheritDoc}
      */
     @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
+    protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement().sessionCreationPolicy(
+                SessionCreationPolicy.STATELESS);
 
         for (String endpoint : Endpoints.securedUserEndpoints())
         {
@@ -72,8 +71,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter
      * {@inheritDoc}
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder authManagerBuilder) throws Exception
-    {
+    protected void configure(AuthenticationManagerBuilder authManagerBuilder)
+            throws Exception {
         UserDAO userDAO = context.getBean(UserDAO.class);
         authManagerBuilder.userDetailsService(userDAO).passwordEncoder(passwordEncoder());
     }
@@ -83,8 +82,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter
      */
     @Bean(name = "myAuthManager")
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception
-    {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 

@@ -27,8 +27,7 @@ import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
  *
  * @author <a href="mailto:s0531603@htw-berlin.de">Daniil Tomilow</a>
  */
-public class AuthenticationControllerTest extends BaseTester
-{
+public class AuthenticationControllerTest extends BaseTester {
 
     @Autowired
     private WebApplicationContext wac;
@@ -90,8 +89,7 @@ public class AuthenticationControllerTest extends BaseTester
     }
 
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() throws Exception {
         clearTables();
     }
 }

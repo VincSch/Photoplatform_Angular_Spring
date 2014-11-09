@@ -17,8 +17,7 @@ import org.springframework.security.crypto.codec.Hex;
  * @author <a href="mailto:philip@sorst.net">Philip W. Sorst</a>
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
  */
-public class TokenUtils
-{
+public class TokenUtils {
 
     /** Magic key. */
     public static final String MAGIC_KEY = "obfuscate";
@@ -31,8 +30,7 @@ public class TokenUtils
      * 
      * @return the token
      */
-    public String createToken(UserDetails userDetails)
-    {
+    public String createToken(UserDetails userDetails) {
         long expires = System.currentTimeMillis() + 1000L * 60 * 60;
         return userDetails.getUsername() + ":" + expires + ":"
                 + computeSignature(userDetails, expires);
@@ -48,8 +46,7 @@ public class TokenUtils
      * 
      * @return the signature
      */
-    public String computeSignature(UserDetails userDetails, long expires)
-    {
+    public String computeSignature(UserDetails userDetails, long expires) {
         StringBuilder signatureBuilder = new StringBuilder();
         signatureBuilder.append(userDetails.getUsername()).append(":");
         signatureBuilder.append(expires).append(":");
@@ -57,15 +54,13 @@ public class TokenUtils
         signatureBuilder.append(TokenUtils.MAGIC_KEY);
 
         MessageDigest digest;
-        try
-        {
+        try {
             digest = MessageDigest.getInstance("MD5");
-        }
-        catch (NoSuchAlgorithmException e)
-        {
+        } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException("No MD5 algorithm available!");
         }
-        return new String(Hex.encode(digest.digest(signatureBuilder.toString().getBytes())));
+        return new String(Hex.encode(digest.digest(signatureBuilder.toString()
+                .getBytes())));
     }
 
     /**
@@ -76,10 +71,8 @@ public class TokenUtils
      * 
      * @return the user name
      */
-    public String getUserNameFromToken(String authToken)
-    {
-        if (null == authToken)
-        {
+    public String getUserNameFromToken(String authToken) {
+        if (null == authToken) {
             return null;
         }
         String[] parts = authToken.split(":");
@@ -96,12 +89,12 @@ public class TokenUtils
      * 
      * @return true if token is valid
      */
-    public boolean validateToken(String authToken, UserDetails userDetails)
-    {
+    public boolean validateToken(String authToken, UserDetails userDetails) {
         String[] parts = authToken.split(":");
         long expires = Long.parseLong(parts[1]);
         String signature = parts[2];
         String signatureToMatch = computeSignature(userDetails, expires);
-        return expires >= System.currentTimeMillis() && signature.equals(signatureToMatch);
+        return expires >= System.currentTimeMillis()
+                && signature.equals(signatureToMatch);
     }
 }

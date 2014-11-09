@@ -11,8 +11,7 @@ package de.htw.sdf.photoplatform.common;
  *
  * Created by Sergej Meister
  */
-public final class Constants
-{
+public final class Constants {
 
     /**
      * admin role id.
@@ -29,8 +28,7 @@ public final class Constants
      */
     public static final Long ROLE_PHOTOGRAPHER = 3L;
 
-    private Constants()
-    {
+    private Constants() {
         // empty
     }
 }

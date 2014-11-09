@@ -47,8 +47,7 @@ import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
  */
 @RestController
-public class AuthenticationController extends BaseAPIController
-{
+public class AuthenticationController extends BaseAPIController {
 
     private TokenUtils tokenUtils = new TokenUtils();
 
@@ -168,10 +167,9 @@ public class AuthenticationController extends BaseAPIController
      * @throws Exception
      *             the exception
      */
-    @RequestMapping(value = Endpoints.USER_UPDATE, method = {RequestMethod.POST})
+    @RequestMapping(value = Endpoints.USER_UPDATE, method = { RequestMethod.POST })
     @ResponseBody
-    public void updateUser(@RequestBody User user) throws Exception
-    {
+    public void updateUser(@RequestBody User user) throws Exception {
         userManager.update(user);
     }
 

@@ -22,8 +22,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping(Endpoints.API_PREFIX)
-public class BaseAPIController
-{
+public class BaseAPIController {
 
     protected final Logger log = Logger.getLogger(this.getClass().getName());
 

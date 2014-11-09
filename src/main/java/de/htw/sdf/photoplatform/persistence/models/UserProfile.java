@@ -15,12 +15,12 @@ import javax.persistence.Table;
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
- * Entity class for a user details representing the corresponding database table.
+ * Entity class for a user details representing the corresponding database
+ * table.
  */
 @Entity
 @Table(name = "SYS_USERPROFILE")
-public class UserProfile extends AbstractBaseAuditEntity
-{
+public class UserProfile extends AbstractBaseAuditEntity {
 
     private static final long serialVersionUID = -5889099084305292787L;
 
@@ -52,13 +52,11 @@ public class UserProfile extends AbstractBaseAuditEntity
     /**
      * Default constructor.
      */
-    public UserProfile()
-    {
+    public UserProfile() {
         super();
     }
 
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
@@ -68,8 +66,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * @param user
      *            user
      */
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -78,8 +75,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      *
      * @return first name.
      */
-    public String getFirstName()
-    {
+    public String getFirstName() {
         return firstName;
     }
 
@@ -89,8 +85,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * @param firstName
      *            first name.
      */
-    public void setFirstName(String firstName)
-    {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -99,8 +94,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      *
      * @return surname.
      */
-    public String getSurname()
-    {
+    public String getSurname() {
         return surname;
     }
 
@@ -110,8 +104,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * @param surname
      *            surname.
      */
-    public void setSurname(String surname)
-    {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 
@@ -120,8 +113,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * 
      * @return birthday
      */
-    public String getBirthday()
-    {
+    public String getBirthday() {
         return birthday;
     }
 
@@ -131,8 +123,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * @param birthday
      *            birthday
      */
-    public void setBirthday(String birthday)
-    {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -141,8 +132,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * 
      * @return address
      */
-    public String getAddress()
-    {
+    public String getAddress() {
         return address;
     }
 
@@ -152,8 +142,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * @param address
      *            address
      */
-    public void setAddress(String address)
-    {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -162,8 +151,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * 
      * @return phone
      */
-    public String getPhone()
-    {
+    public String getPhone() {
         return phone;
     }
 
@@ -173,8 +161,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * @param phone
      *            phone
      */
-    public void setPhone(String phone)
-    {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -183,8 +170,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * 
      * @return company
      */
-    public String getCompany()
-    {
+    public String getCompany() {
         return company;
     }
 
@@ -194,8 +180,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * @param company
      *            company
      */
-    public void setCompany(String company)
-    {
+    public void setCompany(String company) {
         this.company = company;
     }
 
@@ -204,8 +189,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * 
      * @return homepage
      */
-    public String getHomepage()
-    {
+    public String getHomepage() {
         return homepage;
     }
 
@@ -215,8 +199,7 @@ public class UserProfile extends AbstractBaseAuditEntity
      * @param homepage
      *            homepage
      */
-    public void setHomepage(String homepage)
-    {
+    public void setHomepage(String homepage) {
         this.homepage = homepage;
     }
 
@@ -224,9 +207,8 @@ public class UserProfile extends AbstractBaseAuditEntity
      * {@inheritDoc}
      */
     @Override
-    public String toString()
-    {
-        return "ID:" + this.id + " UserID: " + this.user.getId() + " Address: " + this.address
-                + " Phone: " + this.phone;
+    public String toString() {
+        return "ID:" + this.id + " UserID: " + this.user.getId() + " Address: "
+                + this.address + " Phone: " + this.phone;
     }
 }

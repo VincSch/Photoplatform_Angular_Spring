@@ -23,13 +23,12 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
  */
 @Repository
 @Transactional
-public class CategoryDAOImpl extends GenericDAOImpl<Category> implements CategoryDAO
-{
+public class CategoryDAOImpl extends GenericDAOImpl<Category> implements
+        CategoryDAO {
     /**
      * Category DAO constructor.
      */
-    public CategoryDAOImpl()
-    {
+    public CategoryDAOImpl() {
         super();
         setClazz(Category.class);
     }
@@ -39,17 +38,13 @@ public class CategoryDAOImpl extends GenericDAOImpl<Category> implements Categor
      * {@inheritDoc}
      */
     @Override
-    public Category findByName(String name)
-    {
+    public Category findByName(String name) {
         String queryString = "SELECT category FROM Category category WHERE category.name = ?1";
         Query query = createQuery(queryString);
         query.setParameter(1, name);
-        try
-        {
+        try {
             return (Category) query.getSingleResult();
-        }
-        catch (NoResultException nre)
-        {
+        } catch (NoResultException nre) {
             return null;
         }
     }

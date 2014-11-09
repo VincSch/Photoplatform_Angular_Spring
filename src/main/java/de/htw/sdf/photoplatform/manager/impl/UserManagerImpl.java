@@ -113,8 +113,7 @@ public class UserManagerImpl implements UserManager
      * {@inheritDoc}
      */
     @Override
-    public void delete(User entity)
-    {
+    public void delete(User entity) {
         userDAO.delete(entity);
 
     }
@@ -141,8 +140,7 @@ public class UserManagerImpl implements UserManager
      * {@inheritDoc}
      */
     @Override
-    public void deleteAll()
-    {
+    public void deleteAll() {
         userDAO.deleteAll();
 
     }

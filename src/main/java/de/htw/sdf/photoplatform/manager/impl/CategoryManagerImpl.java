@@ -5,13 +5,14 @@
  */
 package de.htw.sdf.photoplatform.manager.impl;
 
-import de.htw.sdf.photoplatform.manager.CategoryManager;
-import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.models.Category;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import de.htw.sdf.photoplatform.manager.CategoryManager;
+import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
+import de.htw.sdf.photoplatform.persistence.models.Category;
 
 /**
  * business methods for categories.
@@ -21,42 +22,36 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class CategoryManagerImpl extends DAOReferenceCollector implements CategoryManager
-{
+public class CategoryManagerImpl extends DAOReferenceCollector implements
+        CategoryManager {
 
     @Override
-    public void create(Category entity)
-    {
+    public void create(Category entity) {
         categoryDAO.create(entity);
     }
 
     @Override
-    public Category update(Category entity)
-    {
+    public Category update(Category entity) {
         return categoryDAO.update(entity);
     }
 
     @Override
-    public void delete(Category entity)
-    {
+    public void delete(Category entity) {
         categoryDAO.delete(entity);
     }
 
     @Override
-    public Category findById(long id)
-    {
+    public Category findById(long id) {
         return categoryDAO.findOne(id);
     }
 
     @Override
-    public List<Category> findAll()
-    {
+    public List<Category> findAll() {
         return categoryDAO.findAll();
     }
 
     @Override
-    public void deleteAll()
-    {
+    public void deleteAll() {
         categoryDAO.deleteAll();
     }
 }

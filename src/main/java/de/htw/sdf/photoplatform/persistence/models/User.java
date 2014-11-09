@@ -32,8 +32,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "SYS_USER")
-public class User extends AbstractBaseAuditEntity implements UserDetails
-{
+public class User extends AbstractBaseAuditEntity implements UserDetails {
     private static final long serialVersionUID = 3719799602561353931L;
 
     @Column(name = "USERNAME", unique = true)
@@ -66,8 +65,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
     /**
      * User constructor.
      */
-    public User()
-    {
+    public User() {
         super();
     }
 
@@ -75,22 +73,18 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * {@inheritDoc}
      */
     @Override
-    public Collection< ? extends GrantedAuthority> getAuthorities()
-    {
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<String> roles = new HashSet<>();
-        if (userRoles == null)
-        {
+        if (userRoles == null) {
             return null;
         }
 
-        for (UserRole userRole : userRoles)
-        {
+        for (UserRole userRole : userRoles) {
             roles.add(userRole.getRole().getName());
         }
 
         Set<GrantedAuthority> authorities = new HashSet<>();
-        for (String role : roles)
-        {
+        for (String role : roles) {
             authorities.add(new SimpleGrantedAuthority(role));
         }
 
@@ -102,8 +96,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      *
      * @return user profile
      */
-    public UserProfile getUserProfile()
-    {
+    public UserProfile getUserProfile() {
         return userProfile;
     }
 
@@ -113,8 +106,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * @param userProfile
      *            user profile
      */
-    public void setUserProfile(UserProfile userProfile)
-    {
+    public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
 
@@ -122,8 +114,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * {@inheritDoc}
      */
     @Override
-    public String getUsername()
-    {
+    public String getUsername() {
         return username;
     }
 
@@ -133,8 +124,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * @param username
      *            username
      */
-    public void setUsername(String username)
-    {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -144,8 +134,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * @param name
      *            the user name to set
      */
-    public void setUserName(String name)
-    {
+    public void setUserName(String name) {
         this.username = name;
     }
 
@@ -153,8 +142,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * {@inheritDoc}
      */
     @Override
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
@@ -164,8 +152,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * @param password
      *            the password to set
      */
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -174,8 +161,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      *
      * @return the email
      */
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
 
@@ -185,8 +171,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * @param email
      *            the email to set
      */
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -195,8 +180,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      *
      * @return the sec toke
      */
-    public String getSecToken()
-    {
+    public String getSecToken() {
         return secToken;
     }
 
@@ -206,8 +190,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * @param secToken
      *            the sec token to set
      */
-    public void setSecToken(String secToken)
-    {
+    public void setSecToken(String secToken) {
         this.secToken = secToken;
     }
 
@@ -216,8 +199,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      *
      * @return the user roles
      */
-    public List<UserRole> getUserRoles()
-    {
+    public List<UserRole> getUserRoles() {
         return userRoles;
     }
 
@@ -226,8 +208,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * 
      * @param userRoles
      */
-    public void setUserRoles(List<UserRole> userRoles)
-    {
+    public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
 
@@ -235,8 +216,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * {@inheritDoc}
      */
     @Override
-    public boolean isAccountNonLocked()
-    {
+    public boolean isAccountNonLocked() {
         return accountNonLocked;
     }
 
@@ -246,8 +226,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * @param isAccountNonLocked
      *            the account non locked to set
      */
-    public void setAccountNonLocked(boolean isAccountNonLocked)
-    {
+    public void setAccountNonLocked(boolean isAccountNonLocked) {
         this.accountNonLocked = isAccountNonLocked;
     }
 
@@ -255,8 +234,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * {@inheritDoc}
      */
     @Override
-    public boolean isAccountNonExpired()
-    {
+    public boolean isAccountNonExpired() {
         return true;
     }
 
@@ -264,8 +242,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * {@inheritDoc}
      */
     @Override
-    public boolean isCredentialsNonExpired()
-    {
+    public boolean isCredentialsNonExpired() {
         return true;
     }
 
@@ -273,8 +250,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * {@inheritDoc}
      */
     @Override
-    public boolean isEnabled()
-    {
+    public boolean isEnabled() {
         return enabled;
     }
 
@@ -282,8 +258,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * @param isEnabled
      *            the enable to set
      */
-    public void setEnabled(boolean isEnabled)
-    {
+    public void setEnabled(boolean isEnabled) {
         this.enabled = isEnabled;
     }
 
@@ -292,8 +267,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * 
      * @return user bank account
      */
-    public UserBank getUserBank()
-    {
+    public UserBank getUserBank() {
         return userBank;
     }
 
@@ -303,8 +277,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails
      * @param userBank
      *            bank account
      */
-    public void setUserBank(UserBank userBank)
-    {
+    public void setUserBank(UserBank userBank) {
         this.userBank = userBank;
     }
 }

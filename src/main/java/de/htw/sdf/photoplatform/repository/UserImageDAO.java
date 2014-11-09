@@ -17,8 +17,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
  * 
  * @author Sergej Meister.
  */
-public interface UserImageDAO extends GenericDAO<UserImage>
-{
+public interface UserImageDAO extends GenericDAO<UserImage> {
     /**
      * Returns all images of given user.
      *

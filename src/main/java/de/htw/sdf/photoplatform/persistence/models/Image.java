@@ -18,8 +18,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
  */
 @Entity
 @Table(name = "RES_IMAGE")
-public class Image extends AbstractBaseAuditEntity
-{
+public class Image extends AbstractBaseAuditEntity {
     private static final long serialVersionUID = 5117200999390055688L;
 
     @Column(name = "NAME")
@@ -63,8 +62,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return image name.
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -74,8 +72,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param name
      *            image name.
      */
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -84,8 +81,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return image description.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -95,8 +91,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param description
      *            image description
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -105,8 +100,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return true if image shared.
      */
-    public boolean isPublic()
-    {
+    public boolean isPublic() {
         return isPublic;
     }
 
@@ -116,8 +110,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param isPublic
      *            true for shared, otherwise false.
      */
-    public void setPublic(boolean isPublic)
-    {
+    public void setPublic(boolean isPublic) {
         this.isPublic = isPublic;
     }
 
@@ -126,8 +119,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return true if active.
      */
-    public boolean isEnabled()
-    {
+    public boolean isEnabled() {
         return enabled;
     }
 
@@ -137,8 +129,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param enabled
      *            true if enabled.
      */
-    public void setEnabled(boolean enabled)
-    {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -147,8 +138,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return image price.
      */
-    public double getPrice()
-    {
+    public double getPrice() {
         return price;
     }
 
@@ -158,8 +148,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param price
      *            image price.
      */
-    public void setPrice(double price)
-    {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -171,8 +160,7 @@ public class Image extends AbstractBaseAuditEntity
      * @return compression
      * @since 1.0
      */
-    public String getCompression()
-    {
+    public String getCompression() {
         return compression;
     }
 
@@ -184,8 +172,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param compression
      *            image compression type.
      */
-    public void setCompression(String compression)
-    {
+    public void setCompression(String compression) {
         this.compression = compression;
     }
 
@@ -194,8 +181,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return x resolution.
      */
-    public double getXResolution()
-    {
+    public double getXResolution() {
         return xResolution;
     }
 
@@ -205,8 +191,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param xResolution
      *            x resolution
      */
-    public void setXResolution(double xResolution)
-    {
+    public void setXResolution(double xResolution) {
         this.xResolution = xResolution;
     }
 
@@ -215,8 +200,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return y resolution.
      */
-    public double getYResolution()
-    {
+    public double getYResolution() {
         return yResolution;
     }
 
@@ -226,8 +210,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param yResolution
      *            y resolution
      */
-    public void setYResolution(double yResolution)
-    {
+    public void setYResolution(double yResolution) {
         this.yResolution = yResolution;
     }
 
@@ -236,8 +219,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return resolution unit.
      */
-    public String getResolutionUnit()
-    {
+    public String getResolutionUnit() {
         return resolutionUnit;
     }
 
@@ -247,8 +229,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param resolutionUnit
      *            resolution unit.
      */
-    public void setResolutionUnit(String resolutionUnit)
-    {
+    public void setResolutionUnit(String resolutionUnit) {
         this.resolutionUnit = resolutionUnit;
     }
 
@@ -259,8 +240,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return image width.
      */
-    public Integer getXDemension()
-    {
+    public Integer getXDemension() {
         return xDemension;
     }
 
@@ -271,8 +251,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @param xDemension
      */
-    public void setXDemension(Integer xDemension)
-    {
+    public void setXDemension(Integer xDemension) {
         this.xDemension = xDemension;
     }
 
@@ -281,8 +260,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return high
      */
-    public Integer getYDemension()
-    {
+    public Integer getYDemension() {
         return yDemension;
     }
 
@@ -294,8 +272,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param yDemension
      *            image hight
      */
-    public void setYDemension(Integer yDemension)
-    {
+    public void setYDemension(Integer yDemension) {
         this.yDemension = yDemension;
     }
 
@@ -304,8 +281,7 @@ public class Image extends AbstractBaseAuditEntity
      *
      * @return path to image.
      */
-    public String getPath()
-    {
+    public String getPath() {
         return path;
     }
 
@@ -315,8 +291,7 @@ public class Image extends AbstractBaseAuditEntity
      * @param path
      *            path to image.
      */
-    public void setPath(String path)
-    {
+    public void setPath(String path) {
         this.path = path;
     }
 
@@ -324,10 +299,10 @@ public class Image extends AbstractBaseAuditEntity
      * {@inheritDoc}
      */
     @Override
-    public String toString()
-    {
-        return "Image{" + "name='" + name + '\'' + ", path='" + path + '\'' + ", isPublic="
-                + isPublic + ", enabled=" + enabled + ", price=" + price + ", compression='"
-                + compression + '\'' + '}';
+    public String toString() {
+        return "Image{" + "name='" + name + '\'' + ", path='" + path + '\''
+                + ", isPublic=" + isPublic + ", enabled=" + enabled
+                + ", price=" + price + ", compression='" + compression + '\''
+                + '}';
     }
 }

@@ -23,8 +23,7 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseEntity;
  */
 @Entity
 @Table(name = "SYS_ROLE")
-public class Role extends AbstractBaseEntity
-{
+public class Role extends AbstractBaseEntity {
 
     /** Role Admin. */
     public static final String ADMIN = "ADMIN";
@@ -54,16 +53,14 @@ public class Role extends AbstractBaseEntity
     /**
      * Role constructor.
      */
-    public Role()
-    {
+    public Role() {
         super();
     }
 
     /**
      * @return the name
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -71,8 +68,7 @@ public class Role extends AbstractBaseEntity
      * @param name
      *            the name to set
      */
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 

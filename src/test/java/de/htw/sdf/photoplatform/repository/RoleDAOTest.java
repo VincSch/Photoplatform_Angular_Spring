@@ -12,23 +12,20 @@ import de.htw.sdf.photoplatform.common.BaseTester;
 import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 
-public class RoleDAOTest extends BaseTester
-{
+public class RoleDAOTest extends BaseTester {
+    private static final int EXPECTED_ROLE_COUNT = 3;
     @Before
-    public void setUp() throws Exception
-    {
+    public final void setUp() throws Exception {
         insertTestData();
     }
 
     @After
-    public void tearDown() throws Exception
-    {
+    public final void tearDown() throws Exception {
         clearTables();
     }
 
     @Test
-    public void findTest()
-    {
+    public final void findTest() {
         List<Role> allRoles = roleDAO.findAll();
 
         Assert.assertTrue("3. Rollen müssen immer vorhanden sein.", allRoles.size() == 3);
@@ -59,14 +56,15 @@ public class RoleDAOTest extends BaseTester
 
         allRoles.clear();
         allRoles = roleDAO.findAllNotAdminRoles();
-        Assert.assertTrue("2. Rollen müssen vorhanden sein.", allRoles.size() == 2);
-        Assert.assertTrue(allRoles.get(0).getId().equals(Constants.ROLE_CUSTOMER));
+        Assert.assertTrue("2. Rollen müssen vorhanden sein.",
+                allRoles.size() == 2);
+        Assert.assertTrue(allRoles.get(0).getId()
+                .equals(Constants.ROLE_CUSTOMER));
         Assert.assertTrue(allRoles.get(1).getName().equals("PHOTOGRAPHER"));
     }
 
     @Test
-    public void createTest()
-    {
+    public final void createTest() {
         Role newRole = new Role();
         newRole.setName("TestRole");
         roleDAO.create(newRole);
@@ -80,8 +78,7 @@ public class RoleDAOTest extends BaseTester
     }
 
     @Test
-    public void deleteTest()
-    {
+    public final void deleteTest() {
         // Init Test data
         Role newRole = new Role();
         newRole.setName("TestRole");
@@ -91,7 +88,7 @@ public class RoleDAOTest extends BaseTester
         // Do test
         roleDAO.deleteById(newRole.getId());
         List<Role> allRoles = roleDAO.findAll();
-        Assert.assertTrue(allRoles.size() == 3);
+        Assert.assertTrue(allRoles.size() == EXPECTED_ROLE_COUNT);
         Assert.assertFalse(allRoles.get(0).getName().equals("TestRole"));
         Assert.assertFalse(allRoles.get(1).getName().equals("TestRole"));
         Assert.assertFalse(allRoles.get(2).getName().equals("TestRole"));

@@ -12,22 +12,21 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.models.UserBank;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 import de.htw.sdf.photoplatform.repository.UserBankDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
  * Created by Sergej Meister.
  */
 @Repository
 @Transactional
-public class UserBankDAOImpl extends GenericDAOImpl<UserBank> implements UserBankDAO
-{
+public class UserBankDAOImpl extends GenericDAOImpl<UserBank> implements
+        UserBankDAO {
 
     /**
      * Default constructor.
      */
-    public UserBankDAOImpl()
-    {
+    public UserBankDAOImpl() {
         super();
         setClazz(UserBank.class);
     }
@@ -36,8 +35,7 @@ public class UserBankDAOImpl extends GenericDAOImpl<UserBank> implements UserBan
      * {@inheritDoc}
      */
     @Override
-    public UserBank findByUserId(final Long id)
-    {
+    public UserBank findByUserId(final Long id) {
         String queryString = "SELECT userBank FROM UserBank userBank "
                 + "LEFT JOIN FETCH userBank.user user " + "WHERE user.id = ?1";
 

@@ -13,8 +13,7 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
  *
  * @author Sergej Meister.
  */
-public interface UserProfileDAO extends GenericDAO<UserProfile>
-{
+public interface UserProfileDAO extends GenericDAO<UserProfile> {
 
     /**
      * find a user details data by a user id.
