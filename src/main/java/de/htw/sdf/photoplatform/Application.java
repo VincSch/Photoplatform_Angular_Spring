@@ -27,16 +27,17 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("classpath:applicationContext.xml")
 public class Application {
 
-    static Logger log = Logger.getLogger(Application.class.getName());
+    @SuppressWarnings("unused")
+    private static Logger log = Logger.getLogger(Application.class.getName());
     private static ConfigurableApplicationContext context;
 
     /**
      * Main method.
-     * 
+     *
      * @param args
      *            the args
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         context = SpringApplication.run(Application.class);
         DBUtil dbUtil = context.getBean(DBUtil.class);
         dbUtil.insertTestData();

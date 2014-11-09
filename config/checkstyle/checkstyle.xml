@@ -17,8 +17,9 @@
 			<property name="excludeScope" value="private" />
 			<property name="scope" value="nothing" />
 		</module>
-		<module name="JavadocStyle" />
-
+		<module name="JavadocStyle">
+			<property name="checkFirstSentence" value="false"/>
+		</module>
 		<module name="ConstantName" />
 		<module name="LocalFinalVariableName" />
 		<module name="LocalVariableName" />

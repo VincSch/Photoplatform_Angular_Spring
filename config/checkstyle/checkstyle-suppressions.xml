@@ -12,7 +12,7 @@
 
 	<!-- Test -->
 	<suppress files="[\\/]src[\\/]test[\\/].*" checks="JavadocMethod" />
-	<!-- <suppress checks="JavadocMethod" files="${basedir}/src/.+java$"/> <suppress 
-		checks=JavadocType files="${basedir}/src/"/> <suppress checks="JavadocStyle" 
-		files="${basedir}/src/"/> <suppress checks="JavadocVariable" files="${basedir}/src/"/> -->
+	<suppress files="[\\/]src[\\/]test[\\/].*" checks="JavadocType" />
+	<suppress files="[\\/]src[\\/]test[\\/].*" checks="JavadocStyle" />
+	<suppress files="[\\/]src[\\/]test[\\/].*" checks="JavadocVariable" />
 </suppressions>

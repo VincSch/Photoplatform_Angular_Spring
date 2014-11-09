@@ -16,6 +16,11 @@ import org.junit.Test;
 import de.htw.sdf.photoplatform.common.BaseImageTester;
 import de.htw.sdf.photoplatform.persistence.models.Image;
 
+/**
+ * TODO bitte kommentieren
+ * @author
+ *
+ */
 public class ImageDAOTest extends BaseImageTester {
     @Before
     public void setUp() throws Exception {
