@@ -16,6 +16,24 @@ public final class Endpoints
 {
 
     /**
+     * Examples:
+     * GET /tickets - Retrieves a list of tickets
+     * GET /tickets/12 - Retrieves a specific ticket
+     * POST /tickets - Creates a new ticket
+     * PUT /tickets/12 - Updates ticket #12
+     * PATCH /tickets/12 - Partially updates ticket #12
+     * DELETE /tickets/12 - Deletes ticket #12
+     *
+     * GET /tickets/12/messages - Retrieves list of messages for ticket #12
+     * GET /tickets/12/messages/5 - Retrieves message #5 for ticket #12
+     * POST /tickets/12/messages - Creates a new message in ticket #12
+     * PUT /tickets/12/messages/5 - Updates message #5 for ticket #12
+     * PATCH /tickets/12/messages/5 - Partially updates message #5 for ticket #12aa
+     * DELETE /tickets/12/messages/5 - Deletes message #5 for ticket #12
+     */
+
+
+    /**
      * API entry point.
      */
     public static final String API_PREFIX = "/api";
