@@ -18,7 +18,7 @@
 			<property name="scope" value="nothing" />
 		</module>
 		<module name="JavadocStyle">
-			<property name="checkFirstSentence" value="false"/>
+			<property name="checkFirstSentence" value="false" />
 		</module>
 		<module name="ConstantName" />
 		<module name="LocalFinalVariableName" />
@@ -68,7 +68,9 @@
 		<module name="FinalClass" />
 		<module name="HideUtilityClassConstructor" />
 		<module name="InterfaceIsType" />
-		<module name="VisibilityModifier" />
+		<module name="VisibilityModifier">
+			<property name="protectedAllowed" value="true" />
+		</module>
 		<module name="ArrayTypeStyle" />
 		<module name="FinalParameters" />
 		<module name="TodoComment" />
