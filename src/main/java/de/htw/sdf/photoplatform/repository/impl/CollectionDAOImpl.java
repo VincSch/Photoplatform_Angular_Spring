@@ -70,12 +70,14 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements Col
         queryBuilder.append("WHERE owner.id = ?1");
         Query query = createQuery(queryBuilder.toString());
         query.setParameter(1, user.getId());
-        try{
+        try
+        {
             return (List<Collection>) query.getResultList();
-        }catch (NoResultException nre){
+        }
+        catch (NoResultException nre)
+        {
             return new ArrayList<>();
         }
-
 
     }
 
