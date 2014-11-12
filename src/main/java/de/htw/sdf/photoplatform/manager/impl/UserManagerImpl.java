@@ -6,14 +6,6 @@
 
 package de.htw.sdf.photoplatform.manager.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
@@ -23,17 +15,21 @@ import de.htw.sdf.photoplatform.persistence.models.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * business methods for users.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- *
  */
 @Service
 @Transactional
-public class UserManagerImpl implements UserManager
-{
+public class UserManagerImpl implements UserManager {
 
     @Resource
     private UserDAO userDAO;
@@ -48,15 +44,14 @@ public class UserManagerImpl implements UserManager
      * {@inheritDoc}
      */
     @Override
-    public void createCustomer(User customer)
-    {
+    public void createCustomer(User customer) {
         userDAO.create(customer);
         UserRole userRole = new UserRole();
         userRole.setUser(customer);
         Role role = roleDAO.findByName(Role.CUSTOMER);
-        if (role == null)
-        {
-            throw new RuntimeException("User role = " + Role.CUSTOMER + " does not exists.");
+        if (role == null) {
+            throw new RuntimeException(
+                "User role = " + Role.CUSTOMER + " does not exists.");
         }
 
         userRole.setRole(role);
@@ -68,23 +63,20 @@ public class UserManagerImpl implements UserManager
      */
     @Override
     public void registerUser(String username, String email, String password)
-            throws ManagerException
-    {
-        if (username == null || email == null || password == null)
-        {
+        throws ManagerException {
+        if (username == null || email == null || password == null) {
             throw new RuntimeException("This should not happen");
         }
 
         // 1. check if username or email already exists in DB
         User user = userDAO.findByUserName(username);
-        if (user != null)
-        {
-            throw new ManagerException(AbstractBaseException.USER_USERNAME_EXISTS);
+        if (user != null) {
+            throw new ManagerException(
+                AbstractBaseException.USER_USERNAME_EXISTS);
         }
 
         user = userDAO.findByEmail(email);
-        if (user != null)
-        {
+        if (user != null) {
             throw new ManagerException(AbstractBaseException.USER_EMAIL_EXISTS);
         }
 
@@ -104,8 +96,7 @@ public class UserManagerImpl implements UserManager
      * {@inheritDoc}
      */
     @Override
-    public User update(User entity)
-    {
+    public User update(User entity) {
         return userDAO.update(entity);
     }
 
@@ -122,8 +113,7 @@ public class UserManagerImpl implements UserManager
      * {@inheritDoc}
      */
     @Override
-    public User findById(long id)
-    {
+    public User findById(long id) {
         return userDAO.findOne(id);
     }
 
@@ -131,8 +121,7 @@ public class UserManagerImpl implements UserManager
      * {@inheritDoc}
      */
     @Override
-    public List<User> findAll()
-    {
+    public List<User> findAll() {
         return userDAO.findAll();
     }
 
@@ -149,8 +138,17 @@ public class UserManagerImpl implements UserManager
      * {@inheritDoc}
      */
     @Override
-    public User findByName(String username)
-    {
+    public User findByName(String username) {
         return userDAO.findByUserName(username);
+    }
+
+    /**
+     * {inheritDoc}
+     */
+    @Override public User lockUser(String name) {
+        User user = userDAO.findByUserName(name);
+        user.setEnabled(false);
+        userDAO.update(user);
+        return user;
     }
 }
