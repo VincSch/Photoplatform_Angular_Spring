@@ -12,10 +12,13 @@ function($routeProvider, $locationProvider, $httpProvider) {
 	}).when('/register', {
 		templateUrl : '/views/partials/home/register.html',
 		controller : 'RegisterCtrl'
-	}).when('/', {
-		templateUrl : '/views/partials/home/home.html',
+	}).when('/admin', {
+		templateUrl : '/views/partials/admin/adminmenu.html',
 		controller : ''
-	}).otherwise({
+	}).when('/', {
+      	templateUrl : '/views/partials/home/home.html',
+      	controller : ''
+     }).otherwise({
 		redirectTo : '/'
 	});
 
