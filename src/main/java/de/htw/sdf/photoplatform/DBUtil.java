@@ -33,7 +33,6 @@ import de.htw.sdf.photoplatform.repository.UserRoleDAO;
  */
 @Service
 public class DBUtil {
-    // private static int instanceCounter;
 
     @Autowired
     protected UserDAO userDAO;
@@ -63,38 +62,7 @@ public class DBUtil {
      * Insert test data.
      */
     public void insertTestData() {
-        // if (instanceCounter == 0)
-        // {
-        // createRoles();
-        // }
-
         createUser();
-        // instanceCounter++;
-    }
-
-    // private void createRoles()
-    // {
-    // Role admin = new Role();
-    // admin.setName("ADMIN");
-    // roleDAO.create(admin);
-    //
-    // Role customer = new Role();
-    // customer.setName("CUSTOMER");
-    // roleDAO.create(customer);
-    //
-    // Role photographer = new Role();
-    // photographer.setName("PHOTOGRAPHER");
-    // roleDAO.create(photographer);
-    // }
-
-    private void createRoles()
-    {
-        for (String defaultRole : Role.DEFAULT_ROLES)
-        {
-            Role role = new Role();
-            role.setName(defaultRole);
-            roleDAO.create(role);
-        }
     }
 
     /**
