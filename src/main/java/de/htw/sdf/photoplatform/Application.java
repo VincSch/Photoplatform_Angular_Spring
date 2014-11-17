@@ -48,14 +48,21 @@ public class Application extends WebMvcConfigurerAdapter
      */
     public static void main(final String[] args) {
         context = SpringApplication.run(Application.class);
-        DBUtil dbUtil = context.getBean(DBUtil.class);
-        dbUtil.insertTestData();
+        //DBUtil dbUtil = context.getBean(DBUtil.class);
+        //dbUtil.insertTestData();
+    }
+
+    /**
+     * @return the context
+     */
+    public static ConfigurableApplicationContext getContext() {
+        return context;
     }
 
     /**
      * The application needs to be able to determine which locale the application is currently
      * running in.
-     * 
+     *
      * @return the locale resolver
      */
     @Bean
@@ -70,7 +77,7 @@ public class Application extends WebMvcConfigurerAdapter
      * Configuring an interceptor that is responsible or swapping out the current locale allows for
      * easy testing by a developer, and also gives you the option of including a select list in your
      * UI that lets the user pick the locale they prefer.
-     * 
+     *
      * @return the local change interceptor
      */
     @Bean
@@ -83,7 +90,7 @@ public class Application extends WebMvcConfigurerAdapter
 
     /**
      * Add interceptor.
-     * 
+     *
      * @param registry
      *            the registry
      */
@@ -91,12 +98,5 @@ public class Application extends WebMvcConfigurerAdapter
     public void addInterceptors(InterceptorRegistry registry)
     {
         registry.addInterceptor(localeChangeInterceptor());
-    }
-
-    /**
-     * @return the context
-     */
-    public static ConfigurableApplicationContext getContext() {
-        return context;
     }
 }

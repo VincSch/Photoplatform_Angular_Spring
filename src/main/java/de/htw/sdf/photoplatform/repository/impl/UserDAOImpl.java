@@ -69,6 +69,18 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
      * {@inheritDoc}
      */
     @Override
+    public List<User> find(Integer start, Integer count) {
+        StringBuilder queryBuilder = initSelectQuery();
+        queryBuilder.append("LEFT JOIN FETCH user.userBank ");
+        Query query = createQuery(queryBuilder.toString());
+        query.setFirstResult(start.intValue());
+        query.setMaxResults(count.intValue());
+        return (List<User>) query.getResultList();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public User findByEmail(String email)
     {
         Query query = createQuery("SELECT u FROM User u WHERE u.email = :email");
@@ -105,6 +117,8 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     public List<User> findByRole(final Role role) {
         return findByRoleId(role.getId());
     }
+
+
 
     /**
      * {@inheritDoc}
@@ -167,7 +181,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT user FROM User user ");
         queryBuilder.append("LEFT JOIN FETCH user.userRoles userRoles ");
-        queryBuilder.append("LEFT JOIN FETCH user.userBank ");
+        queryBuilder.append("LEFT JOIN FETCH user.userProfile ");
 
         return queryBuilder;
     }

@@ -55,6 +55,18 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
     List<User> findByRole(final Role role);
 
     /**
+     * Returns all user between start and count.
+     * IF start and count contains 0, than return first user.
+     * IF start contains 0 and count contains 1, than return first user.
+     *
+     * @param start index for first.
+     * @param count index for last.
+     *
+     * @return users
+     */
+    List<User> find(Integer start, Integer count);
+
+    /**
      * Returns all user by role id.
      *
      * @param roleId

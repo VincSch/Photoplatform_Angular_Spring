@@ -20,7 +20,6 @@ import java.util.Date;
  */
 @Service
 public class DBUtil {
-    // private static int instanceCounter;
 
     @Autowired
     protected UserDAO userDAO;
@@ -75,7 +74,7 @@ public class DBUtil {
     // }
 
     private void createRoles() {
-        for (String defaultRole : Role.DEFAULT_ROLES) {
+        for (String defaultRole : Role.DEFAULT_ROLES){
             Role role = new Role();
             role.setName(defaultRole);
             roleDAO.create(role);

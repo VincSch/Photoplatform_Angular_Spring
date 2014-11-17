@@ -153,4 +153,22 @@ public class UserManagerImpl implements UserManager
     {
         return userDAO.findByUserName(username);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<User> find(Integer start, Integer count) {
+        return userDAO.find(start,count);
+    }
+
+    @Override
+    public Boolean isUserAdmin(User user) {
+        for(UserRole userRole : user.getUserRoles()){
+            if(userRole.getRole().getName().equals(Role.ADMIN)){
+                return true ;
+            }
+        }
+        return false;
+    }
 }
