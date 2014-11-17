@@ -147,12 +147,34 @@ function($routeProvider, $locationProvider, $httpProvider) {
 
 	$rootScope.isAdmin = function() {
 		if ($rootScope.user !== undefined) {
-			for (var i = 0; i < $rootScope.user.userRoles.length; ++i) {
-				if ($rootScope.user.userRoles[i].role.name == "ROLE_ADMIN")
+			for (var i = 0; i < $rootScope.user.authorities.length; ++i) {
+				if ($rootScope.user.authorities[i].authority == "ADMIN")
 					return true;
 			};
 		}
 		return false;
+	};
+
+	$rootScope.isCustomer = function() {
+		if ($rootScope.user !== undefined) {
+			var isCustomer = false;
+			$rootScope.user.authorities.forEach(function(role){
+				if (role.authority == "CUSTOMER")
+					isCustomer = true;
+			});
+		}
+		return isCustomer;
+	};
+
+	$rootScope.isPhotographer = function() {
+		if ($rootScope.user !== undefined) {
+			var isPhotograph = false;
+			$rootScope.user.authorities.forEach(function(role){
+				if (role.authority == "PHOTOGRAPHER")
+					isPhotograph = true;
+			});
+		}
+		return isPhotograph;
 	};
 
 	console.log($rootScope.user);

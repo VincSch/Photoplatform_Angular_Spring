@@ -85,8 +85,8 @@ public final class Endpoints {
     public static String[] securedAdminEndpoints() {
         String[] securedEndpoints = {
                 restBuilder(MAINTENANCE_STATISTIC),
-                restBuilder(USER_UPDATE)
-                //restBuilder(USERS_START_COUNT)
+                restBuilder(USER_UPDATE),
+                restBuilder(USERS_START_COUNT)
         };
         return securedEndpoints;
     }
