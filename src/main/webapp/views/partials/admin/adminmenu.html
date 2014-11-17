@@ -81,7 +81,7 @@
               </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="user in users">
+            <tr ng-repeat="user in filteredUsers">
                 <td>{{user.index}}</td>
                 <td>{{user.username}}</td>
                 <td>
@@ -99,6 +99,8 @@
             </tr>
             </tbody>
           </table>
+            <pagination ng-show="showPagination" total-items="totalItems" items-per-page="numPerPage"
+                        ng-model="currentPage" ng-change="pageChanged()"></pagination>
         </div>
       </div>
     </div>

@@ -48,8 +48,6 @@ public class Application extends WebMvcConfigurerAdapter
      */
     public static void main(final String[] args) {
         context = SpringApplication.run(Application.class);
-        //DBUtil dbUtil = context.getBean(DBUtil.class);
-        //dbUtil.insertTestData();
     }
 
     /**

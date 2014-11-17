@@ -30,11 +30,26 @@ function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route
 
 photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
     function ($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
-
+        $scope.currentPage = 1;
+        $scope.numPerPage = 5;
         var start = 0;
         var count = 100;
         UserService.getUsers(start, count).success(function (users) {
             $scope.users = users;
+            $scope.totalItems = users.length;
+            $scope.showPagination = users.length > $scope.numPerPage;
+
+            // Set watch on pagination numbers
+            $scope.$watch('currentPage + numPerPage', function () {
+                var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+                var end = begin + $scope.numPerPage;
+                $scope.filteredUsers = $scope.users.slice(begin, end);
+            });
         }).error(function (error) {
         });
+
+        $scope.pageChanged = function () {
+            //check if max count was achieved, than load next 100 users.
+            //not implemented yet.
+        };
     }]);
