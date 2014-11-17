@@ -84,7 +84,7 @@ public class XAuthTokenFilter extends GenericFilterBean {
                             .authenticate(token);
                     SecurityContextHolder.getContext().setAuthentication(
                             authentication);
-                    log.debug("========================> "
+                    log.error("========================> "
                             + authentication.getName() + " , "
                             + authentication.isAuthenticated());
 
@@ -93,7 +93,7 @@ public class XAuthTokenFilter extends GenericFilterBean {
             }
             filterChain.doFilter(arg0, arg1);
         } catch (Exception ex) {
-            log.debug("================> " + ex.getMessage());
+            log.error("================> " + ex.getMessage());
         }
     }
 

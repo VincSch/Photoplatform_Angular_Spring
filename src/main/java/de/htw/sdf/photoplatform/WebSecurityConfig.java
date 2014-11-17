@@ -74,7 +74,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder authManagerBuilder)
             throws Exception {
         UserDAO userDAO = context.getBean(UserDAO.class);
-        authManagerBuilder.userDetailsService(userDAO).passwordEncoder(passwordEncoder());
+        authManagerBuilder.userDetailsService(userDAO);//.passwordEncoder(passwordEncoder());
     }
 
     /**
@@ -86,8 +86,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+ //   @Bean
+ //   public PasswordEncoder passwordEncoder(){
+ //       return new BCryptPasswordEncoder();
+ //   }
 }
