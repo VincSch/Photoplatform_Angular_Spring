@@ -14,7 +14,7 @@ function($routeProvider, $locationProvider, $httpProvider) {
 		controller : 'RegisterCtrl'
 	}).when('/admin', {
 		templateUrl : '/views/partials/admin/adminmenu.html',
-		controller : ''
+		controller : 'AdminCtrl'
 	}).when('/', {
       	templateUrl : '/views/partials/home/home.html',
       	controller : ''
