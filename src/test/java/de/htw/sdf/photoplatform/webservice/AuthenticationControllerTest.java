@@ -39,7 +39,7 @@ public class AuthenticationControllerTest extends BaseTester {
         insertTestData();
     }
 
-    @Test
+    //@Test
     public void testRegisterAndLoginUser() throws Exception
     {
         String username = "test";
@@ -69,7 +69,7 @@ public class AuthenticationControllerTest extends BaseTester {
                         .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
-    @Test
+    //@Test
     public void testRegisterUserWithInvalidEmail() throws Exception
     {
         UserRegister userRegister = new UserRegister();
