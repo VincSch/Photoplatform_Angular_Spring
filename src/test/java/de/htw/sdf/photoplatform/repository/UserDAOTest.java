@@ -213,4 +213,38 @@ public class UserDAOTest extends BaseTester {
                 .equals(photographerTesterUsername));
     }
 
+    @Test
+    public void testFindStartCount(){
+        List<User> usersBetween0And0 = userDAO.find(0,0);
+        Assert.assertTrue(usersBetween0And0.size() == 1);
+        Assert.assertTrue(usersBetween0And0.get(0).getUsername().equals("Vincent"));
+
+        List<User> usersBetween0And1 = userDAO.find(0,1);
+        Assert.assertTrue(usersBetween0And1.size() == 1);
+        Assert.assertTrue(usersBetween0And0.get(0).getUsername().equals("Vincent"));
+
+        List<User> usersBetween0And2 = userDAO.find(0,2);
+        Assert.assertTrue(usersBetween0And2.size() == 2);
+        Assert.assertTrue(usersBetween0And2.get(1).getUsername().equals("Peter"));
+
+        List<User> usersBetween0And3 = userDAO.find(0,3);
+        Assert.assertTrue(usersBetween0And3.size() == 3);
+        Assert.assertTrue(usersBetween0And3.get(2).getUsername().equals("Sergej"));
+
+        List<User> usersBetween1And0 = userDAO.find(1,0);
+        Assert.assertTrue(usersBetween1And0.size() == 1);
+        Assert.assertTrue(usersBetween1And0.get(0).getUsername().equals("Peter"));
+
+        List<User> usersBetween1And1 = userDAO.find(1,1);
+        Assert.assertTrue(usersBetween1And1.size() == 1);
+        Assert.assertTrue(usersBetween1And1.get(0).getUsername().equals("Peter"));
+
+        List<User> usersBetween1And2 = userDAO.find(1,2);
+        Assert.assertTrue(usersBetween1And2.size() == 2);
+        Assert.assertTrue(usersBetween1And2.get(1).getUsername().equals("Sergej"));
+
+        List<User> usersBetween4And1 = userDAO.find(4,1);
+        Assert.assertTrue(usersBetween4And1.isEmpty());
+    }
+
 }

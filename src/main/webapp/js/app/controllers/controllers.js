@@ -27,3 +27,14 @@ function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route
 		});
 	};
 }]);
+
+photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
+    function ($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
+
+        var start = 0;
+        var count = 100;
+        UserService.getUsers(start, count).success(function (users) {
+            $scope.users = users;
+        }).error(function (error) {
+        });
+    }]);

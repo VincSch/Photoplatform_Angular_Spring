@@ -81,54 +81,22 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
+            <tr ng-repeat="user in users">
+                <td>{{user.index}}</td>
+                <td>{{user.username}}</td>
                 <td>
-                  <a class="btn btn-primary">Edit</a>
+                    <a class="btn btn-primary">Edit</a>
                 </td>
                 <td draggable="true">
-                  <a class="btn btn-primary">Admin</a>
+                    <a ng-disabled="{{user.admin}}" class="btn btn-primary">Admin</a>
                 </td>
                 <td>
-                  <a class="btn btn-primary">Ban</a>
+                    <a ng-disabled="{{user.banned}}" class="btn btn-primary">Ban</a>
                 </td>
                 <td>
-                  <a class="btn btn-primary">Send</a>
+                    <a class="btn btn-primary">Send</a>
                 </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>
-                  <a class="btn btn-primary">Edit</a>
-                </td>
-                <td>
-                  <a class="btn btn-primary">Admin</a>
-                </td>
-                <td>
-                  <a class="btn btn-primary">Ban</a>
-                </td>
-                <td>
-                  <a class="btn btn-primary">Send</a>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>
-                  <a class="btn btn-primary">Edit</a>
-                </td>
-                <td>
-                  <a class="btn btn-primary">Admin</a>
-                </td>
-                <td>
-                  <a class="btn btn-primary">Ban</a>
-                </td>
-                <td>
-                  <a class="btn btn-primary">Send</a>
-                </td>
-              </tr>
+            </tr>
             </tbody>
           </table>
         </div>
