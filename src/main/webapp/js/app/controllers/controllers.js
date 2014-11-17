@@ -8,7 +8,13 @@ function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route
 			$rootScope.user = user;
 			$http.defaults.headers.common[xAuthTokenHeaderName] = user.secToken;
 			$cookieStore.put('user', user);
-			$location.path("/profile");
+			console.log(user);
+			if($rootScope.isCustomer())
+				$location.path("/profile");
+			if($rootScope.isPhotographer())
+				$location.path("/profile");
+			if($rootScope.isAdmin())
+				$location.path("/admin");
 		}).error(function(error) {
 		});
 	};
@@ -30,10 +36,9 @@ function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route
 
 photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
     function ($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
-var user = $cookieStore.get('user');
-		console.log(user);
+		var user = $cookieStore.get('user');
 		//if user is not logged in or authrized redirect to login page
-		if(undefined == user && !user.isAdmin){
+		if(undefined == user || !$rootScope.isLoggedIn() || !$rootScope.isAdmin() ){
 			$location.path("/login");
 			return;
 		}else{
@@ -42,6 +47,7 @@ var user = $cookieStore.get('user');
 			UserService.getUsers(start, count).success(function (users) {
 				$scope.users = users;
 			}).error(function (error) {
+				console.log(error);
 			});
 		}
     }]);
