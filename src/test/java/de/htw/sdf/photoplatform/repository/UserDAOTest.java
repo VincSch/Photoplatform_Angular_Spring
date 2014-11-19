@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.persistence.models.UserBank;
@@ -32,7 +31,7 @@ public class UserDAOTest extends BaseTester {
 
     @Test
     public final void createAndUpdateTest() {
-        Role rolePhotographer = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
+        Role rolePhotographer = roleDAO.findOne(Role.PHOTOGRAPHER_ID);
         String photographerTesterUsername = "PhotographerTester";
         String photographerTesterPassword = "photographerTestPass";
         String photographerTesterMail = "photographer@web.de";
@@ -70,7 +69,7 @@ public class UserDAOTest extends BaseTester {
 
         // now test
         List<User> photographerList = userDAO
-                .findByRoleId(Constants.ROLE_PHOTOGRAPHER);
+                .findByRoleId(Role.PHOTOGRAPHER_ID);
         Assert.assertTrue("Genau zwei photographers",
                 photographerList.size() == 2);
         User createdPhotographer = photographerList.get(1);
@@ -87,7 +86,7 @@ public class UserDAOTest extends BaseTester {
                 photographerTesterMail));
         Assert.assertTrue(createdPhotographer.getUserRoles().size() == 1);
         Assert.assertTrue(createdPhotographer.getUserRoles().get(0).getRole()
-                .getId().equals(Constants.ROLE_PHOTOGRAPHER));
+                .getId().equals(Role.PHOTOGRAPHER_ID));
 
         UserProfile createdPhotographerProfile = createdPhotographer
                 .getUserProfile();
@@ -136,7 +135,7 @@ public class UserDAOTest extends BaseTester {
     @Test
     public final void findTest() {
         // Init test Data
-        Role admin = roleDAO.findOne(Constants.ROLE_ADMIN);
+        Role admin = roleDAO.findOne(Role.ADMIN_ID);
         String adminTesterUsername = "AdminTester";
         String adminTesterPassword = "testPass";
         String adminTesterMail = "admintester@web.de";
@@ -156,10 +155,10 @@ public class UserDAOTest extends BaseTester {
         Assert.assertTrue("Admin hat genau eine Rolle!", adminUsers.get(1)
                 .getUserRoles().size() == 1);
         Assert.assertTrue(adminUsers.get(1).getUserRoles().get(0).getRole()
-                .getId().equals(Constants.ROLE_ADMIN));
+                .getId().equals(Role.ADMIN_ID));
 
         // Do test findAllNotAdminUsers
-        Role rolePhotographer = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
+        Role rolePhotographer = roleDAO.findOne(Role.PHOTOGRAPHER_ID);
         String photographerTesterUsername = "PhotographerTester";
         String photographerTesterPassword = "photographerTestPass";
         String photographerTesterMail = "photographer@web.de";
@@ -178,7 +177,7 @@ public class UserDAOTest extends BaseTester {
             }
         }
         Assert.assertFalse("Fehler, wenn role admin vorhanden ist.",
-                existedRoles.contains(Constants.ROLE_ADMIN));
+                existedRoles.contains(Role.ADMIN_ID));
 
         // Do test findByEnabled
         List<User> enabledUsers = userDAO.findByEnabled(Boolean.TRUE);

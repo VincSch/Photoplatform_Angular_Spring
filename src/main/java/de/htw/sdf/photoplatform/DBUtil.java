@@ -12,7 +12,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.persistence.models.UserBank;
@@ -97,13 +96,13 @@ public class DBUtil {
      * Create user.
      */
     private void createUser() {
-        Role admin = roleDAO.findOne(Constants.ROLE_ADMIN);
+        Role admin = roleDAO.findOne(Role.ADMIN_ID);
         createDefaultUser("Vincent", "123", "vincent@test.de", admin);
 
-        Role customer = roleDAO.findOne(Constants.ROLE_CUSTOMER);
+        Role customer = roleDAO.findOne(Role.CUSTOMER_ID);
         createDefaultUser("Peter", "123", "peter@test.de", customer);
 
-        Role photographer = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
+        Role photographer = roleDAO.findOne(Role.PHOTOGRAPHER_ID);
         User sergej = createDefaultUser("Sergej", "123", "sergej@test.de",
             photographer);
 

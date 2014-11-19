@@ -6,14 +6,12 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import org.junit.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.persistence.models.UserBank;
@@ -32,7 +30,7 @@ public class UserBankDAOTest extends BaseTester {
 
     @Test
     public final void testFindByUserId() throws Exception {
-        Role rolePhotographer = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
+        Role rolePhotographer = roleDAO.findOne(Role.PHOTOGRAPHER_ID);
         String photographerTesterUsername = "PhotographerBankTester";
         String photographerTesterPassword = "photographerBankTestPass";
         String photographerTesterMail = "photographerbank@web.de";

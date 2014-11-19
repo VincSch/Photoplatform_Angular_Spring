@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
@@ -53,7 +52,7 @@ public class RoleDAOImpl extends GenericDAOImpl<Role> implements RoleDAO {
      */
     @Override
     public Role getAdmin() {
-        return findOne(Constants.ROLE_ADMIN);
+        return findOne(Role.ADMIN_ID);
     }
 
     /**
@@ -64,7 +63,7 @@ public class RoleDAOImpl extends GenericDAOImpl<Role> implements RoleDAO {
         String queryString = "SELECT role FROM Role role "
                 + "WHERE role.id != ?1";
         Query query = createQuery(queryString);
-        query.setParameter(1, Constants.ROLE_ADMIN);
+        query.setParameter(1, Role.ADMIN_ID);
         return (List<Role>) query.getResultList();
     }
 
