@@ -71,6 +71,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     public List<User> find(Integer start, Integer count) {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("LEFT JOIN FETCH user.userBank ");
+        queryBuilder.append("WHERE user.enabled = true ");
         queryBuilder.append("ORDER BY user.username ");
         Query query = createQuery(queryBuilder.toString());
         query.setFirstResult(start.intValue());
@@ -117,8 +118,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     public List<User> findByRole(final Role role) {
         return findByRoleId(role.getId());
     }
-
-
 
     /**
      * {@inheritDoc}
