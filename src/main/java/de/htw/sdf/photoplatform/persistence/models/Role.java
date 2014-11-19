@@ -26,13 +26,13 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseEntity;
 public class Role extends AbstractBaseEntity {
 
     /** Role Admin. */
-    public static final String ADMIN = "ADMIN";
+    public static final String ADMIN = "ROLE_ADMIN";
 
     /** Role User. */
-    public static final String CUSTOMER = "CUSTOMER"; // (Member)
+    public static final String CUSTOMER = "ROLE_CUSTOMER"; // (Member)
 
     /** Role Photographer. */
-    public static final String PHOTOGRAPHER = "PHOTOGRAPHER";
+    public static final String PHOTOGRAPHER = "ROLE_PHOTOGRAPHER";
 
     /**
      * Default roles, added on start up. (Order is important).
@@ -71,5 +71,4 @@ public class Role extends AbstractBaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-
 }

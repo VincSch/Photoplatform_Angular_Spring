@@ -93,7 +93,7 @@ public class XAuthTokenFilter extends GenericFilterBean {
             }
             filterChain.doFilter(arg0, arg1);
         } catch (Exception ex) {
-            log.error("================> " + ex.getMessage());
+            log.debug(ex.getMessage());
         }
     }
 
