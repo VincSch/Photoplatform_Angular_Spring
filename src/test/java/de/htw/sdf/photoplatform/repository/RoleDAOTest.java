@@ -52,7 +52,7 @@ public class RoleDAOTest extends BaseTester {
 
         Role admin = roleDAO.getAdmin();
         Assert.assertTrue(admin.getId().equals(Constants.ROLE_ADMIN));
-        Assert.assertTrue(admin.getName().equals("ADMIN"));
+        Assert.assertTrue(admin.getName().equals(Role.ADMIN));
 
         allRoles.clear();
         allRoles = roleDAO.findAllNotAdminRoles();
@@ -60,7 +60,7 @@ public class RoleDAOTest extends BaseTester {
                 allRoles.size() == 2);
         Assert.assertTrue(allRoles.get(0).getId()
                 .equals(Constants.ROLE_CUSTOMER));
-        Assert.assertTrue(allRoles.get(1).getName().equals("PHOTOGRAPHER"));
+        Assert.assertTrue(allRoles.get(1).getName().equals(Role.PHOTOGRAPHER));
     }
 
     @Test
