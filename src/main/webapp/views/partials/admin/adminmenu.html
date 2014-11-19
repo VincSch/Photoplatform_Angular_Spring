@@ -63,7 +63,7 @@
           <h4>Benutzer suchen</h4>
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search">
+                <input type="text" class="form-control" placeholder="Search" ng-model="searchUsername">
             </div>
             <a class="btn btn-default" href="04 Suchergebnisseite.htm">Suche</a>
           </form>
@@ -81,7 +81,7 @@
               </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="user in filteredUsers">
+            <tr ng-repeat="user in filteredUsers | filter:searchUsername">
                 <td>{{user.index}}</td>
                 <td>{{user.username}}</td>
                 <td>

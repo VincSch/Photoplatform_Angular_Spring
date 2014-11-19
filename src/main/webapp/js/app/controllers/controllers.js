@@ -44,6 +44,7 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
             $location.path("/login");
             return;
         } else {
+            $scope.searchUsername = "";
             $scope.currentPage = 1;
             $scope.numPerPage = 5;
             var start = 0;
