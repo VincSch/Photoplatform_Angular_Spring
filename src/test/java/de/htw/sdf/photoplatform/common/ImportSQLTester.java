@@ -2,9 +2,8 @@ package de.htw.sdf.photoplatform.common;
 
 import java.util.List;
 
-import org.junit.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -35,12 +34,12 @@ public class ImportSQLTester extends BaseTester {
         List<Role> roles = roleDAO.findAll();
         Assert.assertTrue(roles.size() == 3);
         Assert.assertTrue(roles.get(0).getId().equals(Constants.ROLE_ADMIN));
-        Assert.assertTrue(roles.get(0).getName().equals("ADMIN"));
+        Assert.assertTrue(roles.get(0).getName().equals(Role.ADMIN));
         Assert.assertTrue(roles.get(1).getId().equals(Constants.ROLE_CUSTOMER));
-        Assert.assertTrue(roles.get(1).getName().equals("CUSTOMER"));
+        Assert.assertTrue(roles.get(1).getName().equals(Role.CUSTOMER));
         Assert.assertTrue(roles.get(2).getId()
                 .equals(Constants.ROLE_PHOTOGRAPHER));
-        Assert.assertTrue(roles.get(2).getName().equals("PHOTOGRAPHER"));
+        Assert.assertTrue(roles.get(2).getName().equals(Role.PHOTOGRAPHER));
     }
 
     @Test
@@ -49,11 +48,11 @@ public class ImportSQLTester extends BaseTester {
         List<Role> roles = roleDAO.findAll();
         Assert.assertTrue(roles.size() == 3);
         Assert.assertTrue(roles.get(0).getId().equals(Constants.ROLE_ADMIN));
-        Assert.assertTrue(roles.get(0).getName().equals("ADMIN"));
+        Assert.assertTrue(roles.get(0).getName().equals(Role.ADMIN));
         Assert.assertTrue(roles.get(1).getId().equals(Constants.ROLE_CUSTOMER));
-        Assert.assertTrue(roles.get(1).getName().equals("CUSTOMER"));
+        Assert.assertTrue(roles.get(1).getName().equals(Role.CUSTOMER));
         Assert.assertTrue(roles.get(2).getId()
                 .equals(Constants.ROLE_PHOTOGRAPHER));
-        Assert.assertTrue(roles.get(2).getName().equals("PHOTOGRAPHER"));
+        Assert.assertTrue(roles.get(2).getName().equals(Role.PHOTOGRAPHER));
     }
 }

@@ -5,10 +5,12 @@
 
 package de.htw.sdf.photoplatform.webservice;
 
-import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
-import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +19,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import de.htw.sdf.photoplatform.common.BaseTester;
+import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
+import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 
 /**
  * Test for user login register user
@@ -38,32 +41,33 @@ public class AuthenticationControllerTest extends BaseTester {
     }
 
     @Test
+    @Ignore
     public void testRegisterAndLoginUser() throws Exception {
         String username = "test";
         String email = "test@test.de";
         String password = "password";
 
-        //        UserRegister userRegister = new UserRegister();
-        //        userRegister.setUsername(username);
-        //        userRegister.setEmail(email);
-        //        userRegister.setPassword(password);
-        //
-        //        // Register User
-        //        mockMvc.perform(
-        //                post("/api/user/register")
-        //                        .contentType(MediaType.APPLICATION_JSON)
-        //                        .content(mapper.writeValueAsString(userRegister))
-        //                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-        //
-        //        UserCredential userCredential = new UserCredential();
-        //        userCredential.setUsername(username);
-        //        userCredential.setPassword(password);
-        //
-        //        mockMvc.perform(
-        //                post("/api/user/login")
-        //                        .contentType(MediaType.APPLICATION_JSON)
-        //                        .content(mapper.writeValueAsString(userCredential))
-        //                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        UserRegister userRegister = new UserRegister();
+        userRegister.setUsername(username);
+        userRegister.setEmail(email);
+        userRegister.setPassword(password);
+
+        // Register User
+        mockMvc.perform(
+                post("/api/user/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userRegister))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
+        UserCredential userCredential = new UserCredential();
+        userCredential.setUsername(username);
+        userCredential.setPassword(password);
+
+        mockMvc.perform(
+                post("/api/user/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userCredential))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     /**
@@ -109,7 +113,7 @@ public class AuthenticationControllerTest extends BaseTester {
         mockMvc.perform(
             post("/api/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(userRegister))
+                .content(mapper.writeValueAsString(userCredential))
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest());
 
@@ -119,12 +123,13 @@ public class AuthenticationControllerTest extends BaseTester {
         mockMvc.perform(
             post("/api/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(userRegister))
+                .content(mapper.writeValueAsString(userCredential))
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
     }
 
-    //@Test
+    @Test
+    @Ignore
     public void testRegisterUserWithInvalidEmail() throws Exception {
         UserRegister userRegister = new UserRegister();
         userRegister.setUsername("testInvalid");
