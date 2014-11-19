@@ -12,23 +12,6 @@
   </head>
 
   <body>
-    <div class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
-      <div class="container">
-        <div class="navbar-header">
-          <a type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></a>
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <p class="navbar-text navbar-right">
-            CI-Status: <img src="https://travis-ci.org/VincSch/photoplatform-sdf.svg?branch=master">
-          </p>
-          <p class="navbar-left navbar-text">Copyright 2014&nbsp;</p>
-        </div>
-      </div>
-    </div>
     <div class="navbar navbar-default navbar-inverse navbar-static-top" style=""
     draggable="true">
       <p class="navbar-right navbar-text" ng-show = "isLoggedIn()">
@@ -77,6 +60,23 @@
     </div>
     <div class="container" style="width: 100%" ng-view>
     </div>
+    <div class="navbar navbar-default navbar-inverse" style="margin-bottom: 0px;">
+      <div class="container">
+        <div class="navbar-header">
+          <a type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></a>
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <p class="navbar-text navbar-right">
+            CI-Status: <img src="https://travis-ci.org/VincSch/photoplatform-sdf.svg?branch=master">
+          </p>
+          <p class="navbar-left navbar-text">Copyright 2014&nbsp;</p>
+        </div>
+      </div>
+    </div>
     <script src="/js/jquery/jquery.js"></script>
     <script src="/js/bootstrap/bootstrap.js"></script>
     <script src="/js/angular/angular.js"></script>
@@ -84,6 +84,7 @@
     <script src="/js/angular/angular-resource.js"></script>
     <script src="/js/angular/angular-cookies.js"></script>
     <script src="/js/angular/ui-bootstrap-tpls-0.11.0.min.js"></script>
+    <script src="/js/lib/md5.js"></script>
     <script src="/js/app/app.js"></script>
     <script src="/js/app/models.js"></script>
     <script src="/js/app/services.js"></script>

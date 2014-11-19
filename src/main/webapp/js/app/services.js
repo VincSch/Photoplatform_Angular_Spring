@@ -2,6 +2,8 @@ angular.module('photoplatform').factory('UserService', ['$http',
 function($http) {
 
 	var urlBase = '/api/user';
+    var urlBaseList = '/api/users';
+
 	var userService = {};
 
 	userService.login = function(name, pw) {
@@ -21,9 +23,13 @@ function($http) {
 		return $http.post(urlBase + '/update', user);
 	};
 
-	userService.getUserByName = function(name) {
+    userService.getUsers = function (name) {
 		return $http.get(urlBase + '/byname/' + name);
 	};
+
+    userService.getUsers = function (start, count) {
+        return $http.get(urlBaseList + '/' + start + "/" + count);
+    };
 
 	return userService;
 }]);

@@ -12,10 +12,16 @@ function($routeProvider, $locationProvider, $httpProvider) {
 	}).when('/register', {
 		templateUrl : '/views/partials/home/register.html',
 		controller : 'RegisterCtrl'
-	}).when('/', {
-		templateUrl : '/views/partials/home/home.html',
-		controller : ''
-	}).otherwise({
+	}).when('/admin', {
+		templateUrl : '/views/partials/admin/adminmenu.html',
+        controller: 'AdminMenuCtrl'
+	}).when('/wellcomeuser', {
+         templateUrl : '/views/partials/user/wellcomeUser.html',
+         controller : ''
+    }).when('/', {
+      	templateUrl : '/views/partials/home/home.html',
+      	controller : ''
+     }).otherwise({
 		redirectTo : '/'
 	});
 
@@ -142,14 +148,39 @@ function($routeProvider, $locationProvider, $httpProvider) {
 		}
 	};
 
+	var ADMIN = "ROLE_ADMIN";
+	var CUSTOMER = "ROLE_CUSTOMER";
+	var PHOTOGRAPHER = "ROLE_PHOTOGRAPHER"
 	$rootScope.isAdmin = function() {
 		if ($rootScope.user !== undefined) {
-			for (var i = 0; i < $rootScope.user.userRoles.length; ++i) {
-				if ($rootScope.user.userRoles[i].role.name == "ROLE_ADMIN")
+			for (var i = 0; i < $rootScope.user.authorities.length; ++i) {
+				if ($rootScope.user.authorities[i].authority == ADMIN)
 					return true;
 			};
 		}
 		return false;
+	};
+
+	$rootScope.isCustomer = function() {
+		if ($rootScope.user !== undefined) {
+			var isCustomer = false;
+			$rootScope.user.authorities.forEach(function(role){
+				if (role.authority == CUSTOMER)
+					isCustomer = true;
+			});
+		}
+		return isCustomer;
+	};
+
+	$rootScope.isPhotographer = function() {
+		if ($rootScope.user !== undefined) {
+			var isPhotograph = false;
+			$rootScope.user.authorities.forEach(function(role){
+				if (role.authority == PHOTOGRAPHER)
+					isPhotograph = true;
+			});
+		}
+		return isPhotograph;
 	};
 
 	console.log($rootScope.user);

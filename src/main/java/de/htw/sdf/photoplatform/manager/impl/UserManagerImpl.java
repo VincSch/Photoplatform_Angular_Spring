@@ -82,7 +82,8 @@ public class UserManagerImpl implements UserManager {
 
         user = new User();
         user.setUsername(username);
-        user.setPassword(new BCryptPasswordEncoder().encode(password));
+        user.setPassword(password);
+        //user.setPassword(new BCryptPasswordEncoder().encode(password));
 
         // Enable user
         user.setAccountNonLocked(true);
@@ -140,6 +141,24 @@ public class UserManagerImpl implements UserManager {
     @Override
     public User findByName(String username) {
         return userDAO.findByUserName(username);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<User> find(Integer start, Integer count) {
+        return userDAO.find(start,count);
+    }
+
+    @Override
+    public Boolean isUserAdmin(User user) {
+        for(UserRole userRole : user.getUserRoles()){
+            if(userRole.getRole().getName().equals(Role.ADMIN)){
+                return true ;
+            }
+        }
+        return false;
     }
 
     /**

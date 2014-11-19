@@ -53,12 +53,12 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         for (String endpoint : Endpoints.securedUserEndpoints())
         {
-            http.authorizeRequests().antMatchers(endpoint).hasAnyRole(Role.CUSTOMER, Role.ADMIN);
+            http.authorizeRequests().antMatchers(endpoint).hasAnyRole(removeRolePrefix(Role.CUSTOMER), removeRolePrefix(Role.ADMIN));
         }
 
         for (String endpoint : Endpoints.securedAdminEndpoints())
         {
-            http.authorizeRequests().antMatchers(endpoint).hasRole(Role.ADMIN);
+            http.authorizeRequests().antMatchers(endpoint).hasRole(removeRolePrefix(Role.ADMIN));
         }
 
         SecurityConfigurer<DefaultSecurityFilterChain, HttpSecurity> securityConfigurerAdapter = new XAuthTokenConfigurer(
@@ -74,7 +74,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder authManagerBuilder)
             throws Exception {
         UserDAO userDAO = context.getBean(UserDAO.class);
-        authManagerBuilder.userDetailsService(userDAO).passwordEncoder(passwordEncoder());
+        authManagerBuilder.userDetailsService(userDAO);//.passwordEncoder(passwordEncoder());
     }
 
     /**
@@ -86,8 +86,18 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    /**
+     * Remove prefix ROLE_ cause Spring-Security requires format without ROLE_ for Web
+     * Security set up.
+     * @param roleName role name like ROLE_ADMIN
+     * @return role name like ADMIN (deleted Prefix ROLE_)
+     */
+    private String removeRolePrefix(String roleName){
+        return roleName.substring(5);
     }
+
+ //   @Bean
+ //   public PasswordEncoder passwordEncoder(){
+ //       return new BCryptPasswordEncoder();
+ //   }
 }

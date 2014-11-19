@@ -48,6 +48,9 @@ public final class Endpoints {
     /** USER_BY_NAME. */
     public static final String USER_BY_NAME = "/user/{name}";
 
+    /** all users between start and count. */
+    public static final String USERS_START_COUNT= "/users/{start}/{count}";
+
     /**
      * Endpoints for application maintenance.
      */
@@ -80,7 +83,11 @@ public final class Endpoints {
      *         only be accessed by an admin
      */
     public static String[] securedAdminEndpoints() {
-        String[] securedEndpoints = {restBuilder(MAINTENANCE_STATISTIC)};
+        String[] securedEndpoints = {
+                restBuilder(MAINTENANCE_STATISTIC),
+                restBuilder(USER_UPDATE),
+                restBuilder(USERS_START_COUNT)
+        };
         return securedEndpoints;
     }
 

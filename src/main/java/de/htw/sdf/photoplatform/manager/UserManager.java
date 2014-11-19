@@ -85,4 +85,24 @@ public interface UserManager {
      * @return
      */
     public User lockUser(String name);
+    /**
+     * Returns all user between start and count.
+     * IF start and count contains 0, than return first user.
+     * IF start contains 0 and count contains 1, than return first user.
+     *
+     * @param start index for first.
+     * @param count index for last.
+     *
+     * @return users
+     */
+    List<User> find(Integer start, Integer count);
+
+    /**
+     * Check user admin role.
+     *
+     * @param user user.
+     *
+     * @return true if user has role admin.
+     */
+    Boolean isUserAdmin(User user);
 }
