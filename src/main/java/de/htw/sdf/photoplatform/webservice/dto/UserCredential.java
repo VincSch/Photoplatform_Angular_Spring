@@ -6,9 +6,9 @@
 
 package de.htw.sdf.photoplatform.webservice.dto;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Data Transfer Object.

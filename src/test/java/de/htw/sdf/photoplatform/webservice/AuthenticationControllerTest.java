@@ -7,7 +7,6 @@ package de.htw.sdf.photoplatform.webservice;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.After;
@@ -19,7 +18,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
 import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 
 /**

@@ -6,7 +6,6 @@
 
 package de.htw.sdf.photoplatform;
 
-import de.htw.sdf.photoplatform.persistence.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -20,10 +19,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 
+import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.security.XAuthTokenConfigurer;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
