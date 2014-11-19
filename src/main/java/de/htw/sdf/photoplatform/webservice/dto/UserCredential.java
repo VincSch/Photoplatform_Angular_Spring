@@ -24,7 +24,7 @@ public class UserCredential
 
 
     @NotEmpty
-    @Size(min = 3, max = 30)
+    @Size(min = 3)
     protected String password;
 
     /**

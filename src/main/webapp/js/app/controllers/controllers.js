@@ -4,7 +4,8 @@ photoplatformControllers.controller('LoginCtrl', ['$scope', '$rootScope', '$loca
 function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
 
 	$rootScope.login = function(username, password) {
-		UserService.login(username, password).success(function(user) {
+		var hashedPw = MD5(password);
+		UserService.login(username, hashedPw).success(function(user) {
 			$rootScope.user = user;
 			$http.defaults.headers.common[xAuthTokenHeaderName] = user.secToken;
 			$cookieStore.put('user', user);
@@ -24,7 +25,8 @@ photoplatformControllers.controller('RegisterCtrl', ['$scope', '$rootScope', '$l
 function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
 
 	$rootScope.register = function(username, password, email) {
-		var user = {'username' : username, 'password' : password, 'email' : email};
+		var hashedPw = MD5(password);
+		var user = {'username' : username, 'password' : hashedPw, 'email' : email};
 		UserService.register(user).success(function() {
 			$location.path("/login");
 			$rootScope.success = "Du hast dich erfolgreich registriert. Du kannst dich nun mit deinem Benutzernamen anmelden!";
