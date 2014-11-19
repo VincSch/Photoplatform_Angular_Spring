@@ -101,6 +101,20 @@ public interface UserManager {
     List<User> find(Integer start, Integer count);
 
     /**
+     * Returns all photographs, that should be activated.
+     *
+     * @return users with role photograph.
+     */
+    List<User> findPhotographToActivate(Integer start, Integer count);
+
+    /**
+     * Returns all photographs, that should be activated.
+     *
+     * @return users.
+     */
+    List<User> findByRoleAndEnabled(Long roleId, boolean enabled);
+
+    /**
      * Check user admin role.
      *
      * @param user user.

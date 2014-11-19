@@ -216,34 +216,69 @@ public class UserDAOTest extends BaseTester {
     public void testFindStartCount(){
         List<User> usersBetween0And0 = userDAO.find(0,0);
         Assert.assertTrue(usersBetween0And0.size() == 1);
-        Assert.assertTrue(usersBetween0And0.get(0).getUsername().equals("Vincent"));
+        Assert.assertTrue(usersBetween0And0.get(0).getUsername().equals("Peter"));
 
         List<User> usersBetween0And1 = userDAO.find(0,1);
         Assert.assertTrue(usersBetween0And1.size() == 1);
-        Assert.assertTrue(usersBetween0And0.get(0).getUsername().equals("Vincent"));
+        Assert.assertTrue(usersBetween0And0.get(0).getUsername().equals("Peter"));
 
         List<User> usersBetween0And2 = userDAO.find(0,2);
         Assert.assertTrue(usersBetween0And2.size() == 2);
-        Assert.assertTrue(usersBetween0And2.get(1).getUsername().equals("Peter"));
+        Assert.assertTrue(usersBetween0And2.get(0).getUsername().equals("Peter"));
 
         List<User> usersBetween0And3 = userDAO.find(0,3);
         Assert.assertTrue(usersBetween0And3.size() == 3);
-        Assert.assertTrue(usersBetween0And3.get(2).getUsername().equals("Sergej"));
+        Assert.assertTrue(usersBetween0And3.get(1).getUsername().equals("Sergej"));
 
         List<User> usersBetween1And0 = userDAO.find(1,0);
         Assert.assertTrue(usersBetween1And0.size() == 1);
-        Assert.assertTrue(usersBetween1And0.get(0).getUsername().equals("Peter"));
+        Assert.assertTrue(usersBetween1And0.get(0).getUsername().equals("Sergej"));
 
         List<User> usersBetween1And1 = userDAO.find(1,1);
         Assert.assertTrue(usersBetween1And1.size() == 1);
-        Assert.assertTrue(usersBetween1And1.get(0).getUsername().equals("Peter"));
+        Assert.assertTrue(usersBetween1And1.get(0).getUsername().equals("Sergej"));
 
         List<User> usersBetween1And2 = userDAO.find(1,2);
         Assert.assertTrue(usersBetween1And2.size() == 2);
-        Assert.assertTrue(usersBetween1And2.get(1).getUsername().equals("Sergej"));
+        Assert.assertTrue(usersBetween1And2.get(1).getUsername().equals("Vincent"));
 
         List<User> usersBetween4And1 = userDAO.find(4,1);
         Assert.assertTrue(usersBetween4And1.isEmpty());
+    }
+
+    @Test
+    public void testFindByRoleAndEnabledFilter(){
+        List<User> defaultDisabledPhotographs = userDAO.findByRoleAndEnabledFilter(Role.PHOTOGRAPHER_ID,false);
+        Assert.assertTrue(defaultDisabledPhotographs.isEmpty());
+        List<User> defaultEnabledPhotographs = userDAO.findByRoleAndEnabledFilter(Role.PHOTOGRAPHER_ID,true);
+        Assert.assertTrue(defaultEnabledPhotographs.size() == 1);
+        List<User> defaultDisabledAdmins = userDAO.findByRoleAndEnabledFilter(Role.ADMIN_ID,false);
+        Assert.assertTrue(defaultDisabledAdmins.isEmpty());
+        List<User> defaultEnabledAdmins= userDAO.findByRoleAndEnabledFilter(Role.ADMIN_ID,true);
+        Assert.assertTrue(defaultEnabledAdmins.size() == 1);
+        List<User> defaultDisabledCustomers = userDAO.findByRoleAndEnabledFilter(Role.CUSTOMER_ID,false);
+        Assert.assertTrue(defaultDisabledCustomers.isEmpty());
+        List<User> defaultEnabledCustomers= userDAO.findByRoleAndEnabledFilter(Role.CUSTOMER_ID,true);
+        Assert.assertTrue(defaultEnabledCustomers.size() == 1);
+
+        // Init test Data
+        Role photographer = roleDAO.findOne(Role.PHOTOGRAPHER_ID);
+        String photographerUsername = "PhotographerTester";
+        String aphotographerPassword = "testPass";
+        String photographerMail = "photographertester@web.de";
+        createDefaultUser(photographerUsername, aphotographerPassword,
+                photographerMail, photographer, Boolean.FALSE, Boolean.TRUE);
+
+        //Do Test
+        List<User> disabledPhotographs = userDAO.findByRoleAndEnabledFilter(Role.PHOTOGRAPHER_ID,false);
+        Assert.assertTrue(disabledPhotographs.size() == 1);
+        User createdDisabledPhotograph = disabledPhotographs.get(0);
+        createdDisabledPhotograph.setEnabled(Boolean.TRUE);
+        userDAO.update(createdDisabledPhotograph);
+        List<User> newDisabledPhotographs = userDAO.findByRoleAndEnabledFilter(Role.PHOTOGRAPHER_ID,false);
+        Assert.assertTrue(newDisabledPhotographs.isEmpty());
+        List<User> newEnabledPhotographs = userDAO.findByRoleAndEnabledFilter(Role.PHOTOGRAPHER_ID,true);
+        Assert.assertTrue(newEnabledPhotographs.size() == 2);
     }
 
 }

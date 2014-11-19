@@ -162,6 +162,25 @@ public class UserManagerImpl implements UserManager
         return userDAO.find(start,count);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<User> findPhotographToActivate(Integer start, Integer count) {
+        return findByRoleAndEnabled(Role.PHOTOGRAPHER_ID, false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<User> findByRoleAndEnabled(Long roleId, boolean enabled) {
+        return userDAO.findByRoleAndEnabledFilter(roleId,enabled);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Boolean isUserAdmin(User user) {
         for(UserRole userRole : user.getUserRoles()){
