@@ -15,7 +15,10 @@ function($routeProvider, $locationProvider, $httpProvider) {
 	}).when('/admin', {
 		templateUrl : '/views/partials/admin/adminmenu.html',
         controller: 'AdminMenuCtrl'
-	}).when('/', {
+	}).when('/wellcomeuser', {
+         templateUrl : '/views/partials/user/wellcomeUser.html',
+         controller : ''
+    }).when('/', {
       	templateUrl : '/views/partials/home/home.html',
       	controller : ''
      }).otherwise({
