@@ -6,6 +6,13 @@
 
 package de.htw.sdf.photoplatform.manager.impl;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
@@ -15,11 +22,6 @@ import de.htw.sdf.photoplatform.persistence.models.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * business methods for users.
@@ -166,5 +168,31 @@ public class UserManagerImpl implements UserManager {
             }
         }
         return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<User> findPhotographToActivate() {
+        return findByRoleAndEnabled(Role.PHOTOGRAPHER_ID, false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<User> findByRoleAndEnabled(Long roleId, boolean enabled) {
+        return userDAO.findByRoleAndEnabledFilter(roleId,enabled);
+    }
+
+    /**
+     * {inheritDoc}
+     */
+    @Override public User lockUser(String name) {
+        User user = userDAO.findByUserName(name);
+        user.setAccountNonLocked(false);
+        userDAO.update(user);
+        return user;
     }
 }
