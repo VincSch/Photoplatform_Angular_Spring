@@ -22,40 +22,18 @@
             <tr ng-repeat="user in photographTableFilteredUsers">
                 <td>{{user.index}}</td>
                 <td>{{user.username}}</td>
-            </tr>
-            <!--
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
                 <td draggable="true">
-                  <a class="btn btn-primary">Activ</a>
+                    <a class="btn btn-primary">Activ</a>
                 </td>
                 <td>
-                  <a class="btn btn-primary">Send</a>
+                    <a class="btn btn-primary">Send</a>
                 </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>
-                  <a class="btn btn-primary">Activ</a>
-                </td>
-                <td>
-                  <a class="btn btn-primary">Send</a>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>
-                  <a class="btn btn-primary">Activ</a>
-                </td>
-                <td>
-                  <a class="btn btn-primary">Send</a>
-                </td>
-              </tr>-->
+            </tr>
             </tbody>
           </table>
+            <pagination ng-show="photographTableShowPagination" total-items="photographTableTotalItems"
+                        items-per-page="photographTableNumPerPage"
+                        ng-model="photographTableCurrentPage" ng-change="photographTablePageChanged()"></pagination>
         </div>
       </div>
       <div class="row">
@@ -70,7 +48,7 @@
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search" ng-model="userTableSearchUsername">
             </div>
-            <a class="btn btn-default" href="04 Suchergebnisseite.htm">Suche</a>
+              <a class="btn btn-default" href="04 Suchergebnisseite.htm" style="visibility: hidden">Suche</a>
           </form>
         </div>
         <div class="col-md-12">

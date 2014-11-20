@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,9 +32,6 @@ import de.htw.sdf.photoplatform.webservice.dto.UserData;
 public class UserController extends BaseAPIController {
 
     @Resource
-    private UserDetailsService userDetailsService;
-
-    @Resource
     private UserManager userManager;
 
     /**
@@ -43,7 +39,6 @@ public class UserController extends BaseAPIController {
      *
      * @param start start parameter.
      * @param count list size.
-     * //@param bindingResult
      * @return list of enabled users between start an count.
      * @throws IOException
      * @throws AbstractBaseException
