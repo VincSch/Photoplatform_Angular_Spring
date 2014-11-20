@@ -15,7 +15,6 @@ import de.htw.sdf.photoplatform.persistence.models.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -148,14 +147,14 @@ public class UserManagerImpl implements UserManager {
      */
     @Override
     public List<User> find(Integer start, Integer count) {
-        return userDAO.find(start,count);
+        return userDAO.find(start, count);
     }
 
     @Override
     public Boolean isUserAdmin(User user) {
-        for(UserRole userRole : user.getUserRoles()){
-            if(userRole.getRole().getName().equals(Role.ADMIN)){
-                return true ;
+        for (UserRole userRole : user.getUserRoles()) {
+            if (userRole.getRole().getName().equals(Role.ADMIN)) {
+                return true;
             }
         }
         return false;
@@ -166,7 +165,7 @@ public class UserManagerImpl implements UserManager {
      */
     @Override public User lockUser(String name) {
         User user = userDAO.findByUserName(name);
-        user.setEnabled(false);
+        user.setAccountNonLocked(false);
         userDAO.update(user);
         return user;
     }

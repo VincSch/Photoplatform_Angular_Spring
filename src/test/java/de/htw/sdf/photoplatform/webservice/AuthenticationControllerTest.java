@@ -9,10 +9,9 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -107,7 +106,7 @@ public class AuthenticationControllerTest extends BaseTester {
             .andExpect(status().isOk());
 
         User user = userDAO.findByUserName(username);
-        user.setEnabled(false);
+        user.setAccountNonLocked(false);
         userDAO.update(user);
 
         mockMvc.perform(
@@ -117,7 +116,7 @@ public class AuthenticationControllerTest extends BaseTester {
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest());
 
-        user.setEnabled(true);
+        user.setAccountNonLocked(true);
         userDAO.update(user);
 
         mockMvc.perform(
