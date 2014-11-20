@@ -1,30 +1,15 @@
-<div id="carousel-example-generic" style="width: 100%;" data-interval="false" class="carousel slide"
-     data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="item">
-            <img src="img/car1.jpg">
-            <div class="carousel-caption">
-                <h2>random pic 1</h2>
-                <p>Description</p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="img/car2.jpg">
-            <div class="carousel-caption">
-                <h2>random pic 2</h2>
-                <p>Description</p>
-            </div>
-        </div>
-        <div class="item active">
-            <img src="img/car3.jpg">
-            <div class="carousel-caption">
-                <h2>random pic 3</h2>
-                <p>Description</p>
-            </div>
-        </div>
+<div ng-controller="CarouselDemoCtrl">
+    <div style="width: 100%;">
+        <carousel>
+            <slide ng-repeat="slide in slides" active="slide.active">
+                <img ng-src="{{slide.image}}" style="margin:auto;">
+                <div class="carousel-caption">
+                    <h4>Slide {{$index}}</h4>
+                    <p>{{slide.text}}</p>
+                </div>
+            </slide>
+        </carousel>
     </div>
-    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 </div>
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="home-hero-unit hero-unit">

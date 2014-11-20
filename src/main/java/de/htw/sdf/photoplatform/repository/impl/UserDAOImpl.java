@@ -8,6 +8,7 @@ package de.htw.sdf.photoplatform.repository.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
@@ -200,5 +201,9 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         queryBuilder.append("LEFT JOIN FETCH user.userProfile ");
 
         return queryBuilder;
+    }
+
+    @Override public EntityManager getEntityManager() {
+        return super.getEntityManager();
     }
 }

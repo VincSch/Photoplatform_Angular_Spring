@@ -6,88 +6,85 @@
 
 package de.htw.sdf.photoplatform.manager;
 
-import java.util.List;
-
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.models.User;
+
+import java.util.List;
 
 /**
  * Interface defining business methods for users.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- * 
  */
 public interface UserManager {
 
     /**
      * Create and persist a customer.
-     * 
-     * @param customer
-     *            the user to create
+     *
+     * @param customer the user to create
      */
     void createCustomer(final User customer);
 
     /**
      * Register user.
      *
-     * @param username
-     *            the username
-     * @param email
-     *            the email
-     * @param password
-     *            the password
+     * @param username the username
+     * @param email    the email
+     * @param password the password
      */
-    void registerUser(String username, String email, String password) throws ManagerException;
+    void registerUser(String username, String email, String password)
+        throws ManagerException;
 
     /**
      * update a User.
-     * 
-     * @param entity
-     *            User you want to update
-     * 
+     *
+     * @param entity User you want to update
      * @return the updated User
      */
     User update(final User entity);
 
     /**
      * delete a User.
-     * 
-     * @param entity
-     *            user to be deleted
+     *
+     * @param entity user to be deleted
      */
     void delete(final User entity);
 
     /**
      * find User its id.
-     * 
-     * @param id
-     *            User id
+     *
+     * @param id User id
      * @return User class
      */
     User findById(final long id);
 
     /**
      * find all Users.
-     * 
+     *
      * @return a list of all Users
      */
     List<User> findAll();
 
     /**
      * delete all Users.
-     * 
      */
     void deleteAll();
 
     /**
      * find a user by its unique name.
-     * 
-     * @param name
-     *            unique name
+     *
+     * @param name unique name
      * @return the user entity
      */
     User findByName(String name);
 
+    /**
+     * locks the user for the system
+     *
+     * @param name
+     * @return
+     */
+    public User lockUser(String name);
     /**
      * Returns all user between start and count.
      * IF start and count contains 0, than return first user.

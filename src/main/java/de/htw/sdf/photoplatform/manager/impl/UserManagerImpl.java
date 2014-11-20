@@ -6,13 +6,6 @@
 
 package de.htw.sdf.photoplatform.manager.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
@@ -22,17 +15,20 @@ import de.htw.sdf.photoplatform.persistence.models.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * business methods for users.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- *
  */
 @Service
 @Transactional
-public class UserManagerImpl implements UserManager
-{
+public class UserManagerImpl implements UserManager {
 
     @Resource
     private UserDAO userDAO;
@@ -162,25 +158,6 @@ public class UserManagerImpl implements UserManager
         return userDAO.find(start,count);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<User> findPhotographToActivate() {
-        return findByRoleAndEnabled(Role.PHOTOGRAPHER_ID, false);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<User> findByRoleAndEnabled(Long roleId, boolean enabled) {
-        return userDAO.findByRoleAndEnabledFilter(roleId,enabled);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Boolean isUserAdmin(User user) {
         for(UserRole userRole : user.getUserRoles()){

@@ -21,12 +21,35 @@ photoplatformControllers.controller('LoginCtrl', ['$scope', '$rootScope', '$loca
         };
     }]);
 
+photoplatform.controller('CarouselDemoCtrl', function ($scope) {
+    var slides = $scope.slides = [];
+    slides.push({
+        image: 'img/car1.jpg',
+        text: ['More', 'Extra', 'Lots of', 'Surplus'] + ' ' +
+        ['Cats', 'Kittys', 'Felines', 'Cutes']
+    });
+    slides.push({
+        image: 'img/car2.jpg',
+        text: ['More', 'Extra', 'Lots of', 'Surplus'] + ' ' +
+        ['Cats', 'Kittys', 'Felines', 'Cutes']
+    });
+    slides.push({
+        image: 'img/car3.jpg',
+        text: ['More', 'Extra', 'Lots of', 'Surplus']+ ' ' +
+        ['Cats', 'Kittys', 'Felines', 'Cutes']
+    });
+});
+
 photoplatformControllers.controller('RegisterCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
     function ($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
 
         $rootScope.register = function (username, password, email) {
             var hashedPw = MD5(password);
-            var user = {'username': username, 'password': hashedPw, 'email': email};
+            var user = {
+                'username': username,
+                'password': hashedPw,
+                'email': email
+            };
             UserService.register(user).success(function () {
                 $location.path("/login");
                 $rootScope.success = "Du hast dich erfolgreich registriert. Du kannst dich nun mit deinem Benutzernamen anmelden!";
