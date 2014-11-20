@@ -145,13 +145,13 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
         }
     };
 
-    var ADMIN = "ROLE_ADMIN";
-    var CUSTOMER = "ROLE_CUSTOMER";
-    var PHOTOGRAPHER = "ROLE_PHOTOGRAPHER"
+    $rootScope.ADMIN = "ROLE_ADMIN";
+    $rootScope.CUSTOMER = "ROLE_CUSTOMER";
+    $rootScope.PHOTOGRAPHER = "ROLE_PHOTOGRAPHER"
     $rootScope.isAdmin = function () {
         if ($rootScope.user !== undefined) {
             for (var i = 0; i < $rootScope.user.authorities.length; ++i) {
-                if ($rootScope.user.authorities[i].authority == ADMIN)
+                if ($rootScope.user.authorities[i].authority == $rootScope.ADMIN)
                     return true;
             }
             ;
@@ -163,7 +163,7 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
         if ($rootScope.user !== undefined) {
             var isCustomer = false;
             $rootScope.user.authorities.forEach(function (role) {
-                if (role.authority == CUSTOMER)
+                if (role.authority == $rootScope.CUSTOMER)
                     isCustomer = true;
             });
         }
@@ -174,7 +174,7 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
         if ($rootScope.user !== undefined) {
             var isPhotograph = false;
             $rootScope.user.authorities.forEach(function (role) {
-                if (role.authority == PHOTOGRAPHER)
+                if (role.authority == $rootScope.PHOTOGRAPHER)
                     isPhotograph = true;
             });
         }

@@ -47,9 +47,10 @@ public final class Endpoints {
     public static final String USER_UPDATE = "/user/update";
     /** USER_BY_NAME. */
     public static final String USER_BY_NAME = "/user/{name}";
-
     /** all users between start and count. */
     public static final String USERS_START_COUNT= "/users/{start}/{count}";
+    /** all disabled users for given role. */
+    public static final String USERS_DISABLED_BY_ROLE= "/users/disabled/{roleName}";
 
     /**
      * Endpoints for application maintenance.
@@ -86,7 +87,8 @@ public final class Endpoints {
         String[] securedEndpoints = {
                 restBuilder(MAINTENANCE_STATISTIC),
                 restBuilder(USER_UPDATE),
-                restBuilder(USERS_START_COUNT)
+                restBuilder(USERS_START_COUNT),
+                restBuilder(USERS_DISABLED_BY_ROLE)
         };
         return securedEndpoints;
     }

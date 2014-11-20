@@ -166,7 +166,7 @@ public class UserManagerImpl implements UserManager
      * {@inheritDoc}
      */
     @Override
-    public List<User> findPhotographToActivate(Integer start, Integer count) {
+    public List<User> findPhotographToActivate() {
         return findByRoleAndEnabled(Role.PHOTOGRAPHER_ID, false);
     }
 

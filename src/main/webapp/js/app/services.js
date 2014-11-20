@@ -27,8 +27,12 @@ function($http) {
 		return $http.get(urlBase + '/byname/' + name);
 	};
 
-    userService.getUsers = function (start, count) {
+    userService.getEnabledUsers = function (start, count) {
         return $http.get(urlBaseList + '/' + start + "/" + count);
+    };
+
+    userService.getDisabledUsersByRole = function (roleName) {
+        return $http.get(urlBaseList + '/disabled/' + roleName);
     };
 
 	return userService;

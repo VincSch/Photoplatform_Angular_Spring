@@ -19,6 +19,11 @@
               </tr>
             </thead>
             <tbody>
+            <tr ng-repeat="user in photographTableFilteredUsers">
+                <td>{{user.index}}</td>
+                <td>{{user.username}}</td>
+            </tr>
+            <!--
               <tr>
                 <td>1</td>
                 <td>Mark</td>
@@ -48,7 +53,7 @@
                 <td>
                   <a class="btn btn-primary">Send</a>
                 </td>
-              </tr>
+              </tr>-->
             </tbody>
           </table>
         </div>
@@ -63,7 +68,7 @@
           <h4>Benutzer suchen</h4>
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" ng-model="searchUsername">
+                <input type="text" class="form-control" placeholder="Search" ng-model="userTableSearchUsername">
             </div>
             <a class="btn btn-default" href="04 Suchergebnisseite.htm">Suche</a>
           </form>
@@ -81,8 +86,8 @@
               </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="user in filteredUsers | filter:searchUsername">
-                <td>{{user.index}}</td>
+            <tr ng-repeat="user in userTableFilteredUsers | filter:userTableSearchUsername">
+            <td>{{user.index}}</td>
                 <td>{{user.username}}</td>
                 <td>
                     <a class="btn btn-primary">Edit</a>
@@ -99,8 +104,9 @@
             </tr>
             </tbody>
           </table>
-            <pagination ng-show="showPagination" total-items="totalItems" items-per-page="numPerPage"
-                        ng-model="currentPage" ng-change="pageChanged()"></pagination>
+            <pagination ng-show="userTableShowPagination" total-items="userTableTotalItems"
+                        items-per-page="userTableNumPerPage"
+                        ng-model="userTableCurrentPage" ng-change="userTablePageChanged()"></pagination>
         </div>
       </div>
     </div>

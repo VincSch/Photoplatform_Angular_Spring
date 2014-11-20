@@ -20,6 +20,8 @@ public class UserData {
 
     protected Boolean banned;
 
+    protected Boolean enabled;
+
     protected Boolean admin;
 
     /**
@@ -110,5 +112,23 @@ public class UserData {
      */
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    /**
+     * Returns is user enabled.
+     *
+     * @return true if enabled.
+     */
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * Sets value to enabled.
+     * 
+     * @param enabled true if enabled.
+     */
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

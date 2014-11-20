@@ -105,7 +105,7 @@ public interface UserManager {
      *
      * @return users with role photograph.
      */
-    List<User> findPhotographToActivate(Integer start, Integer count);
+    List<User> findPhotographToActivate();
 
     /**
      * Returns all photographs, that should be activated.

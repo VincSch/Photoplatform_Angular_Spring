@@ -39,34 +39,58 @@ photoplatformControllers.controller('RegisterCtrl', ['$scope', '$rootScope', '$l
 photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
     function ($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
         var user = $cookieStore.get('user');
-        //if user is not logged in or authrized redirect to login page
+        //if user is not logged in or authorized redirect to login page
         if (undefined == user || !$rootScope.isLoggedIn() || !$rootScope.isAdmin()) {
             $location.path("/login");
             return;
         } else {
-            $scope.searchUsername = "";
-            $scope.currentPage = 1;
-            $scope.numPerPage = 5;
+            $scope.userTableSearchUsername = "";
+            $scope.userTableCurrentPage = 1;
+            $scope.userTableNumPerPage = 5;
             var start = 0;
             var count = 100;
-            UserService.getUsers(start, count).success(function (users) {
-                $scope.users = users;
-                $scope.totalItems = users.length;
-                $scope.showPagination = users.length > $scope.numPerPage;
+            UserService.getEnabledUsers(start, count).success(function (users) {
+                $scope.userTableUsers = users;
+                $scope.userTableTotalItems = users.length;
+                $scope.userTableShowPagination = users.length > $scope.userTableNumPerPage;
 
                 // Set watch on pagination numbers
-                $scope.$watch('currentPage + numPerPage', function () {
-                    var begin = (($scope.currentPage - 1) * $scope.numPerPage);
-                    var end = begin + $scope.numPerPage;
-                    $scope.filteredUsers = $scope.users.slice(begin, end);
+                $scope.$watch('userTableCurrentPage + userTableNumPerPage', function () {
+                    var begin = (($scope.userTableCurrentPage - 1) * $scope.userTableNumPerPage);
+                    var end = begin + $scope.userTableNumPerPage;
+                    $scope.userTableFilteredUsers = $scope.userTableUsers.slice(begin, end);
                 });
             }).error(function (error) {
                 console.log(error);
             });
 
-            $scope.pageChanged = function () {
+            $scope.userTablePageChanged = function () {
                 //check if max count was achieved, than load next 100 users.
                 //not implemented yet.
             };
+
+            //Photograph table.
+            $scope.photographTableCurrentPage = 1;
+            $scope.photographTableNumPerPage = 5;
+            UserService.getDisabledUsersByRole($rootScope.PHOTOGRAPHER).success(function (users) {
+                $scope.photographTablePhotographs = users;
+                $scope.photographTableTotalItems = users.length;
+                $scope.photographTableShowPagination = users.length > $scope.photographTableNumPerPage;
+
+                // Set watch on pagination numbers
+                $scope.$watch('userTableCurrentPage + userTableNumPerPage', function () {
+                    var begin = (($scope.photographTableCurrentPage - 1) * $scope.photographTableNumPerPage);
+                    var end = begin + $scope.photographTableNumPerPage;
+                    $scope.photographTableFilteredUsers = $scope.photographTablePhotographs.slice(begin, end);
+                });
+            }).error(function (error) {
+                console.log(error);
+            });
+
+            $scope.photographTablePageChanged = function () {
+                //check if max count was achieved, than load next photographs.
+                //not implemented yet.
+            };
+
         }
     }]);
