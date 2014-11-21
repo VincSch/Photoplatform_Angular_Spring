@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package de.htw.sdf.photoplatform.webservice.dto;
 
 import javax.validation.constraints.Size;
@@ -5,6 +8,9 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
+ * Data transfer object to get and update user data.
+ * Represents the domain object User.
+ *
  * @author Sergej Meister
  */
 public class UserData {
