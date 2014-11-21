@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.htw.sdf.photoplatform.common.BaseImageTester;
-import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.Category;
 import de.htw.sdf.photoplatform.persistence.models.Collection;
 import de.htw.sdf.photoplatform.persistence.models.CollectionCategory;
@@ -122,7 +121,7 @@ public class CollectionDAOTest extends BaseImageTester {
     @Test
     public final void testGetByUser() {
         // INIT TEST DATA
-        Role photographerRole = roleDAO.findOne(Constants.ROLE_PHOTOGRAPHER);
+        Role photographerRole = roleDAO.findOne(Role.PHOTOGRAPHER_ID);
         User userOne = createDefaultUser("CollectionUser1", "67854",
                 "collctionuser1@web.de", photographerRole, Boolean.TRUE,
                 Boolean.TRUE);

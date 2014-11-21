@@ -27,12 +27,20 @@ function($http) {
 		return $http.get(urlBase + '/byname/' + name);
 	};
 
-    userService.getUsersByOffset = function (start, count) {
+    userService.getEnabledUsers = function (start, count) {
         return $http.get(urlBaseList + '/' + start + "/" + count);
     };
 
-	userService.lockUser =function (user) {
-		return $http.get(urlBase + '/lock/' +user.id);
+    userService.getDisabledUsersByRole = function (roleName) {
+        return $http.get(urlBaseList + '/disabled/' + roleName);
+    };
+
+	userService.lockUser =function (id) {
+		return $http.get(urlBase + '/lock/' +id);
+	};
+
+	userService.unlockUser =function (id) {
+		return $http.get(urlBase + '/unlock/' +id);
 	};
 
 	return userService;

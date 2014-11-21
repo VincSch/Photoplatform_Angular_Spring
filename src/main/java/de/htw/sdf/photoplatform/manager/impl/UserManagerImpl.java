@@ -161,11 +161,37 @@ public class UserManagerImpl implements UserManager {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<User> findPhotographToActivate() {
+        return findByRoleAndEnabled(Role.PHOTOGRAPHER_ID, false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<User> findByRoleAndEnabled(Long roleId, boolean enabled) {
+        return userDAO.findByRoleAndEnabledFilter(roleId, enabled);
+    }
+
+    /**
      * {inheritDoc}
      */
-    @Override public User lockUser(String name) {
-        User user = userDAO.findByUserName(name);
+    @Override public User lockUser(long id) {
+        User user = userDAO.findOne(id);
         user.setAccountNonLocked(false);
+        userDAO.update(user);
+        return user;
+    }
+
+    /**
+     * {inheritDoc}
+     */
+    @Override public User unlockUser(long id) {
+        User user = userDAO.findOne(id);
+        user.setAccountNonLocked(true);
         userDAO.update(user);
         return user;
     }

@@ -81,10 +81,19 @@ public interface UserManager {
     /**
      * locks the user for the system
      *
-     * @param name
+     * @param id
      * @return
      */
-    public User lockUser(String name);
+    public User lockUser(long id);
+
+    /**
+     * unlocks the user for the system
+     *
+     * @param id
+     * @return
+     */
+    public User unlockUser(long id);
+
     /**
      * Returns all user between start and count.
      * IF start and count contains 0, than return first user.
@@ -92,16 +101,28 @@ public interface UserManager {
      *
      * @param start index for first.
      * @param count index for last.
-     *
      * @return users
      */
     List<User> find(Integer start, Integer count);
 
     /**
+     * Returns all photographs, that should be activated.
+     *
+     * @return users with role photograph.
+     */
+    List<User> findPhotographToActivate();
+
+    /**
+     * Returns all photographs, that should be activated.
+     *
+     * @return users.
+     */
+    List<User> findByRoleAndEnabled(Long roleId, boolean enabled);
+
+    /**
      * Check user admin role.
      *
      * @param user user.
-     *
      * @return true if user has role admin.
      */
     Boolean isUserAdmin(User user);

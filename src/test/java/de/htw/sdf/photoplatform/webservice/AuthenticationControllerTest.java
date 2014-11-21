@@ -7,6 +7,7 @@ package de.htw.sdf.photoplatform.webservice;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.After;
@@ -34,7 +35,8 @@ public class AuthenticationControllerTest extends BaseTester {
     private WebApplicationContext wac;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
         insertTestData();
     }

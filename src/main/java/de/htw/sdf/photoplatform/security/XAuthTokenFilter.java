@@ -35,11 +35,10 @@ import org.springframework.web.filter.GenericFilterBean;
 public class XAuthTokenFilter extends GenericFilterBean {
 
     static final String FILTER_APPLIED = "__spring_security_scpf_applied";
-    protected Logger log = Logger.getLogger(XAuthTokenFilter.class);
-
     private final UserDetailsService detailsService;
     private final TokenUtils tokenUtils = new TokenUtils();
     private final AuthenticationManager authenticationManager;
+    protected Logger log = Logger.getLogger(XAuthTokenFilter.class);
     private String xAuthTokenHeaderName = "x-auth-token";
 
     /**

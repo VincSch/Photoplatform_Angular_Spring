@@ -59,6 +59,9 @@ public final class Endpoints {
      * all users between start and count.
      */
     public static final String USERS_START_COUNT = "/users/{start}/{count}";
+    
+    /** all disabled users for given role. */
+    public static final String USERS_DISABLED_BY_ROLE= "/users/disabled/{roleName}";
 
     /**
      * lock a user.
@@ -103,11 +106,12 @@ public final class Endpoints {
      */
     public static String[] securedAdminEndpoints() {
         String[] securedEndpoints = {
-            restBuilder(MAINTENANCE_STATISTIC),
-            restBuilder(USER_UPDATE),
-            restBuilder(USERS_START_COUNT),
-            restBuilder(USER_LOCK),
-            restBuilder(USER_UNLOCK)
+                restBuilder(MAINTENANCE_STATISTIC),
+                restBuilder(USER_UPDATE),
+                restBuilder(USERS_START_COUNT),
+                restBuilder(USERS_DISABLED_BY_ROLE),
+                restBuilder(USER_LOCK),
+                restBuilder(USER_UNLOCK)
         };
         return securedEndpoints;
     }

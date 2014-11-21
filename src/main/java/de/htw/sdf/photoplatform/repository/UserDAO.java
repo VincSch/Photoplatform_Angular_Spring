@@ -55,9 +55,12 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
     List<User> findByRole(final Role role);
 
     /**
-     * Returns all user between start and count.
+     * Returns all enabled user between start and count.
+     * SET WHERE user.enable = true.
      * IF start and count contains 0, than return first user.
      * IF start contains 0 and count contains 1, than return first user.
+     *
+     *
      *
      * @param start index for first.
      * @param count index for last.
@@ -91,6 +94,15 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
      * @return not admin users
      */
     List<User> findByEnabled(boolean enabled);
+
+    /**
+     * Returns all users by role and enabled filter.
+     *
+     * @param enabled
+     *            true, false
+     * @return not admin users
+     */
+    List<User> findByRoleAndEnabledFilter(final Long roleId, boolean enabled);
 
     /**
      * Returns not admin users. If locked is true, than all not admin users

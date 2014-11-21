@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Repository;
 
-import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.repository.UserDAO;
@@ -73,6 +72,8 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     public List<User> find(Integer start, Integer count) {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("LEFT JOIN FETCH user.userBank ");
+        queryBuilder.append("WHERE user.enabled = true ");
+        queryBuilder.append("ORDER BY user.username ");
         Query query = createQuery(queryBuilder.toString());
         query.setFirstResult(start.intValue());
         query.setMaxResults(count.intValue());
@@ -119,8 +120,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         return findByRoleId(role.getId());
     }
 
-
-
     /**
      * {@inheritDoc}
      */
@@ -129,7 +128,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT user FROM User user ");
         queryBuilder.append("LEFT JOIN FETCH user.userRoles userRoles ");
-        if (Constants.ROLE_PHOTOGRAPHER.equals(roleId)) {
+        if (Role.PHOTOGRAPHER_ID.equals(roleId)) {
             queryBuilder.append("LEFT JOIN FETCH user.userBank ");
         }
         queryBuilder.append("WHERE userRoles.role.id = ?1");
@@ -148,7 +147,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         queryBuilder.append("WHERE userRoles.role.id != ?1");
 
         Query query = createQuery(queryBuilder.toString());
-        query.setParameter(1, Constants.ROLE_ADMIN);
+        query.setParameter(1, Role.ADMIN_ID);
         return (List<User>) query.getResultList();
     }
 
@@ -168,6 +167,23 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     /**
      * {@inheritDoc}
      */
+    public List<User> findByRoleAndEnabledFilter(Long roleId, boolean enabled){
+        StringBuilder queryBuilder = initSelectQuery();
+        if (Role.PHOTOGRAPHER_ID.equals(roleId)) {
+            queryBuilder.append("LEFT JOIN FETCH user.userBank ");
+        }
+        queryBuilder.append("WHERE userRoles.role.id = :roleId ");
+        queryBuilder.append("AND user.enabled = :enabled");
+
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("roleId", roleId);
+        query.setParameter("enabled", enabled);
+        return (List<User>) query.getResultList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<User> findByAccountLocked(boolean locked) {
         StringBuilder queryBuilder = initSelectQuery();
@@ -180,7 +196,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
 
     private StringBuilder initSelectQuery() {
         StringBuilder queryBuilder = new StringBuilder(
-                "SELECT user FROM User user ");
+                "SELECT DISTINCT(user) FROM User user ");
         queryBuilder.append("LEFT JOIN FETCH user.userRoles userRoles ");
         queryBuilder.append("LEFT JOIN FETCH user.userProfile ");
 

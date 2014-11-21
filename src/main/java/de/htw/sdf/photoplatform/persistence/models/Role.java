@@ -19,27 +19,35 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseEntity;
  * Entity class for a role representing the corresponding database table.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- * 
  */
 @Entity
 @Table(name = "SYS_ROLE")
 public class Role extends AbstractBaseEntity {
 
-    /** Role Admin. */
+    /**
+     * Role Admin.
+     */
     public static final String ADMIN = "ROLE_ADMIN";
+    public static final Long ADMIN_ID = 1L;
 
-    /** Role User. */
-    public static final String CUSTOMER = "ROLE_CUSTOMER"; // (Member)
+    /**
+     * Role User.
+     */
+    public static final String CUSTOMER = "ROLE_CUSTOMER";
+    public static final Long CUSTOMER_ID = 2L;
 
-    /** Role Photographer. */
+    /**
+     * Role Photographer.
+     */
     public static final String PHOTOGRAPHER = "ROLE_PHOTOGRAPHER";
+    public static final Long PHOTOGRAPHER_ID = 3L;
 
     /**
      * Default roles, added on start up. (Order is important).
      */
     public static final List<String> DEFAULT_ROLES = new ArrayList<>();
-    static
-    {
+
+    static {
         DEFAULT_ROLES.add(ADMIN); // Role has id 1
         DEFAULT_ROLES.add(CUSTOMER);
         DEFAULT_ROLES.add(PHOTOGRAPHER);
@@ -65,8 +73,7 @@ public class Role extends AbstractBaseEntity {
     }
 
     /**
-     * @param name
-     *            the name to set
+     * @param name the name to set
      */
     public void setName(String name) {
         this.name = name;

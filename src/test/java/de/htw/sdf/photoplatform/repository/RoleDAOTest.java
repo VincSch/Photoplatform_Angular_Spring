@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.common.Constants;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 
 public class RoleDAOTest extends BaseTester {
@@ -31,27 +30,27 @@ public class RoleDAOTest extends BaseTester {
         Assert.assertTrue("3. Rollen müssen immer vorhanden sein.", allRoles.size() == 3);
         Assert.assertTrue(
                 "Die erste Rolle hat die ID 1.",
-                allRoles.get(0).getId().equals(Constants.ROLE_ADMIN));
+                allRoles.get(0).getId().equals(Role.ADMIN_ID));
         Assert.assertTrue(
                 "Die erste Rolle hat den Namen Admin.(" + allRoles.get(0).getName() + ")",
                 allRoles.get(0).getName().equals(Role.ADMIN));
         Assert.assertTrue(
                 "Die zweite Rolle hat die ID 2.",
-                allRoles.get(1).getId().equals(Constants.ROLE_CUSTOMER));
+                allRoles.get(1).getId().equals(Role.CUSTOMER_ID));
         Assert.assertTrue("Die zweite Rolle hat den Namen Customer.", allRoles
                 .get(1)
                 .getName()
                 .equals(Role.CUSTOMER));
         Assert.assertTrue(
                 "Die dritte Rolle hat die ID 3.",
-                allRoles.get(2).getId().equals(Constants.ROLE_PHOTOGRAPHER));
+                allRoles.get(2).getId().equals(Role.PHOTOGRAPHER_ID));
         Assert.assertTrue("Die dritte Rolle hat den Namen Photographer.", allRoles
                 .get(2)
                 .getName()
                 .equals(Role.PHOTOGRAPHER));
 
         Role admin = roleDAO.getAdmin();
-        Assert.assertTrue(admin.getId().equals(Constants.ROLE_ADMIN));
+        Assert.assertTrue(admin.getId().equals(Role.ADMIN_ID));
         Assert.assertTrue(admin.getName().equals(Role.ADMIN));
 
         allRoles.clear();
@@ -59,7 +58,7 @@ public class RoleDAOTest extends BaseTester {
         Assert.assertTrue("2. Rollen müssen vorhanden sein.",
                 allRoles.size() == 2);
         Assert.assertTrue(allRoles.get(0).getId()
-                .equals(Constants.ROLE_CUSTOMER));
+                .equals(Role.CUSTOMER_ID));
         Assert.assertTrue(allRoles.get(1).getName().equals(Role.PHOTOGRAPHER));
     }
 
