@@ -82,8 +82,8 @@
             </thead>
             <tbody>
             <tr ng-repeat="user in users">
-                <td>{{user.index}}</td>
-                <td>{{user.username}}</td>
+                <td>{{ user.index}}</td>
+                <td>{{ user.username}}</td>
                 <td>
                     <a class="btn btn-primary">Edit</a>
                 </td>
@@ -91,7 +91,9 @@
                     <a ng-disabled="{{user.admin}}" class="btn btn-primary">Admin</a>
                 </td>
                 <td>
-                    <a ng-disabled="{{user.banned}}" class="btn btn-primary">Ban</a>
+                    <a ng-click="lockUser( $index )"
+                       ng-disabled="{{user.banned}}"
+                       class="btn btn-primary">Ban</a>
                 </td>
                 <td>
                     <a class="btn btn-primary">Send</a>

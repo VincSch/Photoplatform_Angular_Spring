@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <div id="header" class="container">
       <div class="alert alert-error" ng-show = "error !== undefined">
         {{error}}
       </div>
@@ -58,9 +58,9 @@
         {{success}}
       </div>
     </div>
-    <div class="container" style="width: 100%" ng-view>
+    <div id="content" class="container" style="width: 100%" ng-view>
     </div>
-    <div class="navbar navbar-default navbar-inverse" style="margin-bottom: 0px;">
+    <div id="footer" class="navbar navbar-default navbar-inverse navbar-static-bottom" style="margin-bottom: 0px;">
       <div class="container">
         <div class="navbar-header">
           <a type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></a>

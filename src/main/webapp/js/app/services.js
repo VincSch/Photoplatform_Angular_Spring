@@ -27,9 +27,13 @@ function($http) {
 		return $http.get(urlBase + '/byname/' + name);
 	};
 
-    userService.getUsers = function (start, count) {
+    userService.getUsersByOffset = function (start, count) {
         return $http.get(urlBaseList + '/' + start + "/" + count);
     };
+
+	userService.lockUser =function (user) {
+		return $http.get(urlBase + '/lock/' +user.id);
+	};
 
 	return userService;
 }]);

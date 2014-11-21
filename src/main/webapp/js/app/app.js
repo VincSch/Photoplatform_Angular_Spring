@@ -130,7 +130,7 @@ function($routeProvider, $locationProvider, $httpProvider) {
 
 	var originalPath = $location.path();
 	if ($location.path() !== '')
-		$location.path("/login");
+		$location.path("/");
 	var user = $cookieStore.get('user');
 	if (user !== undefined) {
 		$rootScope.user = user;

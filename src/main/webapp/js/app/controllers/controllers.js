@@ -62,6 +62,20 @@ photoplatformControllers.controller('RegisterCtrl', ['$scope', '$rootScope', '$l
 photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
     function ($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
         var user = $cookieStore.get('user');
+        $scope.lockUser = function(index){
+            var user = $scope.users[index];
+            UserService.lockUser(user)
+                .success(function(user){
+                    $scope.users.forEach(function(elem,index){
+                        if(elem.id == user.id)
+                            $scope.users[index] = user;
+                    })
+                })
+                .error(function(){
+
+                });
+        }
+
         //if user is not logged in or authrized redirect to login page
         if (undefined == user || !$rootScope.isLoggedIn() || !$rootScope.isAdmin()) {
             $location.path("/login");
@@ -69,7 +83,7 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
         } else {
             var start = 0;
             var count = 100;
-            UserService.getUsers(start, count).success(function (users) {
+            UserService.getUsersByOffset(start, count).success(function (users) {
                 $scope.users = users;
             }).error(function (error) {
                 console.log(error);
