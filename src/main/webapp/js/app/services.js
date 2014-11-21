@@ -35,6 +35,14 @@ function($http) {
         return $http.get(urlBaseList + '/disabled/' + roleName);
     };
 
+	userService.lockUser =function (id) {
+		return $http.get(urlBase + '/lock/' +id);
+	};
+
+	userService.unlockUser =function (id) {
+		return $http.get(urlBase + '/unlock/' +id);
+	};
+
 	return userService;
 }]);
 

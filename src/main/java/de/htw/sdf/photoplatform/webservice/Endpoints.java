@@ -8,9 +8,8 @@ package de.htw.sdf.photoplatform.webservice;
 
 /**
  * Constant class keeping track of all service endpoints.
- * 
+ *
  * @author Vincent Schwarzer
- * 
  */
 public final class Endpoints {
 
@@ -39,18 +38,40 @@ public final class Endpoints {
     /**
      * Endpoints for users.
      */
-    /** USER_LOGIN. */
+    /**
+     * USER_LOGIN.
+     */
     public static final String USER_LOGIN = "/user/login";
-    /** USER_REGISTER. */
+    /**
+     * USER_REGISTER.
+     */
     public static final String USER_REGISTER = "/user/register";
-    /** USER_UPDATE. */
+    /**
+     * USER_UPDATE.
+     */
     public static final String USER_UPDATE = "/user/update";
-    /** USER_BY_NAME. */
+    /**
+     * USER_BY_NAME.
+     */
     public static final String USER_BY_NAME = "/user/{name}";
-    /** all users between start and count. */
-    public static final String USERS_START_COUNT= "/users/{start}/{count}";
+
+    /**
+     * all users between start and count.
+     */
+    public static final String USERS_START_COUNT = "/users/{start}/{count}";
+    
     /** all disabled users for given role. */
     public static final String USERS_DISABLED_BY_ROLE= "/users/disabled/{roleName}";
+
+    /**
+     * lock a user.
+     */
+    public static final String USER_LOCK = "/user/lock/{id}";
+
+    /**
+     * unlock a user.
+     */
+    public static final String USER_UNLOCK = "/user/unlock/{id}";
 
     /**
      * Endpoints for application maintenance.
@@ -67,38 +88,38 @@ public final class Endpoints {
     /**
      * End points as strings which have to be secured and can only be accessed
      * by an admin or user.
-     * 
+     *
      * @return array of end points as strings which have to be secured and can
-     *         only be accessed by an admin or user
+     * only be accessed by an admin or user
      */
     public static String[] securedUserEndpoints() {
-        String[] securedEndpoints = {restBuilder(USER_UPDATE)};
+        String[] securedEndpoints = { restBuilder(USER_UPDATE) };
         return securedEndpoints;
     }
 
     /**
      * End points as strings which have to be secured and can only be accessed
      * by an admin.
-     * 
+     *
      * @return array of end points as strings which have to be secured and can
-     *         only be accessed by an admin
+     * only be accessed by an admin
      */
     public static String[] securedAdminEndpoints() {
         String[] securedEndpoints = {
                 restBuilder(MAINTENANCE_STATISTIC),
                 restBuilder(USER_UPDATE),
                 restBuilder(USERS_START_COUNT),
-                restBuilder(USERS_DISABLED_BY_ROLE)
+                restBuilder(USERS_DISABLED_BY_ROLE),
+                restBuilder(USER_LOCK),
+                restBuilder(USER_UNLOCK)
         };
         return securedEndpoints;
     }
 
     /**
      * Res builder.
-     * 
-     * @param endPoint
-     *            the end point
-     * 
+     *
+     * @param endPoint the end point
      * @return res builder
      */
     private static String restBuilder(String endPoint) {

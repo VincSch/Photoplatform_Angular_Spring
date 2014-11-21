@@ -128,13 +128,13 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
     /* Try getting valid user from cookie or go to login page */
 
-    var originalPath = $location.path();
-    if ($location.path() !== '')
-        $location.path("/login");
-    var user = $cookieStore.get('user');
-    if (user !== undefined) {
-        $rootScope.user = user;
-        $http.defaults.headers.common[xAuthTokenHeaderName] = user.secToken;
+	var originalPath = $location.path();
+	if ($location.path() !== '')
+		$location.path("/");
+	var user = $cookieStore.get('user');
+	if (user !== undefined) {
+		$rootScope.user = user;
+		$http.defaults.headers.common[xAuthTokenHeaderName] = user.secToken;
 
         $location.path(originalPath);
     }

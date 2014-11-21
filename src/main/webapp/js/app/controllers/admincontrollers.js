@@ -4,6 +4,40 @@
 photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
     function ($scope, $rootScope, $location, $http, $cookieStore, UserService) {
         var user = $cookieStore.get('user');
+
+        $scope.lockUser = function (id) {
+            UserService.lockUser(id)
+                .success(function (lockedUser) {
+                    $scope.userTableUsers.forEach(function (elem, index) {
+                        if (elem.id == lockedUser.id)
+                            $scope.userTableUsers[index].banned = lockedUser.banned;
+                    });
+                    //angular.element('#locked-user-'+id).css('display','none');
+                    //angular.element('#unlocked-user-'+id).css('display','show');
+                    angular.element('#locked-user-'+id).attr('disabled',true);
+                    angular.element('#unlocked-user-'+id).attr('disabled',false);
+                })
+                .error(function () {
+
+                });
+        }
+
+        $scope.unlockUser = function (id) {
+            UserService.unlockUser(id)
+                .success(function (lockedUser) {
+                    $scope.userTableUsers.forEach(function (elem, index) {
+                        if (elem.id == lockedUser.id)
+                            $scope.userTableUsers[index].banned = lockedUser.banned;
+                    });
+                    //angular.element('#locked-user-'+id).css('display','show');
+                    //angular.element('#unlocked-user-'+id).css('display','none');
+                    angular.element('#locked-user-'+id).attr('disabled',false);
+                    angular.element('#unlocked-user-'+id).attr('disabled',true);
+                })
+                .error(function () {
+
+                });
+        }
         //if user is not logged in or authorized redirect to login page
         if (undefined == user || !$rootScope.isLoggedIn() || !$rootScope.isAdmin()) {
             $location.path("/login");

@@ -6661,3 +6661,19 @@ button.close {
         display: none !important
     }
 }
+
+#content{
+    margin-bottom: 50px;
+}
+
+#footer{
+    margin-bottom: 0px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+#header{
+    width: 100%;
+    top: 0;
+}
