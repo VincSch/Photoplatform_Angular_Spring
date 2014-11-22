@@ -104,8 +104,8 @@ public final class Endpoints {
      */
     public static String[] securedUserEndpoints() {
         String[] securedEndpoints = {
-                restBuilder(USER_UPDATE)
-                //restBuilder(USERS_PROFILE_BY_USER_ID)
+                restBuilder(USER_UPDATE),
+                restBuilder(USERS_PROFILE_BY_USER_ID)
         };
         return securedEndpoints;
     }
