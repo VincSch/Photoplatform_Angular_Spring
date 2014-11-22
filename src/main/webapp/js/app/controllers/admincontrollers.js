@@ -11,7 +11,16 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
         }
 
 		$scope.makeAdmin = function(id) {
-			UserService.makeAdmin(id).success(function() {}).error(function() {});
+			UserService.makeAdmin(id).success(function(user) {
+				$scope.userTableUsers.forEach(function(elem, index) {
+                        if (elem.id == user.id)
+                        {
+                            $scope.userTableUsers[index].admin = user.admin;
+                        }
+                });
+                angular.element('#make-admin-' + id).attr('disabled', true);	
+				
+			}).error(function() {});
 		}
 
         $scope.lockUser = function (id) {
