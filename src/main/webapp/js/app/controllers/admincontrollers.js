@@ -10,6 +10,10 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
             return;
         }
 
+		$scope.makeAdmin = function(id) {
+			UserService.makeAdmin(id).success(function() {}).error(function() {});
+		}
+
         $scope.lockUser = function (id) {
             UserService.lockUser(id)
                 .success(function (lockedUser) {

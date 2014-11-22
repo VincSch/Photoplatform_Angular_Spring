@@ -69,6 +69,11 @@ public final class Endpoints {
     public static final String USERS_DISABLED_BY_ROLE= "/users/disabled/{roleName}";
 
     /**
+     * grants an user admin role
+     */
+    public static final String USER_MAKE_ADMIN = "/user/makeadmin/{id}";
+    
+    /**
      * lock a user.
      */
     public static final String USER_LOCK = "/user/lock/{id}";
@@ -118,6 +123,7 @@ public final class Endpoints {
                 restBuilder(USER_UPDATE),
                 restBuilder(USERS_START_COUNT),
                 restBuilder(USERS_DISABLED_BY_ROLE),
+                restBuilder(USER_MAKE_ADMIN),
                 restBuilder(USER_LOCK),
                 restBuilder(USER_UNLOCK),
                 restBuilder(USERS_PROFILE_BY_USER_ID)

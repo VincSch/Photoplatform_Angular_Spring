@@ -79,6 +79,14 @@ public class UserController extends BaseAPIController {
 
         return result;
     }
+    
+    @RequestMapping(value = Endpoints.USER_MAKE_ADMIN, method = RequestMethod.GET)
+    @ResponseBody
+    public UserData makeAdmin(@PathVariable String id) {
+    	long longId = Long.valueOf(id);
+    	User NewAdmin = userManager.makeAdmin(longId);
+        return getResponseUserData(NewAdmin);
+    }
 
     @RequestMapping(value = Endpoints.USER_LOCK, method = RequestMethod.GET)
     @ResponseBody

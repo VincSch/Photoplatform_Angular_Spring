@@ -202,6 +202,25 @@ public class UserManagerImpl implements UserManager {
     /**
      * {inheritDoc}
      */
+    @Override public User makeAdmin(long id) {
+        User user = userDAO.findOne(id);
+        if(!isUserAdmin(user))
+        {
+            Role admin = roleDAO.findOne(Role.ADMIN_ID);
+            
+            UserRole userRole = new UserRole();
+            userRole.setRole(admin);
+            userRole.setUser(user);
+            userRoleDAO.create(userRole);
+            
+            userDAO.update(user);
+        }
+        return user;
+    }
+    
+    /**
+     * {inheritDoc}
+     */
     @Override public User lockUser(long id) {
         User user = userDAO.findOne(id);
         user.setAccountNonLocked(false);

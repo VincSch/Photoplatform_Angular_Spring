@@ -79,7 +79,7 @@
                         <a class="btn btn-primary">Edit</a>
                     </td>
                     <td draggable="true">
-                        <a ng-disabled="{{user.admin}}" class="btn btn-primary">Admin</a>
+                        <a ng-click="makeAdmin(user.id)" ng-disabled="{{user.admin}}" class="btn btn-primary">Admin</a>
                     </td>
                     <td>
                         <a id="locked-user-{{user.id}}" ng-click="lockUser(user.id)"
