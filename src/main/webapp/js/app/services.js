@@ -1,203 +1,207 @@
 angular.module('photoplatform').factory('UserService', ['$http',
-function($http) {
+    function ($http) {
 
-	var urlBase = '/api/user';
-    var urlBaseList = '/api/users';
+        var urlBase = '/api/user';
+        var urlBaseList = '/api/users';
 
-	var userService = {};
+        var userService = {};
 
-	userService.login = function(name, pw) {
-		paramData = {
-			username : name,
-			password : pw
-		};
+        userService.login = function (name, pw) {
+            paramData = {
+                username: name,
+                password: pw
+            };
 
-		return $http.post(urlBase + '/login', paramData);
-	};
+            return $http.post(urlBase + '/login', paramData);
+        };
 
-	userService.register = function(user) {
-		return $http.post(urlBase + '/register', user);
-	};
+        userService.register = function (user) {
+            return $http.post(urlBase + '/register', user);
+        };
 
-	userService.update = function(user) {
-		return $http.post(urlBase + '/update', user);
-	};
+        userService.update = function (user) {
+            return $http.post(urlBase + '/update', user);
+        };
 
-    userService.getUsers = function (name) {
-		return $http.get(urlBase + '/byname/' + name);
-	};
+        userService.getUsers = function (name) {
+            return $http.get(urlBase + '/byname/' + name);
+        };
 
-    userService.getEnabledUsers = function (start, count) {
-        return $http.get(urlBaseList + '/' + start + "/" + count);
-    };
+        userService.getEnabledUsers = function (start, count) {
+            return $http.get(urlBaseList + '/' + start + "/" + count);
+        };
 
-    userService.getDisabledUsersByRole = function (roleName) {
-        return $http.get(urlBaseList + '/disabled/' + roleName);
-    };
+        userService.getUserProfileData = function (userId) {
+            return $http.get(urlBaseList + '/profile/' + userId);
+        };
 
-	userService.lockUser =function (id) {
-		return $http.get(urlBase + '/lock/' +id);
-	};
+        userService.getDisabledUsersByRole = function (roleName) {
+            return $http.get(urlBaseList + '/disabled/' + roleName);
+        };
 
-	userService.unlockUser =function (id) {
-		return $http.get(urlBase + '/unlock/' +id);
-	};
+        userService.lockUser = function (id) {
+            return $http.get(urlBase + '/lock/' + id);
+        };
 
-	return userService;
-}]);
+        userService.unlockUser = function (id) {
+            return $http.get(urlBase + '/unlock/' + id);
+        };
+
+        return userService;
+    }]);
 
 //OLD SERVICES
 /*
-angular.module('recipebook').factory('NutritionService', ['$http',
-function($http) {
+ angular.module('recipebook').factory('NutritionService', ['$http',
+ function($http) {
 
-	var urlBase = '/api/nutritionfact';
-	var nutritionService = {};
+ var urlBase = '/api/nutritionfact';
+ var nutritionService = {};
 
-	nutritionService.getNutritionsForIngredients = function(usedIngredients) {
-		return $http.post(urlBase + '/caloriesforusedingredients/', usedIngredients);
-	};
+ nutritionService.getNutritionsForIngredients = function(usedIngredients) {
+ return $http.post(urlBase + '/caloriesforusedingredients/', usedIngredients);
+ };
 
-	nutritionService.createNutritionFact = function(nutrition) {
-		return $http.post(urlBase + '/create/', nutrition);
-	};
+ nutritionService.createNutritionFact = function(nutrition) {
+ return $http.post(urlBase + '/create/', nutrition);
+ };
 
-	nutritionService.getNutritionByIngredientId = function(id) {
-		return $http.get(urlBase + '/byingredient/' + id);
-	};
+ nutritionService.getNutritionByIngredientId = function(id) {
+ return $http.get(urlBase + '/byingredient/' + id);
+ };
 
-	nutritionService.update = function(nutrition) {
-		return $http.put(urlBase + '/update', nutrition);
-	};
+ nutritionService.update = function(nutrition) {
+ return $http.put(urlBase + '/update', nutrition);
+ };
 
-	return nutritionService;
-}]);
+ return nutritionService;
+ }]);
 
-angular.module('photoplatform').factory('RecipeService', ['$http',
-	function($http) {
+ angular.module('photoplatform').factory('RecipeService', ['$http',
+ function($http) {
 
-		var urlBase = '/api/recipe';
-		var recipeService = {};
+ var urlBase = '/api/recipe';
+ var recipeService = {};
 
-		recipeService.getAllRecipes = function() {
-			return $http.get(urlBase + '/all');
-		};
+ recipeService.getAllRecipes = function() {
+ return $http.get(urlBase + '/all');
+ };
 
-		recipeService.getRecipesByUserName = function(name) {
-			return $http.get(urlBase + '/byusername/' + name);
-		};
+ recipeService.getRecipesByUserName = function(name) {
+ return $http.get(urlBase + '/byusername/' + name);
+ };
 
-		recipeService.getRecipeByName = function(name) {
-			return $http.get(urlBase + '/byname/' + name);
-		};
+ recipeService.getRecipeByName = function(name) {
+ return $http.get(urlBase + '/byname/' + name);
+ };
 
-		recipeService.getRecipeById = function(id) {
-			return $http.get(urlBase + '/byid/' + id);
-		};
+ recipeService.getRecipeById = function(id) {
+ return $http.get(urlBase + '/byid/' + id);
+ };
 
-		recipeService.updateRecipe = function(recipe) {
-			return $http.put(urlBase + '/update/' + recipe.id, recipe);
-		};
+ recipeService.updateRecipe = function(recipe) {
+ return $http.put(urlBase + '/update/' + recipe.id, recipe);
+ };
 
-		recipeService.createRecipe = function(recipe) {
-			return $http.post(urlBase + '/create/', recipe);
-		};
+ recipeService.createRecipe = function(recipe) {
+ return $http.post(urlBase + '/create/', recipe);
+ };
 
-		recipeService.getDifficulties = function(difficulties) {
-			return $http.get(urlBase + '/difficulty/all');
-		};
+ recipeService.getDifficulties = function(difficulties) {
+ return $http.get(urlBase + '/difficulty/all');
+ };
 
-		recipeService.removeUsedIngredient = function(usedIngredient) {
-			return $http.post(urlBase + '/remove/ingredient', usedIngredient);
-		};
+ recipeService.removeUsedIngredient = function(usedIngredient) {
+ return $http.post(urlBase + '/remove/ingredient', usedIngredient);
+ };
 
-		recipeService.addUsedIngredient = function(recipe, ingredient, amount, unit) {
+ recipeService.addUsedIngredient = function(recipe, ingredient, amount, unit) {
 
-			var paramData = null;
-			paramData = {
-				webRecipe : recipe,
-				webIngredient : ingredient,
-				webAmount : amount,
-				webUnit : unit
-			};
-			return $http.post(urlBase + '/add/ingredient', angular.toJson(paramData));
-		};
+ var paramData = null;
+ paramData = {
+ webRecipe : recipe,
+ webIngredient : ingredient,
+ webAmount : amount,
+ webUnit : unit
+ };
+ return $http.post(urlBase + '/add/ingredient', angular.toJson(paramData));
+ };
 
-		return recipeService;
-	}]);
+ return recipeService;
+ }]);
 
-angular.module('recipebook').factory('IngredientService', ['$http',
-	function($http) {
+ angular.module('recipebook').factory('IngredientService', ['$http',
+ function($http) {
 
-		var urlBase = '/api/ingredient';
-		var ingredientService = {};
+ var urlBase = '/api/ingredient';
+ var ingredientService = {};
 
-		ingredientService.getIngredientByName = function(name) {
-			return $http.get(urlBase + '/byname/' + name);
-		};
+ ingredientService.getIngredientByName = function(name) {
+ return $http.get(urlBase + '/byname/' + name);
+ };
 
-		ingredientService.createIngredient = function(ingredient) {
-			return $http.post(urlBase + '/create/', ingredient);
-		};
+ ingredientService.createIngredient = function(ingredient) {
+ return $http.post(urlBase + '/create/', ingredient);
+ };
 
-		ingredientService.getAllIngredients = function() {
-			return $http.get(urlBase + '/all');
-		};
+ ingredientService.getAllIngredients = function() {
+ return $http.get(urlBase + '/all');
+ };
 
-		ingredientService.updateIngredient = function(ingredient) {
-			return $http.put(urlBase + '/update/' + ingredient.id, ingredient);
-		};
+ ingredientService.updateIngredient = function(ingredient) {
+ return $http.put(urlBase + '/update/' + ingredient.id, ingredient);
+ };
 
-		return ingredientService;
-	}]);
+ return ingredientService;
+ }]);
 
-angular.module('recipebook').factory('UnitService', ['$http',
-	function($http) {
+ angular.module('recipebook').factory('UnitService', ['$http',
+ function($http) {
 
-		var urlBase = '/api/unit';
-		var unitService = {};
+ var urlBase = '/api/unit';
+ var unitService = {};
 
-		unitService.getAllUnits = function() {
-			return $http.get(urlBase + '/all');
-		};
+ unitService.getAllUnits = function() {
+ return $http.get(urlBase + '/all');
+ };
 
-		return unitService;
-	}]);
+ return unitService;
+ }]);
 
-angular.module('recipebook').factory('RecipeBookService', ['$http',
-	function($http) {
+ angular.module('recipebook').factory('RecipeBookService', ['$http',
+ function($http) {
 
-		var urlBase = '/api/recipebook';
-		var recipeBookService = {};
+ var urlBase = '/api/recipebook';
+ var recipeBookService = {};
 
-		recipeBookService.getAllRecipeBooks = function() {
-			return $http.get(urlBase + '/all');
-		};
+ recipeBookService.getAllRecipeBooks = function() {
+ return $http.get(urlBase + '/all');
+ };
 
-		recipeBookService.getRecipeBookByName = function(name) {
-			return $http.get(urlBase + '/byname/' + name);
-		};
+ recipeBookService.getRecipeBookByName = function(name) {
+ return $http.get(urlBase + '/byname/' + name);
+ };
 
-		recipeBookService.getRecipeBooksByUserName = function(name) {
-			return $http.get(urlBase + '/byusername/' + name);
-		};
+ recipeBookService.getRecipeBooksByUserName = function(name) {
+ return $http.get(urlBase + '/byusername/' + name);
+ };
 
-		recipeBookService.createRecipeBook = function(recipeBook) {
-			return $http.post(urlBase + '/create/', recipeBook);
-		};
+ recipeBookService.createRecipeBook = function(recipeBook) {
+ return $http.post(urlBase + '/create/', recipeBook);
+ };
 
-		recipeBookService.addUsedRecipe = function(usedRecipe) {
-			return $http.post(urlBase + '/add/recipe', usedRecipe);
-		};
+ recipeBookService.addUsedRecipe = function(usedRecipe) {
+ return $http.post(urlBase + '/add/recipe', usedRecipe);
+ };
 
-		recipeBookService.removeUsedRecipe = function(usedRecipe) {
-			return $http.post(urlBase + '/remove/recipe', usedRecipe);
-		};
+ recipeBookService.removeUsedRecipe = function(usedRecipe) {
+ return $http.post(urlBase + '/remove/recipe', usedRecipe);
+ };
 
-		recipeBookService.updateRecipeBook = function(recipeBook) {
-			return $http.put(urlBase + '/update/' + recipeBook.id, recipeBook);
-		};
+ recipeBookService.updateRecipeBook = function(recipeBook) {
+ return $http.put(urlBase + '/update/' + recipeBook.id, recipeBook);
+ };
 
-		return recipeBookService;
-	}]);
-	*/
+ return recipeBookService;
+ }]);
+ */

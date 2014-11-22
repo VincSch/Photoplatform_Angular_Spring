@@ -6,6 +6,8 @@
 
 package de.htw.sdf.photoplatform.exception;
 
+import org.springframework.validation.Errors;
+
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 
 /**
@@ -26,6 +28,17 @@ public class NotFoundException extends AbstractBaseException
     public NotFoundException(String msg)
     {
         super(AbstractBaseException.NOT_FOUND, msg);
+    }
+
+    /**
+     * NotFoundException constructor.
+     *
+     * @param msg the message
+     * @param errors the errors
+     */
+    public NotFoundException(String msg, Errors errors)
+    {
+        super(AbstractBaseException.NOT_FOUND, msg, errors);
     }
 
 }

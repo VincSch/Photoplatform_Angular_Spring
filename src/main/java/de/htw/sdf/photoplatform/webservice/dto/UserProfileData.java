@@ -3,30 +3,17 @@
  */
 package de.htw.sdf.photoplatform.webservice.dto;
 
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 /**
  * Data transfer object to get and update user profile data.
  * Represents the domain object UserProfile and UserBank.
  *
  * @author Sergej Meister
  */
-public class UserProfileData {
-
-    @NotEmpty
-    protected Long userId;
+public class UserProfileData extends UserData {
 
     protected Long profileId;
 
     protected Long bankId;
-
-    @NotEmpty
-    @Size(min = 3, max = 30)
-    protected String userName;
-
-    protected String email;
 
     protected String firstName;
 
@@ -42,29 +29,13 @@ public class UserProfileData {
 
     protected String homepage;
 
-    protected Boolean showBankdata;
+    protected Boolean showBankData;
 
     protected String receiver;
 
     protected String iban;
 
     protected String bic;
-
-    /**
-     * Returns user id.
-     * @return user id.
-     */
-    public Long getUserId() {
-        return userId;
-    }
-
-    /**
-     * Sets user id.
-     * @param userid user id.
-     */
-    public void setUserId(Long userid) {
-        this.userId = userId;
-    }
 
     /**
      * Returns profile id.
@@ -220,17 +191,17 @@ public class UserProfileData {
      * Show bank data
      * @return true, if role photograph.
      */
-    public Boolean isShowBankdata() {
-        return showBankdata;
+    public Boolean isShowBankData() {
+        return showBankData;
     }
 
     /**
      * Sets value to show bank data.
      *
-     * @param showBankdata value.
+     * @param showBankData value.
      */
-    public void setShowBankdata(Boolean showBankdata) {
-        this.showBankdata = showBankdata;
+    public void setShowBankData(Boolean showBankData) {
+        this.showBankData = showBankData;
     }
 
     /**
@@ -284,41 +255,5 @@ public class UserProfileData {
      */
     public void setBic(String bic) {
         this.bic = bic;
-    }
-
-    /**
-     * Returns users login name.
-     *
-     * @return userName.
-     */
-    public String getUserName() {
-        return userName;
-    }
-
-    /**
-     * Sets user login name.
-     *
-     * @param userName username.
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    /**
-     * Returns user email.
-     *
-     * @return email.
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Sets user email.
-     *
-     * @param email email.
-     */
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

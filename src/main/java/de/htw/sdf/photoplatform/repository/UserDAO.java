@@ -113,4 +113,14 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
      * @return not admin users
      */
     List<User> findByAccountLocked(boolean locked);
+
+    /**
+     * Returns user by its id.
+     * Note this method fetch all user data.
+     * To find only user, use findOne.
+     *
+     * @param id user id.
+     * @return all user data.
+     */
+    User findById(Long id);
 }

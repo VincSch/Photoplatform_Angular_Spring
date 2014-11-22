@@ -3,6 +3,21 @@
  */
 package de.htw.sdf.photoplatform.webservice.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import de.htw.sdf.photoplatform.exception.BadRequestException;
+import de.htw.sdf.photoplatform.exception.NotFoundException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.models.Role;
@@ -10,12 +25,7 @@ import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.UserData;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import de.htw.sdf.photoplatform.webservice.dto.UserProfileData;
 
 /**
  * This controller present the REST user services.
@@ -49,17 +59,14 @@ public class UserController extends BaseAPIController {
     @ResponseBody
     public List<UserData> getDisabledUsersByRole(@PathVariable String roleName)
         throws IOException, AbstractBaseException {
-        List<User> users = new ArrayList<>();
         if (roleName.trim().equals(Role.PHOTOGRAPHER)) {
-            users = userManager.findPhotographToActivate();
+            List<User> users = userManager.findPhotographToActivate();
+            return getResponseUserData(users);
         } else {
             String msg = "The role (" + roleName
                 + ") is not correct or get users for this role is not supported in this version!";
-            //            bindingResult.addError(new ObjectError("getUsers", msg));
-            //            throw new BadRequestException("getUsers", bindingResult);
+            throw new BadRequestException(msg);
         }
-
-        return getResponseUserData(users);
     }
 
     private List<UserData> getResponseUserData(List<User> users) {
@@ -91,6 +98,48 @@ public class UserController extends BaseAPIController {
         return getResponseUserData(lockedUser);
     }
 
+    /**
+     * Update user profile data included bank data.
+     *
+     * @param user
+     *            the user
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @RequestMapping(value = Endpoints.USER_UPDATE, method = { RequestMethod.POST })
+    @ResponseBody
+    public void updateUser(@RequestBody User user) throws Exception {
+        userManager.update(user);
+    }
+
+    /**
+     * Gets user profile data included bank data.
+     *
+     * @param userId the user id
+     * @throws Exception the exception
+     */
+    @RequestMapping(value = Endpoints.USERS_PROFILE_BY_USER_ID, method = { RequestMethod.GET })
+    @ResponseBody
+    public UserProfileData getUserProfileData(@PathVariable String userId) throws AbstractBaseException {
+
+        Long requestId ;
+        try {
+            requestId = Long.parseLong(userId);
+        }catch(NumberFormatException nfe){
+            String msg = "The request parameter userId can not be parsed to Long value!";
+            throw new BadRequestException(msg);
+        }
+
+        try {
+            User user = userManager.findById(requestId);
+            return getResponseUserProfileData(user);
+        }catch(Exception nfe){
+            String msg = "The user profile data for user id " + userId + "can not be found!";
+            throw new NotFoundException(msg);
+        }
+    }
+
     private UserData getResponseUserData(User user) {
         UserData result = new UserData();
         result.setId(user.getId());
@@ -102,4 +151,26 @@ public class UserController extends BaseAPIController {
         return result;
     }
 
+
+    private UserProfileData getResponseUserProfileData(User user){
+        UserProfileData userProfileData = new UserProfileData();
+        userProfileData.setId(user.getId());
+        userProfileData.setBankId(user.getUserBank().getId());
+        userProfileData.setProfileId(user.getUserProfile().getId());
+        userProfileData.setUsername(user.getUsername());
+        userProfileData.setEmail(user.getEmail());
+        userProfileData.setFirstName(user.getUserProfile().getFirstName());
+        userProfileData.setSurname(user.getUserProfile().getSurname());
+        userProfileData.setAddress(user.getUserProfile().getAddress());
+        userProfileData.setPhone(user.getUserProfile().getPhone());
+        //TODO: should be cast to date format!
+        //userProfileData.setBirthday(user.getUserProfile().getBirthday().toString());
+        userProfileData.setCompany(user.getUserProfile().getCompany());
+        userProfileData.setHomepage(user.getUserProfile().getHomepage());
+        userProfileData.setShowBankData(userManager.isRoleIncluded(user, Role.PHOTOGRAPHER));
+        userProfileData.setReceiver(user.getUserBank().getReceiver());
+        userProfileData.setIban(user.getUserBank().getIban());
+        userProfileData.setBic(user.getUserBank().getBic());
+        return userProfileData;
+    }
 }

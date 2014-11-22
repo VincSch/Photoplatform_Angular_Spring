@@ -59,6 +59,11 @@ public final class Endpoints {
      * all users between start and count.
      */
     public static final String USERS_START_COUNT = "/users/{start}/{count}";
+
+    /**
+     * Get user profile included bank data.
+     */
+    public static final String USERS_PROFILE_BY_USER_ID = "/users/profile/{userId}";
     
     /** all disabled users for given role. */
     public static final String USERS_DISABLED_BY_ROLE= "/users/disabled/{roleName}";
@@ -93,7 +98,10 @@ public final class Endpoints {
      * only be accessed by an admin or user
      */
     public static String[] securedUserEndpoints() {
-        String[] securedEndpoints = { restBuilder(USER_UPDATE) };
+        String[] securedEndpoints = {
+                restBuilder(USER_UPDATE)
+                //restBuilder(USERS_PROFILE_BY_USER_ID)
+        };
         return securedEndpoints;
     }
 
@@ -111,7 +119,8 @@ public final class Endpoints {
                 restBuilder(USERS_START_COUNT),
                 restBuilder(USERS_DISABLED_BY_ROLE),
                 restBuilder(USER_LOCK),
-                restBuilder(USER_UNLOCK)
+                restBuilder(USER_UNLOCK),
+                restBuilder(USERS_PROFILE_BY_USER_ID)
         };
         return securedEndpoints;
     }

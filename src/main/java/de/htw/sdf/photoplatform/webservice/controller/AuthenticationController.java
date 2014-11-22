@@ -159,21 +159,6 @@ public class AuthenticationController extends BaseAPIController {
     }
 
     /**
-     * Update user.
-     *
-     * @param user
-     *            the user
-     *
-     * @throws Exception
-     *             the exception
-     */
-    @RequestMapping(value = Endpoints.USER_UPDATE, method = { RequestMethod.POST })
-    @ResponseBody
-    public void updateUser(@RequestBody User user) throws Exception {
-        userManager.update(user);
-    }
-
-    /**
      * Recipe by name.
      *
      * @param name

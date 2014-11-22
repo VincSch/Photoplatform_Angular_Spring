@@ -194,6 +194,19 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         return (List<User>) query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User findById(Long id) {
+        StringBuilder queryBuilder = initSelectQuery();
+        queryBuilder.append("LEFT JOIN FETCH user.userBank ");
+        queryBuilder.append("WHERE user.id = ?1");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter(1, id);
+        return (User) query.getSingleResult();
+    }
+
     private StringBuilder initSelectQuery() {
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT DISTINCT(user) FROM User user ");

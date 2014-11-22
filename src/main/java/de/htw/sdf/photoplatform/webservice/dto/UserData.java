@@ -3,6 +3,8 @@
  */
 package de.htw.sdf.photoplatform.webservice.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,7 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @author Sergej Meister
  */
-public class UserData {
+public class UserData implements Serializable {
 
     @NotEmpty
     protected Long id;
@@ -21,6 +23,8 @@ public class UserData {
     @NotEmpty
     @Size(min = 3, max = 30)
     protected String username;
+
+    protected String email;
 
     protected Integer index;
 
@@ -136,5 +140,23 @@ public class UserData {
      */
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    /**
+     * Returns user email.
+     *
+     * @return email.
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Sets user email.
+     *
+     * @param email email.
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

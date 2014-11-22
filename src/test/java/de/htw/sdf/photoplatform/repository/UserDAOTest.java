@@ -281,4 +281,13 @@ public class UserDAOTest extends BaseTester {
         Assert.assertTrue(newEnabledPhotographs.size() == 2);
     }
 
+    @Test
+    public void testFindUserById(){
+        User sergejByName = userDAO.findByUserName("Sergej");
+        User sergejById = userDAO.findById(sergejByName.getId());
+        Assert.assertTrue(sergejById.getUsername().equals("Sergej"));
+        Assert.assertTrue(sergejById.getEmail().equals("sergej@test.de"));
+        Assert.assertTrue(sergejById.getUserProfile().getFirstName().equals("Sergej"));
+        Assert.assertTrue(sergejById.getUserBank().getReceiver().equals("Sergej Meister"));
+    }
 }

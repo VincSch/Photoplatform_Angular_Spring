@@ -6,10 +6,10 @@
 
 package de.htw.sdf.photoplatform.manager;
 
+import java.util.List;
+
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.models.User;
-
-import java.util.List;
 
 /**
  * Interface defining business methods for users.
@@ -51,12 +51,14 @@ public interface UserManager {
     void delete(final User entity);
 
     /**
-     * find User its id.
+     * find User by id.
+     * Note. This method fetch all user data.
+     * To find only user, use findOne.
      *
      * @param id User id
      * @return User class
      */
-    User findById(final long id);
+    User findById(final Long id);
 
     /**
      * find all Users.
@@ -126,4 +128,13 @@ public interface UserManager {
      * @return true if user has role admin.
      */
     Boolean isUserAdmin(User user);
+
+    /**
+     * Returns true, if user has the role.
+     *
+     * @param user user.
+     * @param roleName role name.
+     * @return true or false.
+     */
+    Boolean isRoleIncluded(User user, String roleName);
 }

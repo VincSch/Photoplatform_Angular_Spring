@@ -33,8 +33,8 @@ public class BadRequestException extends AbstractBaseException
     /**
      * BadRequestException constructor.
      *
-     * @param msg
-     *            the message * @param errors the errors
+     * @param msg the message
+     * @param errors the errors
      */
     public BadRequestException(String msg, Errors errors)
     {

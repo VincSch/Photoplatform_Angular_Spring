@@ -6,20 +6,24 @@
 
 package de.htw.sdf.photoplatform.manager.impl;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.persistence.models.UserBank;
+import de.htw.sdf.photoplatform.persistence.models.UserProfile;
 import de.htw.sdf.photoplatform.persistence.models.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * business methods for users.
@@ -113,8 +117,16 @@ public class UserManagerImpl implements UserManager {
      * {@inheritDoc}
      */
     @Override
-    public User findById(long id) {
-        return userDAO.findOne(id);
+    public User findById(Long id) {
+        User result = userDAO.findById(id);
+        if(result.getUserProfile() == null){
+            result.setUserProfile(new UserProfile());
+        }
+        if(result.getUserBank() == null){
+            result.setUserBank(new UserBank());
+        }
+
+        return result;
     }
 
     /**
@@ -150,10 +162,21 @@ public class UserManagerImpl implements UserManager {
         return userDAO.find(start, count);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Boolean isUserAdmin(User user) {
+        return isRoleIncluded(user, Role.ADMIN);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean isRoleIncluded(User user, String roleName) {
         for (UserRole userRole : user.getUserRoles()) {
-            if (userRole.getRole().getName().equals(Role.ADMIN)) {
+            if (userRole.getRole().getName().equals(roleName)) {
                 return true;
             }
         }

@@ -4,6 +4,11 @@
 photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
     function ($scope, $rootScope, $location, $http, $cookieStore, UserService) {
         var user = $cookieStore.get('user');
+        //if user is not logged in or authorized redirect to login page
+        if (undefined == user || !$rootScope.isLoggedIn() || !$rootScope.isAdmin()) {
+            $location.path("/login");
+            return;
+        }
 
         $scope.lockUser = function (id) {
             UserService.lockUser(id)
@@ -14,8 +19,8 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
                     });
                     //angular.element('#locked-user-'+id).css('display','none');
                     //angular.element('#unlocked-user-'+id).css('display','show');
-                    angular.element('#locked-user-'+id).attr('disabled',true);
-                    angular.element('#unlocked-user-'+id).attr('disabled',false);
+                    angular.element('#locked-user-' + id).attr('disabled', true);
+                    angular.element('#unlocked-user-' + id).attr('disabled', false);
                 })
                 .error(function () {
 
@@ -31,68 +36,71 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
                     });
                     //angular.element('#locked-user-'+id).css('display','show');
                     //angular.element('#unlocked-user-'+id).css('display','none');
-                    angular.element('#locked-user-'+id).attr('disabled',false);
-                    angular.element('#unlocked-user-'+id).attr('disabled',true);
+                    angular.element('#locked-user-' + id).attr('disabled', false);
+                    angular.element('#unlocked-user-' + id).attr('disabled', true);
                 })
                 .error(function () {
 
                 });
         }
-        //if user is not logged in or authorized redirect to login page
-        if (undefined == user || !$rootScope.isLoggedIn() || !$rootScope.isAdmin()) {
-            $location.path("/login");
-            return;
-        } else {
-            //Photograph table.
-            $scope.photographTableCurrentPage = 1;
-            $scope.photographTableNumPerPage = 5;
-            UserService.getDisabledUsersByRole($rootScope.PHOTOGRAPHER).success(function (users) {
-                $scope.photographTablePhotographs = users;
-                $scope.photographTableTotalItems = users.length;
-                $scope.photographTableShowPagination = users.length > $scope.photographTableNumPerPage;
+        //Photograph table.
+        $scope.photographTableCurrentPage = 1;
+        $scope.photographTableNumPerPage = 5;
+        UserService.getDisabledUsersByRole($rootScope.PHOTOGRAPHER).success(function (users) {
+            $scope.photographTablePhotographs = users;
+            $scope.photographTableTotalItems = users.length;
+            $scope.photographTableShowPagination = users.length > $scope.photographTableNumPerPage;
 
-                // Set watch on pagination numbers
-                $scope.$watch('photographTableCurrentPage + photographTableNumPerPage', function () {
-                    var begin = (($scope.photographTableCurrentPage - 1) * $scope.photographTableNumPerPage);
-                    var end = begin + $scope.photographTableNumPerPage;
-                    $scope.photographTableFilteredUsers = $scope.photographTablePhotographs.slice(begin, end);
-                });
-            }).error(function (error) {
-                console.log(error);
-                $rootScope.error(error);
+            // Set watch on pagination numbers
+            $scope.$watch('photographTableCurrentPage + photographTableNumPerPage', function () {
+                var begin = (($scope.photographTableCurrentPage - 1) * $scope.photographTableNumPerPage);
+                var end = begin + $scope.photographTableNumPerPage;
+                $scope.photographTableFilteredUsers = $scope.photographTablePhotographs.slice(begin, end);
             });
-            $scope.photographTablePageChanged = function () {
-                //check if max count was achieved, than load next photographs.
-                //not implemented yet.
-            };
+        }).error(function (error) {
+            console.log(error);
+            $rootScope.error(error);
+        });
+        $scope.photographTablePageChanged = function () {
+            //check if max count was achieved, than load next photographs.
+            //not implemented yet.
+        };
 
-            //user table
-            $scope.userTableSearchUsername = "";
-            $scope.userTableCurrentPage = 1;
-            $scope.userTableNumPerPage = 5;
-            var start = 0;
-            var count = 100;
-            UserService.getEnabledUsers(start, count).success(function (users) {
-                $scope.userTableUsers = users;
-                $scope.userTableTotalItems = users.length;
-                $scope.userTableShowPagination = users.length > $scope.userTableNumPerPage;
+        //user table
+        $scope.userTableSearchUsername = "";
+        $scope.userTableCurrentPage = 1;
+        $scope.userTableNumPerPage = 5;
+        var start = 0;
+        var count = 100;
+        UserService.getEnabledUsers(start, count).success(function (users) {
+            $scope.userTableUsers = users;
+            $scope.userTableTotalItems = users.length;
+            $scope.userTableShowPagination = users.length > $scope.userTableNumPerPage;
 
-                // Set watch on pagination numbers
-                $scope.$watch('userTableCurrentPage + userTableNumPerPage', function () {
-                    var begin = (($scope.userTableCurrentPage - 1) * $scope.userTableNumPerPage);
-                    var end = begin + $scope.userTableNumPerPage;
-                    $scope.userTableFilteredUsers = $scope.userTableUsers.slice(begin, end);
-                });
-            }).error(function (error) {
-                console.log(error);
-                $rootScope.error(error);
+            // Set watch on pagination numbers
+            $scope.$watch('userTableCurrentPage + userTableNumPerPage', function () {
+                var begin = (($scope.userTableCurrentPage - 1) * $scope.userTableNumPerPage);
+                var end = begin + $scope.userTableNumPerPage;
+                $scope.userTableFilteredUsers = $scope.userTableUsers.slice(begin, end);
             });
+        }).error(function (error) {
+            console.log(error);
+            $rootScope.error(error);
+        });
 
-            $scope.userTablePageChanged = function () {
-                //check if max count was achieved, than load next 100 users.
-                //not implemented yet.
-            };
-        }
+        $scope.userTablePageChanged = function () {
+            //check if max count was achieved, than load next 100 users.
+            //not implemented yet.
+        };
+
+        var testUserId = 3;
+        UserService.getUserProfileData(testUserId).success(function (responseUserProfileData) {
+            var userProfileData = responseUserProfileData;
+            var test = 0;
+        }).error(function (error) {
+            console.log(error);
+            $rootScope.error(error);
+        });
     }
 ]);
 
