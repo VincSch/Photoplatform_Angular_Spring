@@ -81,6 +81,14 @@ public interface UserManager {
     User findByName(String name);
 
     /**
+     * grants the user admin rights
+     *
+     * @param id
+     * @return
+     */
+    public User makeAdmin(long id);
+    
+    /**
      * locks the user for the system
      *
      * @param id
