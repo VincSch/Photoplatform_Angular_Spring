@@ -12,7 +12,14 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
         
         $scope.enablePhotograph = function(id) {
 			UserService.enablePhotograph(id).success(function(user) {
-				
+				var RemovedIndex = -1;
+				$scope.photographTableFilteredUsers.forEach(function(elem, index) {
+                        if (elem.id == user.id)
+                        {
+                        	RemovedIndex = index;
+                        }
+                });
+                $scope.photographTableFilteredUsers.splice(RemovedIndex, 1);
 			}).error(function() {});
         
         }
