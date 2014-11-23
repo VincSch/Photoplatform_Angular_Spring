@@ -10,6 +10,8 @@ import java.util.List;
 
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.persistence.models.UserBank;
+import de.htw.sdf.photoplatform.persistence.models.UserProfile;
 
 /**
  * Interface defining business methods for users.
@@ -36,12 +38,25 @@ public interface UserManager {
         throws ManagerException;
 
     /**
-     * update a User.
+     * Update user data.
      *
      * @param entity User you want to update
      * @return the updated User
      */
     User update(final User entity);
+
+    /**
+     * Update user data.
+     *
+     * This method update user, userProfile and userBank.
+     * If userProfile or UserBank not exist, than will be created.
+     *
+     * @param user User you want to update
+     * @param profile user profile data to update
+     * @param bank user bank data to update
+     * @return the updated User
+     */
+    User update(final User user, final UserProfile profile, final UserBank bank);
 
     /**
      * delete a User.
@@ -91,16 +106,16 @@ public interface UserManager {
     /**
      * locks the user for the system
      *
-     * @param id
-     * @return
+     * @param id user id.
+     * @return user.
      */
     public User lockUser(long id);
 
     /**
      * unlocks the user for the system
      *
-     * @param id
-     * @return
+     * @param id user id.
+     * @return user.
      */
     public User unlockUser(long id);
 

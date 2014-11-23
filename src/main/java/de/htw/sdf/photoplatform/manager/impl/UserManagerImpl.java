@@ -22,7 +22,9 @@ import de.htw.sdf.photoplatform.persistence.models.UserBank;
 import de.htw.sdf.photoplatform.persistence.models.UserProfile;
 import de.htw.sdf.photoplatform.persistence.models.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
+import de.htw.sdf.photoplatform.repository.UserBankDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
+import de.htw.sdf.photoplatform.repository.UserProfileDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 
 /**
@@ -42,6 +44,12 @@ public class UserManagerImpl implements UserManager {
 
     @Resource
     private UserRoleDAO userRoleDAO;
+
+    @Resource
+    private UserProfileDAO userProfileDAO;
+
+    @Resource
+    private UserBankDAO userBankDAO;
 
     /**
      * {@inheritDoc}
@@ -108,6 +116,29 @@ public class UserManagerImpl implements UserManager {
      * {@inheritDoc}
      */
     @Override
+    public User update(User user, UserProfile profile, UserBank bank) {
+        if( profile.getId() == null){
+            //no, than create new.
+            userProfileDAO.create(profile);
+        }else{
+            //else update.
+            userProfileDAO.update(profile);
+        }
+
+        if( bank.getId() == null){
+            //if not exist, than create.
+            userBankDAO.create(bank);
+        }else{
+            userBankDAO.update(bank);
+        }
+
+        return userDAO.update(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void delete(User entity) {
         userDAO.delete(entity);
 
@@ -118,15 +149,7 @@ public class UserManagerImpl implements UserManager {
      */
     @Override
     public User findById(Long id) {
-        User result = userDAO.findById(id);
-        if(result.getUserProfile() == null){
-            result.setUserProfile(new UserProfile());
-        }
-        if(result.getUserBank() == null){
-            result.setUserBank(new UserBank());
-        }
-
-        return result;
+        return userDAO.findById(id);
     }
 
     /**

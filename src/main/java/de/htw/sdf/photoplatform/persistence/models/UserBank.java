@@ -43,6 +43,15 @@ public class UserBank extends AbstractBaseAuditEntity {
     }
 
     /**
+     * Constructor with user.
+     * @param user user.
+     */
+    public UserBank(User user) {
+        super();
+        this.user = user;
+    }
+
+    /**
      * Returns user.
      * 
      * @return user

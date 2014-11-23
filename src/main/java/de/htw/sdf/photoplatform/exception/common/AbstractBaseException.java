@@ -28,6 +28,12 @@ public abstract class AbstractBaseException extends Exception
     /** Email exists. */
     public static final int USER_EMAIL_EXISTS = 11002;
 
+    /** Email not valid. */
+    public static final int USER_EMAIL_NOT_VALID = 11003;
+
+    /** Not valid date format. */
+    public static final int DATE_FORMAT_NOT_VALID = 11004;
+
     private static final long serialVersionUID = 1L;
 
     protected final Logger log = Logger.getLogger(this.getClass().getName());

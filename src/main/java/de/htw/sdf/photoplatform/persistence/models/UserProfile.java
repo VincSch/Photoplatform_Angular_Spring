@@ -50,6 +50,15 @@ public class UserProfile extends AbstractBaseAuditEntity {
     private String homepage;
 
     /**
+     * Constructor with user.
+     * @param user user.
+     */
+    public UserProfile(User user) {
+        super();
+        this.user = user;
+    }
+
+    /**
      * Default constructor.
      */
     public UserProfile() {

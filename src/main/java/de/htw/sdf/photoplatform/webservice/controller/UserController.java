@@ -4,11 +4,12 @@
 package de.htw.sdf.photoplatform.webservice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +23,13 @@ import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.persistence.models.UserBank;
+import de.htw.sdf.photoplatform.persistence.models.UserProfile;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.UserData;
 import de.htw.sdf.photoplatform.webservice.dto.UserProfileData;
+import de.htw.sdf.photoplatform.webservice.util.UserUtility;
 
 /**
  * This controller present the REST user services.
@@ -52,7 +56,7 @@ public class UserController extends BaseAPIController {
     public List<UserData> getEnabledUsers(@PathVariable int start,
         @PathVariable int count) throws IOException, AbstractBaseException {
         List<User> users = userManager.find(start, count);
-        return getResponseUserData(users);
+        return UserUtility.getInstance().convertToUserData(users);
     }
 
     @RequestMapping(value = Endpoints.USERS_DISABLED_BY_ROLE, method = RequestMethod.GET)
@@ -61,7 +65,7 @@ public class UserController extends BaseAPIController {
         throws IOException, AbstractBaseException {
         if (roleName.trim().equals(Role.PHOTOGRAPHER)) {
             List<User> users = userManager.findPhotographToActivate();
-            return getResponseUserData(users);
+            return UserUtility.getInstance().convertToUserData(users);
         } else {
             String msg = "The role (" + roleName
                 + ") is not correct or get users for this role is not supported in this version!";
@@ -69,32 +73,21 @@ public class UserController extends BaseAPIController {
         }
     }
 
-    private List<UserData> getResponseUserData(List<User> users) {
-        List<UserData> result = new ArrayList<>();
-        for (int i = 0; i < users.size(); i++) {
-            UserData userData = getResponseUserData(users.get(i));
-            userData.setIndex(i + 1);
-            result.add(userData);
-        }
-
-        return result;
-    }
-    
     @RequestMapping(value = Endpoints.USER_MAKE_ADMIN, method = RequestMethod.GET)
     @ResponseBody
     public UserData makeAdmin(@PathVariable String id) {
-    	long longId = Long.valueOf(id);
-    	User NewAdmin = userManager.makeAdmin(longId);
-        return getResponseUserData(NewAdmin);
+        long longId = Long.valueOf(id);
+        User NewAdmin = userManager.makeAdmin(longId);
+        return UserUtility.getInstance().convertToUserProfileData(NewAdmin);
     }
-
+    
     @RequestMapping(value = Endpoints.USER_LOCK, method = RequestMethod.GET)
     @ResponseBody
     public UserData lockUser(@PathVariable String id)
         throws IOException, AbstractBaseException {
         long longId = Long.valueOf(id);
         User lockedUser = userManager.lockUser(longId);
-        return getResponseUserData(lockedUser);
+        return UserUtility.getInstance().convertToUserProfileData(lockedUser);
     }
 
     @RequestMapping(value = Endpoints.USER_UNLOCK, method = RequestMethod.GET)
@@ -103,82 +96,114 @@ public class UserController extends BaseAPIController {
         throws IOException, AbstractBaseException {
         long longId = Long.valueOf(id);
         User lockedUser = userManager.unlockUser(longId);
-        return getResponseUserData(lockedUser);
+        return UserUtility.getInstance().convertToUserProfileData(lockedUser);
     }
 
     /**
      * Update user profile data included bank data.
      *
-     * @param user
-     *            the user
+     * @param userProfileData the full user data.
      *
-     * @throws Exception
-     *             the exception
+     * @throws AbstractBaseException the exception.
      */
-    @RequestMapping(value = Endpoints.USER_UPDATE, method = { RequestMethod.POST })
+    @RequestMapping(value = Endpoints.USERS_UPDATE, method = { RequestMethod.POST })
     @ResponseBody
-    public void updateUser(@RequestBody User user) throws Exception {
-        userManager.update(user);
+    public void updateUser(@RequestBody UserProfileData userProfileData,BindingResult bindingResult)  throws AbstractBaseException {
+
+        //validate.
+        validateProfileForm(userProfileData, bindingResult);
+
+        //find affected user
+        User userToUpdate = userManager.findById(userProfileData.getId());
+        //change user data
+        userToUpdate.setUsername(userProfileData.getUsername());
+        userToUpdate.setEmail(userProfileData.getEmail());
+
+        //Change profile data
+        UserProfile profile = userToUpdate.getUserProfile();
+        if(profile==null){
+            profile = new UserProfile(userToUpdate);
+        }
+        profile.setFirstName(userProfileData.getFirstName());
+        profile.setSurname(userProfileData.getSurname());
+        profile.setAddress(userProfileData.getAddress());
+        profile.setPhone(userProfileData.getPhone());
+        profile.setBirthday(userProfileData.getBirthday());
+        profile.setCompany(userProfileData.getCompany());
+        profile.setHomepage(userProfileData.getHomepage());
+
+        //Change bank data
+        UserBank bank = userToUpdate.getUserBank();
+        if(bank == null){
+            bank = new UserBank(userToUpdate);
+        }
+        bank.setReceiver(userProfileData.getReceiver());
+        bank.setBic(userProfileData.getBic());
+        bank.setIban(userProfileData.getIban());
+
+        //update user
+        userManager.update(userToUpdate,profile,bank);
+    }
+
+    private void validateProfileForm(UserProfileData userProfileData,BindingResult bindingResult) throws BadRequestException {
+        //validate
+        try {
+            UserUtility.getInstance().validate(userProfileData);
+        } catch (AbstractBaseException abe) {
+            switch (abe.getCode())
+            {
+                case AbstractBaseException.USER_EMAIL_NOT_VALID:
+                    bindingResult.addError(new ObjectError("email", messages
+                            .getMessage("Email")));
+                    break;
+
+                case AbstractBaseException.DATE_FORMAT_NOT_VALID:
+                    bindingResult.addError(new ObjectError("BirthdayNotValid", messages
+                            .getMessage("BirthdayNotValid")));
+                    break;
+
+                default:
+                    throw new RuntimeException("Unhandled error");
+            }
+
+            throw new BadRequestException("update user", bindingResult);
+        }
     }
 
     /**
      * Gets user profile data included bank data.
      *
      * @param userId the user id
-     * @throws Exception the exception
+     * @throws AbstractBaseException the exception
      */
     @RequestMapping(value = Endpoints.USERS_PROFILE_BY_USER_ID, method = { RequestMethod.GET })
     @ResponseBody
     public UserProfileData getUserProfileData(@PathVariable String userId) throws AbstractBaseException {
+        User user = findUserById(userId);
+        return UserUtility.getInstance().convertToUserProfileData(user);
+    }
 
-        Long requestId ;
+    /**
+     * Returns user by id.
+     *
+     * @param requestUserId user id
+     * @return requestUserId
+     * @throws AbstractBaseException validation exception.
+     */
+    private User findUserById(String requestUserId) throws AbstractBaseException {
+        Long userId ;
         try {
-            requestId = Long.parseLong(userId);
+            userId = Long.parseLong(requestUserId);
         }catch(NumberFormatException nfe){
             String msg = "The request parameter userId can not be parsed to Long value!";
             throw new BadRequestException(msg);
         }
 
         try {
-            User user = userManager.findById(requestId);
-            return getResponseUserProfileData(user);
+            return userManager.findById(userId);
         }catch(Exception nfe){
-            String msg = "The user profile data for user id " + userId + "can not be found!";
+            String msg = "The user profile data for user id " + requestUserId + " can not be found!";
             throw new NotFoundException(msg);
         }
-    }
-
-    private UserData getResponseUserData(User user) {
-        UserData result = new UserData();
-        result.setId(user.getId());
-        result.setUsername(user.getUsername());
-        result.setBanned(!user.isAccountNonLocked());
-        result.setEnabled(user.isEnabled());
-        Boolean isAdmin = userManager.isUserAdmin(user);
-        result.setAdmin(isAdmin);
-        return result;
-    }
-
-
-    private UserProfileData getResponseUserProfileData(User user){
-        UserProfileData userProfileData = new UserProfileData();
-        userProfileData.setId(user.getId());
-        userProfileData.setBankId(user.getUserBank().getId());
-        userProfileData.setProfileId(user.getUserProfile().getId());
-        userProfileData.setUsername(user.getUsername());
-        userProfileData.setEmail(user.getEmail());
-        userProfileData.setFirstName(user.getUserProfile().getFirstName());
-        userProfileData.setSurname(user.getUserProfile().getSurname());
-        userProfileData.setAddress(user.getUserProfile().getAddress());
-        userProfileData.setPhone(user.getUserProfile().getPhone());
-        //TODO: should be cast to date format!
-        //userProfileData.setBirthday(user.getUserProfile().getBirthday().toString());
-        userProfileData.setCompany(user.getUserProfile().getCompany());
-        userProfileData.setHomepage(user.getUserProfile().getHomepage());
-        userProfileData.setShowBankData(userManager.isRoleIncluded(user, Role.PHOTOGRAPHER));
-        userProfileData.setReceiver(user.getUserBank().getReceiver());
-        userProfileData.setIban(user.getUserBank().getIban());
-        userProfileData.setBic(user.getUserBank().getBic());
-        return userProfileData;
     }
 }

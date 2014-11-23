@@ -47,9 +47,9 @@ public final class Endpoints {
      */
     public static final String USER_REGISTER = "/user/register";
     /**
-     * USER_UPDATE.
+     * USERS_UPDATE.
      */
-    public static final String USER_UPDATE = "/user/update";
+    public static final String USERS_UPDATE = "/users/update";
     /**
      * USER_BY_NAME.
      */
@@ -104,7 +104,7 @@ public final class Endpoints {
      */
     public static String[] securedUserEndpoints() {
         String[] securedEndpoints = {
-                restBuilder(USER_UPDATE),
+                restBuilder(USERS_UPDATE),
                 restBuilder(USERS_PROFILE_BY_USER_ID)
         };
         return securedEndpoints;
@@ -120,7 +120,7 @@ public final class Endpoints {
     public static String[] securedAdminEndpoints() {
         String[] securedEndpoints = {
                 restBuilder(MAINTENANCE_STATISTIC),
-                restBuilder(USER_UPDATE),
+                restBuilder(USERS_UPDATE),
                 restBuilder(USERS_START_COUNT),
                 restBuilder(USERS_DISABLED_BY_ROLE),
                 restBuilder(USER_MAKE_ADMIN),
