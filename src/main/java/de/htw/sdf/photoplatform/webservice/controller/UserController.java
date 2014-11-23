@@ -59,6 +59,14 @@ public class UserController extends BaseAPIController {
         return UserUtility.getInstance().convertToUserData(users);
     }
 
+    /**
+     *Return list of all disabled users by id.
+     *
+     * @param roleName role name.
+     * @return list of all disabled users.
+     * @throws IOException input output exception.
+     * @throws AbstractBaseException abstract exception.
+     */
     @RequestMapping(value = Endpoints.USERS_DISABLED_BY_ROLE, method = RequestMethod.GET)
     @ResponseBody
     public List<UserData> getDisabledUsersByRole(@PathVariable String roleName)
@@ -73,6 +81,12 @@ public class UserController extends BaseAPIController {
         }
     }
 
+    /**
+     * Set admin role to user.
+     *
+     * @param id user id.
+     * @return data transfer object userData.
+     */
     @RequestMapping(value = Endpoints.USER_MAKE_ADMIN, method = RequestMethod.GET)
     @ResponseBody
     public UserData makeAdmin(@PathVariable String id) {
@@ -80,7 +94,15 @@ public class UserController extends BaseAPIController {
         User NewAdmin = userManager.makeAdmin(longId);
         return UserUtility.getInstance().convertToUserProfileData(NewAdmin);
     }
-    
+
+    /**
+     * Lock user.
+     *
+     * @param id user id.
+     * @return data transfer object UserData.
+     * @throws IOException
+     * @throws AbstractBaseException
+     */
     @RequestMapping(value = Endpoints.USER_LOCK, method = RequestMethod.GET)
     @ResponseBody
     public UserData lockUser(@PathVariable String id)
@@ -90,6 +112,14 @@ public class UserController extends BaseAPIController {
         return UserUtility.getInstance().convertToUserProfileData(lockedUser);
     }
 
+    /**
+     * Unlock user.
+     *
+     * @param id user id.
+     * @return data transfer object UserData.
+     * @throws IOException
+     * @throws AbstractBaseException
+     */
     @RequestMapping(value = Endpoints.USER_UNLOCK, method = RequestMethod.GET)
     @ResponseBody
     public UserData unlockUser(@PathVariable String id)
