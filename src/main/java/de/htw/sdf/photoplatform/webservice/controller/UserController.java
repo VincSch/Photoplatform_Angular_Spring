@@ -79,6 +79,14 @@ public class UserController extends BaseAPIController {
 
         return result;
     }
+
+    @RequestMapping(value = Endpoints.USER_ENABLE_PHOTOGRAPH, method = RequestMethod.GET)
+    @ResponseBody
+    public UserData enablePhotograph(@PathVariable String id) {
+    	long longId = Long.valueOf(id);
+    	User Photograph = userManager.enablePhotograph(longId);
+        return getResponseUserData(Photograph);
+    }
     
     @RequestMapping(value = Endpoints.USER_MAKE_ADMIN, method = RequestMethod.GET)
     @ResponseBody

@@ -69,6 +69,11 @@ public final class Endpoints {
     public static final String USERS_DISABLED_BY_ROLE= "/users/disabled/{roleName}";
 
     /**
+     * activates a photograph user
+     */
+    public static final String USER_ENABLE_PHOTOGRAPH = "/user/enablephotograph/{id}";
+    
+    /**
      * grants an user admin role
      */
     public static final String USER_MAKE_ADMIN = "/user/makeadmin/{id}";

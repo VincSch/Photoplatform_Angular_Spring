@@ -81,6 +81,14 @@ public interface UserManager {
     User findByName(String name);
 
     /**
+     * activates a photograph user account
+     *
+     * @param id
+     * @return
+     */
+    public User enablePhotograph(long id);
+    
+    /**
      * grants the user admin rights
      *
      * @param id
@@ -137,6 +145,13 @@ public interface UserManager {
      */
     Boolean isUserAdmin(User user);
 
+    /**
+     * Check user photographer role.
+     *
+     * @param user user.
+     * @return true if user has role photographer.
+     */
+    Boolean isUserPhotographer(User user);
     /**
      * Returns true, if user has the role.
      *

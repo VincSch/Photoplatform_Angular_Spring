@@ -9,6 +9,13 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
             $location.path("/login");
             return;
         }
+        
+        $scope.enablePhotograph = function(id) {
+			UserService.enablePhotograph(id).success(function(user) {
+				
+			}).error(function() {});
+        
+        }
 
 		$scope.makeAdmin = function(id) {
 			UserService.makeAdmin(id).success(function(user) {

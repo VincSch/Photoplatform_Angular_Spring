@@ -39,6 +39,10 @@ angular.module('photoplatform').factory('UserService', ['$http',
             return $http.get(urlBaseList + '/disabled/' + roleName);
         };
         
+        userService.enablePhotograph = function (id) {
+            return $http.get(urlBase + '/enablephotograph/' + id);
+        };
+        
         userService.makeAdmin = function (id) {
             return $http.get(urlBase + '/makeadmin/' + id);
         };
