@@ -81,12 +81,27 @@ public class UserController extends BaseAPIController {
         }
     }
 
-    /**
-     * Set admin role to user.
-     *
-     * @param id user id.
-     * @return data transfer object userData.
-     */
+	/**
+ 	* enable user with photographer role.
+ 	*
+ 	* @param id user id.
+ 	* @return data transfer object userData.
+ 	*/
+    @RequestMapping(value = Endpoints.USER_ENABLE_PHOTOGRAPH, method = RequestMethod.GET)
+    @ResponseBody
+    public UserData enablePhotograph(@PathVariable String id) {
+    	long longId = Long.valueOf(id);
+    	User Photograph = userManager.enablePhotograph(longId);
+        return UserUtility.getInstance().convertToUserProfileData(Photograph);
+    }
+
+
+	/**
+ 	* Set admin role to user.
+ 	*
+ 	* @param id user id.
+ 	* @return data transfer object userData.
+ 	*/
     @RequestMapping(value = Endpoints.USER_MAKE_ADMIN, method = RequestMethod.GET)
     @ResponseBody
     public UserData makeAdmin(@PathVariable String id) {

@@ -192,6 +192,14 @@ public class UserManagerImpl implements UserManager {
     public Boolean isUserAdmin(User user) {
         return isRoleIncluded(user, Role.ADMIN);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean isUserPhotographer(User user) {
+        return isRoleIncluded(user, Role.PHOTOGRAPHER);
+    }
 
     /**
      * {@inheritDoc}
@@ -222,6 +230,20 @@ public class UserManagerImpl implements UserManager {
         return userDAO.findByRoleAndEnabledFilter(roleId, enabled);
     }
 
+    /**
+     * {inheritDoc}
+     */
+    @Override public User enablePhotograph(long id) {
+        User user = userDAO.findOne(id);
+        if(isUserPhotographer(user) && (!user.isEnabled()))
+        {
+        	user.setEnabled(true);
+            userDAO.update(user);
+        }   
+        
+        return user;
+    }
+    
     /**
      * {inheritDoc}
      */
