@@ -15,8 +15,8 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
         }).when('/admin', {
             templateUrl: '/views/partials/admin/adminmenu.html',
             controller: 'AdminMenuCtrl'
-        }).when('/wellcomeuser', {
-            templateUrl: '/views/partials/user/wellcomeUser.html',
+        }).when('/welcomeuser', {
+            templateUrl: '/views/partials/user/welcomeuser.html',
             controller: ''
         }).when('/devprofile', {
             templateUrl: '/views/partials/user/devprofile.html',
