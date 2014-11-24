@@ -18,6 +18,12 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
         }).when('/wellcomeuser', {
             templateUrl: '/views/partials/user/wellcomeUser.html',
             controller: ''
+        }).when('/devprofile', {
+            templateUrl: '/views/partials/user/devprofile.html',
+            controller: 'ProfileCtrl'
+        }).when('/devprofile/:userId', {
+            templateUrl: '/views/partials/user/devprofile.html',
+            controller: 'ProfileCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
             controller: ''
@@ -128,13 +134,13 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
     /* Try getting valid user from cookie or go to login page */
 
-	var originalPath = $location.path();
-	if ($location.path() !== '')
-		$location.path("/");
-	var user = $cookieStore.get('user');
-	if (user !== undefined) {
-		$rootScope.user = user;
-		$http.defaults.headers.common[xAuthTokenHeaderName] = user.secToken;
+    var originalPath = $location.path();
+    if ($location.path() !== '')
+        $location.path("/");
+    var user = $cookieStore.get('user');
+    if (user !== undefined) {
+        $rootScope.user = user;
+        $http.defaults.headers.common[xAuthTokenHeaderName] = user.secToken;
 
         $location.path(originalPath);
     }

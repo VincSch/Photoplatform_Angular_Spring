@@ -9,33 +9,33 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
             $location.path("/login");
             return;
         }
-        
-        $scope.enablePhotograph = function(id) {
-			UserService.enablePhotograph(id).success(function(user) {
-				var RemovedIndex = -1;
-				$scope.photographTableFilteredUsers.forEach(function(elem, index) {
-                        if (elem.id == user.id)
-                        {
-                        	RemovedIndex = index;
-                        }
+
+        $scope.enablePhotograph = function (id) {
+            UserService.enablePhotograph(id).success(function (user) {
+                var RemovedIndex = -1;
+                $scope.photographTableFilteredUsers.forEach(function (elem, index) {
+                    if (elem.id == user.id) {
+                        RemovedIndex = index;
+                    }
                 });
                 $scope.photographTableFilteredUsers.splice(RemovedIndex, 1);
-			}).error(function() {});
-        
+            }).error(function () {
+            });
+
         }
 
-		$scope.makeAdmin = function(id) {
-			UserService.makeAdmin(id).success(function(user) {
-				$scope.userTableUsers.forEach(function(elem, index) {
-                        if (elem.id == user.id)
-                        {
-                            $scope.userTableUsers[index].admin = user.admin;
-                        }
+        $scope.makeAdmin = function (id) {
+            UserService.makeAdmin(id).success(function (user) {
+                $scope.userTableUsers.forEach(function (elem, index) {
+                    if (elem.id == user.id) {
+                        $scope.userTableUsers[index].admin = user.admin;
+                    }
                 });
-                angular.element('#make-admin-' + id).attr('disabled', true);	
-				
-			}).error(function() {});
-		}
+                angular.element('#make-admin-' + id).attr('disabled', true);
+
+            }).error(function () {
+            });
+        }
 
         $scope.lockUser = function (id) {
             UserService.lockUser(id)
@@ -120,14 +120,9 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
             //not implemented yet.
         };
 
-        var testUserId = 3;
-        UserService.getUserProfileData(testUserId).success(function (responseUserProfileData) {
-            var userProfileData = responseUserProfileData;
-            var test = 0;
-        }).error(function (error) {
-            console.log(error);
-            $rootScope.error(error);
-        });
+        $scope.edit = function (userId) {
+            $location.path("devprofile/" + userId);
+        };
     }
 ]);
 

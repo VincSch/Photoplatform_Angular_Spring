@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Konto Daten</h3>
+            <ul class="list-group">
+                <li><input type="text" ng-model="userProfileData.username" class="form-control list-group-item"
+                           placeholder="NICKNAME" id="profile-nickname"></li>
+                <li><input type="email" ng-model="userProfileData.email" class="form-control list-group-item"
+                           placeholder="EMAIL" id="profile-email"></li>
+                <li><input type="password" class="form-control list-group-item" placeholder="PASSWORT"
+                           id="profile-password"></li>
+            </ul>
+            <h3 contenteditable="true">Persönliche Daten</h3>
+            <ul class="list-group">
+                <li><input type="text" ng-model="userProfileData.firstname" class="form-control list-group-item"
+                           placeholder="VORNAME" id="profile-vorname"></li>
+                <li><input type="text" ng-model="userProfileData.surname" class="form-control list-group-item"
+                           placeholder="NACHNAME" id="profile-nachname"></li>
+                <li><input type="text" ng-model="userProfileData.birthday" class="form-control list-group-item"
+                           placeholder="GEBURTSDATUM" id="profile-birthday"></li>
+                <li><input type="date" ng-model="userProfileData.address" class="form-control list-group-item"
+                           placeholder="ADRESSE" id="profile-address"></li>
+                <li><input type="text" ng-model="userProfileData.phone" class="form-control list-group-item"
+                           placeholder="HANDY" id="profile-phone"></li>
+                <li><input type="text" ng-model="userProfileData.company" class="form-control list-group-item"
+                           placeholder="FIRMA" id="profile-company"></li>
+                <li><input type="text" ng-model="userProfileData.homepage" class="form-control list-group-item"
+                           placeholder="HOMEPAGE" id="profile-homepage"></li>
+            </ul>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <a class="btn btn-primary">editieren</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h3 contenteditable="true">Bank Daten</h3>
+            <ul class="list-group">
+                <li><input type="text" ng-model="userProfileData.receiver" class="form-control list-group-item"
+                           placeholder="EMPFÄNGER" id="profile-bank-receiver"></li>
+                <li><input type="text" ng-model="userProfileData.bic" class="form-control list-group-item"
+                           placeholder="BIC" id="profile-bank-bic"></li>
+                <li><input type="text" ng-model="userProfileData.iban" class="form-control list-group-item"
+                           placeholder="IBAN" id="profile-bank-iban"></li>
+            </ul>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <a class="btn btn-primary">editieren</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
