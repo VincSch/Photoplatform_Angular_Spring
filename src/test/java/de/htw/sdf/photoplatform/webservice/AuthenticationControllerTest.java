@@ -5,23 +5,25 @@
 
 package de.htw.sdf.photoplatform.webservice;
 
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
 import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
+
+import static org.hamcrest.Matchers.notNullValue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Test for user login register user
@@ -34,14 +36,12 @@ public class AuthenticationControllerTest extends BaseTester {
     private WebApplicationContext wac;
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
         insertTestData();
     }
 
     @Test
-    @Ignore
     public void testRegisterAndLoginUser() throws Exception {
         String username = "test";
         String email = "test@test.de";
@@ -51,23 +51,26 @@ public class AuthenticationControllerTest extends BaseTester {
         userRegister.setUsername(username);
         userRegister.setEmail(email);
         userRegister.setPassword(password);
+        userRegister.setPasswordConfirm(password);
 
         // Register User
         mockMvc.perform(
                 post("/api/user/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(userRegister))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
 
+        // Login user
         UserCredential userCredential = new UserCredential();
         userCredential.setUsername(username);
         userCredential.setPassword(password);
 
         mockMvc.perform(
-                post("/api/user/login")
-                        .contentType(MediaType.APPLICATION_JSON)
+                post("/api/user/login").contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(userCredential))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
     }
 
     /**
@@ -87,64 +90,84 @@ public class AuthenticationControllerTest extends BaseTester {
         userRegister.setUsername(username);
         userRegister.setEmail(email);
         userRegister.setPassword(password);
+        userRegister.setPasswordConfirm(password);
 
         // Register User
         mockMvc.perform(
-            post("/api/user/register")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(userRegister))
-                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+                post("/api/user/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userRegister))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
 
         UserCredential userCredential = new UserCredential();
         userCredential.setUsername(username);
         userCredential.setPassword(password);
 
         mockMvc.perform(
-            post("/api/user/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(userCredential))
-                .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
+                post("/api/user/login").contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userCredential))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
 
         User user = userDAO.findByUserName(username);
         user.setAccountNonLocked(false);
         userDAO.update(user);
 
         mockMvc.perform(
-            post("/api/user/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(userCredential))
-                .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest());
+                post("/api/user/login").contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userCredential))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isBadRequest());
 
         user.setAccountNonLocked(true);
         userDAO.update(user);
 
         mockMvc.perform(
-            post("/api/user/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(userCredential))
-                .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
+                post("/api/user/login").contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userCredential))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
     }
 
     @Test
-    @Ignore
     public void testRegisterUserWithInvalidEmail() throws Exception {
         UserRegister userRegister = new UserRegister();
         userRegister.setUsername("testInvalid");
         userRegister.setEmail("invalidemail.de");
         userRegister.setPassword("1234");
+        userRegister.setPasswordConfirm("1234");
 
-        is(2);
-
-        mockMvc
-            .perform(
+        mockMvc.perform(
                 post("/api/user/register")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(mapper.writeValueAsString(userRegister))
-                    .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest());
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userRegister))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.email", notNullValue()));
+    }
+
+    @Test
+    @Ignore
+    public void testRegisterUserConfirmPasswordFail() throws Exception {
+        UserRegister userRegister = new UserRegister();
+        userRegister.setUsername("testInvalid");
+        userRegister.setEmail("valid@mail.de");
+        userRegister.setPassword("1234");
+        userRegister.setPasswordConfirm("1wsd234");
+
+        MvcResult result = mockMvc
+                .perform(
+                        post("/api/user/register")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(
+                                        mapper.writeValueAsString(userRegister))
+                                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.passwordConfirm", notNullValue()))
+                .andReturn();
+
+        System.out.println(result.getResponse().getContentAsString());
     }
 
     @After

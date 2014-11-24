@@ -9,5 +9,5 @@
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */
 
-package de.htw.sdf.photoplatform.persistence.models;
+package de.htw.sdf.photoplatform.persistence.model;
 

@@ -6,7 +6,7 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.persistence.models.ShowCase;
+import de.htw.sdf.photoplatform.persistence.model.ShowCase;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**

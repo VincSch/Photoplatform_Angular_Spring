@@ -6,15 +6,14 @@
 
 package de.htw.sdf.photoplatform.repository.common;
 
-import java.io.Serializable;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Generic abstract data access class implementing the most important functions.

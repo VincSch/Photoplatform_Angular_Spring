@@ -6,26 +6,25 @@
 
 package de.htw.sdf.photoplatform.manager.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
-import de.htw.sdf.photoplatform.persistence.models.Role;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.persistence.models.UserBank;
-import de.htw.sdf.photoplatform.persistence.models.UserProfile;
-import de.htw.sdf.photoplatform.persistence.models.UserRole;
+import de.htw.sdf.photoplatform.persistence.model.Role;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserBank;
+import de.htw.sdf.photoplatform.persistence.model.UserProfile;
+import de.htw.sdf.photoplatform.persistence.model.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserBankDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserProfileDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * business methods for users.
@@ -55,14 +54,29 @@ public class UserManagerImpl implements UserManager {
      * {@inheritDoc}
      */
     @Override
-    public void createCustomer(User customer) {
-        userDAO.create(customer);
+    public void registerUser(final String username, final String email,
+            final String password) throws ManagerException {
+
+        checkUser(username, email, password);
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(new BCryptPasswordEncoder().encode(password));
+
+        // Enable user
+        user.setAccountNonLocked(true);
+        user.setEnabled(true);
+        user.setEmail(email);
+
+        userDAO.create(user);
+
         UserRole userRole = new UserRole();
-        userRole.setUser(customer);
+        userRole.setUser(user);
+
         Role role = roleDAO.findByName(Role.CUSTOMER);
         if (role == null) {
-            throw new RuntimeException(
-                "User role = " + Role.CUSTOMER + " does not exists.");
+            throw new RuntimeException("User role = " + Role.CUSTOMER
+                    + " does not exists.");
         }
 
         userRole.setRole(role);
@@ -70,11 +84,20 @@ public class UserManagerImpl implements UserManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Check is email or username already exists.
+     *
+     * @param username
+     *            the username
+     * @param email
+     *            the email
+     * @param password
+     *            the password
+     *
+     * @throws ManagerException
+     *             the exception
      */
-    @Override
-    public void registerUser(String username, String email, String password)
-        throws ManagerException {
+    private void checkUser(final String username, final String email, final String password)
+            throws ManagerException {
         if (username == null || email == null || password == null) {
             throw new RuntimeException("This should not happen");
         }
@@ -83,25 +106,14 @@ public class UserManagerImpl implements UserManager {
         User user = userDAO.findByUserName(username);
         if (user != null) {
             throw new ManagerException(
-                AbstractBaseException.USER_USERNAME_EXISTS);
+                    AbstractBaseException.USER_USERNAME_EXISTS);
         }
 
+        // 2. check if email already in use
         user = userDAO.findByEmail(email);
         if (user != null) {
             throw new ManagerException(AbstractBaseException.USER_EMAIL_EXISTS);
         }
-
-        user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        //user.setPassword(new BCryptPasswordEncoder().encode(password));
-
-        // Enable user
-        user.setAccountNonLocked(true);
-        user.setEnabled(true);
-        user.setEmail(email);
-
-        createCustomer(user);
     }
 
     /**
@@ -117,18 +129,18 @@ public class UserManagerImpl implements UserManager {
      */
     @Override
     public User update(User user, UserProfile profile, UserBank bank) {
-        if( profile.getId() == null){
-            //no, than create new.
+        if (profile.getId() == null) {
+            // no, than create new.
             userProfileDAO.create(profile);
-        }else{
-            //else update.
+        } else {
+            // else update.
             userProfileDAO.update(profile);
         }
 
-        if( bank.getId() == null){
-            //if not exist, than create.
+        if (bank.getId() == null) {
+            // if not exist, than create.
             userBankDAO.create(bank);
-        }else{
+        } else {
             userBankDAO.update(bank);
         }
 
@@ -148,8 +160,8 @@ public class UserManagerImpl implements UserManager {
      * {@inheritDoc}
      */
     @Override
-    public User findById(Long id) {
-        return userDAO.findById(id);
+    public User findById(final long id) {
+        return userDAO.findOne(id);
     }
 
     /**
@@ -192,7 +204,7 @@ public class UserManagerImpl implements UserManager {
     public Boolean isUserAdmin(User user) {
         return isRoleIncluded(user, Role.ADMIN);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -233,40 +245,41 @@ public class UserManagerImpl implements UserManager {
     /**
      * {inheritDoc}
      */
-    @Override public User enablePhotograph(long id) {
+    @Override
+    public User enablePhotograph(long id) {
         User user = userDAO.findOne(id);
-        if(isUserPhotographer(user) && (!user.isEnabled()))
-        {
-        	user.setEnabled(true);
+        if (isUserPhotographer(user) && (!user.isEnabled())) {
+            user.setEnabled(true);
             userDAO.update(user);
-        }   
-        
+        }
+
         return user;
     }
-    
+
     /**
      * {inheritDoc}
      */
-    @Override public User makeAdmin(long id) {
+    @Override
+    public User makeAdmin(long id) {
         User user = userDAO.findOne(id);
-        if(!isUserAdmin(user))
-        {
+        if (!isUserAdmin(user)) {
             Role admin = roleDAO.findOne(Role.ADMIN_ID);
-            
+
             UserRole userRole = new UserRole();
             userRole.setRole(admin);
             userRole.setUser(user);
             userRoleDAO.create(userRole);
-            
+
             userDAO.update(user);
         }
         return user;
     }
-    
+
     /**
      * {inheritDoc}
      */
-    @Override public User lockUser(long id) {
+    @Override
+    public User lockUser(long id) {
         User user = userDAO.findOne(id);
         user.setAccountNonLocked(false);
         userDAO.update(user);
@@ -276,7 +289,8 @@ public class UserManagerImpl implements UserManager {
     /**
      * {inheritDoc}
      */
-    @Override public User unlockUser(long id) {
+    @Override
+    public User unlockUser(long id) {
         User user = userDAO.findOne(id);
         user.setAccountNonLocked(true);
         userDAO.update(user);

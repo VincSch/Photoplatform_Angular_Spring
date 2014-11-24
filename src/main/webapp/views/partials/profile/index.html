@@ -1,52 +1,51 @@
 <div class="row">
-	<div class="span3 bs-docs-sidebar" ng-include src="'views/partials/profile/sidebar.html'"></div>
-	<!--
-	<div class="span9">
-		<div class="page-header">
-			<h2>Willkommen {{user.username}}</h2>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				Informationen
-			</div>
-			<div class="panel-body">
-				<div class="progress">
-					<div class="bar" style="width: {{profileProgress()}}%;">
-						Dein Profil ist zu {{profileProgress()}}% vollständig
-					</div>
-				</div>
-				<br>
-				Mitglied seit: <strong>{{user.createdAt | date:'dd.MM.yyyy'}}</strong>
-				<br>
-				Benutzername: <strong>{{user.username}}</strong>
-				<br>
-				E-Mail: <strong>{{user.email}}</strong>
-				<br>
-				Wohnort: <strong>{{user.city}}</strong>
-				<br>
-				Geburstag: <strong>{{user.birthday | date:'dd.MM.yyyy'}}</strong>
-			</div>
-		</div>
+    <div class="col-md-2" ng-include src="'views/partials/profile/sidebar.html'"></div>
+    <div class="col-md-10">
+        <div class="page-header">
+            <h2>Willkommen {{user.username}}</h2>
+        </div>
+        <div class="panel panel-default">
+            <button></button>
+            <div class="panel-heading">
+                Informationen
+            </div>
+            <div class="panel-body">
+                <div class="progress">
+                    <div class="bar" style="width: {{profileProgress()}}%;">
+                        Dein Profil ist zu {{profileProgress()}}% vollständig
+                    </div>
+                </div>
+                <br>
+                Mitglied seit: <strong>{{user.createdAt | date:'dd.MM.yyyy'}}</strong>
+                <br>
+                Benutzername: <strong>{{user.username}}</strong>
+                <br>
+                E-Mail: <strong>{{user.email}}</strong>
+                <br>
+                Wohnort: <strong>{{user.city}}</strong>
+                <br>
+                Geburstag: <strong>{{user.birthday | date:'dd.MM.yyyy'}}</strong>
+            </div>
+        </div>
 
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				Ueber mich
-			</div>
-			<div class="panel-body">
-				{{user.about}}
-			</div>
-		</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Ueber mich
+            </div>
+            <div class="panel-body">
+                {{user.about}}
+            </div>
+        </div>
 
-		<div class="btn-group">
-			<a href="#/profile/edit/{{user.username}}">
-			<button type="button" class="btn btn-default">
-				Editieren
-			</button></a>
-			<button type="button" disabled title="Nocht nicht unterstuetzt!" class="btn btn-default">
-				Passwort ändern
-			</button>
-		</div>
-
-	</div>
-	-->
+        <div class="btn-group">
+            <a href="/profile/edit/{{user.username}}">
+                <button type="button" class="btn btn-default">
+                    Editieren
+                </button>
+            </a>
+            <button type="button" disabled title="Nocht nicht unterstuetzt!" class="btn btn-default">
+                Passwort ändern
+            </button>
+        </div>
+    </div>
 </div>

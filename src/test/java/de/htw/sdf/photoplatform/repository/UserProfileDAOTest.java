@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.persistence.models.Role;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.persistence.models.UserProfile;
+import de.htw.sdf.photoplatform.persistence.model.Role;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserProfile;
 
 public class UserProfileDAOTest extends BaseTester {
 
@@ -33,14 +33,14 @@ public class UserProfileDAOTest extends BaseTester {
                 rolePhotographer, Boolean.TRUE, Boolean.TRUE);
 
         String firstName = "TestFirstname";
-        String surname = "TestSurname";
+        String lastname = "TestSurname";
         String address = "мой адрес не дом и не улица мой адрес советский союз";
         String phone = "018765032";
         String company = "Photo AG";
         String homepage = "photo.de";
         UserProfile photographerProfile = new UserProfile();
         photographerProfile.setFirstName(firstName);
-        photographerProfile.setSurname(surname);
+        photographerProfile.setLastName(lastname);
         photographerProfile.setUser(photographer);
         photographerProfile.setAddress(address);
         photographerProfile.setPhone(phone);
@@ -55,6 +55,6 @@ public class UserProfileDAOTest extends BaseTester {
                 .equals(photographer.getId()));
         Assert.assertTrue(createdProfile.getAddress().equals(address));
         Assert.assertTrue(createdProfile.getFirstName().equals(firstName));
-        Assert.assertTrue(createdProfile.getSurname().equals(surname));
+        Assert.assertTrue(createdProfile.getLastName().equals(lastname));
     }
 }

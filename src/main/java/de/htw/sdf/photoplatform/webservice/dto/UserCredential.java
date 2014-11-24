@@ -6,32 +6,29 @@
 
 package de.htw.sdf.photoplatform.webservice.dto;
 
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Size;
 
 /**
  * Data Transfer Object.
  *
- * @author <a href="s0531603@htw-berlin.de">Daniil Tomilow</a>
+ * @author <a href="mailto:s0531603@htw-berlin.de">Daniil Tomilow</a>
  */
-public class UserCredential
-{
+public class UserCredential {
 
     @NotEmpty
     @Size(min = 3, max = 30)
     protected String username;
 
-
     @NotEmpty
-    @Size(min = 3)
+    @Size(min = 3, max = 60)
     protected String password;
 
     /**
      * @return the username
      */
-    public String getUsername()
-    {
+    public String getUsername() {
         return username;
     }
 
@@ -39,16 +36,14 @@ public class UserCredential
      * @param username
      *            the username to set
      */
-    public void setUsername(String username)
-    {
+    public void setUsername(String username) {
         this.username = username;
     }
 
     /**
      * @return the password
      */
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
@@ -56,8 +51,7 @@ public class UserCredential
      * @param password
      *            the password to set
      */
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 }

@@ -1,18 +1,17 @@
 package de.htw.sdf.photoplatform.repository;
 
-import java.util.List;
-
+import de.htw.sdf.photoplatform.common.BaseImageTester;
+import de.htw.sdf.photoplatform.persistence.model.Image;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import de.htw.sdf.photoplatform.common.BaseImageTester;
-import de.htw.sdf.photoplatform.persistence.models.Image;
+import java.util.List;
 
 /**
  * TODO bitte kommentieren
+ * 
  * @author
  *
  */

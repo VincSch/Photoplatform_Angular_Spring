@@ -1,18 +1,16 @@
 package de.htw.sdf.photoplatform.repository;
 
-import java.util.List;
-
-import org.junit.Assert;
-
+import de.htw.sdf.photoplatform.common.BaseImageTester;
+import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserImage;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.htw.sdf.photoplatform.common.BaseImageTester;
-import de.htw.sdf.photoplatform.persistence.models.Image;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.persistence.models.UserImage;
+import java.util.List;
 
 public class UserImageDAOTest extends BaseImageTester {
     @Autowired

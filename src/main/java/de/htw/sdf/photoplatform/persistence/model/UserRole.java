@@ -4,7 +4,7 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence.models;
+package de.htw.sdf.photoplatform.persistence.model;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

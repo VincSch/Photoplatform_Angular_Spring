@@ -4,14 +4,14 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence.models;
+package de.htw.sdf.photoplatform.persistence.model;
+
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a relation between user and image.

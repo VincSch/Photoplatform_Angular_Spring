@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.htw.sdf.photoplatform.manager.CollectionManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.models.Collection;
-import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.User;
 
 /**
  * business methods for categories.

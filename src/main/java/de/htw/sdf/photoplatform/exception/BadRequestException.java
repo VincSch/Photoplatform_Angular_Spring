@@ -6,16 +6,14 @@
 
 package de.htw.sdf.photoplatform.exception;
 
-import org.springframework.validation.Errors;
-
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
+import org.springframework.validation.Errors;
 
 /**
  *
  * @author <a href="mailto:s0531603@htw-berlin.de">Daniil Tomilow</a>
  */
-public class BadRequestException extends AbstractBaseException
-{
+public class BadRequestException extends AbstractBaseException {
 
     private static final long serialVersionUID = -5878839432690385704L;
 
@@ -25,8 +23,7 @@ public class BadRequestException extends AbstractBaseException
      * @param msg
      *            the message
      */
-    public BadRequestException(String msg)
-    {
+    public BadRequestException(String msg) {
         super(AbstractBaseException.BAD_REQUEST, msg);
     }
 
@@ -36,8 +33,7 @@ public class BadRequestException extends AbstractBaseException
      * @param msg the message
      * @param errors the errors
      */
-    public BadRequestException(String msg, Errors errors)
-    {
+    public BadRequestException(String msg, Errors errors) {
         super(AbstractBaseException.BAD_REQUEST, msg, errors);
     }
 

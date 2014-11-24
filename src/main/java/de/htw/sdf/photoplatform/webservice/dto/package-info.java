@@ -5,7 +5,7 @@
  */
 
 /**
- * Value Object pass as parameters.
+ * Data Transfer Objects pass as parameters.
  *
  * @author <a href="s0531603@htw-berlin.de">Daniil Tomilow</a>
  */
