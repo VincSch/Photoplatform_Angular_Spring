@@ -55,6 +55,10 @@ angular.module('photoplatform').factory('UserService', ['$http',
             return $http.get(urlBase + '/unlock/' + id);
         };
 
+        userService.updateUserProfileData = function (userProfileData) {
+            return $http.post(urlBaseList + '/update/', userProfileData);
+        };
+
         return userService;
     }]);
 

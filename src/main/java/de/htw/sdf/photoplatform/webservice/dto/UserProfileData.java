@@ -15,7 +15,7 @@ public class UserProfileData extends UserData {
 
     protected Long bankId;
 
-    protected String firstName;
+    protected String firstname;
 
     protected String surname;
 
@@ -73,16 +73,16 @@ public class UserProfileData extends UserData {
      * Returns first name.
      * @return first name.
      */
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
     /**
      * Sets first name.
-     * @param firstName first name.
+     * @param firstname first name.
      */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     /**

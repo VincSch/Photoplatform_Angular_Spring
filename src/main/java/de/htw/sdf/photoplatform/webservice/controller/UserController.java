@@ -156,7 +156,7 @@ public class UserController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.USERS_UPDATE, method = { RequestMethod.POST })
     @ResponseBody
-    public void updateUser(@RequestBody UserProfileData userProfileData,BindingResult bindingResult)  throws AbstractBaseException {
+    public void updateUser(@RequestBody UserProfileData userProfileData, BindingResult bindingResult)  throws AbstractBaseException {
 
         //validate.
         validateProfileForm(userProfileData, bindingResult);
@@ -172,11 +172,12 @@ public class UserController extends BaseAPIController {
         if(profile==null){
             profile = new UserProfile(userToUpdate);
         }
-        profile.setFirstName(userProfileData.getFirstName());
+        profile.setFirstName(userProfileData.getFirstname());
         profile.setSurname(userProfileData.getSurname());
         profile.setAddress(userProfileData.getAddress());
         profile.setPhone(userProfileData.getPhone());
-        profile.setBirthday(userProfileData.getBirthday());
+        //TODO: date validation don't work correct.Serger Meister want to fix it.
+        //profile.setBirthday(userProfileData.getBirthday());
         profile.setCompany(userProfileData.getCompany());
         profile.setHomepage(userProfileData.getHomepage());
 

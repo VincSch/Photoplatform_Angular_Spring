@@ -6,16 +6,11 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import de.htw.sdf.photoplatform.common.BaseImageTester;
 import de.htw.sdf.photoplatform.persistence.models.Image;
 
-/**
- * TODO bitte kommentieren
- * @author
- *
- */
+
 public class ImageDAOTest extends BaseImageTester {
     @Before
     public final void setUp() throws Exception {

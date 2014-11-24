@@ -22,7 +22,7 @@ import de.htw.sdf.photoplatform.webservice.dto.UserData;
 import de.htw.sdf.photoplatform.webservice.dto.UserProfileData;
 
 /**
- * This is a help class for user.
+ * This is a help class for user controller.
  *
  * Convert domain objects User, UserBank, UserProfile to corresponded data transfer objects
  * UserData,UserProfileData. Validate input data.
@@ -56,7 +56,7 @@ public class UserUtility {
         userProfileData.setEmail(user.getEmail());
         if(user.getUserProfile()!=null){
             userProfileData.setProfileId(user.getUserProfile().getId());
-            userProfileData.setFirstName(user.getUserProfile().getFirstName());
+            userProfileData.setFirstname(user.getUserProfile().getFirstName());
             userProfileData.setSurname(user.getUserProfile().getSurname());
             userProfileData.setAddress(user.getUserProfile().getAddress());
             userProfileData.setPhone(user.getUserProfile().getPhone());
@@ -119,7 +119,9 @@ public class UserUtility {
      */
     public void validate(UserProfileData userProfileData) throws AbstractBaseException {
         validateEmail(userProfileData.getEmail());
-        validateBirthday(userProfileData.getBirthday());
+        //TODO: date validation don't work correct.Serger Meister want to fix it.
+        //validateBirthday(userProfileData.getBirthday());
+
         validateBankData(userProfileData.getBic(),userProfileData.getIban());
     }
 

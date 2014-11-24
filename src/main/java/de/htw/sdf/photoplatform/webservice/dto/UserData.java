@@ -5,8 +5,6 @@ package de.htw.sdf.photoplatform.webservice.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -15,14 +13,14 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @author Sergej Meister
  */
-public class UserData implements Serializable {
+public class UserData extends UserCredential implements Serializable {
 
     @NotEmpty
     protected Long id;
 
-    @NotEmpty
-    @Size(min = 3, max = 30)
-    protected String username;
+//    @NotEmpty
+//    @Size(min = 3, max = 30)
+//    protected String username;
 
     protected String email;
 
@@ -34,22 +32,22 @@ public class UserData implements Serializable {
 
     protected Boolean admin;
 
-    /**
-     * @return the username
-     */
-    public String getUsername()
-    {
-        return username;
-    }
-
-    /**
-     * @param username
-     *            the username to set
-     */
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
+//    /**
+//     * @return the username
+//     */
+//    public String getUsername()
+//    {
+//        return username;
+//    }
+//
+//    /**
+//     * @param username
+//     *            the username to set
+//     */
+//    public void setUsername(String username)
+//    {
+//        this.username = username;
+//    }
 
     /**
      * Returns user id.

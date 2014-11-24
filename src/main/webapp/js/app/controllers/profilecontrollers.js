@@ -7,10 +7,12 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
             return;
         }
 
+        $scope.isAdminMode = true;
+        //check param
         $scope.userId = $routeParams.userId;
-
         if ($scope.userId == undefined) {
             $scope.userId = user.id;
+            $scope.isAdminMode = false;
         }
 
         UserService.getUserProfileData($scope.userId).success(function (responseUserProfileData) {
@@ -19,6 +21,45 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
             console.log(error);
             $rootScope.error(error);
         });
+
+        $scope.formNotEdited = true;
+        $scope.credentialNotEditMode = true;
+        $scope.personNotEditMode = true;
+        $scope.bankNotEditMode = true;
+        $scope.edit = function (editMode) {
+            if (editMode == 'person') {
+                $scope.personNotEditMode = false;
+            } else if (editMode == 'bank') {
+                $scope.bankNotEditMode = false;
+            } else if (editMode == 'credential') {
+                $scope.credentialNotEditMode;
+            }
+            $scope.formNotEdited = false;
+        }
+
+        $scope.save = function () {
+            UserService.updateUserProfileData($scope.userProfileData).success(function () {
+                $rootScope.success = "Profil erfolgreich aktualisiert";
+                if ($scope.isAdminMode) {
+                    $location.path("/admin");
+
+                } else {
+                    $location.path("/devprofile");
+                }
+            }).error(function (error) {
+                console.log(error);
+                $rootScope.error(error);
+            });
+        }
+
+        $scope.cancel = function () {
+            if (isAdminMode) {
+                $location.path("/admin");
+
+            } else {
+                $location.path("/devprofile");
+            }
+        }
 
         //    $scope.profileProgress = function() {
 //		var result = 0;
