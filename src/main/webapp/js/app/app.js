@@ -18,6 +18,9 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
         }).when('/welcomeuser', {
             templateUrl: '/views/partials/user/welcomeuser.html',
             controller: ''
+        }).when('/welcomephotographer', {
+             templateUrl: '/views/partials/photographer/welcomephotographer.html',
+             controller: ''
         }).when('/devprofile', {
             templateUrl: '/views/partials/user/devprofile.html',
             controller: 'ProfileCtrl'
