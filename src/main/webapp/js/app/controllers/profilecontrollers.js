@@ -40,12 +40,6 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
         $scope.save = function () {
             UserService.updateUserProfileData($scope.userProfileData).success(function () {
                 $rootScope.success = "Profil erfolgreich aktualisiert";
-                if ($scope.isAdminMode) {
-                    $location.path("/admin");
-
-                } else {
-                    $location.path("/devprofile");
-                }
             }).error(function (error) {
                 console.log(error);
                 $rootScope.error(error);
@@ -53,9 +47,8 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
         }
 
         $scope.cancel = function () {
-            if (isAdminMode) {
+            if ($scope.isAdminMode) {
                 $location.path("/admin");
-
             } else {
                 $location.path("/devprofile");
             }

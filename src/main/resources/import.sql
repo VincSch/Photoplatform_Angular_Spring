@@ -35,7 +35,7 @@ INSERT INTO SYS_USER_ROLE (id,user_id,role_id) VALUES (5,5,3);
 INSERT INTO SYS_USER_ROLE (id,user_id,role_id) VALUES (6,6,3);
 
 -- SYS_USERPROFILE
-INSERT INTO SYS_USERPROFILE (id,user_id, firstname, surname, address, BIRTHDAY,company,homepage,phone) VALUES('1','3','Sergej','Meister','Berlinerstraße 12,12207 Berlin','15.11.14','Burg',null,'016568334');
+INSERT INTO SYS_USERPROFILE (id,user_id, firstname, surname, address, BIRTHDAY,company,homepage,phone) VALUES('1','3','Sergej','Meister','Berlinerstraße 12,12207 Berlin','2014-11-14','Burg',null,'016568334');
 
 -- SYS_USERBANK
 --Sergej

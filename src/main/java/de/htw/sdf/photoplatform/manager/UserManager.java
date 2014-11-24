@@ -61,7 +61,7 @@ public interface UserManager {
     /**
      * delete a User.
      *
-     * @param entity user to be deleted
+     * @param entity user to be deleted.
      */
     void delete(final User entity);
 
@@ -78,7 +78,7 @@ public interface UserManager {
     /**
      * find all Users.
      *
-     * @return a list of all Users
+     * @return a list of all Users.
      */
     List<User> findAll();
 
@@ -90,24 +90,24 @@ public interface UserManager {
     /**
      * find a user by its unique name.
      *
-     * @param name unique name
-     * @return the user entity
+     * @param name unique name.
+     * @return the user entity.
      */
     User findByName(String name);
 
     /**
-     * activates a photograph user account
+     * activates a photograph user account.
      *
-     * @param id
-     * @return
+     * @param id photograph user id.
+     * @return user.
      */
     public User enablePhotograph(long id);
     
     /**
-     * grants the user admin rights
+     * grants the user admin rights.
      *
-     * @param id
-     * @return
+     * @param id user id.
+     * @return user.
      */
     public User makeAdmin(long id);
     

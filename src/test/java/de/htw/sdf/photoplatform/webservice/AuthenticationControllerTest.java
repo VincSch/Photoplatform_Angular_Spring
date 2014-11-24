@@ -13,12 +13,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import de.htw.sdf.photoplatform.common.BaseTester;
+import de.htw.sdf.photoplatform.common.BaseAPITester;
 import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
 import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
@@ -28,16 +25,12 @@ import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
  *
  * @author <a href="mailto:s0531603@htw-berlin.de">Daniil Tomilow</a>
  */
-public class AuthenticationControllerTest extends BaseTester {
-
-    @Autowired
-    private WebApplicationContext wac;
+public class AuthenticationControllerTest extends BaseAPITester {//BaseTester {
 
     @Before
     public void setUp() throws Exception
     {
-        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        insertTestData();
+        initAPITest();
     }
 
     @Test
@@ -149,6 +142,6 @@ public class AuthenticationControllerTest extends BaseTester {
 
     @After
     public void tearDown() throws Exception {
-        clearTables();
+        cancel();
     }
 }

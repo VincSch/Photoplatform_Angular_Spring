@@ -6,7 +6,7 @@
 
 package de.htw.sdf.photoplatform;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,36 +60,7 @@ public class DBUtil {
      * Insert test data.
      */
     public void insertTestData() {
-        // if (instanceCounter == 0)
-        // {
-        // createRoles();
-        // }
-
         createUser();
-        // instanceCounter++;
-    }
-
-    // private void createRoles()
-    // {
-    // Role admin = new Role();
-    // admin.setName("ADMIN");
-    // roleDAO.create(admin);
-    //
-    // Role customer = new Role();
-    // customer.setName("CUSTOMER");
-    // roleDAO.create(customer);
-    //
-    // Role photographer = new Role();
-    // photographer.setName("PHOTOGRAPHER");
-    // roleDAO.create(photographer);
-    // }
-
-    private void createRoles() {
-        for (String defaultRole : Role.DEFAULT_ROLES){
-            Role role = new Role();
-            role.setName(defaultRole);
-            roleDAO.create(role);
-        }
     }
 
     /**
@@ -111,8 +82,8 @@ public class DBUtil {
         sergejProfile.setSurname("Meister");
         sergejProfile.setAddress("Berlinerstraße 12,12207 Berlin");
         sergejProfile.setCompany("Burg");
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
-        sergejProfile.setBirthday(df.format(new Date()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        sergejProfile.setBirthday(dateFormat.format(new Date()));
         sergejProfile.setPhone("016568334");
         sergejProfile.setUser(sergej);
         userProfileDAO.create(sergejProfile);
