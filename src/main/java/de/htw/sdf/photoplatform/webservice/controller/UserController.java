@@ -40,6 +40,9 @@ import de.htw.sdf.photoplatform.webservice.util.UserUtility;
 public class UserController extends BaseAPIController {
 
     @Resource
+    private AuthorizationController authorizationController;
+
+    @Resource
     private UserManager userManager;
 
     /**
@@ -224,6 +227,19 @@ public class UserController extends BaseAPIController {
     @RequestMapping(value = Endpoints.USERS_PROFILE_BY_USER_ID, method = { RequestMethod.GET })
     @ResponseBody
     public UserProfileData getUserProfileData(@PathVariable String userId) throws AbstractBaseException {
+        try{
+            authorizationController.checkUserPermissions(userId);
+        }catch(AbstractBaseException abe){
+            switch (abe.getCode()) {
+                case AbstractBaseException.AUTHORIZATION_NOT_VALID:
+                    ObjectError error = new ObjectError("authorization", messages
+                            .getMessage("SystemHack"));
+                    throw new BadRequestException(error.getDefaultMessage());
+                default:
+                    throw new RuntimeException("Unhandled error");
+            }
+        }
+
         User user = findUserById(userId);
         return UserUtility.getInstance().convertToUserProfileData(user);
     }

@@ -22,6 +22,11 @@ public abstract class AbstractBaseException extends Exception
     /** Default NOT_FOUND. */
     public static final int NOT_FOUND= 10001;
 
+    /**
+     * exception id for bad authorization.
+     */
+    public static final int AUTHORIZATION_NOT_VALID = 10002;
+
     /** Email exists. */
     public static final int USER_USERNAME_EXISTS = 11000;
 

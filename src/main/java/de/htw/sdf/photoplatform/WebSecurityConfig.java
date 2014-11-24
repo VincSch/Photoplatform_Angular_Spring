@@ -51,7 +51,17 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         for (String endpoint : Endpoints.securedUserEndpoints())
         {
-            http.authorizeRequests().antMatchers(endpoint).hasAnyRole(removeRolePrefix(Role.CUSTOMER), removeRolePrefix(Role.ADMIN));
+            http.authorizeRequests().antMatchers(endpoint).hasAnyRole(
+                    removeRolePrefix(Role.PHOTOGRAPHER),
+                    removeRolePrefix(Role.CUSTOMER),
+                    removeRolePrefix(Role.ADMIN));
+        }
+
+        for (String endpoint : Endpoints.securedPhotographEndpoints())
+        {
+            http.authorizeRequests().antMatchers(endpoint).hasAnyRole(
+                    removeRolePrefix(Role.PHOTOGRAPHER),
+                    removeRolePrefix(Role.ADMIN));
         }
 
         for (String endpoint : Endpoints.securedAdminEndpoints())

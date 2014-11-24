@@ -102,7 +102,7 @@ public final class Endpoints {
 
     /**
      * End points as strings which have to be secured and can only be accessed
-     * by an admin or user.
+     * by all authenticated users.
      *
      * @return array of end points as strings which have to be secured and can
      * only be accessed by an admin or user
@@ -130,9 +130,20 @@ public final class Endpoints {
                 restBuilder(USERS_DISABLED_BY_ROLE),
                 restBuilder(USER_MAKE_ADMIN),
                 restBuilder(USER_LOCK),
-                restBuilder(USER_UNLOCK),
-                restBuilder(USERS_PROFILE_BY_USER_ID)
+                restBuilder(USER_UNLOCK)
         };
+        return securedEndpoints;
+    }
+
+    /**
+     * End points as strings which have to be secured and can only be accessed
+     * by users with role photograph or admin.
+     *
+     * @return array of end points as strings which have to be secured and can
+     * only be accessed by an admin or user
+     */
+    public static String[] securedPhotographEndpoints() {
+        String[] securedEndpoints = {};
         return securedEndpoints;
     }
 
