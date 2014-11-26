@@ -11,7 +11,7 @@ photoplatformControllers.controller('LoginCtrl', ['$scope', '$rootScope', '$loca
                 $cookieStore.put('user', user);
                 console.log(user);
                 if ($rootScope.isCustomer())
-                    $location.path("/profile");
+                    $location.path("/welcomeuser");
                 if ($rootScope.isPhotographer())
                     $location.path("/profile");
                 if ($rootScope.isAdmin())
