@@ -11,14 +11,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import de.htw.sdf.photoplatform.common.BaseTester;
+import de.htw.sdf.photoplatform.common.BaseAPITester;
 import de.htw.sdf.photoplatform.persistence.models.Role;
 import de.htw.sdf.photoplatform.persistence.models.User;
 import de.htw.sdf.photoplatform.webservice.controller.UserController;
@@ -27,23 +24,19 @@ import de.htw.sdf.photoplatform.webservice.dto.UserProfileData;
 /**
  * Tests for users services.
  */
-public class UserControllerTest extends BaseTester {
-
-    @Autowired
-    private WebApplicationContext wac;
+public class UserControllerTest extends BaseAPITester {
 
     @Autowired
     private UserController userController;
 
     @Before
     public void setUp() throws Exception {
-        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        insertTestData();
+        initAPITest();
     }
 
     @After
     public void tearDown() throws Exception {
-        clearTables();
+        cancel();
     }
 
     @Test
@@ -78,15 +71,16 @@ public class UserControllerTest extends BaseTester {
     }
 
     @Test
-    @Ignore
-    public void testUserProfileData() throws Exception {
+    public void testGetUserProfileData() throws Exception {
         String notExistId = "0" ;
         String requestNotExistId= Endpoints.API_PREFIX + Endpoints.USERS_PROFILE_BY_USER_ID.replace("{userId}",notExistId);
+
+        login();
 
         mockMvc.perform(
                 get(requestNotExistId)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8")).andExpect(status().isBadRequest());
+                        .characterEncoding("UTF-8")).andExpect(status().isNotFound());
 
         User sergejUser = userDAO.findByUserName("Sergej");
         String requestSergej = Endpoints.API_PREFIX + Endpoints.USERS_PROFILE_BY_USER_ID.replace("{userId}",sergejUser.getId().toString());
@@ -105,9 +99,10 @@ public class UserControllerTest extends BaseTester {
     }
 
     @Test
-    @Ignore("Fail by travis-ci!")
     public void testUpdateUserProfileData() throws Exception {
         //Init test data
+        login();
+
         User sergejUser = userDAO.findByUserName("Sergej");
         String sergejId = sergejUser.getId().toString();
         UserProfileData sergejProfileData = userController.getUserProfileData(sergejId);
@@ -134,7 +129,6 @@ public class UserControllerTest extends BaseTester {
         Assert.assertTrue(updatedProfileData.getEmail().equals(newEmail));
         Assert.assertTrue(updatedProfileData.getAddress().equals(newAddress));
         Assert.assertTrue(updatedProfileData.getReceiver().equals(newReceiver));
-
 
         User peterUser = userDAO.findByUserName("Peter");
         String peterId = peterUser.getId().toString();
@@ -163,9 +157,7 @@ public class UserControllerTest extends BaseTester {
         Assert.assertTrue("Profile data should be not null.",updatedPeterData.getProfileId() != null);
         Assert.assertTrue(updatedPeterData.getAddress().equals(peterAdddress));
         Assert.assertTrue(updatedPeterData.getPhone().equals(peterPhone));
-        Assert.assertTrue("Bank data should be not null.",updatedPeterData.getBankId() != null);
-        Assert.assertTrue(updatedPeterData.getReceiver().equals(peterReceiver));
-        Assert.assertTrue(updatedPeterData.getBic().equals(peterBic));
-        Assert.assertTrue(updatedPeterData.getIban().equals(peterIban));
+        Assert.assertTrue("Bank data should be null, because Peter is not photograph!",
+                updatedPeterData.getBankId() == null);
     }
 }

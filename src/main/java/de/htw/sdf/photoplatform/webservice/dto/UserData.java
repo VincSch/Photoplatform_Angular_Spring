@@ -18,10 +18,6 @@ public class UserData extends UserCredential implements Serializable {
     @NotEmpty
     protected Long id;
 
-//    @NotEmpty
-//    @Size(min = 3, max = 30)
-//    protected String username;
-
     protected String email;
 
     protected Integer index;
@@ -31,23 +27,6 @@ public class UserData extends UserCredential implements Serializable {
     protected Boolean enabled;
 
     protected Boolean admin;
-
-//    /**
-//     * @return the username
-//     */
-//    public String getUsername()
-//    {
-//        return username;
-//    }
-//
-//    /**
-//     * @param username
-//     *            the username to set
-//     */
-//    public void setUsername(String username)
-//    {
-//        this.username = username;
-//    }
 
     /**
      * Returns user id.

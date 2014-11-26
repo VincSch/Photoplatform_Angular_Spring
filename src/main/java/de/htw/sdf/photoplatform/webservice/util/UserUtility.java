@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import de.htw.sdf.photoplatform.common.Messages;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.WebFormException;
 import de.htw.sdf.photoplatform.manager.UserManager;
@@ -31,6 +32,8 @@ import de.htw.sdf.photoplatform.webservice.dto.UserProfileData;
  */
 @Component
 public class UserUtility {
+
+    private static Messages messages;
 
     private static UserManager userManager;
 
@@ -119,9 +122,7 @@ public class UserUtility {
      */
     public void validate(UserProfileData userProfileData) throws AbstractBaseException {
         validateEmail(userProfileData.getEmail());
-        //TODO: date validation don't work correct.Serger Meister want to fix it.
-        //validateBirthday(userProfileData.getBirthday());
-
+        validateBirthday(userProfileData.getBirthday());
         validateBankData(userProfileData.getBic(),userProfileData.getIban());
     }
 
@@ -130,8 +131,6 @@ public class UserUtility {
         if(value == null){
             throw new WebFormException(AbstractBaseException.USER_EMAIL_NOT_VALID);
         }else{
-            //
-            //"^(.+)@([^@]+[^.])$"
             Pattern pattern = Pattern.compile("^.+@.+\\..+$");
             Matcher matcher = pattern.matcher(value.trim());
             if(!matcher.matches()){
@@ -144,7 +143,9 @@ public class UserUtility {
         if(value == null) {
             return;
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+        String formatValue = messages.getMessage("DateFormat");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatValue);
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(value.trim());
@@ -161,5 +162,10 @@ public class UserUtility {
     @Autowired(required = true)
     public void setUserManager(UserManager userManager) {
         UserUtility.userManager = userManager;
+    }
+
+    @Autowired(required = true)
+    public void setMessages(Messages messages) {
+        UserUtility.messages = messages;
     }
 }

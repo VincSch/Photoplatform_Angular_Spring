@@ -157,6 +157,18 @@ public class UserController extends BaseAPIController {
     @RequestMapping(value = Endpoints.USERS_UPDATE, method = { RequestMethod.POST })
     @ResponseBody
     public void updateUser(@RequestBody UserProfileData userProfileData, BindingResult bindingResult)  throws AbstractBaseException {
+        try{
+            authorizationController.checkUserPermissions(userProfileData.getId().toString());
+        }catch(AbstractBaseException abe){
+            switch (abe.getCode()) {
+                case AbstractBaseException.AUTHORIZATION_NOT_VALID:
+                    ObjectError error = new ObjectError("authorization", messages
+                            .getMessage("SystemHack"));
+                    throw new BadRequestException(error.getDefaultMessage());
+                default:
+                    throw new RuntimeException("Unhandled error");
+            }
+        }
 
         //validate.
         validateProfileForm(userProfileData, bindingResult);
@@ -176,8 +188,7 @@ public class UserController extends BaseAPIController {
         profile.setSurname(userProfileData.getSurname());
         profile.setAddress(userProfileData.getAddress());
         profile.setPhone(userProfileData.getPhone());
-        //TODO: date validation don't work correct.Serger Meister want to fix it.
-        //profile.setBirthday(userProfileData.getBirthday());
+        profile.setBirthday(userProfileData.getBirthday());
         profile.setCompany(userProfileData.getCompany());
         profile.setHomepage(userProfileData.getHomepage());
 

@@ -6,9 +6,10 @@
 
 package de.htw.sdf.photoplatform.common;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Messages
 {
+    private final Locale defaultLocale = new Locale( "de", "DE" );
+
     @Autowired
     private MessageSource messageSource;
 
@@ -48,7 +51,12 @@ public class Messages
      */
     public String getMessage(String code, Object[] args)
     {
-        return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
+        // ween ich das Dokumentation richtig verstanden habe,
+        // LocaleContextHolder.getLocale() - gibt die Locale des Betriebssystems zurück.
+        // In meinem Fall ist die Betriebssystem russisch :). Es gibt aber keine Property Datei
+        // mit russischen Texten. :). Verzeihen Sie mir mein Deutsch, english wäre noch schlimmer :)
+        //return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
+        return messageSource.getMessage(code, args, defaultLocale);
     }
 
 }

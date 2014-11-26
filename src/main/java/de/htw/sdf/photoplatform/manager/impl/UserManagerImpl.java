@@ -125,11 +125,13 @@ public class UserManagerImpl implements UserManager {
             userProfileDAO.update(profile);
         }
 
-        if( bank.getId() == null){
-            //if not exist, than create.
-            userBankDAO.create(bank);
-        }else{
-            userBankDAO.update(bank);
+        if(isUserPhotographer(user)){
+            if(bank.getId() == null){
+                //if not exist, than create.
+                userBankDAO.create(bank);
+            }else{
+                userBankDAO.update(bank);
+            }
         }
 
         return userDAO.update(user);
@@ -231,9 +233,10 @@ public class UserManagerImpl implements UserManager {
     }
 
     /**
-     * {inheritDoc}
+     * {@inheritDoc}
      */
-    @Override public User enablePhotograph(long id) {
+    @Override
+    public User enablePhotograph(long id) {
         User user = userDAO.findOne(id);
         if(isUserPhotographer(user) && (!user.isEnabled()))
         {
@@ -245,9 +248,10 @@ public class UserManagerImpl implements UserManager {
     }
     
     /**
-     * {inheritDoc}
+     * {@inheritDoc}
      */
-    @Override public User makeAdmin(long id) {
+    @Override
+    public User makeAdmin(long id) {
         User user = userDAO.findOne(id);
         if(!isUserAdmin(user))
         {
@@ -264,9 +268,10 @@ public class UserManagerImpl implements UserManager {
     }
     
     /**
-     * {inheritDoc}
+     * {@inheritDoc}
      */
-    @Override public User lockUser(long id) {
+    @Override
+    public User lockUser(long id) {
         User user = userDAO.findOne(id);
         user.setAccountNonLocked(false);
         userDAO.update(user);
@@ -274,9 +279,10 @@ public class UserManagerImpl implements UserManager {
     }
 
     /**
-     * {inheritDoc}
+     * {@inheritDoc}
      */
-    @Override public User unlockUser(long id) {
+    @Override
+    public User unlockUser(long id) {
         User user = userDAO.findOne(id);
         user.setAccountNonLocked(true);
         userDAO.update(user);
