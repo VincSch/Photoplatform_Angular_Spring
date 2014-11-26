@@ -16,8 +16,10 @@ module.exports = function (grunt) {
     grunt.initConfig({
         watch: {
             styles: {
-                files: ['src/main/webapp/styles/**/*.css'],
-                tasks: ['copy:styles', 'autoprefixer']
+                files: [
+                    'src/main/webapp/css/**/*.css',
+                    'src/main/webapp/less/**/*.less'],
+                tasks: ['less','copy:styles', 'autoprefixer']
             },
             livereload: {
                 options: {
@@ -26,10 +28,22 @@ module.exports = function (grunt) {
                 files: [
                     'src/main/webapp/**/*.html',
                     'src/main/webapp/**/*.json',
+                    'src/main/webapp/**/*.less',
                     '.tmp/styles/**/*.css',
-                    '{.tmp/,}src/main/webapp/scripts/**/*.js',
+                    '{.tmp/,}src/main/webapp/js/**/*.js',
                     'src/main/webapp/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
+            }
+        },
+        less: {
+            development: {
+                options: {
+                    paths: ['src/main/webapp/less'],
+                    yuicompress: true
+                },
+                files: {
+                    "src/main/webapp/css/style.css": "src/main/webapp/less/style.less"
+                }
             }
         },
         autoprefixer: {
@@ -37,9 +51,9 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '.tmp/styles/',
+                    cwd: '.tmp/css/',
                     src: '**/*.css',
-                    dest: '.tmp/styles/'
+                    dest: '.tmp/css/'
                 }]
             }
         },

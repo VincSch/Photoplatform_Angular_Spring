@@ -14,7 +14,8 @@
 <div class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
     <div class="container">
         <div class="navbar-header">
-            <a type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></a>
+            <a type="button" class="navbar-toggle" data-toggle="collapse"
+               data-target=".navbar-collapse"></a>
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -23,7 +24,8 @@
 
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <p class="navbar-text navbar-right">
-                CI-Status: <img src="https://travis-ci.org/VincSch/photoplatform-sdf.svg?branch=master">
+                CI-Status: <img
+                    src="https://travis-ci.org/VincSch/photoplatform-sdf.svg?branch=master">
             </p>
 
             <p class="navbar-left navbar-text">Copyright 2014&nbsp;</p>
@@ -35,8 +37,10 @@
     <p class="navbar-right navbar-text" ng-show="isLoggedIn()">
         <a class="navbar-link" href="#/profile">{{user.username}}</a>
     </p>
-    <a class="btn btn-default navbar-btn navbar-right" href="#/register" ng-hide="isLoggedIn()">Registrierung</a>
-    <a class="btn btn-default navbar-btn navbar-right" ng-show="isLoggedIn()" ng-click="logout()">Logout</a>
+    <a class="btn btn-default navbar-btn navbar-right" href="#/register"
+       ng-hide="isLoggedIn()">Registrierung</a>
+    <a class="btn btn-default navbar-btn navbar-right" ng-show="isLoggedIn()"
+       ng-click="logout()">Logout</a>
     <ul class="nav navbar-left navbar-nav" style="">
         <li class="active">
             <a href="#">Photoplatform</a>
@@ -51,7 +55,8 @@
     </form>
     <div class="container">
         <div class="navbar-header">
-            <a type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></a>
+            <a type="button" class="navbar-toggle" data-toggle="collapse"
+               data-target=".navbar-collapse"></a>
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -59,11 +64,14 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <a class="btn btn-default navbar-btn navbar-right" href="#/cart"
-               ng-show="isLoggedIn()">Einkaufswagen&nbsp;<span class="glyphicon glyphicon-shopping-cart"></span></a>
+               ng-show="isLoggedIn()">Einkaufswagen&nbsp;<span
+                    class="glyphicon glyphicon-shopping-cart"></span></a>
 
-            <form class="navbar-form navbar-left" role="search" draggable="true">
+            <form class="navbar-form navbar-left" role="search"
+                  draggable="true">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control"
+                           placeholder="Search">
                 </div>
                 <a class="btn btn-default" href="#/search">Suche</a>
             </form>
