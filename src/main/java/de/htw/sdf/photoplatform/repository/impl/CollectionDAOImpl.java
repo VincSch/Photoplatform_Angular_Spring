@@ -6,19 +6,17 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.repository.CollectionDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
-
-import de.htw.sdf.photoplatform.persistence.models.Collection;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.repository.CollectionDAO;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Repository methods for image collection.
@@ -64,12 +62,9 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
         queryBuilder.append("WHERE owner.id = ?1");
         Query query = createQuery(queryBuilder.toString());
         query.setParameter(1, user.getId());
-        try
-        {
+        try {
             return (List<Collection>) query.getResultList();
-        }
-        catch (NoResultException nre)
-        {
+        } catch (NoResultException nre) {
             return new ArrayList<>();
         }
 

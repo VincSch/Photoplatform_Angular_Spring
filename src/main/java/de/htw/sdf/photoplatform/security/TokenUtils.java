@@ -6,17 +6,19 @@
 
 package de.htw.sdf.photoplatform.security;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
+import org.springframework.stereotype.Service;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * 
  * @author <a href="mailto:philip@sorst.net">Philip W. Sorst</a>
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
  */
+@Service
 public class TokenUtils {
 
     /** Magic key. */
@@ -30,7 +32,7 @@ public class TokenUtils {
      * 
      * @return the token
      */
-    public String createToken(UserDetails userDetails) {
+    public static String createToken(UserDetails userDetails) {
         long expires = System.currentTimeMillis() + 1000L * 60 * 60;
         return userDetails.getUsername() + ":" + expires + ":"
                 + computeSignature(userDetails, expires);
@@ -46,7 +48,7 @@ public class TokenUtils {
      * 
      * @return the signature
      */
-    public String computeSignature(UserDetails userDetails, long expires) {
+    public static String computeSignature(UserDetails userDetails, long expires) {
         StringBuilder signatureBuilder = new StringBuilder();
         signatureBuilder.append(userDetails.getUsername()).append(":");
         signatureBuilder.append(expires).append(":");
@@ -65,13 +67,13 @@ public class TokenUtils {
 
     /**
      * Get user name from token.
-     * 
+     *
      * @param authToken
      *            the auth token
-     * 
+     *
      * @return the user name
      */
-    public String getUserNameFromToken(String authToken) {
+    public static String getUserNameFromToken(String authToken) {
         if (null == authToken) {
             return null;
         }
@@ -89,7 +91,8 @@ public class TokenUtils {
      * 
      * @return true if token is valid
      */
-    public boolean validateToken(String authToken, UserDetails userDetails) {
+    public static boolean validateToken(String authToken,
+            UserDetails userDetails) {
         String[] parts = authToken.split(":");
         long expires = Long.parseLong(parts[1]);
         String signature = parts[2];

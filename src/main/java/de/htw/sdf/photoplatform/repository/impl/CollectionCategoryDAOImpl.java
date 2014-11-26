@@ -6,17 +6,15 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import java.util.List;
+import de.htw.sdf.photoplatform.persistence.model.Category;
+import de.htw.sdf.photoplatform.persistence.model.CollectionCategory;
+import de.htw.sdf.photoplatform.repository.CollectionCategoryDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
-
-import de.htw.sdf.photoplatform.persistence.models.Category;
-import de.htw.sdf.photoplatform.persistence.models.CollectionCategory;
-import de.htw.sdf.photoplatform.repository.CollectionCategoryDAO;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import java.util.List;
 
 /**
  * Repository methods for relation between collection and category.

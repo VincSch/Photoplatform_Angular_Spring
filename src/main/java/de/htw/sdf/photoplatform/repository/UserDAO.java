@@ -6,13 +6,12 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import java.util.List;
-
+import de.htw.sdf.photoplatform.persistence.model.Role;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import de.htw.sdf.photoplatform.persistence.models.Role;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.repository.common.GenericDAO;
+import java.util.List;
 
 /**
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
@@ -20,17 +19,11 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 public interface UserDAO extends UserDetailsService, GenericDAO<User> {
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    void create(User defaultUser);
-
-    /**
      * find a user by its unique name.
-     * 
+     *
      * @param userName
      *            unique name
-     * 
+     *
      * @return the user entity
      */
     User findByUserName(final String userName);
@@ -55,15 +48,16 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
     List<User> findByRole(final Role role);
 
     /**
-     * Returns all enabled user between start and count.
-     * SET WHERE user.enable = true.
-     * IF start and count contains 0, than return first user.
-     * IF start contains 0 and count contains 1, than return first user.
+     * Returns all enabled user between start and count. SET WHERE user.enable =
+     * true. IF start and count contains 0, than return first user. IF start
+     * contains 0 and count contains 1, than return first user.
      *
      *
      *
-     * @param start index for first.
-     * @param count index for last.
+     * @param start
+     *            index for first.
+     * @param count
+     *            index for last.
      *
      * @return users
      */

@@ -1,14 +1,13 @@
 package de.htw.sdf.photoplatform.repository;
 
-import java.util.List;
-
+import de.htw.sdf.photoplatform.common.BaseImageTester;
+import de.htw.sdf.photoplatform.persistence.model.Image;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htw.sdf.photoplatform.common.BaseImageTester;
-import de.htw.sdf.photoplatform.persistence.models.Image;
+import java.util.List;
 
 
 public class ImageDAOTest extends BaseImageTester {

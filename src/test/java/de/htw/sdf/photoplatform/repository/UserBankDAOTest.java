@@ -12,9 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.persistence.models.Role;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.persistence.models.UserBank;
+import de.htw.sdf.photoplatform.persistence.model.Role;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserBank;
 
 public class UserBankDAOTest extends BaseTester {
 

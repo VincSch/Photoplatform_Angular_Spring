@@ -6,10 +6,10 @@
 
 package de.htw.sdf.photoplatform.manager;
 
-import java.util.List;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.User;
 
-import de.htw.sdf.photoplatform.persistence.models.Collection;
-import de.htw.sdf.photoplatform.persistence.models.User;
+import java.util.List;
 
 /**
  * Interface defining business methods for collections.

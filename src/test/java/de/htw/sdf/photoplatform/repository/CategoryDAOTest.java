@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.htw.sdf.photoplatform.common.BaseImageTester;
-import de.htw.sdf.photoplatform.persistence.models.Category;
+import de.htw.sdf.photoplatform.persistence.model.Category;
 
 public class CategoryDAOTest extends BaseImageTester {
     @Autowired

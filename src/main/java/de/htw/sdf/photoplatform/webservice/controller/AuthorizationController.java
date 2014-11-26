@@ -3,16 +3,15 @@
  */
 package de.htw.sdf.photoplatform.webservice.controller;
 
-import javax.annotation.Resource;
-
+import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
+import de.htw.sdf.photoplatform.exception.common.AuthorizationException;
+import de.htw.sdf.photoplatform.manager.UserManager;
+import de.htw.sdf.photoplatform.persistence.model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
-import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
-import de.htw.sdf.photoplatform.exception.common.AuthorizationException;
-import de.htw.sdf.photoplatform.manager.UserManager;
-import de.htw.sdf.photoplatform.persistence.models.User;
+import javax.annotation.Resource;
 
 /**
  * This controller authorize the users permissions.
@@ -36,15 +35,15 @@ public class AuthorizationController {
         checkUserId(requestUserId, authenticatedUser.getId());
     }
 
-    private void checkUserId(String requestUserId,Long authenticatedUserId) throws AbstractBaseException {
-        Long userId ;
-        try{
+    private void checkUserId(String requestUserId, Long authenticatedUserId) throws AbstractBaseException {
+        Long userId;
+        try {
             userId = Long.parseLong(requestUserId);
-        }catch(NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             throw new AuthorizationException(AbstractBaseException.AUTHORIZATION_NOT_VALID);
         }
 
-        if(!authenticatedUserId.equals(userId)){
+        if (!authenticatedUserId.equals(userId)) {
             throw new AuthorizationException(AbstractBaseException.AUTHORIZATION_NOT_VALID);
         }
     }
@@ -57,7 +56,7 @@ public class AuthorizationController {
     public void checkUserPermissions(String requestUserId) throws AbstractBaseException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authenticatedUser = (User) authentication.getPrincipal();
-        if(userManager.isUserAdmin(authenticatedUser)){
+        if (userManager.isUserAdmin(authenticatedUser)) {
             return;
         }
 

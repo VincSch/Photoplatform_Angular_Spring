@@ -6,24 +6,17 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import de.htw.sdf.photoplatform.common.BaseImageTester;
+import de.htw.sdf.photoplatform.persistence.model.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.htw.sdf.photoplatform.common.BaseImageTester;
-import de.htw.sdf.photoplatform.persistence.models.Category;
-import de.htw.sdf.photoplatform.persistence.models.Collection;
-import de.htw.sdf.photoplatform.persistence.models.CollectionCategory;
-import de.htw.sdf.photoplatform.persistence.models.CollectionImage;
-import de.htw.sdf.photoplatform.persistence.models.Image;
-import de.htw.sdf.photoplatform.persistence.models.Role;
-import de.htw.sdf.photoplatform.persistence.models.User;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class CollectionDAOTest extends BaseImageTester {
     @Autowired
@@ -69,8 +62,7 @@ public class CollectionDAOTest extends BaseImageTester {
                 .getId());
         Assert.assertTrue(updatedCollection.getId().equals(
                 testCollection.getId()));
-        Assert.assertTrue(createdCollection.getName()
-                .equals(newCollectionName));
+        Assert.assertTrue(createdCollection.getName().equals(newCollectionName));
 
         // Test Delete
         Long idToDelete = updatedCollection.getId();
@@ -171,8 +163,7 @@ public class CollectionDAOTest extends BaseImageTester {
         // Init Test Data
         User userOne = userDAO.findByUserName("Vincent");
         String collectionName = "CollectionNaturOcean";
-        Collection testCollection =
-                initEmptyCollection(collectionName, userOne);
+        Collection testCollection = initEmptyCollection(collectionName, userOne);
         collectionDAO.create(testCollection);
 
         Category categoryNature = createCategory("Nature");

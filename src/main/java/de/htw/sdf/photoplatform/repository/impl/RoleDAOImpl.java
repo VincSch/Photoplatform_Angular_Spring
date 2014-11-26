@@ -6,16 +6,14 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import java.util.List;
+import de.htw.sdf.photoplatform.persistence.model.Role;
+import de.htw.sdf.photoplatform.repository.RoleDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
-
-import de.htw.sdf.photoplatform.persistence.models.Role;
-import de.htw.sdf.photoplatform.repository.RoleDAO;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import java.util.List;
 
 /**
  * repository methods for roles.

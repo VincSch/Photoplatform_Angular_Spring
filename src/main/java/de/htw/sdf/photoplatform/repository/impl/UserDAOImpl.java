@@ -6,21 +6,19 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import java.util.List;
+import de.htw.sdf.photoplatform.persistence.model.Role;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.repository.UserDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Repository;
-
-import de.htw.sdf.photoplatform.persistence.models.Role;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.repository.UserDAO;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import java.util.List;
 
 /**
  * repository methods for users.
@@ -39,10 +37,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         setClazz(User.class);
     }
 
-    public void create(User entity) {
-        super.create(entity);
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -55,12 +49,9 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         Query query = createQuery(queryString);
         query.setParameter(1, userName);
 
-        try
-        {
+        try {
             return (User) query.getSingleResult();
-        }
-        catch (NoResultException ex)
-        {
+        } catch (NoResultException ex) {
             return null;
         }
     }
@@ -79,21 +70,18 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         query.setMaxResults(count.intValue());
         return (List<User>) query.getResultList();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public User findByEmail(String email)
-    {
+    public User findByEmail(String email) {
         Query query = createQuery("SELECT u FROM User u WHERE u.email = :email");
         query.setParameter("email", email);
 
-        try
-        {
+        try {
             return (User) query.getSingleResult();
-        }
-        catch (NoResultException ex)
-        {
+        } catch (NoResultException ex) {
             return null;
         }
     }
@@ -104,11 +92,11 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     @Override
     public UserDetails loadUserByUsername(final String username) {
         String queryString = "SELECT user FROM User user "
-                + "LEFT JOIN FETCH user.userRoles userRoles "
-                + "WHERE user.username like ?1";
+                + "WHERE user.username = :username";
 
         Query query = createQuery(queryString);
-        query.setParameter(1, username);
+        query.setParameter("username", username);
+
         return (User) query.getSingleResult();
     }
 

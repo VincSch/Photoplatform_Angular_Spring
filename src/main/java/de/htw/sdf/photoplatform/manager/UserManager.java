@@ -6,12 +6,12 @@
 
 package de.htw.sdf.photoplatform.manager;
 
-import java.util.List;
-
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.persistence.models.UserBank;
-import de.htw.sdf.photoplatform.persistence.models.UserProfile;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserBank;
+import de.htw.sdf.photoplatform.persistence.model.UserProfile;
+
+import java.util.List;
 
 /**
  * Interface defining business methods for users.
@@ -21,26 +21,26 @@ import de.htw.sdf.photoplatform.persistence.models.UserProfile;
 public interface UserManager {
 
     /**
-     * Create and persist a customer.
-     *
-     * @param customer the user to create
-     */
-    void createCustomer(final User customer);
-
-    /**
      * Register user.
      *
-     * @param username the username
-     * @param email    the email
-     * @param password the password
+     * @param username
+     *            the username
+     * @param email
+     *            the email
+     * @param password
+     *            the password
+     *
+     * @throws ManagerException
+     *             the exception
      */
-    void registerUser(String username, String email, String password)
-        throws ManagerException;
+    void registerUser(final String username, final String email,
+            final String password) throws ManagerException;
 
     /**
      * Update user data.
      *
-     * @param entity User you want to update
+     * @param entity
+     *            User you want to update
      * @return the updated User
      */
     User update(final User entity);
@@ -48,12 +48,16 @@ public interface UserManager {
     /**
      * Update user data.
      *
-     * This method update user, userProfile and userBank.
-     * If userProfile or UserBank not exist, than will be created.
+     * This method update user, userProfile and userBank. If userProfile or
+     * UserBank not exist, than will be created.
      *
-     * @param user User you want to update
-     * @param profile user profile data to update
-     * @param bank user bank data to update
+     * @param user
+     *            User you want to update
+     * @param profile
+     *            user profile data to update
+     * @param bank
+     *            user bank data to update
+     *
      * @return the updated User
      */
     User update(final User user, final UserProfile profile, final UserBank bank);
@@ -66,14 +70,15 @@ public interface UserManager {
     void delete(final User entity);
 
     /**
-     * find User by id.
-     * Note. This method fetch all user data.
-     * To find only user, use findOne.
+     * find User by id. Note. This method fetch all user data. To find only
+     * user, use findOne.
      *
-     * @param id User id
+     * @param id
+     *            User id
+     * 
      * @return User class
      */
-    User findById(final Long id);
+    User findById(final long id);
 
     /**
      * find all Users.
@@ -101,39 +106,43 @@ public interface UserManager {
      * @param id photograph user id.
      * @return user.
      */
-    public User enablePhotograph(long id);
-    
+    User enablePhotograph(long id);
+
     /**
      * grants the user admin rights.
      *
      * @param id user id.
      * @return user.
      */
-    public User makeAdmin(long id);
-    
+    User makeAdmin(long id);
+
     /**
      * locks the user for the system
      *
-     * @param id user id.
+     * @param id
+     *            user id.
      * @return user.
      */
-    public User lockUser(long id);
+    User lockUser(long id);
 
     /**
      * unlocks the user for the system
      *
-     * @param id user id.
+     * @param id
+     *            user id.
      * @return user.
      */
-    public User unlockUser(long id);
+    User unlockUser(long id);
 
     /**
-     * Returns all user between start and count.
-     * IF start and count contains 0, than return first user.
-     * IF start contains 0 and count contains 1, than return first user.
+     * Returns all user between start and count. IF start and count contains 0,
+     * than return first user. IF start contains 0 and count contains 1, than
+     * return first user.
      *
-     * @param start index for first.
-     * @param count index for last.
+     * @param start
+     *            index for first.
+     * @param count
+     *            index for last.
      * @return users
      */
     List<User> find(Integer start, Integer count);
@@ -148,6 +157,11 @@ public interface UserManager {
     /**
      * Returns all photographs, that should be activated.
      *
+     * @param roleId
+     *            the role id
+     * @param enabled
+     *            if true, enable
+     *
      * @return users.
      */
     List<User> findByRoleAndEnabled(Long roleId, boolean enabled);
@@ -155,7 +169,8 @@ public interface UserManager {
     /**
      * Check user admin role.
      *
-     * @param user user.
+     * @param user
+     *            user.
      * @return true if user has role admin.
      */
     Boolean isUserAdmin(User user);
@@ -163,15 +178,19 @@ public interface UserManager {
     /**
      * Check user photographer role.
      *
-     * @param user user.
+     * @param user
+     *            user.
      * @return true if user has role photographer.
      */
     Boolean isUserPhotographer(User user);
+
     /**
      * Returns true, if user has the role.
      *
-     * @param user user.
-     * @param roleName role name.
+     * @param user
+     *            user.
+     * @param roleName
+     *            role name.
      * @return true or false.
      */
     Boolean isRoleIncluded(User user, String roleName);

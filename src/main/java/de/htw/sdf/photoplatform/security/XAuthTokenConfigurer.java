@@ -6,7 +6,6 @@
 
 package de.htw.sdf.photoplatform.security;
 
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,21 +20,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class XAuthTokenConfigurer extends
         SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    private UserDetailsService detailsService;
-    private AuthenticationManager authenticationManager;
+    private final UserDetailsService userDetailsService;
 
     /**
      * XAuthTokenConfigurer constructor.
-     * 
-     * @param detailsService
-     *            the details service
-     * @param authenticationManager
-     *            the authentication manager
+     *
+     * @param userDetailsService
+     *            the userDetailsService
      */
-    public XAuthTokenConfigurer(UserDetailsService detailsService,
-            AuthenticationManager authenticationManager) {
-        this.detailsService = detailsService;
-        this.authenticationManager = authenticationManager;
+    public XAuthTokenConfigurer(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     /**
@@ -43,9 +37,7 @@ public class XAuthTokenConfigurer extends
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        XAuthTokenFilter customFilter = new XAuthTokenFilter(detailsService,
-                authenticationManager);
-        http.addFilterBefore(customFilter,
+        http.addFilterBefore(new XAuthTokenFilter(userDetailsService),
                 UsernamePasswordAuthenticationFilter.class);
     }
 

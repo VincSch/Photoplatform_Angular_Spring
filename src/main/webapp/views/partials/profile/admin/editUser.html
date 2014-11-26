@@ -1,0 +1,124 @@
+<div class="row">
+    <div class="col-md-2" ng-include src="'views/partials/profile/sidebar.html'"></div>
+    <div class="col-md-10">
+        <div class="page-header">
+            <h2>Kontodaten des Benuters: {{user.username}}</h2>
+        </div>
+        <div class="row">
+            <form class="form-horizontal" ng-controller="AdminCtrl">
+                <div class="col-md-10">
+                    <div class="col-sm-5">
+                        <div class="input-group has-feedback"
+                             ng-class="{'has-error' : (form.username.$error.required || errors.username) && form.username.$dirty}">
+                            <label for="username" class="control-label input-group-addon">Vorname</label>
+                            <input name="username" id="username" placeholder="Username"
+                                   type="text" class="form-control" ng-model="userProfileData.username" required>
+                        </div>
+                        <div class="help-block" ng-show="form.username.$dirty">
+                            <span ng-show="form.username.$error.required">Dieses Feld wird benötigt</span>
+                            <span ng-show="errors.username">{{errors.username[0]}}</span>
+                        </div>
+                        <br>
+                        <div class="input-group has-feedback"
+                             ng-class="{'has-error' : (form.email.$error.required || errors.email) && form.email.$dirty}">
+                            <label for="email" class="control-label input-group-addon">Email</label>
+                            <input name="email" id="email" placeholder="Email"
+                                   type="text" class="form-control" ng-model="userProfileData.email" required>
+                        </div>
+                        <div class="help-block" ng-show="form.email.$dirty">
+                            <span ng-show="form.email.$error.required">Dieses Feld wird benötigt</span>
+                            <span ng-show="errors.email">{{errors.email[0]}}</span>
+                        </div>
+                        <br>
+                        <div class="input-group has-feedback"
+                             ng-class="{'has-error' : (form.email.$error.required || errors.email) && form.email.$dirty}">
+                            <label for="email" class="control-label input-group-addon">Email</label>
+                            <input name="email" id="email" placeholder="Email"
+                                   type="text" class="form-control" ng-model="userProfileData.email" required>
+                        </div>
+                        <div class="help-block" ng-show="form.email.$dirty">
+                            <span ng-show="form.email.$error.required">Dieses Feld wird benötigt</span>
+                            <span ng-show="errors.email">{{errors.email[0]}}</span>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--
+<input type="text" ng-model="userProfileData.username"
+class="form-control list-group-item" id="profile-nickname">
+<input type="email" ng-model="userProfileData.email"
+class="form-control list-group-item"
+id="profile-email">
+
+<div class="row">
+<div class="col-md-12 text-right">
+<a ng-click="edit('credential')"
+   class="btn btn-primary">editieren</a>
+</div>
+</div>
+<h3 contenteditable="true">Persönliche Daten</h3>
+<ul class="list-group">
+<li><input type="text" ng-model="userProfileData.firstname"
+       class="form-control list-group-item"
+       placeholder="VORNAME" id="profile-firstname"></li>
+<li><input ng-disabled="personNotEditMode" type="text" ng-model="userProfileData.surname"
+       class="form-control list-group-item"
+       placeholder="NACHNAME" id="profile-surname"></li>
+<li><input ng-disabled="personNotEditMode" type="date" ng-model="userProfileData.birthday"
+       class="form-control list-group-item"
+       placeholder="GEBURTSDATUM" id="profile-birthday"></li>
+<li><input ng-disabled="personNotEditMode" type="text" ng-model="userProfileData.address"
+       class="form-control list-group-item"
+       placeholder="ADRESSE" id="profile-address"></li>
+<li><input ng-disabled="personNotEditMode" type="text" ng-model="userProfileData.phone"
+       class="form-control list-group-item"
+       placeholder="HANDY" id="profile-phone"></li>
+<li><input ng-disabled="personNotEditMode" type="text" ng-model="userProfileData.company"
+       class="form-control list-group-item"
+       placeholder="FIRMA" id="profile-company"></li>
+<li><input ng-disabled="personNotEditMode" type="text" ng-model="userProfileData.homepage"
+       class="form-control list-group-item"
+       placeholder="HOMEPAGE" id="profile-homepage"></li>
+</ul>
+<div class="row">
+<div class="col-md-12 text-right">
+<a ng-click="edit('person')" class="btn btn-primary">editieren</a>
+</div>
+</div>
+</div>
+<div ng-show="userProfileData.showBankData" class="col-md-12">
+<h3 contenteditable="true">Bank Daten</h3>
+<ul class="list-group">
+<li><input ng-disabled="bankNotEditMode" type="text" ng-model="userProfileData.receiver"
+           class="form-control list-group-item"
+           placeholder="EMPFÄNGER" id="profile-bank-receiver"></li>
+<li><input ng-disabled="bankNotEditMode" type="text" ng-model="userProfileData.bic"
+           class="form-control list-group-item"
+           placeholder="BIC" id="profile-bank-bic"></li>
+<li><input ng-disabled="bankNotEditMode" type="text" ng-model="userProfileData.iban"
+           class="form-control list-group-item"
+           placeholder="IBAN" id="profile-bank-iban"></li>
+</ul>
+<div class="row">
+<div class="col-md-12 text-right">
+    <a ng-disabled="isAdminMode" ng-click="edit('bank')" class="btn btn-primary">editieren</a>
+</div>
+</div>
+</div>
+<div class="form-group">
+<div class="col-sm-9">
+<input ng-disabled="formNotEdited" type="submit" value="Spechern" class="btn btn-primary"
+       ng-click="save()"/>
+<input type="submit" value="Abbrechen" class="btn btn-primary" ng-click="cancel()"/>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+-->

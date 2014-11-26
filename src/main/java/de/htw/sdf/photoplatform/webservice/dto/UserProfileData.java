@@ -17,7 +17,7 @@ public class UserProfileData extends UserData {
 
     protected String firstname;
 
-    protected String surname;
+    protected String lastName;
 
     protected String birthday;
 
@@ -81,24 +81,24 @@ public class UserProfileData extends UserData {
      * Sets first name.
      * @param firstname first name.
      */
-    public void setFirstname(String firstname) {
+    public void setFirstName(String firstname) {
         this.firstname = firstname;
     }
 
     /**
-     * Retruns user surname.
-     * @return surname.
+     * Retruns user lastName.
+     * @return lastName.
      */
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
     /**
-     * Sets user surname.
-     * @param surname surname.
+     * Sets user lastName.
+     * @param surname lastName.
      */
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String surname) {
+        this.lastName = surname;
     }
 
     /**

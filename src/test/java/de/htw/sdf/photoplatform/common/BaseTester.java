@@ -17,9 +17,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.htw.sdf.photoplatform.Application;
 import de.htw.sdf.photoplatform.DBUtil;
-import de.htw.sdf.photoplatform.persistence.models.Role;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.persistence.models.UserRole;
+import de.htw.sdf.photoplatform.persistence.model.Role;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserBankDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
@@ -27,10 +27,9 @@ import de.htw.sdf.photoplatform.repository.UserProfileDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Application.class})
+@ContextConfiguration(classes = { Application.class })
 @WebAppConfiguration
-public abstract class BaseTester
-{
+public abstract class BaseTester {
     protected Logger log = Logger.getLogger(this.getClass().getName());
 
     @Autowired

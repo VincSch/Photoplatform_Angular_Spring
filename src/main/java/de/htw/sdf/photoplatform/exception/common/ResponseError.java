@@ -6,18 +6,19 @@
 
 package de.htw.sdf.photoplatform.exception.common;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:s0531603@htw-berlin.de">Daniil Tomilow</a>
  */
-public class ResponseError implements Serializable
-{
+public class ResponseError implements Serializable {
 
     private static final String API_URL = "http://wiki-sdf.f4.htw-berlin.de/wiki/API";
 
@@ -26,36 +27,34 @@ public class ResponseError implements Serializable
     private final String message;
     private final String developerInfo;
 
-    private final List<InputError> errors;
+    private final Map<String, List<String>> errors;
 
     /**
      * ResponseError constructor for binding errors.
      *
      * @param status
-     *         the status
+     *            the status
      * @param code
-     *         the code
+     *            the code
      * @param message
-     *         the message
+     *            the message
      * @param errors
-     *         the errors
+     *            the errors
      */
-    public ResponseError(int status, int code, String message, Errors errors)
-    {
+    public ResponseError(int status, int code, String message, Errors errors) {
         this.status = status;
         this.code = code;
         this.message = message;
         this.developerInfo = "More info: " + API_URL + "/" + code;
 
-        List<InputError> inputErrors = new ArrayList<>();
-
-        if (errors != null)
-        {
-            for (FieldError error : errors.getFieldErrors())
-            {
-                inputErrors.add(new InputError(error.getField(), error.getDefaultMessage()));
+        Map<String, List<String>> inputErrors = new HashMap<>();
+        if (errors != null) {
+            for (FieldError error : errors.getFieldErrors()) {
+                List<String> messages = new ArrayList<>();
+                messages.add(error.getDefaultMessage());
+                System.out.println(error.toString());
+                inputErrors.put(error.getField(), messages);
             }
-
         }
 
         this.errors = inputErrors;
@@ -64,40 +63,35 @@ public class ResponseError implements Serializable
     /**
      * @return the status
      */
-    public int getStatus()
-    {
+    public int getStatus() {
         return status;
     }
 
     /**
      * @return the code
      */
-    public int getCode()
-    {
+    public int getCode() {
         return code;
     }
 
     /**
      * @return the developerInfo
      */
-    public String getDeveloperInfo()
-    {
+    public String getDeveloperInfo() {
         return developerInfo;
     }
 
     /**
      * @return the developerInfo
      */
-    public String getMessage()
-    {
+    public String getMessage() {
         return message;
     }
 
     /**
      * @return the errors
      */
-    public List<InputError> getErrors()
-    {
+    public Map<String, List<String>> getErrors() {
         return errors;
     }
 }

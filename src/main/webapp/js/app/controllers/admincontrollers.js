@@ -121,8 +121,57 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
         };
 
         $scope.edit = function (userId) {
-            $location.path("devprofile/" + userId);
+            $location.path("profile/admin/edit/user/" + userId);
         };
+
     }
+
 ]);
 
+photoplatformControllers.controller('AdminCtrl', ['$scope', '$routeParams', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
+    function ($scope, $routeParams, $rootScope, $location, $http, $cookieStore, UserService, $route) {
+        //if user is not logged in or authorized redirect to login page
+        var user = $cookieStore.get('user');
+        if (undefined == user || !$rootScope.isLoggedIn()) {
+            $location.path("/login");
+            return;
+        }
+        //check param
+        $scope.userId = $routeParams.userId;
+        if ($scope.userId == undefined) {
+            $scope.userId = user.id;
+        }
+
+        UserService.getUserProfileData($scope.userId).success(function (responseUserProfileData) {
+            $scope.userProfileData = responseUserProfileData;
+        }).error(function (error) {
+            console.log(error);
+            $rootScope.error(error);
+        });
+
+        $scope.save = function () {
+            UserService.updateUserProfileData($scope.userProfileData).success(function () {
+                $rootScope.success = "Profil erfolgreich aktualisiert";
+            }).error(function (error) {
+                console.log(error);
+                $rootScope.error(error);
+            });
+            $location.path("/profile/admin");
+        }
+
+        $scope.cancel = function () {
+            $location.path("/profile/admin");
+        }
+        /*
+        $scope.isPhotographer = function () {
+            if ($rootScope.user !== undefined) {
+                for (var i = 0; i < $rootScope.user.authorities.length; ++i) {
+                    if ($rootScope.user.authorities[i].authority == role) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        */
+    }]);

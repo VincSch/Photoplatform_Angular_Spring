@@ -6,14 +6,13 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import javax.persistence.Query;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
-
-import de.htw.sdf.photoplatform.persistence.models.UserProfile;
+import de.htw.sdf.photoplatform.persistence.model.UserProfile;
 import de.htw.sdf.photoplatform.repository.UserProfileDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 /**
  * Created by Sergej Meister.

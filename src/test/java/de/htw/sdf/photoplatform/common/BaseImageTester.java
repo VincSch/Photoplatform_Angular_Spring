@@ -4,10 +4,10 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.htw.sdf.photoplatform.persistence.models.Collection;
-import de.htw.sdf.photoplatform.persistence.models.CollectionImage;
-import de.htw.sdf.photoplatform.persistence.models.Image;
-import de.htw.sdf.photoplatform.persistence.models.User;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
+import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.repository.CollectionDAO;
 import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
 import de.htw.sdf.photoplatform.repository.ImageDAO;
@@ -57,8 +57,7 @@ public abstract class BaseImageTester extends BaseTester {
      * @return image with id = null
      */
     protected final Image initDefaultImage(final String name,
-            final boolean isPublic, final boolean isEnabled,
-            final String path) {
+            final boolean isPublic, final boolean isEnabled, final String path) {
         Image image = new Image();
         image.setName(name);
         image.setCompression("jpg");
@@ -98,8 +97,8 @@ public abstract class BaseImageTester extends BaseTester {
      *            owner
      * @return collection with id = null
      */
-    protected final Collection initEmptyCollection(
-            final String name, final User user) {
+    protected final Collection initEmptyCollection(final String name,
+            final User user) {
         Collection collection = new Collection();
         collection.setName(name);
         collection.setUser(user);
@@ -107,8 +106,7 @@ public abstract class BaseImageTester extends BaseTester {
     }
 
     protected final CollectionImage initCollectionImage(
-            final Collection collection,
-            final Image image) {
+            final Collection collection, final Image image) {
         CollectionImage collectionImage = new CollectionImage();
         collectionImage.setCollection(collection);
         collectionImage.setImage(image);

@@ -6,13 +6,12 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
-
-import de.htw.sdf.photoplatform.persistence.models.CollectionImage;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
 
 /**
  * repository methods for relation between collection and image.

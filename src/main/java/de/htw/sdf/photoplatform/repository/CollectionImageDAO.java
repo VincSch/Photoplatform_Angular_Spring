@@ -6,7 +6,7 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.persistence.models.CollectionImage;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**

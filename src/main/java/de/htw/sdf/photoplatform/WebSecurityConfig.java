@@ -19,9 +19,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 
-import de.htw.sdf.photoplatform.persistence.models.Role;
+import de.htw.sdf.photoplatform.persistence.model.Role;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.security.XAuthTokenConfigurer;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
@@ -38,6 +41,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ConfigurableApplicationContext context;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     /**
      * {@inheritDoc}
@@ -57,21 +63,19 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     removeRolePrefix(Role.ADMIN));
         }
 
-        for (String endpoint : Endpoints.securedPhotographEndpoints())
-        {
+        for (String endpoint : Endpoints.securedPhotographEndpoints()) {
             http.authorizeRequests().antMatchers(endpoint).hasAnyRole(
                     removeRolePrefix(Role.PHOTOGRAPHER),
                     removeRolePrefix(Role.ADMIN));
         }
 
-        for (String endpoint : Endpoints.securedAdminEndpoints())
-        {
-            http.authorizeRequests().antMatchers(endpoint).hasRole(removeRolePrefix(Role.ADMIN));
+        for (String endpoint : Endpoints.securedAdminEndpoints()) {
+            http.authorizeRequests().antMatchers(endpoint)
+                    .hasRole(removeRolePrefix(Role.ADMIN));
         }
 
         SecurityConfigurer<DefaultSecurityFilterChain, HttpSecurity> securityConfigurerAdapter = new XAuthTokenConfigurer(
-                userDetailsServiceBean(),
-                authenticationManagerBean());
+                userDetailsService);
         http.apply(securityConfigurerAdapter);
     }
 
@@ -82,7 +86,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder authManagerBuilder)
             throws Exception {
         UserDAO userDAO = context.getBean(UserDAO.class);
-        authManagerBuilder.userDetailsService(userDAO);//.passwordEncoder(passwordEncoder());
+        authManagerBuilder.userDetailsService(userDAO).passwordEncoder(
+                passwordEncoder());
     }
 
     /**
@@ -95,17 +100,19 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Remove prefix ROLE_ cause Spring-Security requires format without ROLE_ for Web
-     * Security set up.
-     * @param roleName role name like ROLE_ADMIN
+     * Remove prefix ROLE_ cause Spring-Security requires format without ROLE_
+     * for Web Security set up.
+     * 
+     * @param roleName
+     *            role name like ROLE_ADMIN
      * @return role name like ADMIN (deleted Prefix ROLE_)
      */
-    private String removeRolePrefix(String roleName){
+    private String removeRolePrefix(String roleName) {
         return roleName.substring(5);
     }
 
- //   @Bean
- //   public PasswordEncoder passwordEncoder(){
- //       return new BCryptPasswordEncoder();
- //   }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
