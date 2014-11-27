@@ -10,7 +10,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import de.htw.sdf.photoplatform.persistence.models.Role;
+import de.htw.sdf.photoplatform.persistence.model.Role;
 
 /**
  * @author Sergej Meister

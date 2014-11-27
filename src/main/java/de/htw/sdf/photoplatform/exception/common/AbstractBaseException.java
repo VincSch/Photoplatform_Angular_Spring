@@ -13,14 +13,13 @@ import org.springframework.validation.Errors;
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */
-public abstract class AbstractBaseException extends Exception
-{
+public abstract class AbstractBaseException extends Exception {
 
     /** Default BAD_REQUEST. */
     public static final int BAD_REQUEST = 10000;
 
     /** Default NOT_FOUND. */
-    public static final int NOT_FOUND= 10001;
+    public static final int NOT_FOUND = 10001;
 
     /**
      * exception id for bad authorization.
@@ -53,8 +52,7 @@ public abstract class AbstractBaseException extends Exception
      * @param code
      *            the code
      */
-    public AbstractBaseException(int code)
-    {
+    public AbstractBaseException(int code) {
         super("Abstract base exception with code = " + code);
         this.code = code;
 
@@ -67,8 +65,7 @@ public abstract class AbstractBaseException extends Exception
      * @param msg
      *            the message
      */
-    public AbstractBaseException(int code, String msg)
-    {
+    public AbstractBaseException(int code, String msg) {
         super(msg);
         this.code = code;
 
@@ -83,8 +80,7 @@ public abstract class AbstractBaseException extends Exception
      * @param errors
      *            the errors
      */
-    public AbstractBaseException(int code, String msg, Errors errors)
-    {
+    public AbstractBaseException(int code, String msg, Errors errors) {
         super(msg);
         this.code = code;
         this.errors = errors;
@@ -93,16 +89,14 @@ public abstract class AbstractBaseException extends Exception
     /**
      * @return the code
      */
-    public int getCode()
-    {
+    public int getCode() {
         return code;
     }
 
     /**
      * @return return the errors
      */
-    public Errors getErrors()
-    {
+    public Errors getErrors() {
         return this.errors;
     }
 }

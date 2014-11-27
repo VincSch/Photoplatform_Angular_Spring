@@ -1,3 +1,6 @@
+/**
+ * Profile Controller.
+ */
 photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
     function ($scope, $routeParams, $rootScope, $location, $http, $cookieStore, UserService, $route) {
         //if user is not logged in or authorized redirect to login page
@@ -6,70 +9,6 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
             $location.path("/login");
             return;
         }
-
-        $scope.isAdminMode = true;
-        //check param
-        $scope.userId = $routeParams.userId;
-        if ($scope.userId == undefined) {
-            $scope.userId = user.id;
-            $scope.isAdminMode = false;
-        }
-
-        UserService.getUserProfileData($scope.userId).success(function (responseUserProfileData) {
-            $scope.userProfileData = responseUserProfileData;
-        }).error(function (error) {
-            console.log(error);
-            $rootScope.error(error);
-        });
-
-        $scope.formNotEdited = true;
-        $scope.credentialNotEditMode = true;
-        $scope.personNotEditMode = true;
-        $scope.bankNotEditMode = true;
-        $scope.edit = function (editMode) {
-            if (editMode == 'person') {
-                $scope.personNotEditMode = false;
-            } else if (editMode == 'bank') {
-                $scope.bankNotEditMode = false;
-            } else if (editMode == 'credential') {
-                $scope.credentialNotEditMode;
-            }
-            $scope.formNotEdited = false;
-        }
-
-        $scope.save = function () {
-            UserService.updateUserProfileData($scope.userProfileData).success(function () {
-                $rootScope.success = "Profil erfolgreich aktualisiert";
-            }).error(function (error) {
-                console.log(error);
-                $rootScope.error(error);
-            });
-        }
-
-        $scope.cancel = function () {
-            if ($scope.isAdminMode) {
-                $location.path("/admin");
-            } else {
-                $location.path("/devprofile");
-            }
-        }
-
-        //    $scope.profileProgress = function() {
-//		var result = 0;
-//		if ($rootScope.user !== undefined) {
-//			if ($rootScope.user.brithday !== null)
-//				result += 1;
-//			if ($rootScope.user.about !== null)
-//				result += 1;
-//			if ($rootScope.user.city !== null)
-//				result += 1;
-//			if ($rootScope.user.username !== null)
-//				result += 1;
-//			if ($rootScope.user.email !== null)
-//				result += 1;
-//		}
-//		return result * 20;
-//	};
     }]);
 
 /*

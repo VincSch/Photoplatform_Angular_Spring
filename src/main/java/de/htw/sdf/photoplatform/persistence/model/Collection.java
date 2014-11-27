@@ -4,19 +4,12 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence.models;
-
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+package de.htw.sdf.photoplatform.persistence.model;
 
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
+
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Entity class for a collection representing the corresponding database table.

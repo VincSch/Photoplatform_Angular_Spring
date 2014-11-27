@@ -6,13 +6,12 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
-
-import de.htw.sdf.photoplatform.persistence.models.ShowCase;
+import de.htw.sdf.photoplatform.persistence.model.ShowCase;
 import de.htw.sdf.photoplatform.repository.ShowCaseDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
 
 /**
  * Repository methods for showcase.

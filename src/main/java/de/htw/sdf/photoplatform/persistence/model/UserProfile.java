@@ -4,15 +4,11 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence.models;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+package de.htw.sdf.photoplatform.persistence.model;
 
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
+
+import javax.persistence.*;
 
 /**
  * Entity class for a user details representing the corresponding database
@@ -31,8 +27,8 @@ public class UserProfile extends AbstractBaseAuditEntity {
     @Column(name = "FIRSTNAME")
     private String firstName;
 
-    @Column(name = "SURNAME")
-    private String surname;
+    @Column(name = "LASTNAME")
+    private String lastName;
 
     @Column(name = "BIRTHDAY")
     private String birthday;
@@ -71,7 +67,7 @@ public class UserProfile extends AbstractBaseAuditEntity {
 
     /**
      * Set user.
-     * 
+     *
      * @param user
      *            user
      */
@@ -99,22 +95,22 @@ public class UserProfile extends AbstractBaseAuditEntity {
     }
 
     /**
-     * Returns user surname.
+     * Returns user lastName.
      *
-     * @return surname.
+     * @return lastName.
      */
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
     /**
-     * Sets user surname.
+     * Sets user lastName.
      *
-     * @param surname
-     *            surname.
+     * @param lastName
+     *            lastName.
      */
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**

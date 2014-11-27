@@ -4,15 +4,11 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence.models;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+package de.htw.sdf.photoplatform.persistence.model;
 
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
+
+import javax.persistence.*;
 
 /**
  * Created by Sergej Meister.
@@ -53,7 +49,7 @@ public class UserBank extends AbstractBaseAuditEntity {
 
     /**
      * Returns user.
-     * 
+     *
      * @return user
      */
     public User getUser() {
@@ -62,7 +58,7 @@ public class UserBank extends AbstractBaseAuditEntity {
 
     /**
      * Set user.
-     * 
+     *
      * @param user
      */
     public void setUser(User user) {
@@ -71,7 +67,7 @@ public class UserBank extends AbstractBaseAuditEntity {
 
     /**
      * Returns receiver.
-     * 
+     *
      * @return receiver
      */
     public String getReceiver() {
@@ -80,7 +76,7 @@ public class UserBank extends AbstractBaseAuditEntity {
 
     /**
      * Set receiver.
-     * 
+     *
      * @param receiver
      */
     public void setReceiver(String receiver) {
@@ -89,7 +85,7 @@ public class UserBank extends AbstractBaseAuditEntity {
 
     /**
      * Returns iban.
-     * 
+     *
      * @return iban
      */
     public String getIban() {
@@ -98,7 +94,7 @@ public class UserBank extends AbstractBaseAuditEntity {
 
     /**
      * Set iban.
-     * 
+     *
      * @param iban
      */
     public void setIban(String iban) {
@@ -107,7 +103,7 @@ public class UserBank extends AbstractBaseAuditEntity {
 
     /**
      * Returns bic.
-     * 
+     *
      * @return ic
      */
     public String getBic() {
@@ -116,7 +112,7 @@ public class UserBank extends AbstractBaseAuditEntity {
 
     /**
      * Set bic.
-     * 
+     *
      * @param bic
      */
     public void setBic(String bic) {

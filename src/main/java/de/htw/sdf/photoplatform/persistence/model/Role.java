@@ -4,16 +4,15 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence.models;
+package de.htw.sdf.photoplatform.persistence.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import de.htw.sdf.photoplatform.persistence.AbstractBaseEntity;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entity class for a role representing the corresponding database table.
@@ -73,7 +72,8 @@ public class Role extends AbstractBaseEntity {
     }
 
     /**
-     * @param name the name to set
+     * @param name
+     *            the name to set
      */
     public void setName(String name) {
         this.name = name;

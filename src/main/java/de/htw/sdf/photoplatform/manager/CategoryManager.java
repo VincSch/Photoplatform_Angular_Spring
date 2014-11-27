@@ -6,9 +6,9 @@
 
 package de.htw.sdf.photoplatform.manager;
 
-import java.util.List;
+import de.htw.sdf.photoplatform.persistence.model.Category;
 
-import de.htw.sdf.photoplatform.persistence.models.Category;
+import java.util.List;
 
 /**
  * Interface defining business methods for categories.

@@ -1,17 +1,17 @@
-<ul class="nav nav-list bs-docs-sidenav">
-	<li>
-		<img src="/img/index.jpeg">
-	</li>
-	<li>
-		<a href="#/profile"><i class="icon-chevron-right"></i> Mein Profil</a>
-	</li>
-	<li>
-		<a href="#/profile/recipes"><i class="icon-chevron-right"></i> Meine Rezepte</a>
-	</li>
-	<li>
-		<a href="#/profile/recipebooks"><i class="icon-chevron-right"></i> Meine Kochbuecher</a>
-	</li>
-	<li>
-		<a href="#/profile/shoppinglists" style="pointer-events: none;"><i class="icon-chevron-right"></i><font color="GRAY">Meine Einkaufslisten</font></a>
-	</li>
+<ul class="nav nav-pills nav-stacked">
+    <li>
+        <a href="/profile"><img src="/img/index.jpeg"></a>
+    </li>
+    <li role="presentation">
+        <a href="/profile/view">Mein Profil</a>
+    </li>
+    <li role="presentation">
+        <a href="/profile/shoppinglist">Meine Einkaufslisten</a>
+    </li>
+    <li role="presentation" ng-show="isAdmin()">
+        <a href="/profile/admin">Admin Einstellungen</a>
+    </li>
+    <li role="presentation">
+        <a href="/profile/photograph/register">Fotograph werden</a>
+    </li>
 </ul>

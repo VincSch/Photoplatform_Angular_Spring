@@ -4,25 +4,19 @@
  *
  */
 
-package de.htw.sdf.photoplatform.persistence.models;
+package de.htw.sdf.photoplatform.persistence.model;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Entity class for a user representing the corresponding database table.
@@ -33,24 +27,27 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 @Entity
 @Table(name = "SYS_USER")
 public class User extends AbstractBaseAuditEntity implements UserDetails {
+
     private static final long serialVersionUID = 3719799602561353931L;
 
-    @Column(name = "USERNAME", unique = true)
+    @Column(name = "USERNAME", unique = true, nullable = false)
     private String username;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(name = "SECTOKEN")
     private String secToken;
 
-    @Column(name = "EMAIL", unique = true)
+    @Column(name = "EMAIL", unique = true, nullable = false)
     private String email;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<UserRole> userRoles;
 
-    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user")
     private UserProfile userProfile;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")

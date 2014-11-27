@@ -1,28 +1,47 @@
-<div class="panel panel-default">
-	<div class="panel-heading">
-		Informationen zu Nuter {{profile.username}}
-	</div>
-	<div class="panel-body">
-		<div class="row-fluid marketing">
-			<div class="span3">
-				<img src="/img/index.jpeg">
-			</div>
+<div class="row">
+    <div class="col-md-2" ng-include src="'views/partials/profile/sidebar.html'"></div>
+    <div class="col-md-10">
+        <div class="page-header">
+            <h2>Ihr Kundenkonto</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-11">
+                <p>Ändern oder verfollständigen Sie Ihre Nutzerdaten.</p>
+                <br>
+            </div>
+            <div class="col-md-11">
+                <ul class="list-group">
+                    <li class="list-group-item">Nutzername:</li>
+                    <li class="list-group-item">Email</li>
+                    <li class="list-group-item">Passwort</li>
+                </ul>
+                <h3 contenteditable="true">Persönliche Daten</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">Name</li>
+                    <li class="list-group-item">Addresse</li>
+                    <li class="list-group-item">Bankdaten</li>
+                </ul>
+                <div class="col-md-11 text-right">
+                    <a class="btn btn-primary">editieren</a>
+                </div>
+            </div>
+            <div class="col-md-11">
+                <h1>Fotografenkonto</h1>
 
-			<div class="span3">
-				Mitglied seit: <strong>{{profile.createdAt | date:'dd.MM.yyyy'}}</strong>
-				<br>
-				Benutzername: <strong>{{profile.username}}</strong>
-				<br>
-				E-Mail: <strong>{{profile.email}}</strong>
-				<br>
-				Wohnort: <strong>{{profile.city}}</strong>
-				<br>
-				Geburstag: <strong>{{profile.birthday | date:'dd.MM.yyyy'}}</strong>
-				<br>
-				<span class="badge badge-info">{{recipeamount}}</span> Rezepte
-				<br>
-				<span class="badge badge-info">{{recipebookamount}}</span> Kochbücher 
-			</div>
-		</div>
-	</div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisici elit,
+                    <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+                    <br>Ut enim ad minim veniam, quis nostrud</p>
+
+                <h3 contenteditable="true">Persönliche Daten</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">Name</li>
+                    <li class="list-group-item">Addresse</li>
+                    <li class="list-group-item">Bankdaten</li>
+                </ul>
+                <div class="col-md-11 text-right">
+                    <a class="btn btn-primary">editieren</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

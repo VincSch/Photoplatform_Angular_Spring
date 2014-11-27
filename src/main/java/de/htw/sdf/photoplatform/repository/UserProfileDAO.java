@@ -6,7 +6,7 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.persistence.models.UserProfile;
+import de.htw.sdf.photoplatform.persistence.model.UserProfile;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**

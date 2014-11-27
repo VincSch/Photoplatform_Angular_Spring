@@ -6,11 +6,11 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import java.util.List;
-
-import de.htw.sdf.photoplatform.persistence.models.Category;
-import de.htw.sdf.photoplatform.persistence.models.CollectionCategory;
+import de.htw.sdf.photoplatform.persistence.model.Category;
+import de.htw.sdf.photoplatform.persistence.model.CollectionCategory;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
+
+import java.util.List;
 
 /**
  * Interface defining relation between collection and category.

@@ -1,22 +1,17 @@
 package de.htw.sdf.photoplatform.repository;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import de.htw.sdf.photoplatform.common.BaseTester;
+import de.htw.sdf.photoplatform.persistence.model.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htw.sdf.photoplatform.common.BaseTester;
-import de.htw.sdf.photoplatform.persistence.models.Role;
-import de.htw.sdf.photoplatform.persistence.models.User;
-import de.htw.sdf.photoplatform.persistence.models.UserBank;
-import de.htw.sdf.photoplatform.persistence.models.UserProfile;
-import de.htw.sdf.photoplatform.persistence.models.UserRole;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class UserDAOTest extends BaseTester {
     @Before
@@ -41,14 +36,15 @@ public class UserDAOTest extends BaseTester {
 
         // Ein bisschen russisch stoert doch nicht :)
         String firstname = "TestFirstname";
-        String surname = "TestSurname";
+        String lastname = "TestSurname";
         String address = "мой адрес не дом и не улица мой адрес советский союз";
         String phone = "018765032";
         String company = "Photo AG";
         String homepage = "photo.de";
+
         UserProfile photographerProfile = new UserProfile();
         photographerProfile.setFirstName(firstname);
-        photographerProfile.setSurname(surname);
+        photographerProfile.setLastName(lastname);
         photographerProfile.setUser(photographer);
         photographerProfile.setAddress(address);
         photographerProfile.setPhone(phone);
