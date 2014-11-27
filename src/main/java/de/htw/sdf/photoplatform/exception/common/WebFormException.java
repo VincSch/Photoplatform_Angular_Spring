@@ -12,11 +12,9 @@ public class WebFormException extends AbstractBaseException {
     /**
      * Web Form validation exceptions.
      *
-     * @param code
-     *            the code
+     * @param code the code
      */
-    public WebFormException(int code)
-    {
+    public WebFormException(int code) {
         super(code, "Web Form validation Exception");
     }
 }

@@ -26,7 +26,7 @@
                         <td>{{user.index}}</td>
                         <td>{{user.username}}</td>
                         <td draggable="true">
-                            <a ng-click="enablePhotograph(user.id)" class="btn btn-primary">Activ</a>
+                            <a ng-click="enablePhotograph(user.id)" class="btn btn-primary">aktivieren</a>
                         </td>
                     </tr>
                     </tbody>
@@ -73,21 +73,21 @@
                         <td>{{user.index}}</td>
                         <td>{{user.username}}</td>
                         <td draggable="true">
-                            <a ng-click="edit(user.id)" class="btn btn-primary">Edit</a>
+                            <a ng-click="edit(user.id)" class="btn btn-primary">editieren</a>
                         </td>
                         <td draggable="true">
                             <a id="make-admin-{{user.id}}" ng-click="makeAdmin(user.id)"
-                               ng-disabled="{{user.admin}}" class="btn btn-primary">Admin</a>
+                               ng-disabled="{{user.admin}}" class="btn btn-primary">Adminrechte</a>
                         </td>
                         <td>
                             <a id="locked-user-{{user.id}}" ng-click="lockUser(user.id)"
                                ng-disabled="{{user.banned}}"
-                               class="btn btn-primary">Lock</a>
+                               class="btn btn-primary">Sperren</a>
                         </td>
                         <td>
                             <a id="unlocked-user-{{user.id}}" ng-click="unlockUser(user.id)"
                                ng-disabled="{{!user.banned}}"
-                               class="btn btn-primary">Unlock</a>
+                               class="btn btn-primary">Freigeben</a>
                         </td>
                     </tr>
                     </tbody>

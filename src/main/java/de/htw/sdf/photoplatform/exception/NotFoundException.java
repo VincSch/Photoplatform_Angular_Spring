@@ -10,7 +10,6 @@ import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import org.springframework.validation.Errors;
 
 /**
- *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */
 public class NotFoundException extends AbstractBaseException {
@@ -20,8 +19,7 @@ public class NotFoundException extends AbstractBaseException {
     /**
      * NotFoundException constructor.
      *
-     * @param msg
-     *            the message
+     * @param msg the message
      */
     public NotFoundException(String msg) {
         super(AbstractBaseException.NOT_FOUND, msg);
@@ -30,10 +28,8 @@ public class NotFoundException extends AbstractBaseException {
     /**
      * NotFoundException constructor.
      *
-     * @param msg
-     *            the message
-     * @param errors
-     *            the errors
+     * @param msg    the message
+     * @param errors the errors
      */
     public NotFoundException(String msg, Errors errors) {
         super(AbstractBaseException.NOT_FOUND, msg, errors);

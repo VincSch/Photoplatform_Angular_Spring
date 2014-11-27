@@ -48,8 +48,7 @@ public class UserImage extends AbstractBaseAuditEntity {
     /**
      * Sets image owner.
      *
-     * @param owner
-     *            user.
+     * @param owner user.
      */
     public void setOwner(User owner) {
         this.owner = owner;
@@ -67,8 +66,7 @@ public class UserImage extends AbstractBaseAuditEntity {
     /**
      * Sets user.
      *
-     * @param user
-     *            user.
+     * @param user user.
      */
     public void setUser(User user) {
         this.user = user;
@@ -85,7 +83,7 @@ public class UserImage extends AbstractBaseAuditEntity {
 
     /**
      * Sets image.
-     * 
+     *
      * @param image
      */
     public void setImage(Image image) {

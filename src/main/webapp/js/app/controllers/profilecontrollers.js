@@ -11,80 +11,31 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
         }
     }]);
 
-/*
- photoplatformControllers.controller('ProfileDetailCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
- function($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
- $scope.today = function() {
- $scope.dt = new Date();
- };
- $scope.today();
-
- $scope.clear = function() {
- $scope.dt = null;
- };
-
- // Disable weekend selection
- $scope.disabled = function(date, mode) {
- return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6 ) );
- };
-
- $scope.toggleMin = function() {
- $scope.minDate = $scope.minDate ? null : new Date();
- };
- $scope.toggleMin();
-
- $scope.open = function($event) {
- $event.preventDefault();
- $event.stopPropagation();
-
- $scope.opened = true;
- };
-
- $scope.dateOptions = {
- formatYear : 'yy',
- startingDay : 1
- };
-
- $scope.initDate = new Date('2016-15-20');
- $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
- $scope.format = $scope.formats[2];
-
- $scope.updateUser = function(user) {
- //user.userRoles = null;
- delete user.authorities;
- delete user.accountNonExpired;
- delete user.credentialsNonExpired;
- UserService.update(user).success(function() {
- $rootScope.success = "Profil erfolgreich aktualisiert";
- }).error(function(error) {
- $rootScope.error = "Profil konnte nicht aktualisiert werden";
- });
- $location.path("/profile");
- $route.reload();
- };
- console.log($rootScope.user);
- }]);
+/**
+ * Photographer Controller.
  */
-/*
- photoplatformControllers.controller('ProfileViewCtrl', ['$scope', '$rootScope', '$routeParams', '$location', '$http', '$cookieStore', 'UserService', '$route',
- function($scope, $rootScope, $routeParams, $location, $http, $cookieStore, UserService, $route) {
- UserService.getUserByName($routeParams.name).success(function(user) {
- $scope.profile = user;
- }).error(function(error) {
- $rootScope.error = "Nutzer " + user.username + " konnte nicht gefunden werden!";
- });
+photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
+    function ($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
+        var user = $cookieStore.get('user');
+        //if user is not logged in or logged in redirect to login page
+        if (undefined == user || !$rootScope.isLoggedIn()) {
+            $location.path("/login");
+            return;
+        } else if ($rootScope.isPhotographer()) {
+            // User is already a photographer
+            $location.path("/profile");
+            return;
+        }
 
- UserService.getRecipeAmount($routeParams.name).success(function(amount) {
- $scope.recipeamount = amount;
- }).error(function(error) {
- $rootScope.error = "Nutzer " + $routeParams.name + " konnte nicht gefunden werden!";
- });
-
- UserService.getRecipeBookAmount($routeParams.name).success(function(amount) {
- $scope.recipebookamount = amount;
- }).error(function(error) {
- $rootScope.error = "Nutzer " + $routeParams.name + " konnte nicht gefunden werden!";
- });
-
- }]);
- */
+        /**
+         * Become a Photographer.
+         * @param user the user
+         */
+        $rootScope.becomePhotographer = function (user) {
+            UserService.updatePhotographer(user).success(function (data) {
+                console.log("Update Photographer");
+            }).error(function (data) {
+                $scope.errors = data.errors;
+            })
+        };
+    }]);

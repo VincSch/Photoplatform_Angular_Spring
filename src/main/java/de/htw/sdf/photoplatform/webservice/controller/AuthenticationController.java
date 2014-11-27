@@ -14,8 +14,10 @@ import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
-import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
-import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
+import de.htw.sdf.photoplatform.webservice.dto.request.UserCredential;
+import de.htw.sdf.photoplatform.webservice.dto.request.UserRegister;
+import de.htw.sdf.photoplatform.webservice.dto.response.UserData;
+import de.htw.sdf.photoplatform.webservice.util.UserUtility;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -54,16 +56,13 @@ public class AuthenticationController extends BaseAPIController {
     /**
      * Login user.
      *
-     * @param userCredential
-     *            the login for user
-     *
+     * @param userCredential the login for user
      * @return the user
-     * @throws IOException
-     *             the io exception
+     * @throws IOException the io exception
      */
     @RequestMapping(value = Endpoints.USER_LOGIN, method = RequestMethod.POST)
-    public User login(@Valid @RequestBody UserCredential userCredential,
-            BindingResult bindingResult) throws IOException,
+    public UserData login(@Valid @RequestBody UserCredential userCredential,
+                          BindingResult bindingResult) throws IOException,
             AbstractBaseException {
 
         if (bindingResult.hasErrors()) {
@@ -93,23 +92,19 @@ public class AuthenticationController extends BaseAPIController {
                 .loadUserByUsername(userCredential.getUsername());
         user.setSecToken(TokenUtils.createToken(user));
 
-        return user;
+        return UserUtility.getInstance().convertToUserData(user);
     }
 
     /**
      * Register user.
      *
-     * @param userRegister
-     *            user data for register
-     * @param bindingResult
-     *            the binding result
-     *
-     * @throws Exception
-     *             the exception
+     * @param userRegister  user data for register
+     * @param bindingResult the binding result
+     * @throws Exception the exception
      */
     @RequestMapping(value = Endpoints.USER_REGISTER, method = RequestMethod.POST)
     public void register(@Valid @RequestBody final UserRegister userRegister,
-            BindingResult bindingResult) throws Exception {
+                         BindingResult bindingResult) throws Exception {
         // Check if password match
         if (!userRegister.getPassword().equals(
                 userRegister.getPasswordConfirm())) {
@@ -155,9 +150,7 @@ public class AuthenticationController extends BaseAPIController {
     /**
      * Recipe by name.
      *
-     * @param name
-     *            the name
-     *
+     * @param name the name
      * @return the user
      */
     @RequestMapping(value = Endpoints.USER_BY_NAME, method = RequestMethod.GET)

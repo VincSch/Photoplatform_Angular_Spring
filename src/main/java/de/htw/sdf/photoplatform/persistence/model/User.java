@@ -22,7 +22,6 @@ import java.util.Set;
  * Entity class for a user representing the corresponding database table.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- *
  */
 @Entity
 @Table(name = "SYS_USER")
@@ -43,15 +42,23 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     @Column(name = "EMAIL", unique = true, nullable = false)
     private String email;
 
+    @Column(name = "PHONE")
+    private String phone;
+
+    @Column(name = "COMPANY")
+    private String company;
+
+    @Column(name = "HOMEPAGE")
+    private String homepage;
+
+    @Column(name = "IBAN")
+    private String iban;
+
+    @Column(name = "SWIFT")
+    private String swift;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<UserRole> userRoles;
-
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user")
-    private UserProfile userProfile;
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-    private UserBank userBank;
 
     @Column(name = "IS_ACCOUNT_NON_LOCKED")
     private boolean accountNonLocked;
@@ -89,25 +96,6 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     }
 
     /**
-     * Returns user profile.
-     *
-     * @return user profile
-     */
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
-
-    /**
-     * Set user profile.
-     *
-     * @param userProfile
-     *            user profile
-     */
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -117,9 +105,8 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
 
     /**
      * Set username.
-     * 
-     * @param username
-     *            username
+     *
+     * @param username username
      */
     public void setUsername(String username) {
         this.username = username;
@@ -127,9 +114,8 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
 
     /**
      * Set username.
-     * 
-     * @param name
-     *            the user name to set
+     *
+     * @param name the user name to set
      */
     public void setUserName(String name) {
         this.username = name;
@@ -146,8 +132,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     /**
      * Set password.
      *
-     * @param password
-     *            the password to set
+     * @param password the password to set
      */
     public void setPassword(String password) {
         this.password = password;
@@ -165,8 +150,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     /**
      * Set email.
      *
-     * @param email
-     *            the email to set
+     * @param email the email to set
      */
     public void setEmail(String email) {
         this.email = email;
@@ -184,8 +168,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     /**
      * Set token.
      *
-     * @param secToken
-     *            the sec token to set
+     * @param secToken the sec token to set
      */
     public void setSecToken(String secToken) {
         this.secToken = secToken;
@@ -202,7 +185,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
 
     /**
      * Set user roles.
-     * 
+     *
      * @param userRoles
      */
     public void setUserRoles(List<UserRole> userRoles) {
@@ -220,8 +203,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     /**
      * Set locked value. If true than locked, else non locked
      *
-     * @param isAccountNonLocked
-     *            the account non locked to set
+     * @param isAccountNonLocked the account non locked to set
      */
     public void setAccountNonLocked(boolean isAccountNonLocked) {
         this.accountNonLocked = isAccountNonLocked;
@@ -252,29 +234,97 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     }
 
     /**
-     * @param isEnabled
-     *            the enable to set
+     * @param isEnabled the enable to set
      */
     public void setEnabled(boolean isEnabled) {
         this.enabled = isEnabled;
     }
 
     /**
-     * Return user bank account.
-     * 
-     * @return user bank account
+     * get phone number
+     *
+     * @return phone number
      */
-    public UserBank getUserBank() {
-        return userBank;
+    public String getPhone() {
+        return phone;
     }
 
     /**
-     * Sets user bank account.
-     * 
-     * @param userBank
-     *            bank account
+     * @param phone phone number of this user
      */
-    public void setUserBank(UserBank userBank) {
-        this.userBank = userBank;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * get the company
+     *
+     * @return the company
+     */
+    public String getCompany() {
+        return company;
+    }
+
+    /**
+     * set the company
+     *
+     * @param company company name
+     */
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    /**
+     * get homepage
+     *
+     * @return homepage of this user
+     */
+    public String getHomepage() {
+        return homepage;
+    }
+
+    /**
+     * set homepage
+     *
+     * @param homepage homepage of the user
+     */
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    /**
+     * get the iban
+     *
+     * @return iban of the user
+     */
+    public String getIban() {
+        return iban;
+    }
+
+    /**
+     * set the iban
+     *
+     * @param iban iban to set
+     */
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    /**
+     * get the swift
+     *
+     * @return swift of the user
+     */
+    public String getSwift() {
+        return swift;
+    }
+
+    /**
+     * set the swift
+     *
+     * @param swift value
+     */
+    public void setSwift(String swift) {
+        this.swift = swift;
     }
 }

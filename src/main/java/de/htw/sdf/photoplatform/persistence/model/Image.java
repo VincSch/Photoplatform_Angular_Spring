@@ -68,9 +68,8 @@ public class Image extends AbstractBaseAuditEntity {
 
     /**
      * Sets image name.
-     * 
-     * @param name
-     *            image name.
+     *
+     * @param name image name.
      */
     public void setName(String name) {
         this.name = name;
@@ -88,8 +87,7 @@ public class Image extends AbstractBaseAuditEntity {
     /**
      * Sets image description.
      *
-     * @param description
-     *            image description
+     * @param description image description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -107,8 +105,7 @@ public class Image extends AbstractBaseAuditEntity {
     /**
      * Sets scope of image resource.
      *
-     * @param isPublic
-     *            true for shared, otherwise false.
+     * @param isPublic true for shared, otherwise false.
      */
     public void setPublic(boolean isPublic) {
         this.isPublic = isPublic;
@@ -126,8 +123,7 @@ public class Image extends AbstractBaseAuditEntity {
     /**
      * Sets image to enabled or disabled.
      *
-     * @param enabled
-     *            true if enabled.
+     * @param enabled true if enabled.
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
@@ -145,8 +141,7 @@ public class Image extends AbstractBaseAuditEntity {
     /**
      * Sets image price.
      *
-     * @param price
-     *            image price.
+     * @param price image price.
      */
     public void setPrice(double price) {
         this.price = price;
@@ -154,7 +149,7 @@ public class Image extends AbstractBaseAuditEntity {
 
     /**
      * Returns image compression type.
-     *
+     * <p/>
      * Supported compression type jpg,png.
      *
      * @return compression
@@ -166,11 +161,10 @@ public class Image extends AbstractBaseAuditEntity {
 
     /**
      * Sets compression type.
-     *
+     * <p/>
      * Supported compression type jpg,png.
      *
-     * @param compression
-     *            image compression type.
+     * @param compression image compression type.
      */
     public void setCompression(String compression) {
         this.compression = compression;
@@ -188,8 +182,7 @@ public class Image extends AbstractBaseAuditEntity {
     /**
      * Sets x resolution.
      *
-     * @param xResolution
-     *            x resolution
+     * @param xResolution x resolution
      */
     public void setXResolution(double xResolution) {
         this.xResolution = xResolution;
@@ -207,8 +200,7 @@ public class Image extends AbstractBaseAuditEntity {
     /**
      * Sets y resolution.
      *
-     * @param yResolution
-     *            y resolution
+     * @param yResolution y resolution
      */
     public void setYResolution(double yResolution) {
         this.yResolution = yResolution;
@@ -225,9 +217,8 @@ public class Image extends AbstractBaseAuditEntity {
 
     /**
      * Sets resolution units
-     * 
-     * @param resolutionUnit
-     *            resolution unit.
+     *
+     * @param resolutionUnit resolution unit.
      */
     public void setResolutionUnit(String resolutionUnit) {
         this.resolutionUnit = resolutionUnit;
@@ -235,7 +226,7 @@ public class Image extends AbstractBaseAuditEntity {
 
     /**
      * Returns x demension.
-     *
+     * <p/>
      * Image width.
      *
      * @return image width.
@@ -246,7 +237,7 @@ public class Image extends AbstractBaseAuditEntity {
 
     /**
      * Sets x demension.
-     *
+     * <p/>
      * Image width.
      *
      * @param xDemension
@@ -266,11 +257,10 @@ public class Image extends AbstractBaseAuditEntity {
 
     /**
      * Sets y demension.
-     *
+     * <p/>
      * Image hight.
      *
-     * @param yDemension
-     *            image hight
+     * @param yDemension image hight
      */
     public void setYDemension(Integer yDemension) {
         this.yDemension = yDemension;
@@ -288,8 +278,7 @@ public class Image extends AbstractBaseAuditEntity {
     /**
      * Sets path to image resource.
      *
-     * @param path
-     *            path to image.
+     * @param path path to image.
      */
     public void setPath(String path) {
         this.path = path;

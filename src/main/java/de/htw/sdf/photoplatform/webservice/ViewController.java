@@ -21,7 +21,7 @@ public class ViewController {
 
     protected final Logger log = Logger.getLogger(this.getClass().getName());
 
-    @RequestMapping(value = { "/register", "/login", "/profile", "/admin", "/wellcomeuser", "/devprofile", "/devprofile/**", "/becomePhotographer" }, method = RequestMethod.GET)
+    @RequestMapping(value = {"/register", "/login", "/profile", "/admin", "/wellcomeuser", "/devprofile", "/devprofile/**", "/becomePhotographer"}, method = RequestMethod.GET)
     public String index() {
         return "index.html";
     }

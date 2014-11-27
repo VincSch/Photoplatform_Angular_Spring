@@ -49,13 +49,6 @@ public class Collection extends AbstractBaseAuditEntity {
     private Image thumbnail;
 
     /**
-     * Showcase for this collection.
-     */
-    @OneToOne
-    @JoinColumn(name = "SHOWCASE_ID", referencedColumnName = "ID")
-    private ShowCase showCase;
-
-    /**
      * Image.
      */
 
@@ -80,8 +73,7 @@ public class Collection extends AbstractBaseAuditEntity {
     /**
      * Sets album owner.
      *
-     * @param user
-     *            owner.
+     * @param user owner.
      */
     public void setUser(User user) {
         this.user = user;
@@ -99,8 +91,7 @@ public class Collection extends AbstractBaseAuditEntity {
     /**
      * Sets album name.
      *
-     * @param name
-     *            album name.
+     * @param name album name.
      */
     public void setName(String name) {
         this.name = name;
@@ -118,8 +109,7 @@ public class Collection extends AbstractBaseAuditEntity {
     /**
      * Sets album description.
      *
-     * @param description
-     *            album description.
+     * @param description album description.
      */
     public void setDescription(String description) {
         this.description = description;
@@ -137,8 +127,7 @@ public class Collection extends AbstractBaseAuditEntity {
     /**
      * Sets key image for this collection.
      *
-     * @param thumbnail
-     *            thumbnail.
+     * @param thumbnail thumbnail.
      */
     public void setThumbnail(Image thumbnail) {
         this.thumbnail = thumbnail;
@@ -146,7 +135,7 @@ public class Collection extends AbstractBaseAuditEntity {
 
     /**
      * Returns all collection images.
-     * 
+     *
      * @return collection images.
      */
     public Set<CollectionImage> getCollectionImages() {
@@ -156,8 +145,7 @@ public class Collection extends AbstractBaseAuditEntity {
     /**
      * Sets collection images.
      *
-     * @param collectionImages
-     *            list of images
+     * @param collectionImages list of images
      */
     public void setCollectionImages(Set<CollectionImage> collectionImages) {
         this.collectionImages = collectionImages;
@@ -175,31 +163,11 @@ public class Collection extends AbstractBaseAuditEntity {
     /**
      * Sets collection categories.
      *
-     * @param collectionCategories
-     *            collection categories.
+     * @param collectionCategories collection categories.
      */
     public void setCollectionCategories(
             Set<CollectionCategory> collectionCategories) {
         this.collectionCategories = collectionCategories;
-    }
-
-    /**
-     * Gets the showcase for this collection.
-     *
-     * @return a showcase.
-     */
-    public ShowCase getShowCase() {
-        return showCase;
-    }
-
-    /**
-     * Sets a showcase.
-     *
-     * @param showCase
-     *            showcase object.
-     */
-    public void setShowCase(ShowCase showCase) {
-        this.showCase = showCase;
     }
 
     /**

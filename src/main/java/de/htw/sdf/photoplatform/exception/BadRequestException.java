@@ -10,7 +10,6 @@ import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import org.springframework.validation.Errors;
 
 /**
- *
  * @author <a href="mailto:s0531603@htw-berlin.de">Daniil Tomilow</a>
  */
 public class BadRequestException extends AbstractBaseException {
@@ -20,8 +19,7 @@ public class BadRequestException extends AbstractBaseException {
     /**
      * BadRequestException constructor.
      *
-     * @param msg
-     *            the message
+     * @param msg the message
      */
     public BadRequestException(String msg) {
         super(AbstractBaseException.BAD_REQUEST, msg);
@@ -30,7 +28,7 @@ public class BadRequestException extends AbstractBaseException {
     /**
      * BadRequestException constructor.
      *
-     * @param msg the message
+     * @param msg    the message
      * @param errors the errors
      */
     public BadRequestException(String msg, Errors errors) {

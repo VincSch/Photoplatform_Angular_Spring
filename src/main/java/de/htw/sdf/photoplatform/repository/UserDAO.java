@@ -21,9 +21,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
     /**
      * find a user by its unique name.
      *
-     * @param userName
-     *            unique name
-     *
+     * @param userName unique name
      * @return the user entity
      */
     User findByUserName(final String userName);
@@ -31,9 +29,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
     /**
      * Find user by specified email.
      *
-     * @param email
-     *            the email
-     *
+     * @param email the email
      * @return the user
      */
     User findByEmail(String email);
@@ -41,8 +37,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
     /**
      * Returns all user by role.
      *
-     * @param role
-     *            role entity
+     * @param role role entity
      * @return all users by role
      */
     List<User> findByRole(final Role role);
@@ -52,13 +47,8 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
      * true. IF start and count contains 0, than return first user. IF start
      * contains 0 and count contains 1, than return first user.
      *
-     *
-     *
-     * @param start
-     *            index for first.
-     * @param count
-     *            index for last.
-     *
+     * @param start index for first.
+     * @param count index for last.
      * @return users
      */
     List<User> find(Integer start, Integer count);
@@ -66,8 +56,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
     /**
      * Returns all user by role id.
      *
-     * @param roleId
-     *            role id
+     * @param roleId role id
      * @return all users by role id
      */
     List<User> findByRoleId(final Long roleId);
@@ -83,8 +72,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
      * Returns not admin users. If enabled is true, than all enabled not admin
      * users else otherwise.
      *
-     * @param enabled
-     *            true, false
+     * @param enabled true, false
      * @return not admin users
      */
     List<User> findByEnabled(boolean enabled);
@@ -92,8 +80,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
     /**
      * Returns all users by role and enabled filter.
      *
-     * @param enabled
-     *            true, false
+     * @param enabled true, false
      * @return not admin users
      */
     List<User> findByRoleAndEnabledFilter(final Long roleId, boolean enabled);
@@ -102,8 +89,7 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
      * Returns not admin users. If locked is true, than all not admin users
      * which account is not locked else otherwise
      *
-     * @param locked
-     *            true, false
+     * @param locked true, false
      * @return not admin users
      */
     List<User> findByAccountLocked(boolean locked);

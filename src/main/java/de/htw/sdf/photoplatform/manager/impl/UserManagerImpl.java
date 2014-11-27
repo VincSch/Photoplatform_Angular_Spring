@@ -11,13 +11,9 @@ import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.Role;
 import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.persistence.model.UserBank;
-import de.htw.sdf.photoplatform.persistence.model.UserProfile;
 import de.htw.sdf.photoplatform.persistence.model.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
-import de.htw.sdf.photoplatform.repository.UserBankDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
-import de.htw.sdf.photoplatform.repository.UserProfileDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,18 +40,12 @@ public class UserManagerImpl implements UserManager {
     @Resource
     private UserRoleDAO userRoleDAO;
 
-    @Resource
-    private UserProfileDAO userProfileDAO;
-
-    @Resource
-    private UserBankDAO userBankDAO;
-
     /**
      * {@inheritDoc}
      */
     @Override
     public void registerUser(final String username, final String email,
-            final String password) throws ManagerException {
+                             final String password) throws ManagerException {
 
         checkUser(username, email, password);
 
@@ -86,15 +76,10 @@ public class UserManagerImpl implements UserManager {
     /**
      * Check is email or username already exists.
      *
-     * @param username
-     *            the username
-     * @param email
-     *            the email
-     * @param password
-     *            the password
-     *
-     * @throws ManagerException
-     *             the exception
+     * @param username the username
+     * @param email    the email
+     * @param password the password
+     * @throws ManagerException the exception
      */
     private void checkUser(final String username, final String email, final String password)
             throws ManagerException {
@@ -122,31 +107,6 @@ public class UserManagerImpl implements UserManager {
     @Override
     public User update(User entity) {
         return userDAO.update(entity);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public User update(User user, UserProfile profile, UserBank bank) {
-        if (profile.getId() == null) {
-            // no, than create new.
-            userProfileDAO.create(profile);
-        } else {
-            // else update.
-            userProfileDAO.update(profile);
-        }
-
-        if(isUserPhotographer(user)){
-            if(bank.getId() == null){
-                //if not exist, than create.
-                userBankDAO.create(bank);
-            }else{
-                userBankDAO.update(bank);
-            }
-        }
-
-        return userDAO.update(user);
     }
 
     /**

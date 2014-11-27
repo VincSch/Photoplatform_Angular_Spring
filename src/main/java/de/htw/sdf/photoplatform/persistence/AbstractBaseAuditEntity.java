@@ -6,21 +6,14 @@
 
 package de.htw.sdf.photoplatform.persistence;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 /**
  * Superclass for all entities defining audit fields.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- *
  */
 @MappedSuperclass
 public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity {
@@ -48,8 +41,7 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity {
     }
 
     /**
-     * @param createdAt
-     *            the createdAt to set
+     * @param createdAt the createdAt to set
      */
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
@@ -63,8 +55,7 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity {
     }
 
     /**
-     * @param createdBy
-     *            the createdBy to set
+     * @param createdBy the createdBy to set
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
@@ -78,8 +69,7 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity {
     }
 
     /**
-     * @param updatedAt
-     *            the updatedAt to set
+     * @param updatedAt the updatedAt to set
      */
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
@@ -93,8 +83,7 @@ public abstract class AbstractBaseAuditEntity extends AbstractBaseEntity {
     }
 
     /**
-     * @param updatedBy
-     *            the updatedBy to set
+     * @param updatedBy the updatedBy to set
      */
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;

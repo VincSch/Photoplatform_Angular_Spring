@@ -24,12 +24,9 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
         }).when('/profile/view', {
             templateUrl: '/views/partials/profile/view.html',
             controller: 'ProfileCtrl'
-        }).when('/profile/admin/edit/user/', {
-            templateUrl: '/views/partials/profile/admin/editUser.html',
-            controller: 'AdminCtrl'
         }).when('/profile/admin/edit/user/:userId', {
             templateUrl: '/views/partials/profile/admin/editUser.html',
-            controller: 'AdminCtrl'
+            controller: 'AdminEditUserCtrl'
         }).when('/profile/photograph/register', {
             templateUrl: '/views/partials/profile/photographer/register.html',
             controller: 'PhotographerCtrl'
@@ -115,7 +112,7 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
     $rootScope.hasRole = function (role) {
         if ($rootScope.user !== undefined) {
             for (var i = 0; i < $rootScope.user.authorities.length; ++i) {
-                if ($rootScope.user.authorities[i].authority == role) {
+                if ($rootScope.user.authorities[i].name == role) {
                     return true;
                 }
             }
@@ -136,5 +133,5 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
     };
 
     console.log($rootScope.user);
-    
+
 });

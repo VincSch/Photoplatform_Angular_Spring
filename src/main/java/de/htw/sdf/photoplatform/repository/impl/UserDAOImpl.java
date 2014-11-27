@@ -62,7 +62,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     @Override
     public List<User> find(Integer start, Integer count) {
         StringBuilder queryBuilder = initSelectQuery();
-        queryBuilder.append("LEFT JOIN FETCH user.userBank ");
         queryBuilder.append("WHERE user.enabled = true ");
         queryBuilder.append("ORDER BY user.username ");
         Query query = createQuery(queryBuilder.toString());
@@ -116,9 +115,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT user FROM User user ");
         queryBuilder.append("LEFT JOIN FETCH user.userRoles userRoles ");
-        if (Role.PHOTOGRAPHER_ID.equals(roleId)) {
-            queryBuilder.append("LEFT JOIN FETCH user.userBank ");
-        }
         queryBuilder.append("WHERE userRoles.role.id = ?1");
 
         Query query = createQuery(queryBuilder.toString());
@@ -155,11 +151,8 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     /**
      * {@inheritDoc}
      */
-    public List<User> findByRoleAndEnabledFilter(Long roleId, boolean enabled){
+    public List<User> findByRoleAndEnabledFilter(Long roleId, boolean enabled) {
         StringBuilder queryBuilder = initSelectQuery();
-        if (Role.PHOTOGRAPHER_ID.equals(roleId)) {
-            queryBuilder.append("LEFT JOIN FETCH user.userBank ");
-        }
         queryBuilder.append("WHERE userRoles.role.id = :roleId ");
         queryBuilder.append("AND user.enabled = :enabled");
 
@@ -188,7 +181,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     @Override
     public User findById(Long id) {
         StringBuilder queryBuilder = initSelectQuery();
-        queryBuilder.append("LEFT JOIN FETCH user.userBank ");
         queryBuilder.append("WHERE user.id = ?1");
         Query query = createQuery(queryBuilder.toString());
         query.setParameter(1, id);
@@ -199,12 +191,12 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT DISTINCT(user) FROM User user ");
         queryBuilder.append("LEFT JOIN FETCH user.userRoles userRoles ");
-        queryBuilder.append("LEFT JOIN FETCH user.userProfile ");
 
         return queryBuilder;
     }
 
-    @Override public EntityManager getEntityManager() {
+    @Override
+    public EntityManager getEntityManager() {
         return super.getEntityManager();
     }
 }

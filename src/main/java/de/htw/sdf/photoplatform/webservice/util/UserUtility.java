@@ -9,13 +9,11 @@ import de.htw.sdf.photoplatform.exception.common.WebFormException;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.Role;
 import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.webservice.dto.UserData;
-import de.htw.sdf.photoplatform.webservice.dto.UserProfileData;
+import de.htw.sdf.photoplatform.persistence.model.UserRole;
+import de.htw.sdf.photoplatform.webservice.dto.response.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -46,41 +44,6 @@ public class UserUtility {
     }
 
     /**
-     * Convert domain object User to data transfer object UserProfileData.
-     *
-     * @param user domain object user.
-     * @return UserProfileData.
-     */
-    public UserProfileData convertToUserProfileData(User user) {
-        UserProfileData userProfileData = new UserProfileData();
-        userProfileData.setId(user.getId());
-        userProfileData.setUsername(user.getUsername());
-        userProfileData.setEmail(user.getEmail());
-        if (user.getUserProfile() != null) {
-            userProfileData.setProfileId(user.getUserProfile().getId());
-            userProfileData.setFirstName(user.getUserProfile().getFirstName());
-            userProfileData.setLastName(user.getUserProfile().getLastName());
-            userProfileData.setAddress(user.getUserProfile().getAddress());
-            userProfileData.setPhone(user.getUserProfile().getPhone());
-            userProfileData.setBirthday(user.getUserProfile().getBirthday());
-            userProfileData.setCompany(user.getUserProfile().getCompany());
-            userProfileData.setHomepage(user.getUserProfile().getHomepage());
-        }
-
-        if (user.getUserBank() != null) {
-            userProfileData.setBankId(user.getUserBank().getId());
-            userProfileData.setReceiver(user.getUserBank().getReceiver());
-            userProfileData.setIban(user.getUserBank().getIban());
-            userProfileData.setBic(user.getUserBank().getBic());
-        }
-
-        userProfileData.setShowBankData(userManager.isRoleIncluded(user,
-                Role.PHOTOGRAPHER));
-
-        return userProfileData;
-    }
-
-    /**
      * Convert domain object user to data transfer object UserData.
      *
      * @param user domain object user.
@@ -92,8 +55,20 @@ public class UserUtility {
         result.setUsername(user.getUsername());
         result.setBanned(!user.isAccountNonLocked());
         result.setEnabled(user.isEnabled());
-        Boolean isAdmin = userManager.isUserAdmin(user);
-        result.setAdmin(isAdmin);
+        result.setAdmin(userManager.isUserAdmin(user));
+        result.setPassword(user.getPassword());
+        result.setSecToken(user.getSecToken());
+        result.setEmail(user.getEmail());
+        result.setCompany(user.getCompany());
+        result.setPhone(user.getPhone());
+        result.setHomepage(user.getHomepage());
+        result.setSwift(user.getSwift());
+        result.setIban(user.getIban());
+        List<Role> authorities = new ArrayList<Role>();
+        for (UserRole userRole : user.getUserRoles()) {
+            authorities.add(userRole.getRole());
+        }
+        result.setAuthorities(authorities);
         return result;
     }
 
@@ -120,11 +95,9 @@ public class UserUtility {
      * @param userProfileData input data.
      * @throws AbstractBaseException exception.
      */
-    public void validate(UserProfileData userProfileData)
+    public void validate(UserData userProfileData)
             throws AbstractBaseException {
         validateEmail(userProfileData.getEmail());
-        validateBirthday(userProfileData.getBirthday());
-        validateBankData(userProfileData.getBic(), userProfileData.getIban());
     }
 
     private void validateEmail(String value) throws AbstractBaseException {
@@ -139,28 +112,6 @@ public class UserUtility {
                         AbstractBaseException.USER_EMAIL_NOT_VALID);
             }
         }
-    }
-
-    private void validateBirthday(String value) throws AbstractBaseException {
-        if (value == null) {
-            return;
-        }
-
-        String formatValue = messages.getMessage("DateFormat");
-        SimpleDateFormat dateFormat = new SimpleDateFormat(formatValue);
-        dateFormat.setLenient(false);
-        try {
-            dateFormat.parse(value.trim());
-        } catch (ParseException e) {
-            throw new WebFormException(
-                    AbstractBaseException.DATE_FORMAT_NOT_VALID);
-        }
-    }
-
-    private Boolean validateBankData(String bic, String iban)
-            throws AbstractBaseException {
-        // is not relevant for uni project :).
-        return true;
     }
 
     @Autowired(required = true)

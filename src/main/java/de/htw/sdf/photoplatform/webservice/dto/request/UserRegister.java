@@ -4,11 +4,10 @@
  *
  */
 
-package de.htw.sdf.photoplatform.webservice.dto;
+package de.htw.sdf.photoplatform.webservice.dto.request;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-
 
 
 /**
@@ -33,8 +32,7 @@ public class UserRegister extends UserCredential {
     }
 
     /**
-     * @param email
-     *            the email to set
+     * @param email the email to set
      */
     public final void setEmail(final String email) {
         this.email = email;
@@ -48,11 +46,10 @@ public class UserRegister extends UserCredential {
     }
 
     /**
-     * @param passwordConfirm
-     *            the passwordConfirm to set
+     * @param passwordConfirm the passwordConfirm to set
      */
     public final void setPasswordConfirm(final String passwordConfirm) {
-            this.passwordConfirm = passwordConfirm;
+        this.passwordConfirm = passwordConfirm;
     }
 
 }
