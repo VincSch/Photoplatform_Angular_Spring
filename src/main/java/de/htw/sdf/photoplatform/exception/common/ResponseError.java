@@ -32,14 +32,10 @@ public class ResponseError implements Serializable {
     /**
      * ResponseError constructor for binding errors.
      *
-     * @param status
-     *            the status
-     * @param code
-     *            the code
-     * @param message
-     *            the message
-     * @param errors
-     *            the errors
+     * @param status  the status
+     * @param code    the code
+     * @param message the message
+     * @param errors  the errors
      */
     public ResponseError(int status, int code, String message, Errors errors) {
         this.status = status;

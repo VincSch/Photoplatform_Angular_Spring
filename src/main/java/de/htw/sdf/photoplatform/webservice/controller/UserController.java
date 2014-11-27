@@ -9,21 +9,13 @@ import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.Role;
 import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.persistence.model.UserBank;
-import de.htw.sdf.photoplatform.persistence.model.UserProfile;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
-import de.htw.sdf.photoplatform.webservice.dto.UserData;
-import de.htw.sdf.photoplatform.webservice.dto.UserProfileData;
+import de.htw.sdf.photoplatform.webservice.dto.response.UserData;
 import de.htw.sdf.photoplatform.webservice.util.UserUtility;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -46,10 +38,8 @@ public class UserController extends BaseAPIController {
     /**
      * GET list of enabled users between start an count.
      *
-     * @param start
-     *            start parameter.
-     * @param count
-     *            list size.
+     * @param start start parameter.
+     * @param count list size.
      * @return list of enabled users between start an count.
      * @throws IOException
      * @throws AbstractBaseException
@@ -57,7 +47,7 @@ public class UserController extends BaseAPIController {
     @RequestMapping(value = Endpoints.USERS_START_COUNT, method = RequestMethod.GET)
     @ResponseBody
     public List<UserData> getEnabledUsers(@PathVariable int start,
-            @PathVariable int count) throws IOException, AbstractBaseException {
+                                          @PathVariable int count) throws IOException, AbstractBaseException {
         List<User> users = userManager.find(start, count);
         return UserUtility.getInstance().convertToUserData(users);
     }
@@ -65,13 +55,10 @@ public class UserController extends BaseAPIController {
     /**
      * Return list of all disabled users by id.
      *
-     * @param roleName
-     *            role name.
+     * @param roleName role name.
      * @return list of all disabled users.
-     * @throws IOException
-     *             input output exception.
-     * @throws AbstractBaseException
-     *             abstract exception.
+     * @throws IOException           input output exception.
+     * @throws AbstractBaseException abstract exception.
      */
     @RequestMapping(value = Endpoints.USERS_DISABLED_BY_ROLE, method = RequestMethod.GET)
     @ResponseBody
@@ -91,84 +78,73 @@ public class UserController extends BaseAPIController {
     /**
      * enable user with photographer role.
      *
-     * @param id
-     *            user id.
+     * @param id user id.
      * @return data transfer object userData.
      */
     @RequestMapping(value = Endpoints.USER_ENABLE_PHOTOGRAPH, method = RequestMethod.GET)
     @ResponseBody
-    public UserData enablePhotograph(@PathVariable String id) {
+    public void enablePhotograph(@PathVariable String id) {
         long longId = Long.valueOf(id);
-        User Photograph = userManager.enablePhotograph(longId);
-        return UserUtility.getInstance().convertToUserProfileData(Photograph);
+        userManager.enablePhotograph(longId);
     }
 
     /**
      * Set admin role to user.
      *
-     * @param id
-     *            user id.
+     * @param id user id.
      * @return data transfer object userData.
      */
     @RequestMapping(value = Endpoints.USER_MAKE_ADMIN, method = RequestMethod.GET)
     @ResponseBody
-    public UserData makeAdmin(@PathVariable String id) {
+    public void makeAdmin(@PathVariable String id) {
         long longId = Long.valueOf(id);
-        User NewAdmin = userManager.makeAdmin(longId);
-        return UserUtility.getInstance().convertToUserProfileData(NewAdmin);
+        userManager.makeAdmin(longId);
     }
 
     /**
      * Lock user.
      *
-     * @param id
-     *            user id.
+     * @param id user id.
      * @return data transfer object UserData.
      * @throws IOException
      * @throws AbstractBaseException
      */
     @RequestMapping(value = Endpoints.USER_LOCK, method = RequestMethod.GET)
     @ResponseBody
-    public UserData lockUser(@PathVariable String id) throws IOException,
+    public void lockUser(@PathVariable String id) throws IOException,
             AbstractBaseException {
         long longId = Long.valueOf(id);
-        User lockedUser = userManager.lockUser(longId);
-        return UserUtility.getInstance().convertToUserProfileData(lockedUser);
+        userManager.lockUser(longId);
     }
 
     /**
      * Unlock user.
      *
-     * @param id
-     *            user id.
+     * @param id user id.
      * @return data transfer object UserData.
      * @throws IOException
      * @throws AbstractBaseException
      */
     @RequestMapping(value = Endpoints.USER_UNLOCK, method = RequestMethod.GET)
     @ResponseBody
-    public UserData unlockUser(@PathVariable String id) throws IOException,
+    public void unlockUser(@PathVariable String id) throws IOException,
             AbstractBaseException {
         long longId = Long.valueOf(id);
-        User lockedUser = userManager.unlockUser(longId);
-        return UserUtility.getInstance().convertToUserProfileData(lockedUser);
+        userManager.unlockUser(longId);
     }
 
     /**
      * Update user profile data included bank data.
      *
-     * @param userProfileData
-     *            the full user data.
-     *
-     * @throws AbstractBaseException
-     *             the exception.
+     * @param userData the full user data.
+     * @throws AbstractBaseException the exception.
      */
-    @RequestMapping(value = Endpoints.USERS_UPDATE, method = { RequestMethod.POST })
+    @RequestMapping(value = Endpoints.USERS_UPDATE, method = {RequestMethod.POST})
     @ResponseBody
-    public void updateUser(@RequestBody UserProfileData userProfileData, BindingResult bindingResult)  throws AbstractBaseException {
-        try{
-            authorizationController.checkUserPermissions(userProfileData.getId().toString());
-        }catch(AbstractBaseException abe){
+    public void updateUser(@RequestBody UserData userData, BindingResult bindingResult) throws AbstractBaseException {
+        try {
+            authorizationController.checkUserPermissions(userData.getId().toString());
+        } catch (AbstractBaseException abe) {
             switch (abe.getCode()) {
                 case AbstractBaseException.AUTHORIZATION_NOT_VALID:
                     ObjectError error = new ObjectError("authorization", messages
@@ -180,43 +156,24 @@ public class UserController extends BaseAPIController {
         }
 
         // validate.
-        validateProfileForm(userProfileData, bindingResult);
+        validateProfileForm(userData, bindingResult);
 
         // find affected user
-        User userToUpdate = userManager.findById(userProfileData.getId());
+        User userToUpdate = userManager.findById(userData.getId());
         // change user data
-        userToUpdate.setUsername(userProfileData.getUsername());
-        userToUpdate.setEmail(userProfileData.getEmail());
-
-        // Change profile data
-        UserProfile profile = userToUpdate.getUserProfile();
-        if (profile == null) {
-            profile = new UserProfile(userToUpdate);
-        }
-        profile.setFirstName(userProfileData.getFirstname());
-        profile.setLastName(userProfileData.getLastName());
-        profile.setAddress(userProfileData.getAddress());
-        profile.setPhone(userProfileData.getPhone());
-        profile.setBirthday(userProfileData.getBirthday());
-        profile.setCompany(userProfileData.getCompany());
-        profile.setHomepage(userProfileData.getHomepage());
-
-        // Change bank data
-        UserBank bank = userToUpdate.getUserBank();
-        if (bank == null) {
-            bank = new UserBank(userToUpdate);
-        }
-        bank.setReceiver(userProfileData.getReceiver());
-        bank.setBic(userProfileData.getBic());
-        bank.setIban(userProfileData.getIban());
-
-
+        userToUpdate.setUsername(userData.getUsername());
+        userToUpdate.setEmail(userData.getEmail());
+        userToUpdate.setPhone(userData.getPhone());
+        userToUpdate.setCompany(userData.getCompany());
+        userToUpdate.setHomepage(userData.getHomepage());
+        userToUpdate.setSwift(userData.getSwift());
+        userToUpdate.setIban(userData.getIban());
         // update user
-        userManager.update(userToUpdate, profile, bank);
+        userManager.update(userToUpdate);
     }
 
-    private void validateProfileForm(UserProfileData userProfileData,
-            BindingResult bindingResult) throws BadRequestException {
+    private void validateProfileForm(UserData userProfileData,
+                                     BindingResult bindingResult) throws BadRequestException {
         // validate
         try {
             UserUtility.getInstance().validate(userProfileData);
@@ -226,12 +183,6 @@ public class UserController extends BaseAPIController {
                     bindingResult.addError(new ObjectError("email", messages
                             .getMessage("Email")));
                     break;
-
-                case AbstractBaseException.DATE_FORMAT_NOT_VALID:
-                    bindingResult.addError(new ObjectError("BirthdayNotValid",
-                            messages.getMessage("BirthdayNotValid")));
-                    break;
-
                 default:
                     throw new RuntimeException("Unhandled error");
             }
@@ -243,17 +194,15 @@ public class UserController extends BaseAPIController {
     /**
      * Gets user profile data included bank data.
      *
-     * @param userId
-     *            the user id
-     * @throws AbstractBaseException
-     *             the exception
+     * @param userId the user id
+     * @throws AbstractBaseException the exception
      */
-    @RequestMapping(value = Endpoints.USERS_PROFILE_BY_USER_ID, method = { RequestMethod.GET })
+    @RequestMapping(value = Endpoints.USERS_PROFILE_BY_USER_ID, method = {RequestMethod.GET})
     @ResponseBody
-    public UserProfileData getUserProfileData(@PathVariable String userId) throws AbstractBaseException {
-        try{
+    public UserData getUserProfileData(@PathVariable String userId) throws AbstractBaseException {
+        try {
             authorizationController.checkUserPermissions(userId);
-        }catch(AbstractBaseException abe){
+        } catch (AbstractBaseException abe) {
             switch (abe.getCode()) {
                 case AbstractBaseException.AUTHORIZATION_NOT_VALID:
                     ObjectError error = new ObjectError("authorization", messages
@@ -265,17 +214,15 @@ public class UserController extends BaseAPIController {
         }
 
         User user = findUserById(userId);
-        return UserUtility.getInstance().convertToUserProfileData(user);
+        return UserUtility.getInstance().convertToUserData(user);
     }
 
     /**
      * Returns user by id.
      *
-     * @param requestUserId
-     *            user id
+     * @param requestUserId user id
      * @return requestUserId
-     * @throws AbstractBaseException
-     *             validation exception.
+     * @throws AbstractBaseException validation exception.
      */
     private User findUserById(String requestUserId)
             throws AbstractBaseException {

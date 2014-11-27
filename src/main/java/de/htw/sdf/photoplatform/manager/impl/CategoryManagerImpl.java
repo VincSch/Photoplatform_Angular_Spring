@@ -17,7 +17,6 @@ import java.util.List;
  * business methods for categories.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- *
  */
 @Service
 @Transactional

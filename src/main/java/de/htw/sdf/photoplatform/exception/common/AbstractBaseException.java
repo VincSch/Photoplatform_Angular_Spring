@@ -10,15 +10,18 @@ import org.apache.log4j.Logger;
 import org.springframework.validation.Errors;
 
 /**
- *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */
 public abstract class AbstractBaseException extends Exception {
 
-    /** Default BAD_REQUEST. */
+    /**
+     * Default BAD_REQUEST.
+     */
     public static final int BAD_REQUEST = 10000;
 
-    /** Default NOT_FOUND. */
+    /**
+     * Default NOT_FOUND.
+     */
     public static final int NOT_FOUND = 10001;
 
     /**
@@ -26,16 +29,24 @@ public abstract class AbstractBaseException extends Exception {
      */
     public static final int AUTHORIZATION_NOT_VALID = 10002;
 
-    /** Email exists. */
+    /**
+     * Email exists.
+     */
     public static final int USER_USERNAME_EXISTS = 11000;
 
-    /** Email exists. */
+    /**
+     * Email exists.
+     */
     public static final int USER_EMAIL_EXISTS = 11002;
 
-    /** Email not valid. */
+    /**
+     * Email not valid.
+     */
     public static final int USER_EMAIL_NOT_VALID = 11003;
 
-    /** Not valid date format. */
+    /**
+     * Not valid date format.
+     */
     public static final int DATE_FORMAT_NOT_VALID = 11004;
 
     private static final long serialVersionUID = 1L;
@@ -49,8 +60,7 @@ public abstract class AbstractBaseException extends Exception {
     /**
      * BaseException constructor.
      *
-     * @param code
-     *            the code
+     * @param code the code
      */
     public AbstractBaseException(int code) {
         super("Abstract base exception with code = " + code);
@@ -61,9 +71,8 @@ public abstract class AbstractBaseException extends Exception {
 
     /**
      * BaseException constructor.
-     * 
-     * @param msg
-     *            the message
+     *
+     * @param msg the message
      */
     public AbstractBaseException(int code, String msg) {
         super(msg);
@@ -74,11 +83,9 @@ public abstract class AbstractBaseException extends Exception {
 
     /**
      * BaseException constructor.
-     * 
-     * @param msg
-     *            the message
-     * @param errors
-     *            the errors
+     *
+     * @param msg    the message
+     * @param errors the errors
      */
     public AbstractBaseException(int code, String msg, Errors errors) {
         super(msg);

@@ -7,11 +7,10 @@ package de.htw.sdf.photoplatform.webservice;
 
 import de.htw.sdf.photoplatform.common.BaseAPITester;
 import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
-import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
+import de.htw.sdf.photoplatform.webservice.dto.request.UserCredential;
+import de.htw.sdf.photoplatform.webservice.dto.request.UserRegister;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
@@ -140,7 +139,6 @@ public class AuthenticationControllerTest extends BaseAPITester {//BaseTester {
     }
 
     @Test
-    @Ignore
     public void testRegisterUserConfirmPasswordFail() throws Exception {
         UserRegister userRegister = new UserRegister();
         userRegister.setUsername("testInvalid");

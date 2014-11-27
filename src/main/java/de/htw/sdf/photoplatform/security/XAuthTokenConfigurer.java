@@ -13,7 +13,6 @@ import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * 
  * @author <a href="mailto:philip@sorst.net">Philip W. Sorst</a>
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
  */
@@ -25,8 +24,7 @@ public class XAuthTokenConfigurer extends
     /**
      * XAuthTokenConfigurer constructor.
      *
-     * @param userDetailsService
-     *            the userDetailsService
+     * @param userDetailsService the userDetailsService
      */
     public XAuthTokenConfigurer(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;

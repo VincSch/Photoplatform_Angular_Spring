@@ -21,8 +21,7 @@ public interface CollectionCategoryDAO extends GenericDAO<CollectionCategory> {
     /**
      * Returns all collections by given category.
      *
-     * @param category
-     *            categoty.
+     * @param category categoty.
      * @return list of collectionCategory.
      */
     List<CollectionCategory> getCollectionCategoryBy(Category category);

@@ -49,7 +49,7 @@ public class XAuthTokenFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest arg0, ServletResponse arg1,
-            FilterChain filterChain) throws IOException, ServletException {
+                         FilterChain filterChain) throws IOException, ServletException {
         try {
             HttpServletRequest httpServletRequest = (HttpServletRequest) arg0;
             String authToken = httpServletRequest

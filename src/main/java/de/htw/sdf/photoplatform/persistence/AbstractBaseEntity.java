@@ -6,18 +6,16 @@
 
 package de.htw.sdf.photoplatform.persistence;
 
-import java.io.Serializable;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 
 /**
  * Superclass for all entities defining unique identifier.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- *
  */
 @MappedSuperclass
 public abstract class AbstractBaseEntity implements Serializable {
@@ -36,8 +34,7 @@ public abstract class AbstractBaseEntity implements Serializable {
     }
 
     /**
-     * @param id
-     *            the id to set
+     * @param id the id to set
      */
     public void setId(Long id) {
         this.id = id;

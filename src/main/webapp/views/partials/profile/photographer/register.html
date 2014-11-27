@@ -17,7 +17,7 @@
                     <div class="form-group row">
                         <div class="col-sm-5">
                             <div class="input-group has-feedback"
-                            ng-class="{'has-error' : (form.firstName.$error.required || errors.firstName) && form.firstName.$dirty}">
+                                 ng-class="{'has-error' : (form.firstName.$error.required || errors.firstName) && form.firstName.$dirty}">
                                 <label for="firstName" class="control-label input-group-addon">Vorname</label>
                                 <input name="firstName" id="firstName" placeholder="Vorname"
                                        type="text" class="form-control" ng-model="user.firstName" required>
@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-sm-5">
                             <div class="input-group has-feedback"
-                                ng-class="{'has-error' : (form.lastName.$error.required || errors.lastName) && form.lastName.$dirty}">
+                                 ng-class="{'has-error' : (form.lastName.$error.required || errors.lastName) && form.lastName.$dirty}">
                                 <label for="lastName" class="control-label input-group-addon">Nachname</label>
                                 <input name="lastName" id="lastName" placeholder="Nachname" type="text"
                                        class="form-control" ng-model="user.lastName" required>
@@ -71,7 +71,8 @@
                             <div class="input-group has-feedback"
                                  ng-class="{'has-error' : (form.postalCode.$error.required || errors.postalCode) && form.postalCode.$dirty}">
                                 <label for="postalCode" class="control-label input-group-addon">PLZ</label>
-                                <input name="postalCode" id="postalCode" placeholder="PLZ" type="text" class="form-control"
+                                <input name="postalCode" id="postalCode" placeholder="PLZ" type="text"
+                                       class="form-control"
                                        ng-model="user.postalCode" required>
                             </div>
                             <div class="help-block" ng-show="form.postalCode.$dirty">
@@ -96,7 +97,7 @@
                          ng-class="{'has-error' : (form.country.$error.required || errors.country) && form.country.$dirty}">
                         <div class="col-sm-5">
                             <div class="input-group">
-                                <label for="country" class="control-label input-group-addon"  ng-model="user.country">Land</label>
+                                <label for="country" class="control-label input-group-addon" ng-model="user.country">Land</label>
                                 <input name="country" id="country" placeholder="Land" type="text" class="form-control"
                                        ng-model="user.country" required>
                             </div>
@@ -107,11 +108,12 @@
                         </div>
                     </div>
                     <div class="form-group has-feedback"
-                    ng-class="{'has-error' : (form.bankdata.$error.required || errors.bankdata) && form.bankdata.$dirty}">
+                         ng-class="{'has-error' : (form.bankdata.$error.required || errors.bankdata) && form.bankdata.$dirty}">
                         <div class="col-sm-5">
                             <div class="input-group">
                                 <label for="bankdata" class="control-label input-group-addon">Bankdaten</label>
-                                <input name="bankdata" id="bankdata" placeholder="Bankdaten" type="text" class="form-control"
+                                <input name="bankdata" id="bankdata" placeholder="Bankdaten" type="text"
+                                       class="form-control"
                                        ng-model="user.bankdata" required>
                             </div>
                             <div class="help-block" ng-show="form.bankdata.$dirty">

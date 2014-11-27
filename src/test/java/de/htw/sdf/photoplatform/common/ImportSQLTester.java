@@ -1,16 +1,10 @@
 package de.htw.sdf.photoplatform.common;
 
-import java.util.List;
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Ignore;
-import org.junit.Test;
+import de.htw.sdf.photoplatform.persistence.model.Role;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 
-import de.htw.sdf.photoplatform.persistence.model.Role;
+import java.util.List;
 
 /**
  * @author Sergej Meister

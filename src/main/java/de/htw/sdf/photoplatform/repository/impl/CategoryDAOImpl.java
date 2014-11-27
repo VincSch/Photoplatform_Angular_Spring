@@ -33,7 +33,6 @@ public class CategoryDAOImpl extends GenericDAOImpl<Category> implements
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     @Override

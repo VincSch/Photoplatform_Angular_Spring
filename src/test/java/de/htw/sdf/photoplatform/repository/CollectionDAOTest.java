@@ -106,7 +106,7 @@ public class CollectionDAOTest extends BaseImageTester {
             Assert.assertTrue(collectionImage.getImage().getName()
                     .equals(firstImageName)
                     || collectionImage.getImage().getName()
-                            .equals(secondImageName));
+                    .equals(secondImageName));
         }
     }
 

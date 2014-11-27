@@ -14,22 +14,21 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * 
  * @author <a href="mailto:philip@sorst.net">Philip W. Sorst</a>
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
  */
 @Service
 public class TokenUtils {
 
-    /** Magic key. */
+    /**
+     * Magic key.
+     */
     public static final String MAGIC_KEY = "obfuscate";
 
     /**
      * Create token.
-     * 
-     * @param userDetails
-     *            the user details.
-     * 
+     *
+     * @param userDetails the user details.
      * @return the token
      */
     public static String createToken(UserDetails userDetails) {
@@ -40,12 +39,9 @@ public class TokenUtils {
 
     /**
      * Compute signature.
-     * 
-     * @param userDetails
-     *            the user details
-     * @param expires
-     *            the expires
-     * 
+     *
+     * @param userDetails the user details
+     * @param expires     the expires
      * @return the signature
      */
     public static String computeSignature(UserDetails userDetails, long expires) {
@@ -68,9 +64,7 @@ public class TokenUtils {
     /**
      * Get user name from token.
      *
-     * @param authToken
-     *            the auth token
-     *
+     * @param authToken the auth token
      * @return the user name
      */
     public static String getUserNameFromToken(String authToken) {
@@ -83,16 +77,13 @@ public class TokenUtils {
 
     /**
      * Validate Token.
-     * 
-     * @param authToken
-     *            the auth token.
-     * @param userDetails
-     *            the user details
-     * 
+     *
+     * @param authToken   the auth token.
+     * @param userDetails the user details
      * @return true if token is valid
      */
     public static boolean validateToken(String authToken,
-            UserDetails userDetails) {
+                                        UserDetails userDetails) {
         String[] parts = authToken.split(":");
         long expires = Long.parseLong(parts[1]);
         String signature = parts[2];

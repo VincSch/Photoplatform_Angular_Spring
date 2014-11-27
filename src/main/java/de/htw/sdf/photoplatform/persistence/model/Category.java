@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 /**
  * Entity class for a category representing the corresponding database table.
- *
+ * <p/>
  * Created by Sergej Meister.
  */
 @Entity
@@ -41,8 +41,7 @@ public class Category extends AbstractBaseAuditEntity {
     /**
      * Sets category name.
      *
-     * @param name
-     *            category name.
+     * @param name category name.
      */
     public void setName(String name) {
         this.name = name;
@@ -60,8 +59,7 @@ public class Category extends AbstractBaseAuditEntity {
     /**
      * Sets category decription.
      *
-     * @param description
-     *            category description.
+     * @param description category description.
      */
     public void setDescription(String description) {
         this.description = description;

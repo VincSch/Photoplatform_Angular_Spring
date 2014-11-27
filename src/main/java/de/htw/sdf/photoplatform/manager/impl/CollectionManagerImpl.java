@@ -5,21 +5,19 @@
  */
 package de.htw.sdf.photoplatform.manager.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import de.htw.sdf.photoplatform.manager.CollectionManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.User;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * business methods for categories.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- *
  */
 @Service
 @Transactional

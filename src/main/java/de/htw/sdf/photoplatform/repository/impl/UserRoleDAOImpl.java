@@ -19,7 +19,6 @@ import java.util.List;
  * repository methods for user roles.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- * 
  */
 @Repository
 @Transactional
@@ -47,7 +46,7 @@ public class UserRoleDAOImpl extends GenericDAOImpl<UserRole> implements
 
     @Override
     public List<UserRole> findByUserAndRoleId(final Long userId,
-            final Long roleId) {
+                                              final Long roleId) {
         String queryString = "SELECT DISTINCT(userRole) FROM UserRole userRole "
                 + "LEFT JOIN FETCH userRole.user user "
                 + "LEFT JOIN FETCH userRole.role role "

@@ -34,7 +34,7 @@ public class CollectionCategory extends AbstractBaseAuditEntity {
 
     /**
      * Returns Collection.
-     * 
+     *
      * @return collection
      */
     public Collection getCollection() {
@@ -44,8 +44,7 @@ public class CollectionCategory extends AbstractBaseAuditEntity {
     /**
      * Sets collection.
      *
-     * @param collection
-     *            collection
+     * @param collection collection
      */
     public void setCollection(Collection collection) {
         this.collection = collection;
@@ -63,8 +62,7 @@ public class CollectionCategory extends AbstractBaseAuditEntity {
     /**
      * Sets category.
      *
-     * @param category
-     *            category.
+     * @param category category.
      */
     public void setCategory(Category category) {
         this.category = category;

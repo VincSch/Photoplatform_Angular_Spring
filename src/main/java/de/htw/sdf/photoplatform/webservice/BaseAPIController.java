@@ -47,7 +47,7 @@ public class BaseAPIController {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ResponseError handleBadRequestException(BadRequestException ex,
-            WebRequest request) {
+                                                   WebRequest request) {
         return handleException(HttpStatus.BAD_REQUEST, ex, request);
     }
 
@@ -55,12 +55,12 @@ public class BaseAPIController {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ResponseBody
     public ResponseError handleNotFoundException(NotFoundException ex,
-            WebRequest request) {
+                                                 WebRequest request) {
         return handleException(HttpStatus.NOT_FOUND, ex, request);
     }
 
     private ResponseError handleException(HttpStatus status,
-            AbstractBaseException ex, WebRequest request) {
+                                          AbstractBaseException ex, WebRequest request) {
         return new ResponseError(status.value(), ex.getCode(), ex.getMessage(),
                 ex.getErrors());
     }

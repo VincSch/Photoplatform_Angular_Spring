@@ -22,7 +22,6 @@ import java.util.List;
  * Repository methods for image collection.
  *
  * @author Sergej Meister.
- *
  */
 @Repository
 @Transactional
@@ -79,7 +78,6 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
                 .append("LEFT JOIN FETCH collection.collectionImages collectionImages ");
         queryBuilder
                 .append("LEFT JOIN FETCH collection.collectionCategories collectionCategories ");
-        queryBuilder.append("LEFT JOIN FETCH collection.showCase showCase ");
 
         return queryBuilder;
     }

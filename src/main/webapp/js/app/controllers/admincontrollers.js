@@ -128,7 +128,7 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
 
 ]);
 
-photoplatformControllers.controller('AdminCtrl', ['$scope', '$routeParams', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
+photoplatformControllers.controller('AdminEditUserCtrl', ['$scope', '$routeParams', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
     function ($scope, $routeParams, $rootScope, $location, $http, $cookieStore, UserService, $route) {
         //if user is not logged in or authorized redirect to login page
         var user = $cookieStore.get('user');
@@ -162,16 +162,17 @@ photoplatformControllers.controller('AdminCtrl', ['$scope', '$routeParams', '$ro
         $scope.cancel = function () {
             $location.path("/profile/admin");
         }
-        /*
+
+
         $scope.isPhotographer = function () {
-            if ($rootScope.user !== undefined) {
-                for (var i = 0; i < $rootScope.user.authorities.length; ++i) {
-                    if ($rootScope.user.authorities[i].authority == role) {
+            if ($scope.userProfileData !== undefined) {
+                for (var i = 0; i < $scope.userProfileData.authorities.length; ++i) {
+                    if ($scope.userProfileData.authorities[i].name == $rootScope.PHOTOGRAPHER) {
                         return true;
                     }
                 }
             }
             return false;
         }
-        */
+
     }]);

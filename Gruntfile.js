@@ -122,7 +122,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/main/webapp/images',
-                src: '**/*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '{,*/}*.{png,jpg,jpeg}'
+                    src: '**/*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '{,*/}*.{png,jpg,jpeg}'
                     dest: '<%= yeoman.dist %>/images'
                 }]
             }
@@ -201,19 +201,19 @@ module.exports = function (grunt) {
                 src: '{,*/}*.css'
             },
             generateHerokuDirectory: {
-                    expand: true,
-                    dest: 'deploy/heroku',
-                    src: [
-                        'pom.xml',
-                        'src/main/**'
+                expand: true,
+                dest: 'deploy/heroku',
+                src: [
+                    'pom.xml',
+                    'src/main/**'
                 ]
             },
             generateOpenshiftDirectory: {
-                    expand: true,
-                    dest: 'deploy/openshift',
-                    src: [
-                        'pom.xml',
-                        'src/main/**'
+                expand: true,
+                dest: 'deploy/openshift',
+                src: [
+                    'pom.xml',
+                    'src/main/**'
                 ]
             }
         },

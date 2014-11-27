@@ -19,10 +19,8 @@ import java.util.List;
  * Generic abstract data access class implementing the most important functions.
  * Should be the super class of each and every other DAO class.
  *
+ * @param <T> the corresponding entity class
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- * 
- * @param <T>
- *            the corresponding entity class
  */
 @Repository
 @Transactional

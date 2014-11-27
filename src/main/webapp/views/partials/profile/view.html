@@ -11,32 +11,21 @@
             </div>
             <div class="col-md-11">
                 <ul class="list-group">
-                    <li class="list-group-item">Nutzername:</li>
-                    <li class="list-group-item">Email</li>
-                    <li class="list-group-item">Passwort</li>
-                </ul>
-                <h3 contenteditable="true">Persönliche Daten</h3>
-                <ul class="list-group">
-                    <li class="list-group-item">Name</li>
-                    <li class="list-group-item">Addresse</li>
-                    <li class="list-group-item">Bankdaten</li>
+                    <li class="list-group-item">Nutzername: {{user.username}}</li>
+                    <li class="list-group-item">Email: {{user.email}}</li>
+                    <li class="list-group-item">Firma: {{user.company}}</li>
+                    <li class="list-group-item">Telefon: {{user.phone}}</li>
+                    <li class="list-group-item">Homepage: {{user.homepage}}</li>
                 </ul>
                 <div class="col-md-11 text-right">
                     <a class="btn btn-primary">editieren</a>
                 </div>
             </div>
-            <div class="col-md-11">
-                <h1>Fotografenkonto</h1>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisici elit,
-                    <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-                    <br>Ut enim ad minim veniam, quis nostrud</p>
-
-                <h3 contenteditable="true">Persönliche Daten</h3>
+            <div class="col-md-11" ng-show="isPhotographer()">
+                <h3>Bankdaten</h3>
                 <ul class="list-group">
-                    <li class="list-group-item">Name</li>
-                    <li class="list-group-item">Addresse</li>
-                    <li class="list-group-item">Bankdaten</li>
+                    <li class="list-group-item">IBAN: {{user.iban}}</li>
+                    <li class="list-group-item">SWIFT: {{user.swift}}</li>
                 </ul>
                 <div class="col-md-11 text-right">
                     <a class="btn btn-primary">editieren</a>

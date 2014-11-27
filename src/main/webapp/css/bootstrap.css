@@ -6662,18 +6662,18 @@ button.close {
     }
 }
 
-#content{
+#content {
     margin-bottom: 50px;
 }
 
-#footer{
+#footer {
     margin-bottom: 0px;
     position: fixed;
     width: 100%;
     bottom: 0;
 }
 
-#header{
+#header {
     width: 100%;
     top: 0;
 }

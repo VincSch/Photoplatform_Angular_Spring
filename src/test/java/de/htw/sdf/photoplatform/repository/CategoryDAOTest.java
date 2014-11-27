@@ -6,15 +6,13 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import org.junit.Assert;
-
+import de.htw.sdf.photoplatform.common.BaseImageTester;
+import de.htw.sdf.photoplatform.persistence.model.Category;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import de.htw.sdf.photoplatform.common.BaseImageTester;
-import de.htw.sdf.photoplatform.persistence.model.Category;
 
 public class CategoryDAOTest extends BaseImageTester {
     @Autowired

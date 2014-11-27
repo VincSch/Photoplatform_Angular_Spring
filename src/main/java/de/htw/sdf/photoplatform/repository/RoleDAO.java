@@ -15,16 +15,13 @@ import java.util.List;
  * Interface defining repository methods for roles.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- * 
  */
 public interface RoleDAO extends GenericDAO<Role> {
 
     /**
      * find a role by its unique name.
-     * 
-     * @param name
-     *            unique name
-     * 
+     *
+     * @param name unique name
      * @return the role entity
      */
     Role findByName(final String name);

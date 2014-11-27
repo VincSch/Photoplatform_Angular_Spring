@@ -18,9 +18,7 @@ public interface CategoryDAO extends GenericDAO<Category> {
     /**
      * Returns category by name.
      *
-     * @param name
-     *            category name.
-     *
+     * @param name category name.
      * @return category.
      */
     Category findByName(String name);

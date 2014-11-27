@@ -86,7 +86,7 @@ public final class Endpoints {
      * unlock a user.
      */
     public static final String USER_UNLOCK = "/user/unlock/{id}";
-    
+
     /**
      * Private Endpoint constructor.
      */

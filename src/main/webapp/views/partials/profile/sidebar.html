@@ -11,7 +11,7 @@
     <li role="presentation" ng-show="isAdmin()">
         <a href="/profile/admin">Admin Einstellungen</a>
     </li>
-    <li role="presentation">
+    <li role="presentation" ng-hide="isPhotographer()">
         <a href="/profile/photograph/register">Fotograph werden</a>
     </li>
 </ul>

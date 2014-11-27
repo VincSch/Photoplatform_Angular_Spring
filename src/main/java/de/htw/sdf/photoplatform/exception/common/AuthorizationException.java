@@ -2,7 +2,7 @@ package de.htw.sdf.photoplatform.exception.common;
 
 /**
  * The exception for not authorized action.
- *
+ * <p/>
  * you are caught in a trying to hack our system :(, police is on the way :)!
  *
  * @author Sergej Meister
@@ -14,11 +14,9 @@ public class AuthorizationException extends AbstractBaseException {
     /**
      * Web Form validation exceptions.
      *
-     * @param code
-     *            the code
+     * @param code the code
      */
-    public AuthorizationException(int code)
-    {
+    public AuthorizationException(int code) {
         super(code, "Authorization Exception");
     }
 }

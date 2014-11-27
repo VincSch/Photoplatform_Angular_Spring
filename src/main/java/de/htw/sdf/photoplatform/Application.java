@@ -27,7 +27,6 @@ import java.util.Locale;
  * of XML.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
- *
  */
 @Configuration
 @ComponentScan
@@ -42,8 +41,7 @@ public class Application extends WebMvcConfigurerAdapter {
     /**
      * Main method.
      *
-     * @param args
-     *            the args
+     * @param args the args
      */
     public static void main(final String[] args) {
         context = SpringApplication.run(Application.class);
@@ -74,7 +72,7 @@ public class Application extends WebMvcConfigurerAdapter {
      * current locale allows for easy testing by a developer, and also gives you
      * the option of including a select list in your UI that lets the user pick
      * the locale they prefer.
-     * 
+     *
      * @return the local change interceptor
      */
     @Bean
@@ -87,8 +85,7 @@ public class Application extends WebMvcConfigurerAdapter {
     /**
      * Add interceptor.
      *
-     * @param registry
-     *            the registry
+     * @param registry the registry
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

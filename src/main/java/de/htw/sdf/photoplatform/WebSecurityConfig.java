@@ -6,6 +6,10 @@
 
 package de.htw.sdf.photoplatform;
 
+import de.htw.sdf.photoplatform.persistence.model.Role;
+import de.htw.sdf.photoplatform.repository.UserDAO;
+import de.htw.sdf.photoplatform.security.XAuthTokenConfigurer;
+import de.htw.sdf.photoplatform.webservice.Endpoints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -24,13 +28,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 
-import de.htw.sdf.photoplatform.persistence.model.Role;
-import de.htw.sdf.photoplatform.repository.UserDAO;
-import de.htw.sdf.photoplatform.security.XAuthTokenConfigurer;
-import de.htw.sdf.photoplatform.webservice.Endpoints;
-
 /**
- *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */
 @EnableWebMvcSecurity
@@ -55,8 +53,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(
                 SessionCreationPolicy.STATELESS);
 
-        for (String endpoint : Endpoints.securedUserEndpoints())
-        {
+        for (String endpoint : Endpoints.securedUserEndpoints()) {
             http.authorizeRequests().antMatchers(endpoint).hasAnyRole(
                     removeRolePrefix(Role.PHOTOGRAPHER),
                     removeRolePrefix(Role.CUSTOMER),
@@ -102,9 +99,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Remove prefix ROLE_ cause Spring-Security requires format without ROLE_
      * for Web Security set up.
-     * 
-     * @param roleName
-     *            role name like ROLE_ADMIN
+     *
+     * @param roleName role name like ROLE_ADMIN
      * @return role name like ADMIN (deleted Prefix ROLE_)
      */
     private String removeRolePrefix(String roleName) {
