@@ -42,6 +42,12 @@ public class Collection extends AbstractBaseAuditEntity {
     private String description;
 
     /**
+     * Description.
+     */
+    @Column(name = "IS_PUBLIC")
+    private boolean isPublic;
+
+    /**
      * Key image for the collection.
      */
     @OneToOne
