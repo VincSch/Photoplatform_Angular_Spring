@@ -1,26 +1,28 @@
-<ul class="nav nav-pills nav-stacked">
-    <li>
-        <a href="/profile"><img src="/img/index.jpeg"></a>
-    </li>
-    <li role="presentation">
-        <a href="/profile/view">Mein Profil</a>
-    </li>
-    <li role="presentation">
-        <a href="/profile/shoppinglist">Meine Einkaufslisten</a>
-    </li>
-    <li role="presentation" ng-show="isAdmin()">
-        <a href="/profile/admin">Admin Einstellungen</a>
-    </li>
-    <li role="presentation" ng-show="isPhotographer()">
-        <a href="/profile/photograph/showcase">Mein Showcase</a>
-    </li>
-    <li role="presentation" ng-show="isPhotographer()">
-        <a href="/profile/photograph/collection">Sammlungsverwaltung</a>
-    </li>
-    <li role="presentation" ng-show="isPhotographer()">
-        <a href="/profile/photograph/image">Fotoverwaltung</a>
-    </li>
-    <li role="presentation" ng-hide="isPhotographer()">
-        <a href="/profile/photograph/register">Fotograph werden</a>
-    </li>
-</ul>
+<div class="list-group">
+            <span class="pull-right" id="slide-submenu">
+                <i class="fa fa-times"></i>
+            </span>
+    <a href="/profile/view" class="list-group-item">
+        <i class="fa fa-comment-o"></i> Mein Profil
+    </a>
+    <a href="/profile/shoppinglist" class="list-group-item">
+        <i class="fa fa-search"></i> Meine Einkaufsliste
+    </a>
+    <a href="/profile/admin" ng-show="isAdmin()" class="list-group-item">
+        <i class="fa fa-user"></i> Admin Einstellungen
+    </a>
+    <a href="/profile/photograph/showcase" ng-show="isPhotographer()" class="list-group-item">
+        <i ng-show="isPhotographer()" class="fa fa-folder-open-o"></i> Mein Showcase
+    </a>
+    <a href="/profile/photograph/collection" ng-show="isPhotographer()" class="list-group-item">
+        <i ng-show="isPhotographer()" class="fa fa-bar-chart-o"></i> Sammlungen <span ng-show="isPhotographer()"
+                                                                                      class="badge">14</span>
+    </a>
+    <a href="/profile/photograph/image" ng-show="isPhotographer()" class="list-group-item">
+        <i class="fa fa-envelope" ng-show="isPhotographer()"></i> Fotos <span ng-show="isPhotographer()" class="badge">55</span>
+    </a>
+    <a href="/profile/photograph/register" ng-hide="isPhotographer()" class="list-group-item">
+        <i class="fa fa-envelope"></i> Fotograph werden
+    </a>
+</div>
+</div>
