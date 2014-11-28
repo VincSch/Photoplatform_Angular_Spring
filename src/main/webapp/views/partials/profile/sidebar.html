@@ -11,6 +11,15 @@
     <li role="presentation" ng-show="isAdmin()">
         <a href="/profile/admin">Admin Einstellungen</a>
     </li>
+    <li role="presentation" ng-show="isPhotographer()">
+        <a href="/profile/photograph/showcase">Mein Showcase</a>
+    </li>
+    <li role="presentation" ng-show="isPhotographer()">
+        <a href="/profile/photograph/collection">Sammlungsverwaltung</a>
+    </li>
+    <li role="presentation" ng-show="isPhotographer()">
+        <a href="/profile/photograph/image">Fotoverwaltung</a>
+    </li>
     <li role="presentation" ng-hide="isPhotographer()">
         <a href="/profile/photograph/register">Fotograph werden</a>
     </li>
