@@ -5,23 +5,24 @@
 
 package de.htw.sdf.photoplatform.webservice;
 
-import de.htw.sdf.photoplatform.common.BaseAPITester;
-import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
-import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.hamcrest.Matchers.notNullValue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import de.htw.sdf.photoplatform.common.BaseAPITester;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
+import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 
 /**
- * Test for user login register user
+ * Test for user loginAsAdmin register user
  *
  * @author <a href="mailto:s0531603@htw-berlin.de">Daniil Tomilow</a>
  */

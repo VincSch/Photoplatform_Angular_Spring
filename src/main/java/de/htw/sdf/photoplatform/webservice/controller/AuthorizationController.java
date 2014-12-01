@@ -3,15 +3,16 @@
  */
 package de.htw.sdf.photoplatform.webservice.controller;
 
-import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
-import de.htw.sdf.photoplatform.exception.common.AuthorizationException;
-import de.htw.sdf.photoplatform.manager.UserManager;
-import de.htw.sdf.photoplatform.persistence.model.User;
+import javax.annotation.Resource;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
-import javax.annotation.Resource;
+import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
+import de.htw.sdf.photoplatform.exception.common.AuthorizationException;
+import de.htw.sdf.photoplatform.manager.UserManager;
+import de.htw.sdf.photoplatform.persistence.model.User;
 
 /**
  * This controller authorize the users permissions.
@@ -30,8 +31,7 @@ public class AuthorizationController {
      * @param requestUserId id of user, that call webservice.
      */
     public void isSigned(String requestUserId) throws AbstractBaseException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authenticatedUser = (User) authentication.getPrincipal();
+        User authenticatedUser = getAuthenticatedUser();
         checkUserId(requestUserId, authenticatedUser.getId());
     }
 
@@ -54,12 +54,21 @@ public class AuthorizationController {
      * @param requestUserId id of user, that call webservice.
      */
     public void checkUserPermissions(String requestUserId) throws AbstractBaseException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authenticatedUser = (User) authentication.getPrincipal();
+        User authenticatedUser = getAuthenticatedUser();
         if (authenticatedUser.isAdmin()) {
             return;
         }
 
         checkUserId(requestUserId, authenticatedUser.getId());
+    }
+
+    /**
+     * Returns authenticated user.
+     *
+     * @return user.
+     */
+    public User getAuthenticatedUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (User) authentication.getPrincipal();
     }
 }
