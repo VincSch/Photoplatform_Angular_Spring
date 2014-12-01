@@ -74,6 +74,13 @@ public final class Endpoints {
     public static final String USERS_BECOME_PHOTOGRAPHERS = "/users/becomephotographers";
 
     /**
+     * all photograph's collections.
+     *
+     * Will be used to find all photograph's collections.
+     */
+    public static final String COLLECTIONS_PHOTOGRAPHERS = "/collections/photographers";
+
+    /**
      * all photograph's images.
      *
      * Will be used to find all photograph's images.
@@ -152,6 +159,7 @@ public final class Endpoints {
                 restBuilder(USERS_UPDATE),
                 restBuilder(USERS_START_COUNT),
                 restBuilder(IMAGES_PHOTOGRAPHERS),
+                restBuilder(COLLECTIONS_PHOTOGRAPHERS),
                 restBuilder(USERS_BECOME_PHOTOGRAPHERS)
         };
         return securedEndpoints;

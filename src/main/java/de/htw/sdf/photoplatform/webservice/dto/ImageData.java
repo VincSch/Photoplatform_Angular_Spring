@@ -5,11 +5,12 @@ package de.htw.sdf.photoplatform.webservice.dto;
 
 import java.io.Serializable;
 
+import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
 
 /**
- * Data transfer object to get and update user data. Represents the domain
- * object Image.
+ * Data transfer object to get and update image data.
+ * Represents the domain object Image.
  *
  * @author Sergej Meister
  */
@@ -52,18 +53,27 @@ public class ImageData implements Serializable {
      * @param userImage user image.
      */
     public ImageData(UserImage userImage) {
-        this.imageId = userImage.getImage().getId().toString();
-        this.name = userImage.getImage().getName();
-        this.description = userImage.getImage().getDescription();
-        this.price = userImage.getImage().getPrice();
-        this.compression = userImage.getImage().getCompression();
-        this.xDemension = userImage.getImage().getXDemension();
-        this.yDemension = userImage.getImage().getYDemension();
-        this.xResolution = userImage.getImage().getXResolution();
-        this.yResolution = userImage.getImage().getYResolution();
-        this.resolutionUnit = userImage.getImage().getResolutionUnit();
-        this.path = userImage.getImage().getPath();
+        this(userImage.getImage());
         this.userData = new UserData(userImage.getUser());
+    }
+
+    /**
+     * Constructor for Image.
+     *
+     * @param image user image.
+     */
+    public ImageData(Image image) {
+        this.imageId = image.getId().toString();
+        this.name = image.getName();
+        this.description = image.getDescription();
+        this.price = image.getPrice();
+        this.compression = image.getCompression();
+        this.xDemension = image.getXDemension();
+        this.yDemension = image.getYDemension();
+        this.xResolution = image.getXResolution();
+        this.yResolution = image.getYResolution();
+        this.resolutionUnit = image.getResolutionUnit();
+        this.path = image.getPath();
     }
 
     /**
