@@ -26,7 +26,6 @@ public class ViewController {
             "/login",
             "/profile",
             "/profile/**",
-            "/admin",
             "/wellcomeuser",
             "/becomePhotographer",
             "/cart"}, method = RequestMethod.GET)
