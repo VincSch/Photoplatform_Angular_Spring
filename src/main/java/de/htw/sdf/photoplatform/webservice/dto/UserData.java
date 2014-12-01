@@ -21,7 +21,6 @@ import java.util.List;
  */
 public class UserData implements Serializable {
 
-    @NotEmpty
     private Long id;
 
     @Email
@@ -42,6 +41,12 @@ public class UserData implements Serializable {
 
     private String secToken;
     private List<String> roles;
+
+
+    /**
+     * Default constructor
+     */
+    public UserData(){}
 
     /**
      * Public constructor.

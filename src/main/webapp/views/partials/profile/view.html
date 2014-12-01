@@ -3,37 +3,349 @@
     <div class="col-md-10">
         <div class="page-header">
             <h2>Ihr Kundenkonto</h2>
+
+            <p>Ändern oder vervollständigen Sie Ihre Nutzerdaten.</p>
         </div>
+
         <div class="row">
-            <div class="col-md-11">
-                <p>Ändern oder verfollständigen Sie Ihre Nutzerdaten.</p>
-                <br>
-            </div>
-            <div class="col-md-11">
-                <ul class="list-group">
-                    <li class="list-group-item">Vorname: {{user.firstName}}</li>
-                    <li class="list-group-item">Nachname: {{user.lastName}}</li>
-                    <li class="list-group-item">Email: {{user.email}}</li>
-                </ul>
-                <div class="col-md-11 text-right">
-                    <a class="btn btn-primary">editieren</a>
+
+            <form name="form" class="form-horizontal" role="form" ng-controller="AuthCtrl"
+                  novalidate>
+                <div class="col-md-10">
+
+                <div class="form-group has-feedback"
+                     ng-class="{'has-error' : (form.email.$invalid || errors.email) && form.email.$dirty}">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label for="email" class="control-label input-group-addon">E-Mail</label>
+                            <input ng-model="user.email" name="email" type="email"
+                                   id="email" class="form-control" ng-disabled="!editEmail"
+                                   placeholder={{user.company}} required disabled>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-show="!editEmail" type="button"
+                                            ng-click="editEmail=!editEmail">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editEmail" type="button"
+                                            ng-disabled="form.email.$pristine"
+                                            ng-click="editEmail=!editEmail" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editEmail" type="button"
+                                            ng-click="editEmail=!editEmail" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                        </div>
+                        <div class="help-block" ng-show="form.email.$dirty && editEmail">
+                            <span ng-show="form.email.$error.required">Dieses Feld wird benötigt</span>
+                            <span ng-show="!form.email.$error.required && form.email.$error.email">Die E-Mail ist nicht ok</span>
+                            <span ng-show="errors.email">{{errors.email[0]}}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-11" ng-show="isPhotographer()">
-                <ul class="list-group">
-                    <li class="list-group-item">Firma: {{user.company}}</li>
-                    <li class="list-group-item">Telefon: {{user.phone}}</li>
-                    <li class="list-group-item">Homepage: {{user.homepage}}</li>
-                </ul>
-                <h3>Bankdaten</h3>
-                <ul class="list-group">
-                    <li class="list-group-item">IBAN: {{user.iban}}</li>
-                    <li class="list-group-item">SWIFT: {{user.swift}}</li>
-                </ul>
-                <div class="col-md-11 text-right">
-                    <a class="btn btn-primary">editieren</a>
+
+                <div class="form-group has-feedback"
+                     ng-class="{'has-error' : (form.firstName.$invalid || errors.firstName) && form.firstName.$dirty}">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label for="firstName" class="control-label input-group-addon">Vorname</label>
+                            <input ng-model="user.firstName" name="firstName" type="firstName"
+                                   id="firstName" class="form-control" ng-disabled="!editfirstName"
+                                   placeholder={{user.firstName}} required disabled>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-show="!editfirstName" type="button"
+                                            ng-click="editfirstName=!editfirstName">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editfirstName" type="button"
+                                            ng-disabled="form.firstName.$pristine"
+                                            ng-click="editfirstName=!editfirstName" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editfirstName" type="button"
+                                            ng-click="editfirstName=!editfirstName" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                        </div>
+                        <div class="help-block" ng-show="form.firstName.$dirty">
+                            <span ng-show="form.firstName.$error.required">Dieses Feld wird benötigt</span>
+                            <span ng-show="errors.firstName">{{errors.firstName[0]}}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+                <div class="form-group has-feedback"
+                     ng-class="{'has-error' : (form.lastName.$invalid || errors.lastName) && form.lastName.$dirty}">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label for="lastName" class="control-label input-group-addon">Nachname</label>
+                            <input ng-model="user.lastName" name="lastName" type="lastName"
+                                   id="lastName" class="form-control" ng-disabled="!editlastName"
+                                   placeholder={{user.lastName}} required disabled>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-show="!editlastName" type="button"
+                                            ng-click="editlastName=!editlastName">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editlastName" type="button"
+                                            ng-disabled="form.lastName.$pristine"
+                                            ng-click="editlastName=!editlastName" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editlastName" type="button"
+                                            ng-click="editlastName=!editlastName" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                        </div>
+                        <div class="help-block" ng-show="form.lastName.$dirty">
+                            <span ng-show="form.lastName.$error.required">Dieses Feld wird benötigt</span>
+                            <span ng-show="errors.lastName">{{errors.lastName[0]}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group has-feedback"
+                     ng-class="{'has-error' : (form.password.$invalid || errors.password || errors.passwordConfirm) && form.password.$dirty}">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label for="password" class="control-label input-group-addon">Passwort</label>
+                            <input ng-model="user.password" name="password" type="password"
+                                   id="password" class="form-control" ng-disabled="!editpassword"
+                                   placeholder="********" required disabled>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-show="!editpassword" type="button"
+                                            ng-click="editpassword=!editpassword">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editpassword" type="button"
+                                            ng-disabled="form.password.$pristine"
+                                            ng-click="editpassword=!editpassword" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editpassword" type="button"
+                                            ng-click="editpassword=!editpassword" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                        </div>
+                        <div class="help-block" ng-show="form.password.$dirty">
+                            <span ng-show="form.password.$error.required">Dieses Feld wird benötigt</span>
+                            <span ng-show="errors.password">{{errors.password[0]}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group has-feedback" ng-show="editpassword"
+                     ng-class="{'has-error' : (form.passwordConfirm.$invalid || errors.passwordConfirm) && form.passwordConfirm.$dirty}">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label for="passwordConfirm" class="control-label input-group-addon">Passwort
+                                bestätigen</label>
+                            <input ng-model="user.passwordConfirm" name="passwordConfirm"
+                                   type="password"
+                                   id="passwordConfirm" class="form-control"
+                                   placeholder="********" required>
+                                <span class="error" ng-show="error.errors.passwordConfirm"
+                                      class="glyphicon glyphicon-remove form-control-feedback"
+                                      aria-hidden="true"></span>
+                        </div>
+                        <div class="help-block" ng-show="form.passwordConfirm.$dirty">
+                            <span ng-show="form.passwordConfirm.$error.required">Dieses Feld wird benötigt</span>
+                            <span ng-show="errors.passwordConfirm">{{errors.passwordConfirm[0]}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="isPhotographer()">
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error' : (form.company.$invalid || errors.company) && form.company.$dirty}">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="company" class="control-label input-group-addon">Firma</label>
+                                <input ng-model="user.company" name="company" type="company"
+                                       id="company" class="form-control" ng-disabled="!editcompany"
+                                       placeholder={{user.company}} required disabled>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-show="!editcompany" type="button"
+                                            ng-click="editcompany=!editcompany">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editcompany" type="button"
+                                            ng-disabled="form.company.$pristine"
+                                            ng-click="editcompany=!editcompany" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editcompany" type="button"
+                                            ng-click="editcompany=!editcompany" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="help-block" ng-show="form.company.$dirty">
+                                <span ng-show="form.company.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.company">{{errors.company[0]}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error' : (form.phone.$invalid || errors.phone) && form.phone.$dirty}">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="phone" class="control-label input-group-addon">Telefon</label>
+                                <input ng-model="user.phone" name="phone" type="phone"
+                                       id="phone" class="form-control" ng-disabled="!editphone"
+                                       placeholder={{user.phone}} required disabled>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-show="!editphone" type="button"
+                                            ng-click="editphone=!editphone">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editphone" type="button"
+                                            ng-disabled="form.phone.$pristine"
+                                            ng-click="editphone=!editphone" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editphone" type="button"
+                                            ng-click="editphone=!editphone" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="help-block" ng-show="form.phone.$dirty">
+                                <span ng-show="form.phone.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.phone">{{errors.phone[0]}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error' : (form.homepage.$invalid || errors.homepage) && form.homepage.$dirty}">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="homepage" class="control-label input-group-addon">Homepage</label>
+                                <input ng-model="user.homepage" name="homepage" type="homepage"
+                                       id="homepage" class="form-control" ng-disabled="!edithomepage"
+                                       placeholder={{user.homepage}} disabled>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-show="!edithomepage" type="button"
+                                            ng-click="edithomepage=!edithomepage">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="edithomepage" type="button"
+                                            ng-disabled="form.homepage.$pristine"
+                                            ng-click="edithomepage=!edithomepage" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="edithomepage" type="button"
+                                            ng-click="edithomepage=!edithomepage" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="help-block" ng-show="form.homepage.$dirty">
+                                <span ng-show="errors.homepage">{{errors.homepage[0]}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error' : (form.paypalID.$invalid || errors.paypalID) && form.paypalID.$dirty}">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="paypalID" class="control-label input-group-addon">Paypal ID</label>
+                                <input ng-model="user.paypalID" name="paypalID" type="paypalID"
+                                       id="paypalID" class="form-control" ng-disabled="!editpaypalID"
+                                       placeholder={{user.paypalID}} required disabled>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-show="!editpaypalID" type="button"
+                                            ng-click="editpaypalID=!editpaypalID">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editpaypalID" type="button"
+                                            ng-disabled="form.paypalID.$pristine"
+                                            ng-click="editpaypalID=!editpaypalID" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editpaypalID" type="button"
+                                            ng-click="editpaypalID=!editpaypalID" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="help-block" ng-show="form.paypalID.$dirty">
+                                <span ng-show="form.paypalID.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.paypalID">{{errors.paypalID[0]}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error' : (form.iban.$invalid || errors.iban) && form.iban.$dirty}">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="iban" class="control-label input-group-addon">IBAN</label>
+                                <input ng-model="user.iban" name="iban" type="iban"
+                                       id="iban" class="form-control" ng-disabled="!editiban"
+                                       placeholder={{user.iban}} required disabled>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-show="!editiban" type="button"
+                                            ng-click="editiban=!editiban">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editiban" type="button"
+                                            ng-disabled="form.iban.$pristine"
+                                            ng-click="editiban=!editiban" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editiban" type="button"
+                                            ng-click="editiban=!editiban" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="help-block" ng-show="form.iban.$dirty">
+                                <span ng-show="form.iban.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.iban">{{errors.iban[0]}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error' : (form.swift.$invalid || errors.swift) && form.swift.$dirty}">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="swift" class="control-label input-group-addon">SWIFT</label>
+                                <input ng-model="user.swift" name="swift" type="swift"
+                                       id="swift" class="form-control" ng-disabled="!editswift"
+                                       placeholder={{user.swift}} required disabled>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-show="!editswift" type="button"
+                                            ng-click="editswift=!editswift">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editswift" type="button"
+                                            ng-disabled="form.swift.$pristine"
+                                            ng-click="editswift=!editswift" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-default" ng-show="editswift" type="button"
+                                            ng-click="editswift=!editswift" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="help-block" ng-show="form.swift.$dirty">
+                                <span ng-show="form.swift.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.swift">{{errors.swift[0]}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

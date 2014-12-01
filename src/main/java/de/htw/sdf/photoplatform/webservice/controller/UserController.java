@@ -98,7 +98,7 @@ public class UserController extends BaseAPIController {
 
         User user = getLoggedInUser();
 
-        return userManager.becomePhotographer(user.getId(), data.getCompany(), data.getPhone(),  data.getHomepage(),
+        return userManager.becomePhotographer(user.getId(), data.getCompany(), data.getPhone(), data.getHomepage(),
                 data.getPaypalID(), data.getIban(), data.getSwift());
     }
 
@@ -203,6 +203,8 @@ public class UserController extends BaseAPIController {
         User userToUpdate = userManager.findById(userData.getId());
         // change user data
         userToUpdate.setUsername(userData.getEmail());
+        userToUpdate.setFirstName(userData.getFirstName());
+        userToUpdate.setLastName(userData.getLastName());
         PhotographerData data = new PhotographerData();
         data.setPhone(userData.getPhone());
         data.setCompany(userData.getCompany());
@@ -211,6 +213,7 @@ public class UserController extends BaseAPIController {
         data.setIban(userData.getIban());
         data.setPaypalID(userData.getPaypalID());
         userToUpdate.setPhotographerData(data);
+        userManager.update(userToUpdate);
     }
 
     /**
