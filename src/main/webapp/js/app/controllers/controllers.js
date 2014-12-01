@@ -8,11 +8,11 @@ photoplatformControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$locat
 
         /**
          * Login user.
-         * @param username the username
+         * @param email the username
          * @param password the password
          */
-        $rootScope.login = function (username, password) {
-            UserService.login(username, password).success(function (user) {
+        $scope.login = function (email, password) {
+            UserService.login(email, password).success(function (user) {
                 $rootScope.user = user;
                 $http.defaults.headers.common[xAuthTokenHeaderName] = user.secToken;
                 $cookieStore.put('user', user);
@@ -31,10 +31,24 @@ photoplatformControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$locat
          * Register user
          * @param user  the user
          */
-        $rootScope.register = function (user) {
+        $scope.register = function (user) {
             UserService.register(user).success(function (data) {
                 $location.path("/login");
                 $rootScope.success = "Du hast dich erfolgreich registriert. Du kannst dich nun mit deinem Benutzernamen anmelden!";
+                $rootScope.transferSuccess = true;
+            }).error(function (data) {
+                $scope.errors = data.errors;
+            });
+        };
+
+        /**
+         * Become Photographer
+         * @param user photographer
+         */
+        $scope.becomePhotographer = function (user) {
+            UserService.becomePhotographer(user).success(function (data) {
+                $location.path("/profile");
+                $rootScope.success = "Du hast dich erfolgreich als Fotograf beworben. Ein Admin muss zuerst dein Account freischalten!";
                 $rootScope.transferSuccess = true;
             }).error(function (data) {
                 $scope.errors = data.errors;

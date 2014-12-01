@@ -19,14 +19,6 @@ import java.util.List;
 public interface UserDAO extends UserDetailsService, GenericDAO<User> {
 
     /**
-     * find a user by its unique name.
-     *
-     * @param userName unique name
-     * @return the user entity
-     */
-    User findByUserName(final String userName);
-
-    /**
      * Find user by specified email.
      *
      * @param email the email
@@ -80,10 +72,12 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
     /**
      * Returns all users by role and enabled filter.
      *
+     *
+     * @param roleName
      * @param enabled true, false
      * @return not admin users
      */
-    List<User> findByRoleAndEnabledFilter(final Long roleId, boolean enabled);
+    List<User> findByRoleAndEnabledFilter(final String roleName, boolean enabled);
 
     /**
      * Returns not admin users. If locked is true, than all not admin users
@@ -103,4 +97,12 @@ public interface UserDAO extends UserDetailsService, GenericDAO<User> {
      * @return all user data.
      */
     User findById(Long id);
+
+    /**
+     * Return list of photographers to activate
+     *
+     * @return list of users
+     */
+    List<User> findPhotographersToActivate();
+
 }

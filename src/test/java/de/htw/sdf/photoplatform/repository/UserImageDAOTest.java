@@ -30,7 +30,7 @@ public class UserImageDAOTest extends BaseImageTester {
     @Test
     public final void testGetUserImagesBy() throws Exception {
         // Init test data
-        User sergej = userDAO.findByUserName("Sergej");
+        User sergej = userDAO.findByEmail("sergej@test.de");
         String sergejImageName = "sergejImage";
         Image sergejImage = initDefaultImage(sergejImageName, Boolean.FALSE,
                 Boolean.TRUE, "c:/users/sergej/images");
@@ -40,7 +40,7 @@ public class UserImageDAOTest extends BaseImageTester {
         sergejUserImage.setImage(sergejImage);
         userImageDAO.create(sergejUserImage);
 
-        User vincent = userDAO.findByUserName("Vincent");
+        User vincent = userDAO.findByEmail("vincent@test.de");
         String vincentImageName = "vincentImage";
         Image vincentImage = initDefaultImage(vincentImageName, Boolean.FALSE,
                 Boolean.TRUE, "c:/users/vincent/images");

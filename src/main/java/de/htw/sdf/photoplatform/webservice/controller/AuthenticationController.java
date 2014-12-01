@@ -14,10 +14,9 @@ import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
-import de.htw.sdf.photoplatform.webservice.dto.request.UserCredential;
-import de.htw.sdf.photoplatform.webservice.dto.request.UserRegister;
-import de.htw.sdf.photoplatform.webservice.dto.response.UserData;
-import de.htw.sdf.photoplatform.webservice.util.UserUtility;
+import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
+import de.htw.sdf.photoplatform.webservice.dto.UserData;
+import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -70,7 +69,7 @@ public class AuthenticationController extends BaseAPIController {
         }
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                userCredential.getUsername(), userCredential.getPassword());
+                userCredential.getEmail(), userCredential.getPassword());
 
         Authentication authentication;
 
@@ -89,10 +88,10 @@ public class AuthenticationController extends BaseAPIController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         User user = (User) this.userDetailsService
-                .loadUserByUsername(userCredential.getUsername());
+                .loadUserByUsername(userCredential.getEmail());
         user.setSecToken(TokenUtils.createToken(user));
 
-        return UserUtility.getInstance().convertToUserData(user);
+        return new UserData(user);
     }
 
     /**
@@ -115,8 +114,7 @@ public class AuthenticationController extends BaseAPIController {
 
         if (bindingResult.hasErrors()) {
             // User input errors
-            log.info("-- register user fail: username = \""
-                    + userRegister.getUsername() + "; email = \""
+            log.info("-- register user fail: email = \""
                     + userRegister.getEmail() + "; password=\"**********\";");
 
             throw new BadRequestException("register", bindingResult);
@@ -124,16 +122,10 @@ public class AuthenticationController extends BaseAPIController {
 
         try {
             // Try to register user
-            userManager.registerUser(userRegister.getUsername(),
-                    userRegister.getEmail(), userRegister.getPassword());
+            userManager.registerUser(userRegister.getEmail(), userRegister.getFirstName(), userRegister.getLastName(),
+                    userRegister.getPassword());
         } catch (ManagerException ex) {
             switch (ex.getCode()) {
-                case AbstractBaseException.USER_USERNAME_EXISTS:
-                    bindingResult
-                            .addError(new FieldError("register", "username",
-                                    messages.getMessage("Username.exists")));
-                    break;
-
                 case AbstractBaseException.USER_EMAIL_EXISTS:
                     bindingResult.addError(new FieldError("register", "email",
                             messages.getMessage("Email.exists")));
@@ -155,7 +147,7 @@ public class AuthenticationController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.USER_BY_NAME, method = RequestMethod.GET)
     @ResponseBody
-    public User recipeByName(@PathVariable String name) {
+    public User userByName(@PathVariable String name) {
         return userManager.findByName(name);
     }
 

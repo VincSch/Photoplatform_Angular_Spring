@@ -38,10 +38,10 @@ public class RoleDAOImpl extends GenericDAOImpl<Role> implements RoleDAO {
     @Override
     public Role findByName(final String name) {
         String queryString = "SELECT role FROM Role role "
-                + "WHERE role.name like ?1";
+                + "WHERE role.name = :name";
 
         Query query = createQuery(queryString);
-        query.setParameter(1, name);
+        query.setParameter("name", name);
         return (Role) query.getSingleResult();
     }
 

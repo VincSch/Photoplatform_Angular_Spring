@@ -25,13 +25,7 @@ public class ImportSQLTester extends BaseTester {
     @Test
     public final void test1InitSqlData() {
         List<Role> roles = roleDAO.findAll();
-        Assert.assertTrue(roles.size() == 3);
-        Assert.assertTrue(roles.get(0).getId().equals(Role.ADMIN_ID));
-        Assert.assertTrue(roles.get(0).getName().equals(Role.ADMIN));
-        Assert.assertTrue(roles.get(1).getName().equals(Role.CUSTOMER));
-        Assert.assertTrue(roles.get(1).getId().equals(Role.CUSTOMER_ID));
-        Assert.assertTrue(roles.get(2).getId().equals(Role.PHOTOGRAPHER_ID));
-        Assert.assertTrue(roles.get(2).getName().equals(Role.PHOTOGRAPHER));
+        Assert.assertTrue(roles.size() == Role.DEFAULT_ROLES.size());
     }
 
     @Test
@@ -39,11 +33,8 @@ public class ImportSQLTester extends BaseTester {
     public final void test2AfterDelete() {
         List<Role> roles = roleDAO.findAll();
         Assert.assertTrue(roles.size() == 3);
-        Assert.assertTrue(roles.get(0).getId().equals(Role.ADMIN_ID));
         Assert.assertTrue(roles.get(0).getName().equals(Role.ADMIN));
-        Assert.assertTrue(roles.get(1).getId().equals(Role.CUSTOMER_ID));
         Assert.assertTrue(roles.get(1).getName().equals(Role.CUSTOMER));
-        Assert.assertTrue(roles.get(2).getId().equals(Role.PHOTOGRAPHER_ID));
         Assert.assertTrue(roles.get(2).getName().equals(Role.PHOTOGRAPHER));
     }
 }

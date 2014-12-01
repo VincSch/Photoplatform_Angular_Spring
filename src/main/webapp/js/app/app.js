@@ -118,10 +118,11 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
     $rootScope.ADMIN = "ROLE_ADMIN";
     $rootScope.CUSTOMER = "ROLE_CUSTOMER";
     $rootScope.PHOTOGRAPHER = "ROLE_PHOTOGRAPHER";
+    $rootScope.BECOME_PHOTOGRAPHER = "ROLE_BECOME_PHOTOGRAPHER";
     $rootScope.hasRole = function (role) {
         if ($rootScope.user !== undefined) {
-            for (var i = 0; i < $rootScope.user.authorities.length; ++i) {
-                if ($rootScope.user.authorities[i].name == role) {
+            for (var i = 0; i < $rootScope.user.roles.length; ++i) {
+                if ($rootScope.user.roles[i] == role) {
                     return true;
                 }
             }
@@ -139,6 +140,10 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
     $rootScope.isPhotographer = function () {
         return $rootScope.hasRole($rootScope.PHOTOGRAPHER);
+    };
+
+    $rootScope.isBecomePhotographer = function () {
+        return $rootScope.hasRole($rootScope.BECOME_PHOTOGRAPHER);
     };
 
     console.log($rootScope.user);

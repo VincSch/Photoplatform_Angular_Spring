@@ -11,17 +11,20 @@
             </div>
             <div class="col-md-11">
                 <ul class="list-group">
-                    <li class="list-group-item">Nutzername: {{user.username}}</li>
+                    <li class="list-group-item">Vorname: {{user.firstName}}</li>
+                    <li class="list-group-item">Nachname: {{user.lastName}}</li>
                     <li class="list-group-item">Email: {{user.email}}</li>
-                    <li class="list-group-item">Firma: {{user.company}}</li>
-                    <li class="list-group-item">Telefon: {{user.phone}}</li>
-                    <li class="list-group-item">Homepage: {{user.homepage}}</li>
                 </ul>
                 <div class="col-md-11 text-right">
                     <a class="btn btn-primary">editieren</a>
                 </div>
             </div>
             <div class="col-md-11" ng-show="isPhotographer()">
+                <ul class="list-group">
+                    <li class="list-group-item">Firma: {{user.company}}</li>
+                    <li class="list-group-item">Telefon: {{user.phone}}</li>
+                    <li class="list-group-item">Homepage: {{user.homepage}}</li>
+                </ul>
                 <h3>Bankdaten</h3>
                 <ul class="list-group">
                     <li class="list-group-item">IBAN: {{user.iban}}</li>

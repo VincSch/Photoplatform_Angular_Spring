@@ -9,9 +9,7 @@ package de.htw.sdf.photoplatform.common;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.htw.sdf.photoplatform.Application;
 import de.htw.sdf.photoplatform.DBUtil;
-import de.htw.sdf.photoplatform.persistence.model.Role;
 import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.persistence.model.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
@@ -21,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Application.class})
@@ -42,30 +42,15 @@ public abstract class BaseTester {
     @Autowired
     protected DBUtil dbUtil;
 
+    protected List<User> users;
+
     public final void insertTestData() {
-        dbUtil.insertTestData();
+        users = dbUtil.createUsers();
     }
 
     protected final void clearTables() {
         dbUtil.clearTables();
+        users = null;
     }
 
-    protected final User createDefaultUser(final String username,
-                                           final String password, final String email, final Role role,
-                                           final Boolean enabled, final Boolean locked) {
-        User defaultUser = new User();
-        defaultUser.setUserName(username);
-        defaultUser.setPassword(password);
-        defaultUser.setEnabled(enabled);
-        defaultUser.setAccountNonLocked(locked);
-        defaultUser.setEmail(email);
-        userDAO.create(defaultUser);
-
-        UserRole userRole = new UserRole();
-        userRole.setRole(role);
-        userRole.setUser(defaultUser);
-        userRoleDAO.create(userRole);
-
-        return defaultUser;
-    }
 }

@@ -56,7 +56,7 @@ public class AuthorizationController {
     public void checkUserPermissions(String requestUserId) throws AbstractBaseException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authenticatedUser = (User) authentication.getPrincipal();
-        if (userManager.isUserAdmin(authenticatedUser)) {
+        if (authenticatedUser.isAdmin()) {
             return;
         }
 

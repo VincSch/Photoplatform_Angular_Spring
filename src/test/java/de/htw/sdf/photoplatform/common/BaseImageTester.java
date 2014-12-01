@@ -78,7 +78,7 @@ public abstract class BaseImageTester extends BaseTester {
      * @return collection with id = null
      */
     protected final Collection initEmptyCollection(final String name) {
-        User sergejTestUser = userDAO.findByUserName("Sergej");
+        User sergejTestUser = userDAO.findByEmail("sergej@test.de");
         return initEmptyCollection(name, sergejTestUser);
     }
 

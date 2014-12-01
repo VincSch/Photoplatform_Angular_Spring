@@ -29,33 +29,26 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
 
     private static final long serialVersionUID = 3719799602561353931L;
 
-    @Column(name = "USERNAME", unique = true, nullable = false)
-    private String username;
+    // Used as username
+    @Column(name = "EMAIL", unique = true, nullable = false)
+    private String email;
+
+    @Column(name = "FIRST_NAME", nullable = false)
+    private String firstName;
+
+    @Column(name = "LAST_NAME", nullable = false)
+    private String lastName;
 
     @Column(name = "PASSWORD", nullable = false)
     @JsonIgnore
     private String password;
 
-    @Column(name = "SECTOKEN")
+    @Embedded
+    @Column(nullable = true)
+    private PhotographerData photographerData;
+
+    @Transient
     private String secToken;
-
-    @Column(name = "EMAIL", unique = true, nullable = false)
-    private String email;
-
-    @Column(name = "PHONE")
-    private String phone;
-
-    @Column(name = "COMPANY")
-    private String company;
-
-    @Column(name = "HOMEPAGE")
-    private String homepage;
-
-    @Column(name = "IBAN")
-    private String iban;
-
-    @Column(name = "SWIFT")
-    private String swift;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<UserRole> userRoles;
@@ -96,29 +89,83 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     }
 
     /**
+     * @param roleName the role
+     * @return true if role is included
+     */
+    @Transient
+    public boolean isRoleIncluded(final String roleName) {
+        List<UserRole> roles = getUserRoles();
+        if (roles == null) {
+            return false;
+        }
+
+        for (UserRole userRole : getUserRoles()) {
+            if (userRole.getRole().getName().equals(roleName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Transient
+    public boolean isAdmin() {
+        return isRoleIncluded(Role.ADMIN);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Transient
+    public boolean isPhotographer() {
+        return isRoleIncluded(Role.PHOTOGRAPHER);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     /**
-     * Set username.
+     * Set username as email.
      *
-     * @param username username
+     * @param email username
      */
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String email) {
+        this.email = email;
     }
 
     /**
-     * Set username.
-     *
-     * @param name the user name to set
+     * @return the first name
      */
-    public void setUserName(String name) {
-        this.username = name;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the first name to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the last name
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the last name to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
@@ -136,24 +183,6 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * Returns email.
-     *
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Set email.
-     *
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     /**
@@ -241,90 +270,25 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     }
 
     /**
-     * get phone number
+     * Return true if customer want to become a photographer
      *
-     * @return phone number
+     * @return true if want to become photographer
      */
-    public String getPhone() {
-        return phone;
+    public boolean isBecomePhotographer() {
+        return isRoleIncluded(Role.BECOME_PHOTOGRAPHER);
     }
 
     /**
-     * @param phone phone number of this user
+     * @return photographer data
      */
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public PhotographerData getPhotographerData() {
+        return photographerData;
     }
 
     /**
-     * get the company
-     *
-     * @return the company
+     * @param photographerData the photographer data to set
      */
-    public String getCompany() {
-        return company;
-    }
-
-    /**
-     * set the company
-     *
-     * @param company company name
-     */
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    /**
-     * get homepage
-     *
-     * @return homepage of this user
-     */
-    public String getHomepage() {
-        return homepage;
-    }
-
-    /**
-     * set homepage
-     *
-     * @param homepage homepage of the user
-     */
-    public void setHomepage(String homepage) {
-        this.homepage = homepage;
-    }
-
-    /**
-     * get the iban
-     *
-     * @return iban of the user
-     */
-    public String getIban() {
-        return iban;
-    }
-
-    /**
-     * set the iban
-     *
-     * @param iban iban to set
-     */
-    public void setIban(String iban) {
-        this.iban = iban;
-    }
-
-    /**
-     * get the swift
-     *
-     * @return swift of the user
-     */
-    public String getSwift() {
-        return swift;
-    }
-
-    /**
-     * set the swift
-     *
-     * @param swift value
-     */
-    public void setSwift(String swift) {
-        this.swift = swift;
+    public void setPhotographerData(PhotographerData photographerData) {
+        this.photographerData = photographerData;
     }
 }
