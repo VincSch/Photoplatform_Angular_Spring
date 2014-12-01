@@ -78,7 +78,7 @@ public class UserControllerTest extends BaseAPITester {
                         .characterEncoding("UTF-8")).andExpect(
                 status().isNotFound());
 
-        User sergejUser = userDAO.findByUserName("Sergej");
+        User sergejUser = userDAO.findByEmail("Sergej");
         String requestSergej = Endpoints.API_PREFIX
                 + Endpoints.USERS_PROFILE_BY_USER_ID.replace("{userId}",
                 sergejUser.getId().toString());

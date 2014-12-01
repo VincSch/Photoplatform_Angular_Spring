@@ -32,11 +32,6 @@ public abstract class AbstractBaseException extends Exception {
     /**
      * Email exists.
      */
-    public static final int USER_USERNAME_EXISTS = 11000;
-
-    /**
-     * Email exists.
-     */
     public static final int USER_EMAIL_EXISTS = 11002;
 
     /**

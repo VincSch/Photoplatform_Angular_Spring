@@ -41,29 +41,10 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
      * {@inheritDoc}
      */
     @Override
-    public User findByUserName(String userName) {
-        String queryString = "SELECT DISTINCT(user) FROM User user "
-                + "LEFT JOIN FETCH user.userRoles userRoles "
-                + "WHERE user.username like ?1";
-
-        Query query = createQuery(queryString);
-        query.setParameter(1, userName);
-
-        try {
-            return (User) query.getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public List<User> find(Integer start, Integer count) {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("WHERE user.enabled = true ");
-        queryBuilder.append("ORDER BY user.username ");
+        queryBuilder.append("ORDER BY user.id ");
         Query query = createQuery(queryBuilder.toString());
         query.setFirstResult(start.intValue());
         query.setMaxResults(count.intValue());
@@ -91,10 +72,10 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     @Override
     public UserDetails loadUserByUsername(final String username) {
         String queryString = "SELECT user FROM User user "
-                + "WHERE user.username = :username";
+                + "WHERE user.email = :email";
 
         Query query = createQuery(queryString);
-        query.setParameter("username", username);
+        query.setParameter("email", username);
 
         return (User) query.getSingleResult();
     }
@@ -151,14 +132,17 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     /**
      * {@inheritDoc}
      */
-    public List<User> findByRoleAndEnabledFilter(Long roleId, boolean enabled) {
-        StringBuilder queryBuilder = initSelectQuery();
-        queryBuilder.append("WHERE userRoles.role.id = :roleId ");
-        queryBuilder.append("AND user.enabled = :enabled");
+    @SuppressWarnings("unchecked")
+    public List<User> findByRoleAndEnabledFilter(String roleName, boolean enabled) {
+        StringBuilder sb = new StringBuilder("SELECT u FROM User u");
+        sb.append(" LEFT JOIN FETCH u.userRoles userRoles");
+        sb.append(" WHERE userRoles.role.name = :roleName ");
+        sb.append(" AND u.enabled = :enabled");
 
-        Query query = createQuery(queryBuilder.toString());
-        query.setParameter("roleId", roleId);
+        Query query = createQuery(sb.toString());
+        query.setParameter("roleName", roleName);
         query.setParameter("enabled", enabled);
+
         return (List<User>) query.getResultList();
     }
 
@@ -198,5 +182,18 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO,
     @Override
     public EntityManager getEntityManager() {
         return super.getEntityManager();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<User> findPhotographersToActivate() {
+        Query query = createQuery("SELECT u FROM User u WHERE u.userRole.role.name = :roleName");
+        query.setParameter("roleName", Role.BECOME_PHOTOGRAPHER);
+
+        return (List<User>) query.getResultList();
     }
 }

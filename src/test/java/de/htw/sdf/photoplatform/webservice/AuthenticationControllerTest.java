@@ -7,8 +7,8 @@ package de.htw.sdf.photoplatform.webservice;
 
 import de.htw.sdf.photoplatform.common.BaseAPITester;
 import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.webservice.dto.request.UserCredential;
-import de.htw.sdf.photoplatform.webservice.dto.request.UserRegister;
+import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
+import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,13 +34,14 @@ public class AuthenticationControllerTest extends BaseAPITester {//BaseTester {
 
     @Test
     public void testRegisterAndLoginUser() throws Exception {
-        String username = "test";
         String email = "test@test.de";
         String password = "password";
 
         UserRegister userRegister = new UserRegister();
-        userRegister.setUsername(username);
+
         userRegister.setEmail(email);
+        userRegister.setFirstName("valid");
+        userRegister.setLastName("user");
         userRegister.setPassword(password);
         userRegister.setPasswordConfirm(password);
 
@@ -54,7 +55,7 @@ public class AuthenticationControllerTest extends BaseAPITester {//BaseTester {
 
         // Login user
         UserCredential userCredential = new UserCredential();
-        userCredential.setUsername(username);
+        userCredential.setEmail(email);
         userCredential.setPassword(password);
 
         mockMvc.perform(
@@ -73,13 +74,16 @@ public class AuthenticationControllerTest extends BaseAPITester {//BaseTester {
      */
     @Test
     public void testLockedUser() throws Exception {
-        String username = "testLocked";
         String email = "testLocked@test.de";
+        String firstName = "Test";
+        String lastName = "Test";
         String password = "password";
 
         UserRegister userRegister = new UserRegister();
-        userRegister.setUsername(username);
         userRegister.setEmail(email);
+        userRegister.setFirstName(firstName);
+        userRegister.setLastName(lastName);
+        userRegister.setFirstName(email);
         userRegister.setPassword(password);
         userRegister.setPasswordConfirm(password);
 
@@ -92,7 +96,7 @@ public class AuthenticationControllerTest extends BaseAPITester {//BaseTester {
                 status().isOk());
 
         UserCredential userCredential = new UserCredential();
-        userCredential.setUsername(username);
+        userCredential.setEmail(email);
         userCredential.setPassword(password);
 
         mockMvc.perform(
@@ -101,7 +105,7 @@ public class AuthenticationControllerTest extends BaseAPITester {//BaseTester {
                         .accept(MediaType.APPLICATION_JSON)).andExpect(
                 status().isOk());
 
-        User user = userDAO.findByUserName(username);
+        User user = userDAO.findByEmail(email);
         user.setAccountNonLocked(false);
         userDAO.update(user);
 
@@ -124,7 +128,6 @@ public class AuthenticationControllerTest extends BaseAPITester {//BaseTester {
     @Test
     public void testRegisterUserWithInvalidEmail() throws Exception {
         UserRegister userRegister = new UserRegister();
-        userRegister.setUsername("testInvalid");
         userRegister.setEmail("invalidemail.de");
         userRegister.setPassword("1234");
         userRegister.setPasswordConfirm("1234");
@@ -141,7 +144,9 @@ public class AuthenticationControllerTest extends BaseAPITester {//BaseTester {
     @Test
     public void testRegisterUserConfirmPasswordFail() throws Exception {
         UserRegister userRegister = new UserRegister();
-        userRegister.setUsername("testInvalid");
+        userRegister.setFirstName("valid");
+        userRegister.setLastName("user");
+
         userRegister.setEmail("valid@mail.de");
         userRegister.setPassword("1234");
         userRegister.setPasswordConfirm("1wsd234");

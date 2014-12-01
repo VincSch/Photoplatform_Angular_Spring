@@ -31,7 +31,7 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
          * Become a Photographer.
          * @param user the user
          */
-        $rootScope.becomePhotographer = function (user) {
+        $scope.updatePhotographer = function (user) {
             UserService.updatePhotographer(user).success(function (data) {
                 console.log("Update Photographer");
             }).error(function (data) {

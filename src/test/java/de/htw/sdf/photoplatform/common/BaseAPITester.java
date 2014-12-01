@@ -4,7 +4,7 @@
 package de.htw.sdf.photoplatform.common;
 
 
-import de.htw.sdf.photoplatform.webservice.dto.request.UserCredential;
+import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,7 +32,7 @@ public abstract class BaseAPITester extends BaseTester {
      */
     protected void login() throws Exception {
         UserCredential userCredential = new UserCredential();
-        userCredential.setUsername("Vincent");
+        userCredential.setEmail("vincent@test.de");
         userCredential.setPassword("123");
 
         mockMvc.perform(

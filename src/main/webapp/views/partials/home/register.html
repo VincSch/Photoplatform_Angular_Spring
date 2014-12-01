@@ -11,22 +11,7 @@
                 <form name="form" class="form-horizontal" role="form" ng-controller="AuthCtrl"
                       novalidate>
                     <div class="form-group has-feedback"
-                         ng-class="{'has-error' : (form.username.$error.required || errors.username) && form.username.$dirty}">
-                        <div class="col-sm-5">
-                            <div class="input-group">
-                                <label for="username" class="control-label input-group-addon">Benutzername</label>
-                                <input ng-model="user.username" name="username"
-                                       id="username" class="form-control"
-                                       placeholder="Zwischen 3 und 30 Zeichen" required>
-                            </div>
-                            <div class="help-block" ng-show="form.username.$dirty">
-                                <span ng-show="form.username.$error.required">Dieses Feld wird benötigt</span>
-                                <span ng-show="errors.username">{{errors.username[0]}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group has-feedback"
-                         ng-class="{'has-error' : (form.email.$error.required || form.email.$error.email || errors.email) && form.email.$dirty}">
+                         ng-class="{'has-error' : (form.email.$invalid || errors.email) && form.email.$dirty}">
                         <div class="col-sm-5">
                             <div class="input-group">
                                 <label for="email" class="control-label input-group-addon">E-Mail</label>
@@ -42,7 +27,37 @@
                         </div>
                     </div>
                     <div class="form-group has-feedback"
-                         ng-class="{'has-error' : (form.password.$error.required || errors.password || errors.passwordConfirm) && form.password.$dirty}">
+                         ng-class="{'has-error' : (form.firstName.$invalid || errors.firstName) && form.firstName.$dirty}">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="firstName" class="control-label input-group-addon">Vorname</label>
+                                <input ng-model="user.firstName" name="firstName"
+                                       id="firstName" class="form-control"
+                                       placeholder="" requirred>
+                            </div>
+                            <div class="help-block" ng-show="form.firstName.$dirty">
+                                <span ng-show="form.firstName.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.firstName">{{errors.firstName[0]}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error' : (form.lastName.$invalid || errors.lastName) && form.lastName.$dirty}">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="lastName" class="control-label input-group-addon">Nachname</label>
+                                <input ng-model="user.lastName" name="lastName"
+                                       id="lastName" class="form-control"
+                                       placeholder="" requirred>
+                            </div>
+                            <div class="help-block" ng-show="form.lastName.$dirty">
+                                <span ng-show="form.lastName.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.lastName">{{errors.lastName[0]}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error' : (form.password.$invalid || errors.password || errors.passwordConfirm) && form.password.$dirty}">
                         <div class="col-sm-5">
                             <div class="input-group">
                                 <label for="password" class="control-label input-group-addon">Passwort</label>
@@ -57,7 +72,7 @@
                         </div>
                     </div>
                     <div class="form-group has-feedback"
-                         ng-class="{'has-error' : (form.passwordConfirm.$error.required || errors.passwordConfirm) && form.passwordConfirm.$dirty}">
+                         ng-class="{'has-error' : (form.passwordConfirm.$invalid || errors.passwordConfirm) && form.passwordConfirm.$dirty}">
                         <div class="col-sm-5">
                             <div class="input-group">
                                 <label for="passwordConfirm" class="control-label input-group-addon">Passwort

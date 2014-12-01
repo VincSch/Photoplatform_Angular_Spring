@@ -33,13 +33,16 @@ public class Role extends AbstractBaseEntity {
      * Role User.
      */
     public static final String CUSTOMER = "ROLE_CUSTOMER";
-    public static final Long CUSTOMER_ID = 2L;
 
     /**
      * Role Photographer.
      */
     public static final String PHOTOGRAPHER = "ROLE_PHOTOGRAPHER";
-    public static final Long PHOTOGRAPHER_ID = 3L;
+
+    /**
+     * Role Become Photographer.
+     */
+    public static final String BECOME_PHOTOGRAPHER = "ROLE_BECOME_PHOTOGRAPHER";
 
     /**
      * Default roles, added on start up. (Order is important).
@@ -50,6 +53,7 @@ public class Role extends AbstractBaseEntity {
         DEFAULT_ROLES.add(ADMIN); // Role has id 1
         DEFAULT_ROLES.add(CUSTOMER);
         DEFAULT_ROLES.add(PHOTOGRAPHER);
+        DEFAULT_ROLES.add(BECOME_PHOTOGRAPHER);
     }
 
     private static final long serialVersionUID = -219754255462744875L;
