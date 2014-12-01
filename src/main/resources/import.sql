@@ -94,9 +94,21 @@ INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('54','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/54');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('55','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/55');
 
--- images uploaded by photographer. None of them have been bought yet
+-- image collections created by photographer.
 INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('1','6', 'Natur pur!','Lorem ipsum dolor sit amet.');
 INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('2','5', 'Irgendwas!','Lorem ipsum dolor sit amet.');
 INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('3','4', 'Mal was Anderes','Lorem ipsum dolor sit amet.');
 INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('4','5', 'Schon wieder ne Sammlung','Lorem ipsum dolor sit amet.');
 INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('5','6', 'Paar Bilder','Lorem ipsum dolor sit amet.');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('6','3', 'Gebirge','Gebirge');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('7','3', 'Ocean','Ocean,Meer,See,Fluss');
+
+-- images uploaded by photographer. None of them have been bought yet
+INSERT INTO RES_USER_IMAGE (ID,OWNER_ID,USER_ID,IMAGE_ID) VALUES ('1','3', '3','14');
+INSERT INTO RES_USER_IMAGE (ID,OWNER_ID,USER_ID,IMAGE_ID) VALUES ('2','3', '3','15');
+INSERT INTO RES_USER_IMAGE (ID,OWNER_ID,USER_ID,IMAGE_ID) VALUES ('3','3', '3','25');
+INSERT INTO RES_USER_IMAGE (ID,OWNER_ID,USER_ID,IMAGE_ID) VALUES ('4','3', '3','50');
+INSERT INTO RES_USER_IMAGE (ID,OWNER_ID,USER_ID,IMAGE_ID) VALUES ('5','3', '3','51');
+INSERT INTO RES_USER_IMAGE (ID,OWNER_ID,USER_ID,IMAGE_ID) VALUES ('6','3', '3','52');
+INSERT INTO RES_USER_IMAGE (ID,OWNER_ID,USER_ID,IMAGE_ID) VALUES ('7','3', '3','53');
+INSERT INTO RES_USER_IMAGE (ID,OWNER_ID,USER_ID,IMAGE_ID) VALUES ('8','3', '3','54');
