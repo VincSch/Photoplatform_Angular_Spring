@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-2" ng-include src="'views/partials/profile/sidebar.html'"></div>
+    <div class="col-md-2" ng-include src="'/views/partials/profile/sidebar.html'"></div>
     <div class="col-md-10">
         <div class="page-header">
             <h2>Benutzer: {{userProfileData.firstName}} {{userProfileData.lastName}}</h2>
@@ -7,17 +7,30 @@
         <div class="row">
             <form class="form-horizontal" ng-controller="AdminEditUserCtrl">
                 <p>Rolen: <span ng-repeat="role in roles">{{role}}</span></p>
+
                 <div class="col-md-10">
                     <div class="col-sm-5">
                         <div class="input-group has-feedback"
-                             ng-class="{'has-error' : (form.username.$error.required || errors.username) && form.username.$dirty}">
-                            <label for="username" class="control-label input-group-addon">Name</label>
-                            <input name="username" id="username" placeholder="Username"
-                                   type="text" class="form-control" ng-model="userProfileData.username" required>
+                             ng-class="{'has-error' : (form.firstname.$error.required || errors.firstname) && form.firstname.$dirty}">
+                            <label for="firstname" class="control-label input-group-addon">Vorname</label>
+                            <input name="firstname" id="firstname" placeholder="Vorname"
+                                   type="text" class="form-control" ng-model="userProfileData.firstName" required>
                         </div>
-                        <div class="help-block" ng-show="form.username.$dirty">
-                            <span ng-show="form.username.$error.required">Dieses Feld wird benötigt</span>
-                            <span ng-show="errors.username">{{errors.username[0]}}</span>
+                        <div class="help-block" ng-show="form.firstname.$dirty">
+                            <span ng-show="form.firstname.$error.required">Dieses Feld wird benötigt</span>
+                            <span ng-show="errors.firstname">{{errors.firstname[0]}}</span>
+                        </div>
+                        <br>
+
+                        <div class="input-group has-feedback"
+                             ng-class="{'has-error' : (form.lastname.$error.required || errors.lastname) && form.lastname.$dirty}">
+                            <label for="lastname" class="control-label input-group-addon">Nachname</label>
+                            <input name="lastname" id="lastname" placeholder="Nachname"
+                                   type="text" class="form-control" ng-model="userProfileData.lastName" required>
+                        </div>
+                        <div class="help-block" ng-show="form.lastname.$dirty">
+                            <span ng-show="form.lastname.$error.required">Dieses Feld wird benötigt</span>
+                            <span ng-show="errors.lastname">{{errors.lastname[0]}}</span>
                         </div>
                         <br>
 
@@ -33,66 +46,78 @@
                         </div>
                         <br>
 
-                        <div class="input-group has-feedback"
-                             ng-class="{'has-error' : (form.company.$error.required || errors.company) && form.company.$dirty}">
-                            <label for="company" class="control-label input-group-addon">Firma</label>
-                            <input name="company" id="company" placeholder="Firma"
-                                   type="text" class="form-control" ng-model="userProfileData.company">
-                        </div>
-                        <div class="help-block" ng-show="form.company.$dirty">
-                            <span ng-show="errors.company">{{errors.company[0]}}</span>
-                        </div>
-                        <br>
+                        <div ng-show="isUserPhotographer()">
+                            <div class="input-group has-feedback"
+                                 ng-class="{'has-error' : (form.company.$error.required || errors.company) && form.company.$dirty}">
+                                <label for="company" class="control-label input-group-addon">Firma</label>
+                                <input name="company" id="company" placeholder="Firma"
+                                       type="text" class="form-control" ng-model="userProfileData.company">
+                            </div>
+                            <div class="help-block" ng-show="form.company.$dirty">
+                                <span ng-show="errors.company">{{errors.company[0]}}</span>
+                            </div>
+                            <br>
 
-                        <div class="input-group has-feedback"
-                             ng-class="{'has-error' : (form.phone.$error.required || errors.phone) && form.phone.$dirty}">
-                            <label for="phone" class="control-label input-group-addon">Telefon</label>
-                            <input name="phone" id="phone" placeholder="Telefon"
-                                   type="text" class="form-control" ng-model="userProfileData.phone">
-                        </div>
-                        <div class="help-block" ng-show="form.phone.$dirty">
-                            <span ng-show="errors.phone">{{errors.phone[0]}}</span>
-                        </div>
-                        <br>
+                            <div class="input-group has-feedback"
+                                 ng-class="{'has-error' : (form.phone.$error.required || errors.phone) && form.phone.$dirty}">
+                                <label for="phone" class="control-label input-group-addon">Telefon</label>
+                                <input name="phone" id="phone" placeholder="Telefon"
+                                       type="text" class="form-control" ng-model="userProfileData.phone">
+                            </div>
+                            <div class="help-block" ng-show="form.phone.$dirty">
+                                <span ng-show="errors.phone">{{errors.phone[0]}}</span>
+                            </div>
+                            <br>
 
-                        <div class="input-group has-feedback"
-                             ng-class="{'has-error' : (form.homepage.$error.required || errors.homepage) && form.homepage.$dirty}">
-                            <label for="homepage" class="control-label input-group-addon">Homepage</label>
-                            <input name="homepage" id="homepage" placeholder="Homepage"
-                                   type="text" class="form-control" ng-model="userProfileData.homepage">
-                        </div>
-                        <div class="help-block" ng-show="form.phone.$dirty">
-                            <span ng-show="errors.homepage">{{errors.homepage[0]}}</span>
-                        </div>
+                            <div class="input-group has-feedback"
+                                 ng-class="{'has-error' : (form.homepage.$error.required || errors.homepage) && form.homepage.$dirty}">
+                                <label for="homepage" class="control-label input-group-addon">Homepage</label>
+                                <input name="homepage" id="homepage" placeholder="Homepage"
+                                       type="text" class="form-control" ng-model="userProfileData.homepage">
+                            </div>
+                            <div class="help-block" ng-show="form.phone.$dirty">
+                                <span ng-show="errors.homepage">{{errors.homepage[0]}}</span>
+                            </div>
 
-                        <br>
+                            <br>
 
-                        <div class="input-group has-feedback"
-                             ng-class="{'has-error' : (form.iban.$error.required || errors.iban) && form.iban.$dirty}"
-                             ng-show="isPhotographer()">
-                            <label for="iban" class="control-label input-group-addon">IBAN</label>
-                            <input name="iban" id="iban" placeholder="IBAN"
-                                   type="text" class="form-control" ng-model="userProfileData.iban" required>
-                        </div>
-                        <div class="help-block" ng-show="form.iban.$dirty" ng-show="isPhotographer()">
-                            <span ng-show="form.iban.$error.required">Dieses Feld wird benötigt</span>
-                            <span ng-show="errors.iban">{{errors.iban[0]}}</span>
-                        </div>
+                            <div class="input-group has-feedback"
+                                 ng-class="{'has-error' : (form.paypal.$error.required || errors.paypal) && form.swift.paypal}">
+                                <label for="swift" class="control-label input-group-addon">PayPal</label>
+                                <input name="paypal" id="paypal" placeholder="Paypal-Account"
+                                       type="text" class="form-control" ng-model="userProfileData.paypalID" required>
+                            </div>
+                            <div class="help-block" ng-show="form.paypal.$dirty">
+                                <span ng-show="form.paypal.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.paypal">{{errors.paypal[0]}}</span>
+                            </div>
+                            <br>
 
-                        <br>
+                            <div class="input-group has-feedback"
+                                 ng-class="{'has-error' : (form.iban.$error.required || errors.iban) && form.iban.$dirty}">
+                                <label for="iban" class="control-label input-group-addon">IBAN</label>
+                                <input name="iban" id="iban" placeholder="IBAN"
+                                       type="text" class="form-control" ng-model="userProfileData.iban" required>
+                            </div>
+                            <div class="help-block" ng-show="form.iban.$dirty">
+                                <span ng-show="form.iban.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.iban">{{errors.iban[0]}}</span>
+                            </div>
 
-                        <div class="input-group has-feedback"
-                             ng-class="{'has-error' : (form.swift.$error.required || errors.swift) && form.swift.$dirty}"
-                             ng-show="isPhotographer()">
-                            <label for="swift" class="control-label input-group-addon">SWIFT</label>
-                            <input name="swift" id="swift" placeholder="SWIFT"
-                                   type="text" class="form-control" ng-model="userProfileData.swift" required>
+                            <br>
+
+                            <div class="input-group has-feedback"
+                                 ng-class="{'has-error' : (form.swift.$error.required || errors.swift) && form.swift.$dirty}">
+                                <label for="swift" class="control-label input-group-addon">SWIFT</label>
+                                <input name="swift" id="swift" placeholder="SWIFT"
+                                       type="text" class="form-control" ng-model="userProfileData.swift" required>
+                            </div>
+                            <div class="help-block" ng-show="form.swift.$dirty">
+                                <span ng-show="form.swift.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.swift">{{errors.swift[0]}}</span>
+                            </div>
+                            <br>
                         </div>
-                        <div class="help-block" ng-show="form.swift.$dirty" ng-show="isPhotographer()">
-                            <span ng-show="form.swift.$error.required">Dieses Feld wird benötigt</span>
-                            <span ng-show="errors.swift">{{errors.swift[0]}}</span>
-                        </div>
-                        <br>
                         <input ng-disabled="formNotEdited" type="submit" value="Spechern" class="btn btn-primary"
                                ng-click="save()"/>
                         <input type="submit" value="Abbrechen" class="btn btn-primary" ng-click="cancel()"/>
