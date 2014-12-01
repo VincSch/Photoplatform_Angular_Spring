@@ -35,7 +35,7 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
 
             }).error(function () {
             });
-        }
+        };
 
         $scope.lockUser = function (id) {
             UserService.lockUser(id)

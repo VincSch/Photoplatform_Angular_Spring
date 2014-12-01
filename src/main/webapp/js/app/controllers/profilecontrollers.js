@@ -14,25 +14,29 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
 /**
  * Photographer Controller.
  */
-photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', '$route',
-    function ($scope, $rootScope, $location, $http, $cookieStore, UserService, $route) {
-        var user = $cookieStore.get('user');
-        //if user is not logged in or logged in redirect to login page
-        if (undefined == user || !$rootScope.isLoggedIn()) {
-            $location.path("/login");
-            return;
-        } else if ($rootScope.isPhotographer()) {
-            // User is already a photographer
-            $location.path("/profile");
-            return;
-        }
+photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', 'PhotographerService', '$route',
+    function ($scope, $rootScope, $location, $http, $cookieStore, UserService, PhotographerService, $route) {
 
         /**
-         * Become a Photographer.
+         * Become Photographer
+         * @param user photographer
+         */
+        $scope.becomePhotographer = function (user) {
+            UserService.becomePhotographer(user).success(function (data) {
+                $location.path("/profile");
+                $rootScope.success = "Du hast dich erfolgreich als Fotograf beworben. Ein Admin muss zuerst dein Account freischalten!";
+                $rootScope.transferSuccess = true;
+            }).error(function (data) {
+                $scope.errors = data.errors;
+            });
+        };
+
+        /**
+         * Update a Photographer.
          * @param user the user
          */
         $scope.updatePhotographer = function (user) {
-            UserService.updatePhotographer(user).success(function (data) {
+            PhotographerService.updatePhotographer(user).success(function (data) {
                 console.log("Update Photographer");
             }).error(function (data) {
                 $scope.errors = data.errors;
@@ -44,7 +48,7 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
          * @param collection
          */
         $scope.createCollection = function(collection) {
-            UserService.updatePhotographer(user).success(function (data) {
+            PhotographerService.createCollection(collection.name, collection.description).success(function (data) {
                 console.log("Create Collection");
             }).error(function (data) {
                 $scope.errors = data.errors;

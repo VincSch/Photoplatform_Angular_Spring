@@ -6,10 +6,7 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -36,7 +33,7 @@ public class PhotographerData {
     @Column(name = "PHONE")
     private String phone;
 
-    @OneToOne(optional = true, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Collection> collections;
 
     /**

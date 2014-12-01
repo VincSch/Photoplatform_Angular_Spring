@@ -23,20 +23,12 @@ angular.module('photoplatform').factory('UserService', ['$http',
             return $http.post(urlBase + '/register', user);
         };
 
-        userService.becomePhotographer= function (user) {
+        userService.becomePhotographer = function (user) {
             return $http.post(urlBase + '/becomePhotographer', user);
         };
 
         userService.update = function (user) {
             return $http.post(urlBase + '/update', user);
-        };
-
-        userService.updatePhotographer = function (user) {
-            return $http.post(urlBase + '/updatePhotographer', user);
-        };
-
-        userService.createCollection = function (name) {
-            return $http.post(urlBase + '/collection', {'name' : namm});
         };
 
         userService.getUsers = function (name) {
@@ -56,7 +48,7 @@ angular.module('photoplatform').factory('UserService', ['$http',
         };
 
         userService.enablePhotographer = function (id) {
-            return $http.post(urlBase + '/enablephotographer', {userId : id});
+            return $http.post(urlBase + '/enablephotographer', {userId: id});
         };
 
         userService.makeAdmin = function (id) {
@@ -77,3 +69,38 @@ angular.module('photoplatform').factory('UserService', ['$http',
 
         return userService;
     }]);
+
+/**
+ * Photographer Service.
+ * Login, register and update user.
+ */
+angular.module('photoplatform').factory('PhotographerService', ['$http',
+    function ($http) {
+        var urlBase = '/api/photographer';
+
+        return {
+
+            /**
+             * Update photographer
+             *
+             * @param photographer
+             * @returns {HttpPromise}
+             */
+            updatePhotographer: function (photographer) {
+                return $http.post(urlBase + '/updatePhotographer', photographer);
+            },
+
+            /**
+             * Create new collection
+             *
+             * @param name
+             * @param description
+             * @returns {HttpPromise}
+             */
+            createCollection: function (name, description) {
+                return $http.post(urlBase + '/collection', {'name': name, 'description': description});
+            }
+        };
+
+    }])
+;
