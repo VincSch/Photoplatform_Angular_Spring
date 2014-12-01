@@ -33,4 +33,15 @@ public class ResourceControllerTest extends BaseAPITester {
                         .characterEncoding("UTF-8")).andExpect(
                 status().isOk());
     }
+
+    @Test
+    public void testGetPhotographersCollections() throws Exception {
+        loginAsPhotograph();
+
+        String request = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS;
+        mockMvc.perform(
+                get(request).contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")).andExpect(
+                status().isOk());
+    }
 }
