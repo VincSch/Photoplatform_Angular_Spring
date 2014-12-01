@@ -16,14 +16,7 @@ import java.util.List;
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */
-public interface CollectionManager {
-
-    /**
-     * persist a collection.
-     *
-     * @param entity the collection to create
-     */
-    void create(final Collection entity);
+public interface PhotographerManager {
 
     /**
      * update a collection.
@@ -46,29 +39,29 @@ public interface CollectionManager {
      * @param id collection id
      * @return collection class
      */
-    Collection findById(final long id);
+    Collection getCollectionById(final long id);
 
     /**
      * find all collections.
      *
      * @return a list of all collections
      */
-    List<Collection> findAll();
+    List<Collection> getAllCollection();
 
     /**
      * delete all collections.
      */
-    void deleteAll();
+    void deleteAllCollections();
 
     /**
      * Returns exact one with all data.
-     * <p/>
+     * <p>
      * Fetch all data.
      *
      * @param collectionId collection id
      * @return collection
      */
-    Collection findById(final Long collectionId);
+    Collection getCollectionById(final Long collectionId);
 
     /**
      * Returns list of user's collection.
@@ -76,5 +69,13 @@ public interface CollectionManager {
      * @param user collection owner.
      * @return list of user's collection
      */
-    List<Collection> findByUser(final User user);
+    List<Collection> getCollectionByUser(final User user);
+
+    /**
+     * Create collection
+     * @param userId the user id
+     * @param name   the name
+     * @param description the description
+     */
+    Collection createCollection(Long userId, String name, String description);
 }

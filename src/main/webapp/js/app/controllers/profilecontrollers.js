@@ -38,4 +38,16 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
                 $scope.errors = data.errors;
             })
         };
+
+        /**
+         * Create new collection
+         * @param collection
+         */
+        $scope.createCollection = function(collection) {
+            UserService.updatePhotographer(user).success(function (data) {
+                console.log("Create Collection");
+            }).error(function (data) {
+                $scope.errors = data.errors;
+            })
+        }
     }]);

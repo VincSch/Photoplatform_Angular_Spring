@@ -25,7 +25,7 @@ public class Collection extends AbstractBaseAuditEntity {
     /**
      * User.
      */
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
 
@@ -119,6 +119,21 @@ public class Collection extends AbstractBaseAuditEntity {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    /**
+     * @return is public
+     */
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    /**
+     * @param isPublic is public to set
+     */
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
 
     /**

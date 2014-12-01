@@ -45,7 +45,7 @@ public final class Endpoints {
     public static final String USER_REGISTER = "/user/register";
 
     /**
-     * USER_REGISTER.
+     * Become photographer.
      */
     public static final String USER_BECOME_PHOTOGRAPHER = "/user/becomePhotographer";
 
@@ -92,6 +92,16 @@ public final class Endpoints {
      * unlock a user.
      */
     public static final String USER_UNLOCK = "/user/unlock/{id}";
+
+    //
+    // Photographer Endpoints
+    //
+
+    /** Photograher collection */
+    public static final String PHOTOGRAPHER_COLLECTION = "/photographer/collection";
+
+    /** Return collection by  user id and collection is*/
+    public static final String PHOTOGRAPHER_COLLECTION_BY_ID = "/photographer/collection/{userId}/{collectionId}";
 
     /**
      * Private Endpoint constructor.

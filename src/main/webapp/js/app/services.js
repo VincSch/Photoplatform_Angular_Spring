@@ -35,6 +35,10 @@ angular.module('photoplatform').factory('UserService', ['$http',
             return $http.post(urlBase + '/updatePhotographer', user);
         };
 
+        userService.createCollection = function (name) {
+            return $http.post(urlBase + '/collection', {'name' : namm});
+        };
+
         userService.getUsers = function (name) {
             return $http.get(urlBase + '/byname/' + name);
         };
