@@ -1,5 +1,12 @@
 var xAuthTokenHeaderName = 'x-auth-token';
-var photoplatform = angular.module('photoplatform', ['ngRoute', 'ngCookies', 'photoplatformControllers', 'ui.bootstrap']);
+var photoplatform = angular.module('photoplatform',
+    [
+        'ngRoute',
+        'ngCookies',
+        'imageCtrl',
+        'photoplatformControllers',
+        'ui.bootstrap'
+    ]);
 
 /**
  * App configuration.

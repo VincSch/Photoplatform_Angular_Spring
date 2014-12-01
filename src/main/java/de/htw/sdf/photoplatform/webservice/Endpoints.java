@@ -88,6 +88,11 @@ public final class Endpoints {
     public static final String USER_UNLOCK = "/user/unlock/{id}";
 
     /**
+     * upload a picture.
+     */
+    public static final String PHOTOGRAPHER_UPLOAD = "/photographer/upload";
+
+    /**
      * Private Endpoint constructor.
      */
     private Endpoints() {
@@ -103,7 +108,7 @@ public final class Endpoints {
      */
     public static String[] securedUserEndpoints() {
         String[] securedEndpoints = {
-                restBuilder(USERS_UPDATE)
+            restBuilder(USERS_UPDATE)
         };
         return securedEndpoints;
     }
@@ -117,11 +122,11 @@ public final class Endpoints {
      */
     public static String[] securedAdminEndpoints() {
         String[] securedEndpoints = {
-                restBuilder(USERS_START_COUNT),
-                restBuilder(USERS_DISABLED_BY_ROLE),
-                restBuilder(USER_MAKE_ADMIN),
-                restBuilder(USER_LOCK),
-                restBuilder(USER_UNLOCK)
+            restBuilder(USERS_START_COUNT),
+            restBuilder(USERS_DISABLED_BY_ROLE),
+            restBuilder(USER_MAKE_ADMIN),
+            restBuilder(USER_LOCK),
+            restBuilder(USER_UNLOCK)
         };
         return securedEndpoints;
     }
@@ -135,9 +140,10 @@ public final class Endpoints {
      */
     public static String[] securedPhotographEndpoints() {
         String[] securedEndpoints = {
-                restBuilder(USERS_UPDATE),
-                restBuilder(USERS_START_COUNT),
-                restBuilder(USERS_DISABLED_BY_ROLE)
+            restBuilder(USERS_UPDATE),
+            restBuilder(PHOTOGRAPHER_UPLOAD),
+            restBuilder(USERS_START_COUNT),
+            restBuilder(USERS_DISABLED_BY_ROLE)
         };
         return securedEndpoints;
     }
