@@ -3,21 +3,26 @@
  */
 package de.htw.sdf.photoplatform.webservice.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.NotFoundException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
+import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
-import de.htw.sdf.photoplatform.persistence.model.Role;
+import de.htw.sdf.photoplatform.persistence.model.PhotographerData;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
-import de.htw.sdf.photoplatform.webservice.dto.response.UserData;
+import de.htw.sdf.photoplatform.webservice.dto.BecomePhotographer;
+import de.htw.sdf.photoplatform.webservice.dto.UserData;
 import de.htw.sdf.photoplatform.webservice.util.UserUtility;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -49,43 +54,64 @@ public class UserController extends BaseAPIController {
     public List<UserData> getEnabledUsers(@PathVariable int start,
                                           @PathVariable int count) throws IOException, AbstractBaseException {
         List<User> users = userManager.find(start, count);
-        return UserUtility.getInstance().convertToUserData(users);
+        return UserUtility.convertToUserData(users);
     }
 
     /**
-     * Return list of all disabled users by id.
+     * Return list of users who wants to be a photographer.
      *
-     * @param roleName role name.
      * @return list of all disabled users.
      * @throws IOException           input output exception.
      * @throws AbstractBaseException abstract exception.
      */
-    @RequestMapping(value = Endpoints.USERS_DISABLED_BY_ROLE, method = RequestMethod.GET)
+    @RequestMapping(value = Endpoints.USERS_BECOME_PHOTOGRAPHERS, method = RequestMethod.GET)
     @ResponseBody
-    public List<UserData> getDisabledUsersByRole(@PathVariable String roleName)
+    public List<UserData> getBecomePhotographers()
             throws IOException, AbstractBaseException {
-        if (roleName.trim().equals(Role.PHOTOGRAPHER)) {
-            List<User> users = userManager.findPhotographToActivate();
-            return UserUtility.getInstance().convertToUserData(users);
-        } else {
-            String msg = "The role ("
-                    + roleName
-                    + ") is not correct or get users for this role is not supported in this version!";
-            throw new BadRequestException(msg);
-        }
+        List<User> users = userManager.getPhotographersToActivate();
+
+        return UserUtility.convertToUserData(users);
     }
+
+
+    /**
+     * Become Photographer.
+     *
+     * @return data transfer object userData.
+     */
+    @RequestMapping(value = Endpoints.USER_BECOME_PHOTOGRAPHER, method = RequestMethod.POST)
+    @ResponseBody
+    public boolean becomePhotographer(@Valid @RequestBody BecomePhotographer data, BindingResult bindingResult)
+            throws BadRequestException, ManagerException {
+        if (bindingResult.hasErrors()) {
+            // User input errors
+            throw new BadRequestException("becomePhotographer", bindingResult);
+        }
+
+        User user = getLoggedInUser();
+
+        return userManager.becomePhotographer(user.getId(), data.getCompany(), data.getIban(), data.getSwift(),
+                data.getHomepage(), data.getPhone());
+    }
+
 
     /**
      * enable user with photographer role.
      *
-     * @param id user id.
+     * @param json user id.
      * @return data transfer object userData.
      */
-    @RequestMapping(value = Endpoints.USER_ENABLE_PHOTOGRAPH, method = RequestMethod.GET)
+    @RequestMapping(value = Endpoints.USER_ENABLE_PHOTOGRAPHER, method = RequestMethod.POST)
     @ResponseBody
-    public void enablePhotograph(@PathVariable String id) {
-        long longId = Long.valueOf(id);
-        userManager.enablePhotograph(longId);
+    public boolean enablePhotographer(@RequestBody String json) throws ManagerException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(json);
+        Long userId = mapper.convertValue(node.get("userId"),
+                Long.class);
+
+        userManager.enablePhotographer(userId);
+
+        return true;
     }
 
     /**
@@ -139,56 +165,44 @@ public class UserController extends BaseAPIController {
      * @param userData the full user data.
      * @throws AbstractBaseException the exception.
      */
-    @RequestMapping(value = Endpoints.USERS_UPDATE, method = {RequestMethod.POST})
+    @RequestMapping(value = Endpoints.USERS_UPDATE, method = {
+            RequestMethod.POST})
     @ResponseBody
-    public void updateUser(@RequestBody UserData userData, BindingResult bindingResult) throws AbstractBaseException {
+    public void updateUser(@Valid @RequestBody UserData userData,
+                           BindingResult bindingResult)
+            throws AbstractBaseException {
+
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException("updateUser", bindingResult);
+        }
+
         try {
-            authorizationController.checkUserPermissions(userData.getId().toString());
+            authorizationController
+                    .checkUserPermissions(userData.getId().toString());
         } catch (AbstractBaseException abe) {
             switch (abe.getCode()) {
                 case AbstractBaseException.AUTHORIZATION_NOT_VALID:
-                    ObjectError error = new ObjectError("authorization", messages
-                            .getMessage("SystemHack"));
+                    ObjectError error = new ObjectError("authorization",
+                            messages
+                                    .getMessage("SystemHack"));
                     throw new BadRequestException(error.getDefaultMessage());
                 default:
                     throw new RuntimeException("Unhandled error");
             }
         }
 
-        // validate.
-        validateProfileForm(userData, bindingResult);
-
         // find affected user
         User userToUpdate = userManager.findById(userData.getId());
         // change user data
-        userToUpdate.setUsername(userData.getUsername());
-        userToUpdate.setEmail(userData.getEmail());
-        userToUpdate.setPhone(userData.getPhone());
-        userToUpdate.setCompany(userData.getCompany());
-        userToUpdate.setHomepage(userData.getHomepage());
-        userToUpdate.setSwift(userData.getSwift());
-        userToUpdate.setIban(userData.getIban());
-        // update user
-        userManager.update(userToUpdate);
-    }
+        userToUpdate.setUsername(userData.getEmail());
+        PhotographerData data = new PhotographerData();
+        data.setPhone(userData.getPhone());
+        data.setCompany(userData.getCompany());
+        data.setHomepage(userData.getHomepage());
+        data.setSwift(userData.getSwift());
+        data.setIban(userData.getIban());
 
-    private void validateProfileForm(UserData userProfileData,
-                                     BindingResult bindingResult) throws BadRequestException {
-        // validate
-        try {
-            UserUtility.getInstance().validate(userProfileData);
-        } catch (AbstractBaseException abe) {
-            switch (abe.getCode()) {
-                case AbstractBaseException.USER_EMAIL_NOT_VALID:
-                    bindingResult.addError(new ObjectError("email", messages
-                            .getMessage("Email")));
-                    break;
-                default:
-                    throw new RuntimeException("Unhandled error");
-            }
-
-            throw new BadRequestException("update user", bindingResult);
-        }
+        userToUpdate.setPhotographerData(data);
     }
 
     /**
@@ -197,16 +211,19 @@ public class UserController extends BaseAPIController {
      * @param userId the user id
      * @throws AbstractBaseException the exception
      */
-    @RequestMapping(value = Endpoints.USERS_PROFILE_BY_USER_ID, method = {RequestMethod.GET})
+    @RequestMapping(value = Endpoints.USERS_PROFILE_BY_USER_ID, method = {
+            RequestMethod.GET})
     @ResponseBody
-    public UserData getUserProfileData(@PathVariable String userId) throws AbstractBaseException {
+    public UserData getUserProfileData(@PathVariable String userId)
+            throws AbstractBaseException {
         try {
             authorizationController.checkUserPermissions(userId);
         } catch (AbstractBaseException abe) {
             switch (abe.getCode()) {
                 case AbstractBaseException.AUTHORIZATION_NOT_VALID:
-                    ObjectError error = new ObjectError("authorization", messages
-                            .getMessage("SystemHack"));
+                    ObjectError error = new ObjectError("authorization",
+                            messages
+                                    .getMessage("SystemHack"));
                     throw new BadRequestException(error.getDefaultMessage());
                 default:
                     throw new RuntimeException("Unhandled error");
@@ -214,7 +231,7 @@ public class UserController extends BaseAPIController {
         }
 
         User user = findUserById(userId);
-        return UserUtility.getInstance().convertToUserData(user);
+        return new UserData(user);
     }
 
     /**

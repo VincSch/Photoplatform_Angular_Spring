@@ -17,24 +17,24 @@
 <nav id="slide-menu">
     <ul>
         <li ng-show="isLoggedIn()">
-            <a href="#/profile">
+            <a href="/profile">
                 <span class="glyphicon glyphicon-user"></span>
-                {{user.username}}
+                {{user.firstName}}
             </a></li>
         <li ng-show="isLoggedIn()">
-            <a href="#/cart">
+            <a href="/cart">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
                 Warenkorb
             </a>
         </li>
         <li class="sep" ng-hide="isLoggedIn()">
             <span class="glyphicon glyphicon-log-in"></span>
-            <a href="#/login">Anmelden</a>
+            <a href="/login">Anmelden</a>
         </li>
         <li ng-hide="isLoggedIn()">
             <span class="glyphicon glyphicon-pencil"></span>
             <a class="navbar-right"
-               href="#/register">Registrierung</a>
+               href="/register">Registrierung</a>
         </li>
         <li class="sep" ng-show="isLoggedIn()">
             <span class="glyphicon glyphicon-log-out"></span>
@@ -49,7 +49,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <div class="menu-trigger"></div>
-            <a class="navbar-brand" href="#">Photoplatform</a>
+            <a class="navbar-brand" href="/">Photoplatform</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,13 +58,13 @@
                 <!--<li class="active"><a href="#">Home</a></li>-->
                 <li ng-show="isLoggedIn()">
                     <a class="navbar-link"
-                       href="#/profile">
+                       href="/profile">
                         <span class="glyphicon glyphicon-user"></span>
-                        {{user.username}}
+                        {{user.firstName}}
                     </a>
                 </li>
                 <li>
-                    <a class="navbar-right" href="#/cart"
+                    <a class="navbar-right" href="/cart"
                        ng-show="isLoggedIn()">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         Warenkorb
@@ -72,7 +72,7 @@
                 </li>
                 <li>
                     <a class="navbar-right"
-                       href="#/register"
+                       href="/register"
                        ng-hide="isLoggedIn()">Registrierung</a>
                 </li>
                 <li>
@@ -87,10 +87,10 @@
                 <div class="form-group" ng-hide="isLoggedIn()">
                     <div class="input-group input-group">
                 <span class="input-group-addon" aria-hidden="true">
-                    <span class=" glyphicon glyphicon-user"></span>
+                    <span class=" glyphicon glyphicon-envelope"></span>
                 </span>
-                        <input type="text" name="username" ng-model="username"
-                               class="form-control" placeholder="Benutzername">
+                        <input type="email" name="email" ng-model="email"
+                               class="form-control" placeholder="E-Mail">
                     </div>
                     <div class="input-group input-group">
                         <span class="input-group-addon" aria-hidden="true">
@@ -102,7 +102,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary"
-                            ng-click="login(username, password)">Anmelden
+                            ng-click="login(email, password)">Anmelden
                     </button>
                 </div>
             </form>

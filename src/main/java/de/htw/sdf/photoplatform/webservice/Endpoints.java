@@ -43,6 +43,12 @@ public final class Endpoints {
      * USER_REGISTER.
      */
     public static final String USER_REGISTER = "/user/register";
+
+    /**
+     * USER_REGISTER.
+     */
+    public static final String USER_BECOME_PHOTOGRAPHER = "/user/becomePhotographer";
+
     /**
      * USERS_UPDATE.
      */
@@ -65,12 +71,12 @@ public final class Endpoints {
     /**
      * all disabled users for given role.
      */
-    public static final String USERS_DISABLED_BY_ROLE = "/users/disabled/{roleName}";
+    public static final String USERS_BECOME_PHOTOGRAPHERS = "/users/becomephotographers";
 
     /**
      * activates a photograph user
      */
-    public static final String USER_ENABLE_PHOTOGRAPH = "/user/enablephotograph/{id}";
+    public static final String USER_ENABLE_PHOTOGRAPHER = "/user/enablephotographer";
 
     /**
      * grants an user admin role
@@ -108,7 +114,8 @@ public final class Endpoints {
      */
     public static String[] securedUserEndpoints() {
         String[] securedEndpoints = {
-            restBuilder(USERS_UPDATE)
+                restBuilder(USERS_UPDATE),
+                restBuilder(USER_BECOME_PHOTOGRAPHER)
         };
         return securedEndpoints;
     }
@@ -122,11 +129,11 @@ public final class Endpoints {
      */
     public static String[] securedAdminEndpoints() {
         String[] securedEndpoints = {
-            restBuilder(USERS_START_COUNT),
-            restBuilder(USERS_DISABLED_BY_ROLE),
-            restBuilder(USER_MAKE_ADMIN),
-            restBuilder(USER_LOCK),
-            restBuilder(USER_UNLOCK)
+                restBuilder(USERS_START_COUNT),
+                restBuilder(USERS_BECOME_PHOTOGRAPHERS),
+                restBuilder(USER_MAKE_ADMIN),
+                restBuilder(USER_LOCK),
+                restBuilder(USER_UNLOCK)
         };
         return securedEndpoints;
     }
@@ -143,7 +150,7 @@ public final class Endpoints {
             restBuilder(USERS_UPDATE),
             restBuilder(PHOTOGRAPHER_UPLOAD),
             restBuilder(USERS_START_COUNT),
-            restBuilder(USERS_DISABLED_BY_ROLE)
+            restBuilder(USERS_BECOME_PHOTOGRAPHERS)
         };
         return securedEndpoints;
     }

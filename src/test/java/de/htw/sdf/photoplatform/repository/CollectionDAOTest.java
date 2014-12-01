@@ -6,6 +6,7 @@
 
 package de.htw.sdf.photoplatform.repository;
 
+import de.htw.sdf.photoplatform.DBUtil;
 import de.htw.sdf.photoplatform.common.BaseImageTester;
 import de.htw.sdf.photoplatform.persistence.model.*;
 import org.junit.After;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 public class CollectionDAOTest extends BaseImageTester {
+
     @Autowired
     private CategoryDAO categoryDAO;
 
@@ -49,7 +51,7 @@ public class CollectionDAOTest extends BaseImageTester {
         Collection createdCollection = collectionDAO.findById(testCollection
                 .getId());
         Assert.assertTrue(createdCollection.getUser().getUsername()
-                .equals("Sergej"));
+                .equals("sergej@test.de"));
         Assert.assertTrue(createdCollection.getName().equals(collectionName));
         Assert.assertNull(createdCollection.getThumbnail());
         Assert.assertTrue(createdCollection.getCollectionImages().isEmpty());
@@ -113,18 +115,17 @@ public class CollectionDAOTest extends BaseImageTester {
     @Test
     public final void testGetByUser() {
         // INIT TEST DATA
-        Role photographerRole = roleDAO.findOne(Role.PHOTOGRAPHER_ID);
-        User userOne = createDefaultUser("CollectionUser1", "67854",
-                "collctionuser1@web.de", photographerRole, Boolean.TRUE,
-                Boolean.TRUE);
+
+        Role photographerRole = roleDAO.findByName(Role.PHOTOGRAPHER);
+        User userOne = users.get(0);
+
         String collectionOneName = "MyFirstCollection";
         Collection collectionOne = initEmptyCollection(collectionOneName,
                 userOne);
         collectionDAO.create(collectionOne);
 
-        User userTwo = createDefaultUser("CollectionUser2", "67854",
-                "collctionuser2@web.de", photographerRole, Boolean.TRUE,
-                Boolean.TRUE);
+        User userTwo = users.get(1);
+
         Collection collectionTwo = initEmptyCollection(collectionOneName,
                 userTwo);
         collectionDAO.create(collectionTwo);
@@ -161,7 +162,7 @@ public class CollectionDAOTest extends BaseImageTester {
     @Test
     public final void testGetCategories() {
         // Init Test Data
-        User userOne = userDAO.findByUserName("Vincent");
+        User userOne = userDAO.findByEmail("vincent@test.de");
         String collectionName = "CollectionNaturOcean";
         Collection testCollection = initEmptyCollection(collectionName, userOne);
         collectionDAO.create(testCollection);

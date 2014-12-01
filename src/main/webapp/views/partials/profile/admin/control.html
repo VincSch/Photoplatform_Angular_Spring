@@ -18,15 +18,17 @@
                     <tr>
                         <th>#</th>
                         <th>Benutzer</th>
+                        <th>E-Mail</th>
                         <th>Freischalten</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="user in photographTableFilteredUsers">
-                        <td>{{user.index}}</td>
-                        <td>{{user.username}}</td>
+                        <td>{{$index}}</td>
+                        <td>{{user.firstName}} {{user.lastName}}</td>
+                        <td>{{user.email}}</td>
                         <td draggable="true">
-                            <a ng-click="enablePhotograph(user.id)" class="btn btn-primary">aktivieren</a>
+                            <a ng-click="enablePhotographer(user.id)" class="btn btn-primary">aktivieren</a>
                         </td>
                     </tr>
                     </tbody>
@@ -70,8 +72,8 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="user in userTableFilteredUsers | filter:userTableSearchUsername">
-                        <td>{{user.index}}</td>
-                        <td>{{user.username}}</td>
+                        <td>{{$index}}</td>
+                        <td>{{user.firstName}} {{user.lastName}}</td>
                         <td draggable="true">
                             <a ng-click="edit(user.id)" class="btn btn-primary">editieren</a>
                         </td>

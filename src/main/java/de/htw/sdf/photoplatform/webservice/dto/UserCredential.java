@@ -4,8 +4,9 @@
  *
  */
 
-package de.htw.sdf.photoplatform.webservice.dto.request;
+package de.htw.sdf.photoplatform.webservice.dto;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Size;
@@ -18,25 +19,25 @@ import javax.validation.constraints.Size;
 public class UserCredential {
 
     @NotEmpty
-    @Size(min = 3, max = 30)
-    protected String username;
+    @Email
+    protected String email;
 
     @NotEmpty
     @Size(min = 3, max = 60)
     protected String password;
 
     /**
-     * @return the username
+     * @return the email
      */
-    public String getUsername() {
-        return username;
+    public final String getEmail() {
+        return email;
     }
 
     /**
-     * @param username the username to set
+     * @param email the email to set
      */
-    public void setUsername(String username) {
-        this.username = username;
+    public final void setEmail(final String email) {
+        this.email = email;
     }
 
     /**

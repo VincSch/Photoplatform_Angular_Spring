@@ -9,10 +9,7 @@ package de.htw.sdf.photoplatform.persistence.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Entity class for a user and his role/s recipes corresponding database table.
@@ -26,11 +23,11 @@ public class UserRole extends AbstractBaseAuditEntity {
     private static final long serialVersionUID = 1517204631630105586L;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
     private Role role;
 

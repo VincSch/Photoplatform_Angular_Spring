@@ -10,8 +10,8 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
             return;
         }
 
-        $scope.enablePhotograph = function (id) {
-            UserService.enablePhotograph(id).success(function (user) {
+        $scope.enablePhotographer = function (id) {
+            UserService.enablePhotographer(id).success(function (user) {
                 var RemovedIndex = -1;
                 $scope.photographTableFilteredUsers.forEach(function (elem, index) {
                     if (elem.id == user.id) {
@@ -22,7 +22,7 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
             }).error(function () {
             });
 
-        }
+        };
 
         $scope.makeAdmin = function (id) {
             UserService.makeAdmin(id).success(function (user) {
@@ -52,7 +52,7 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
                 .error(function () {
 
                 });
-        }
+        };
 
         $scope.unlockUser = function (id) {
             UserService.unlockUser(id)
@@ -69,11 +69,11 @@ photoplatformControllers.controller('AdminMenuCtrl', ['$scope', '$rootScope', '$
                 .error(function () {
 
                 });
-        }
+        };
         //Photograph table.
         $scope.photographTableCurrentPage = 1;
         $scope.photographTableNumPerPage = 5;
-        UserService.getDisabledUsersByRole($rootScope.PHOTOGRAPHER).success(function (users) {
+        UserService.getBecomePhotographers($rootScope.PHOTOGRAPHER).success(function (users) {
             $scope.photographTablePhotographs = users;
             $scope.photographTableTotalItems = users.length;
             $scope.photographTableShowPagination = users.length > $scope.photographTableNumPerPage;
@@ -144,6 +144,7 @@ photoplatformControllers.controller('AdminEditUserCtrl', ['$scope', '$routeParam
 
         UserService.getUserProfileData($scope.userId).success(function (responseUserProfileData) {
             $scope.userProfileData = responseUserProfileData;
+            $scope.roles = responseUserProfileData.roles;
         }).error(function (error) {
             console.log(error);
             $rootScope.error(error);
@@ -157,22 +158,10 @@ photoplatformControllers.controller('AdminEditUserCtrl', ['$scope', '$routeParam
                 $rootScope.error(error);
             });
             $location.path("/profile/admin");
-        }
+        };
 
         $scope.cancel = function () {
             $location.path("/profile/admin");
-        }
-
-
-        $scope.isPhotographer = function () {
-            if ($scope.userProfileData !== undefined) {
-                for (var i = 0; i < $scope.userProfileData.authorities.length; ++i) {
-                    if ($scope.userProfileData.authorities[i].name == $rootScope.PHOTOGRAPHER) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
+        };
 
     }]);

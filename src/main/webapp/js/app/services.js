@@ -10,9 +10,9 @@ angular.module('photoplatform').factory('UserService', ['$http',
 
         var userService = {};
 
-        userService.login = function (name, pw) {
+        userService.login = function (email, pw) {
             paramData = {
-                username: name,
+                email: email,
                 password: pw
             };
 
@@ -21,6 +21,10 @@ angular.module('photoplatform').factory('UserService', ['$http',
 
         userService.register = function (user) {
             return $http.post(urlBase + '/register', user);
+        };
+
+        userService.becomePhotographer= function (user) {
+            return $http.post(urlBase + '/becomePhotographer', user);
         };
 
         userService.update = function (user) {
@@ -43,12 +47,12 @@ angular.module('photoplatform').factory('UserService', ['$http',
             return $http.get(urlBaseList + '/profile/' + userId);
         };
 
-        userService.getDisabledUsersByRole = function (roleName) {
-            return $http.get(urlBaseList + '/disabled/' + roleName);
+        userService.getBecomePhotographers = function () {
+            return $http.get(urlBaseList + '/becomephotographers');
         };
 
-        userService.enablePhotograph = function (id) {
-            return $http.get(urlBase + '/enablephotograph/' + id);
+        userService.enablePhotographer = function (id) {
+            return $http.post(urlBase + '/enablephotographer', {userId : id});
         };
 
         userService.makeAdmin = function (id) {

@@ -9,6 +9,7 @@ package de.htw.sdf.photoplatform.manager.impl;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
+import de.htw.sdf.photoplatform.persistence.model.PhotographerData;
 import de.htw.sdf.photoplatform.persistence.model.Role;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserRole;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,19 +46,22 @@ public class UserManagerImpl implements UserManager {
      * {@inheritDoc}
      */
     @Override
-    public void registerUser(final String username, final String email,
-                             final String password) throws ManagerException {
+    public void registerUser(final String email,
+        final String firstName, final String lastName,
+        final String password) throws ManagerException {
 
-        checkUser(username, email, password);
+        checkUser(email, password);
 
         User user = new User();
-        user.setUsername(username);
+        // email is username!
+        user.setUsername(email);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
         user.setPassword(new BCryptPasswordEncoder().encode(password));
 
         // Enable user
         user.setAccountNonLocked(true);
         user.setEnabled(true);
-        user.setEmail(email);
 
         userDAO.create(user);
 
@@ -66,7 +71,7 @@ public class UserManagerImpl implements UserManager {
         Role role = roleDAO.findByName(Role.CUSTOMER);
         if (role == null) {
             throw new RuntimeException("User role = " + Role.CUSTOMER
-                    + " does not exists.");
+                + " does not exists.");
         }
 
         userRole.setRole(role);
@@ -76,26 +81,18 @@ public class UserManagerImpl implements UserManager {
     /**
      * Check is email or username already exists.
      *
-     * @param username the username
      * @param email    the email
      * @param password the password
      * @throws ManagerException the exception
      */
-    private void checkUser(final String username, final String email, final String password)
-            throws ManagerException {
-        if (username == null || email == null || password == null) {
+    private void checkUser(final String email, final String password)
+        throws ManagerException {
+        if (email == null || password == null) {
             throw new RuntimeException("This should not happen");
         }
 
-        // 1. check if username or email already exists in DB
-        User user = userDAO.findByUserName(username);
-        if (user != null) {
-            throw new ManagerException(
-                    AbstractBaseException.USER_USERNAME_EXISTS);
-        }
-
-        // 2. check if email already in use
-        user = userDAO.findByEmail(email);
+        // check if email already in use
+        User user = userDAO.findByEmail(email);
         if (user != null) {
             throw new ManagerException(AbstractBaseException.USER_EMAIL_EXISTS);
         }
@@ -140,7 +137,6 @@ public class UserManagerImpl implements UserManager {
     @Override
     public void deleteAll() {
         userDAO.deleteAll();
-
     }
 
     /**
@@ -148,7 +144,7 @@ public class UserManagerImpl implements UserManager {
      */
     @Override
     public User findByName(String username) {
-        return userDAO.findByUserName(username);
+        return userDAO.findByEmail(username);
     }
 
     /**
@@ -163,56 +159,31 @@ public class UserManagerImpl implements UserManager {
      * {@inheritDoc}
      */
     @Override
-    public Boolean isUserAdmin(User user) {
-        return isRoleIncluded(user, Role.ADMIN);
+    public List<User> getPhotographersToActivate() {
+        return userDAO.findByRoleAndEnabledFilter(Role.BECOME_PHOTOGRAPHER, true /* enabled */);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Boolean isUserPhotographer(User user) {
-        return isRoleIncluded(user, Role.PHOTOGRAPHER);
+    public List<User> getByRoleAndEnabled(String roleName, boolean enabled) {
+        return userDAO.findByRoleAndEnabledFilter(roleName, enabled);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Boolean isRoleIncluded(User user, String roleName) {
-        for (UserRole userRole : user.getUserRoles()) {
-            if (userRole.getRole().getName().equals(roleName)) {
-                return true;
-            }
+    public User enablePhotographer(long userId) throws ManagerException {
+        User user = userDAO.findOne(userId);
+        if (user == null) {
+            throw new ManagerException(AbstractBaseException.NOT_FOUND);
         }
-        return false;
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<User> findPhotographToActivate() {
-        return findByRoleAndEnabled(Role.PHOTOGRAPHER_ID, false);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<User> findByRoleAndEnabled(Long roleId, boolean enabled) {
-        return userDAO.findByRoleAndEnabledFilter(roleId, enabled);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public User enablePhotograph(long id) {
-        User user = userDAO.findOne(id);
-        if (isUserPhotographer(user) && (!user.isEnabled())) {
-            user.setEnabled(true);
-            userDAO.update(user);
+        if (user.isBecomePhotographer() && user.getPhotographerData() != null) {
+            removeRole(user, Role.BECOME_PHOTOGRAPHER);
+            addRole(user, Role.PHOTOGRAPHER);
         }
 
         return user;
@@ -223,17 +194,54 @@ public class UserManagerImpl implements UserManager {
      */
     @Override
     public User makeAdmin(long id) {
-        User user = userDAO.findOne(id);
-        if (!isUserAdmin(user)) {
-            Role admin = roleDAO.findOne(Role.ADMIN_ID);
+        User user = userDAO.findById(id);
+        return addRole(user, Role.ADMIN);
+    }
+
+    /**
+     * Add role to user
+     *
+     * @param user     the user id
+     * @param roleName the role name
+     * @return the user wih new role
+     */
+    private User addRole(User user, final String roleName) {
+        if (!user.isRoleIncluded(roleName)) {
+            Role role = roleDAO.findByName(roleName);
 
             UserRole userRole = new UserRole();
-            userRole.setRole(admin);
+            userRole.setRole(role);
             userRole.setUser(user);
             userRoleDAO.create(userRole);
-
-            userDAO.update(user);
+            List<UserRole> userRoles = user.getUserRoles();
+            userRoles.add(userRole);
+            user.setUserRoles(userRoles);
         }
+
+        return user;
+    }
+
+    /**
+     * Remove role from user
+     *
+     * @param user     the user id
+     * @param roleName the role name
+     * @return the user wih new role
+     */
+    private User removeRole(User user, final String roleName) {
+        if (user.isRoleIncluded(roleName)) {
+            List<UserRole> userRoles = new ArrayList<>();
+            for (UserRole userRole : user.getUserRoles()) {
+                if (userRole.getRole().getName().equals(roleName)) {
+                    userRoleDAO.delete(userRole);
+                } else {
+                    userRoles.add(userRole);
+                }
+            }
+
+            user.setUserRoles(userRoles);
+        }
+
         return user;
     }
 
@@ -257,5 +265,65 @@ public class UserManagerImpl implements UserManager {
         user.setAccountNonLocked(true);
         userDAO.update(user);
         return user;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean becomePhotographer(long userId, final String company,
+        final String iban, final String swift,
+        final String homepage, final String phone) throws ManagerException {
+        User user = userDAO.findById(userId);
+        if (user == null) {
+            throw new ManagerException(AbstractBaseException.NOT_FOUND);
+        }
+
+        if (user.isBecomePhotographer()) {
+            // User already want to be a photographer
+            return true;
+        }
+
+        PhotographerData data = new PhotographerData();
+        data.setCompany(company);
+        data.setHomepage(homepage);
+        data.setIban(iban);
+        data.setSwift(swift);
+        data.setPhone(phone);
+
+        user.setPhotographerData(data);
+
+        // User want to become photographer
+        addRole(user, Role.BECOME_PHOTOGRAPHER);
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean isUserAdmin(User user) {
+        return isRoleIncluded(user, Role.ADMIN);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean isUserPhotographer(User user) {
+        return isRoleIncluded(user, Role.PHOTOGRAPHER);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Boolean isRoleIncluded(User user, String roleName) {
+        for (UserRole userRole : user.getUserRoles()) {
+            if (userRole.getRole().getName().equals(roleName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

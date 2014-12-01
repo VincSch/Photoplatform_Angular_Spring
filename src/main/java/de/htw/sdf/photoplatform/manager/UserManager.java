@@ -21,13 +21,14 @@ public interface UserManager {
     /**
      * Register user.
      *
-     * @param username the username
-     * @param email    the email
-     * @param password the password
-     * @throws ManagerException the exception
+     * @param email     the email
+     * @param firstName
+     * @param lastName
+     * @param password  the password  @throws ManagerException the exception
      */
-    void registerUser(final String username, final String email,
-                      final String password) throws ManagerException;
+    void registerUser(final String email,
+        String firstName, String lastName, final String password)
+        throws ManagerException;
 
     /**
      * Update user data.
@@ -79,7 +80,7 @@ public interface UserManager {
      * @param id photograph user id.
      * @return user.
      */
-    User enablePhotograph(long id);
+    User enablePhotographer(long id) throws ManagerException;
 
     /**
      * grants the user admin rights.
@@ -121,16 +122,31 @@ public interface UserManager {
      *
      * @return users with role photograph.
      */
-    List<User> findPhotographToActivate();
+    List<User> getPhotographersToActivate();
 
     /**
      * Returns all photographs, that should be activated.
      *
-     * @param roleId  the role id
-     * @param enabled if true, enable
+     * @param roleName the role name
+     * @param enabled  if true, enable
      * @return users.
      */
-    List<User> findByRoleAndEnabled(Long roleId, boolean enabled);
+    List<User> getByRoleAndEnabled(String roleName, boolean enabled);
+
+    /**
+     * Become a photographer
+     *
+     * @param userId
+     * @param company  the company
+     * @param iban     the iban
+     * @param swift    the swift
+     * @param homepage the homepage
+     * @param phone
+     * @return user who wants to become photographer
+     */
+    boolean becomePhotographer(long userId, final String company,
+        final String iban, final String swift, final String homepage,
+        String phone) throws ManagerException;
 
     /**
      * Check user admin role.
