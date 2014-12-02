@@ -3,10 +3,9 @@
  */
 package de.htw.sdf.photoplatform.webservice;
 
-import de.htw.sdf.photoplatform.common.BaseAPITester;
-import de.htw.sdf.photoplatform.persistence.model.Role;
-import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.webservice.controller.UserController;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -14,8 +13,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import de.htw.sdf.photoplatform.common.BaseAPITester;
+import de.htw.sdf.photoplatform.persistence.model.Role;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.webservice.controller.UserController;
 
 /**
  * Tests for users services.
@@ -71,7 +72,7 @@ public class UserControllerTest extends BaseAPITester {
         String notExistId = "0";
         String requestNotExistId = Endpoints.API_PREFIX + Endpoints.USERS_PROFILE_BY_USER_ID.replace("{userId}", notExistId);
 
-        login();
+        loginAsAdmin();
 
         mockMvc.perform(
                 get(requestNotExistId).contentType(MediaType.APPLICATION_JSON)
@@ -101,7 +102,7 @@ public class UserControllerTest extends BaseAPITester {
     @Ignore
     public void testUpdateUserProfileData() throws Exception {
         //Init test data
-        login();
+        loginAsAdmin();
 
 //        User sergejUser = userDAO.findByUserName("Sergej");
 //        String sergejId = sergejUser.getId().toString();

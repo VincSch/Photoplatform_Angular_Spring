@@ -3,8 +3,24 @@
  */
 package de.htw.sdf.photoplatform.webservice.controller;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
+
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.NotFoundException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
@@ -17,14 +33,6 @@ import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.BecomePhotographer;
 import de.htw.sdf.photoplatform.webservice.dto.UserData;
 import de.htw.sdf.photoplatform.webservice.util.UserUtility;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import javax.validation.Valid;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * This controller present the REST user services.
@@ -54,7 +62,7 @@ public class UserController extends BaseAPIController {
     public List<UserData> getEnabledUsers(@PathVariable int start,
                                           @PathVariable int count) throws IOException, AbstractBaseException {
         List<User> users = userManager.find(start, count);
-        return UserUtility.convertToUserData(users);
+        return UserUtility.getInstance().convertToUserData(users);
     }
 
     /**
@@ -70,7 +78,7 @@ public class UserController extends BaseAPIController {
             throws IOException, AbstractBaseException {
         List<User> users = userManager.getPhotographersToActivate();
 
-        return UserUtility.convertToUserData(users);
+        return UserUtility.getInstance().convertToUserData(users);
     }
 
 
@@ -88,7 +96,7 @@ public class UserController extends BaseAPIController {
             throw new BadRequestException("becomePhotographer", bindingResult);
         }
 
-        User user = getLoggedInUser();
+        User user = getAuthenticatedUser();
 
         return userManager.becomePhotographer(user.getId(), data.getCompany(), data.getPhone(), data.getHomepage(),
                 data.getPaypalID(), data.getIban(), data.getSwift());
