@@ -66,21 +66,21 @@ public class DBUtil {
         final String password123 = "$2a$10$za9rDqJOMBXCWXEG5O4.U.1GqyXoiS0mjuiHwqhCvO9wRU6Z/NdGG";
 
         Role admin = roleDAO.findByName(Role.ADMIN);
-        users.add(createDefaultUser("vincent@test.de", "Vincent", "Test", password123, "EGCompany", "030555555", "wwww.mypage.com", null, null, admin));
+        users.add(createDefaultUser("vincent@test.de", "Vincent", "Test", password123, "EGCompany", "030555555", "wwww.mypage.com","mypaypalID", null, null, admin));
 
         Role customer = roleDAO.findByName(Role.CUSTOMER);
-        users.add(createDefaultUser("peter@test.de", "Peter", "Test", password123, "EGCompany", "030555555", "wwww.mypage.com", null, null, customer));
+        users.add(createDefaultUser("peter@test.de", "Peter", "Test", password123, "EGCompany", "030555555", "wwww.mypage.com","mypaypalID", null, null, customer));
 
         Role photographer = roleDAO.findByName(Role.PHOTOGRAPHER);
-        users.add(createDefaultUser("sergej@test.de", "Sergej", "Test", password123, "EGCompany", "030555555", "www.google.de", "iban", "swift", photographer));
+        users.add(createDefaultUser("sergej@test.de", "Sergej", "Test", password123, "EGCompany", "030555555", "www.google.de","mypaypalID", "iban", "swift", photographer));
 
         Role becomePhotographer = roleDAO.findByName(Role.BECOME_PHOTOGRAPHER);
-        users.add(createDefaultUser("become@photographer.de", "Become", "Photographer", password123, "EGCompany", "030555555", "www.google.de", "iban", "swift", becomePhotographer));
+        users.add(createDefaultUser("become@photographer.de", "Become", "Photographer", password123, "EGCompany", "030555555", "www.google.de","mypaypalID", "iban", "swift", becomePhotographer));
 
         return users;
     }
 
-    private User createDefaultUser(String email, String firstName, String lastName, String password, String company, String phone, String homepage, String iban, String swift, Role role) {
+    private User createDefaultUser(String email, String firstName, String lastName, String password, String company, String phone, String homepage, String paypalID, String iban, String swift, Role role) {
         User defaultUser = new User();
         defaultUser.setFirstName(firstName);
         defaultUser.setLastName(lastName);
@@ -93,6 +93,7 @@ public class DBUtil {
         data.setCompany(company);
         data.setPhone(phone);
         data.setHomepage(homepage);
+        data.setPaypalID(paypalID);
         data.setIban(iban);
         data.setSwift(swift);
         defaultUser.setPhotographerData(data);

@@ -6,7 +6,10 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 /**
@@ -21,17 +24,20 @@ public class PhotographerData {
     @Column(name = "COMPANY")
     private String company;
 
+    @Column(name = "PHONE")
+    private String phone;
+
     @Column(name = "HOMEPAGE")
     private String homepage;
+
+    @Column(name = "PAYPALID")
+    private String paypalID;
 
     @Column(name = "IBAN")
     private String iban;
 
     @Column(name = "SWIFT")
     private String swift;
-
-    @Column(name = "PHONE")
-    private String phone;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Collection> collections;
@@ -137,4 +143,18 @@ public class PhotographerData {
     public void setCollections(List<Collection> collections) {
         this.collections = collections;
     }
+
+    /**
+     * get the Paypal ID
+     *
+     * @return paypalID
+     */
+    public String getPaypalID() { return paypalID;}
+
+    /**
+     * set the Paypal ID
+     *
+     * @param paypalID
+     */
+    public void setPaypalID(String paypalID) { this.paypalID = paypalID;}
 }

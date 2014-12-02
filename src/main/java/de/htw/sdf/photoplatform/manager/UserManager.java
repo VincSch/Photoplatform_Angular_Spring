@@ -138,11 +138,12 @@ public interface UserManager {
      *
      * @param userId
      * @param company  the company
+     * @param phone    the phone number
+     * @param homepage the homepage
+     * @param paypalID the paypalID
      * @param iban     the iban
      * @param swift    the swift
-     * @param homepage the homepage
-     * @param phone
      * @return user who wants to become photographer
      */
-    boolean becomePhotographer(long userId, final String company, final String iban, final String swift, final String homepage, String phone) throws ManagerException;
+    boolean becomePhotographer(long userId, final String company, final String phone, final String homepage, final String paypalID, final String iban, final String swift) throws ManagerException;
 }

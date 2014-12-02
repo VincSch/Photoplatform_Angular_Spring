@@ -271,8 +271,8 @@ public class UserManagerImpl implements UserManager {
      * {@inheritDoc}
      */
     @Override
-    public boolean becomePhotographer(long userId, final String company, final String iban, final String swift,
-                                      final String homepage, final String phone) throws ManagerException {
+    public boolean becomePhotographer(long userId, final String company, final String phone,
+                                      final String homepage, final String paypalID, final String iban, final String swift) throws ManagerException {
         User user = userDAO.findById(userId);
         if (user == null) {
             throw new ManagerException(AbstractBaseException.NOT_FOUND);
@@ -289,6 +289,7 @@ public class UserManagerImpl implements UserManager {
         data.setIban(iban);
         data.setSwift(swift);
         data.setPhone(phone);
+        data.setPaypalID(paypalID);
 
         user.setPhotographerData(data);
 
