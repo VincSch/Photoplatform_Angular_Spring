@@ -1,14 +1,23 @@
-angular.module('photoplatform').factory('ImageService', ['$http',
-    function ($http) {
+angular.module('photoplatform')
+    .factory('ImageService', ['$http', '$rootScope',
+        function ($http, $rootScope) {
+            var urlBase = '/api/image';
+            var urlBaseList = '/api/images';
+            var imageService = {};
+            imageService.upload = function (postParam, user) {
+                var fd = new FormData();
+                angular.forEach(postParam, function (file) {
+                    fd.append('file', file);
+                });
+                return $http.post(urlBase + '/upload', fd,
+                    {
+                        transformRequest: angular.identity,
+                        headers: {
+                            'Content-Type': undefined,
+                            'x-auth-token': user.secToken
+                        }
+                    });
+            };
 
-        var urlBase = '/api/image';
-        var urlBaseList = '/api/images';
-
-        var imageService = {};
-
-        imageService.upload = function (postParam) {
-            return $http.post(urlBase + '/upload', postParam);
-        };
-
-        return imageService;
-    }]);
+            return imageService;
+        }]);

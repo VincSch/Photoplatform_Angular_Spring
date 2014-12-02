@@ -3,7 +3,6 @@ var photoplatform = angular.module('photoplatform',
     [
         'ngRoute',
         'ngCookies',
-        'imageCtrl',
         'photoplatformControllers',
         'ui.bootstrap'
     ]);
@@ -45,7 +44,7 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
             controller: ''
         }).when('/profile/photograph/image', {
             templateUrl: '/views/partials/profile/photographer/image.html',
-            controller: ''
+            controller: 'ImageCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
             controller: ''

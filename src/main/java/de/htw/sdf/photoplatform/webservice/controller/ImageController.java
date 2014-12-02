@@ -1,5 +1,6 @@
 package de.htw.sdf.photoplatform.webservice.controller;
 
+import de.htw.sdf.photoplatform.manager.HashManager;
 import de.htw.sdf.photoplatform.manager.ImageManager;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.Image;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -27,28 +27,24 @@ public class ImageController {
     public static final String THUMBNAIL_REQ_URI = "/thumbnail";
     private static final String PREFIX = "uploads/";
 
-    //    @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    //    public @ResponseBody String provideUploadInfo() {
-    //        return "You can upload a file by posting to this same URL.";
-    //    }
-
     @Resource
     private ImageManager imageManager;
+
     @Resource
     private UserManager userManager;
 
+    @Resource
+    private HashManager hashManager;
+
     @RequestMapping(value = "/upload/image", method = RequestMethod.POST)
     public @ResponseBody String handleImageUpload(
-        @RequestParam("file") MultipartFile file,
-        @RequestParam("name") String name,
-        @RequestParam("desc") String description,
-        @RequestParam("price") String price
+        @RequestParam("files") MultipartFile[] files
     ) {
         Authentication authentication = SecurityContextHolder.getContext()
             .getAuthentication();
         User user = (User) authentication.getPrincipal();
-        if (!file.isEmpty() &&
-            !name.isEmpty() &&
+
+        if (files.length != 0 &&
             userManager.isUserPhotographer(user)) {
             if (!FileUtils.isDirectory(PREFIX)) {
                 if (FileUtils.exists(PREFIX)) {
@@ -56,33 +52,39 @@ public class ImageController {
                 }
                 FileUtils.createDirectories(PREFIX);
             }
+            for (MultipartFile file : files) {
+                Image img = new Image();
+                imageManager.create(img);
+                Long db_id = img.getId();
+                String type = file.getContentType();
+                if (type.startsWith("image")) {
+                    type = type.split("/")[1];
+                    try {
+                        String hash = hashManager.hash(String.valueOf(db_id));
+                        String path =
+                            PREFIX + file.getName() + "_" + hash + "." + type;
+                        FileUtils.createFile(path);
+                        img.setEnabled(true);
+                        img.setName(file.getName());
+                        img.setPath(path);
+                        img = imageManager.update(img);
 
-            Image img = new Image();
-            imageManager.create(img);
-            Long db_id = img.getId();
-            String type = file.getContentType();
-            if (type.startsWith("image")) {
-                type = type.split("/")[1];
-                try {
-                    MessageDigest md = MessageDigest.getInstance("SHA-512");
-                    byte[] hash = md.digest(String.valueOf(db_id).getBytes());
-                    String hashString = hash.toString();
-                    String path = PREFIX + name + "_" + hashString + "." + type;
-                    FileUtils.createFile(path);
-                    img.setEnabled(true);
-                    img.setDescription(description);
-                    img.setPrice(Double.valueOf(price.isEmpty() ? "0" : price));
-                    img.setName(name);
-                    img.setPath(path);
-                    img = imageManager.update(img);
-
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-
         }
-        return "Upload action";
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (MultipartFile file : files) {
+            sb.append(file.getName());
+            if (!files[files.length - 1].getName().equals(file.getName())) {
+                sb.append(',');
+            }
+        }
+        sb.append(']');
+        return sb.toString();
     }
 
     //    /**

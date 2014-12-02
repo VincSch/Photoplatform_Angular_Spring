@@ -13,16 +13,16 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form method="POST" enctype="multipart/form-data"
-                      action="/upload/image">
-                    File to upload: <input type="file" name="file"><br/>
-                    Name: <input type="text" name="name"><br/>
-                    Beschreibung: <input type="text" name="desc"><br/>
-                    Preis: <input type="text" name="price"
-                                  pattern="^\d+(\.|\,)\d{2}$"><br/>
-                    <input type="submit" value="Upload">
-                    Press here to upload the file!
+                <form method="POST" enctype="multipart/form-data">
+                    File to upload:
+                    <input file-input="files"
+                           type="file" multiple><br/>
+                    <button ng-click="uploadImage()">
+                        Hochladen
+                    </button>
                 </form>
+                <div id="preview"></div>
+                <li ng-repeat="file in files">{{file.name}}</li>
             </div>
         </div>
         <div class="row"></div>
