@@ -27,8 +27,7 @@ public class ViewController {
             "/profile",
             "/profile/**",
             "/admin",
-            "/wellcomeuser",
-            "/becomePhotographer",
+            "/admin/**",
             "/cart"}, method = RequestMethod.GET)
     public String index() {
         return "/index.html";
