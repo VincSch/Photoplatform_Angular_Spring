@@ -76,7 +76,7 @@ angular.module('photoplatform').factory('UserService', ['$http',
  */
 angular.module('photoplatform').factory('PhotographerService', ['$http',
     function ($http) {
-        var urlBase = '/api/photographer';
+        var urlBase = '/api/';
 
         return {
 
@@ -98,7 +98,18 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
              * @returns {HttpPromise}
              */
             createCollection: function (name, description) {
-                return $http.post(urlBase + '/collection', {'name': name, 'description': description});
+                return $http.post(urlBase + '/collections', {'name': name, 'description': description});
+            },
+
+            /**
+             * Create new collection
+             *
+             * @param name
+             * @param description
+             * @returns {HttpPromise}
+             */
+            getCollections: function (start, count) {
+                return $http.get(urlBase + '/collections', {'start': start, 'count': count});
             }
         };
 

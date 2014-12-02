@@ -6,6 +6,7 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Collection extends AbstractBaseAuditEntity {
      */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    @JsonIgnore
     private User user;
 
     /**

@@ -9,13 +9,6 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
             $location.path("/login");
             return;
         }
-    }]);
-
-/**
- * Photographer Controller.
- */
-photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', 'PhotographerService', '$route',
-    function ($scope, $rootScope, $location, $http, $cookieStore, UserService, PhotographerService, $route) {
 
         /**
          * Become Photographer
@@ -42,12 +35,30 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
                 $scope.errors = data.errors;
             })
         };
+    }
+]);
+
+/**
+ * Photographer Controller.
+ */
+photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'UserService', 'PhotographerService', '$route',
+    function ($scope, $rootScope, $location, $http, $cookieStore, UserService, PhotographerService, $route) {
+
+        var start = 0;
+        var count = 100;
+
+        /**
+         * Get all user collections
+         */
+        PhotographerService.getCollections(start, count).success(function (collections) {
+            $scope.collections = collections;
+        });
 
         /**
          * Create new collection
          * @param collection
          */
-        $scope.createCollection = function(collection) {
+        $scope.createCollection = function (collection) {
             PhotographerService.createCollection(collection.name, collection.description).success(function (data) {
                 console.log("Create Collection");
             }).error(function (data) {

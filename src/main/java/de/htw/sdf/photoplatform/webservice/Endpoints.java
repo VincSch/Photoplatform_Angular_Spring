@@ -97,11 +97,12 @@ public final class Endpoints {
     // Photographer Endpoints
     //
 
-    /** Photograher collection */
-    public static final String PHOTOGRAPHER_COLLECTION = "/photographer/collection";
+    /**POST: create collection
+     * GET: all collections */
+    public static final String COLLECTIONS = "/collections";
 
-    /** Return collection by  user id and collection is*/
-    public static final String PHOTOGRAPHER_COLLECTION_BY_ID = "/photographer/collection/{userId}/{collectionId}";
+    /** GET: Return collection by  user id and collection is*/
+    public static final String COLLECTION_BY_ID = "/collections/{collectionId}";
 
     /**
      * Private Endpoint constructor.

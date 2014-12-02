@@ -7,7 +7,6 @@
 package de.htw.sdf.photoplatform.repository.impl;
 
 import de.htw.sdf.photoplatform.persistence.model.Collection;
-import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.repository.CollectionDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 import org.springframework.stereotype.Repository;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,16 +54,20 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
      * {@inheritDoc}
      */
     @Override
-    public List<Collection> findByUser(final User user) {
-        StringBuilder queryBuilder = initFullDataCollectionSelect();
-        queryBuilder.append("WHERE owner.id = ?1");
-        Query query = createQuery(queryBuilder.toString());
-        query.setParameter(1, user.getId());
-        try {
-            return (List<Collection>) query.getResultList();
-        } catch (NoResultException nre) {
-            return new ArrayList<>();
+    @SuppressWarnings("unchecked")
+    public List<Collection> findCollectionsByUser(final long userId, final int start, final int count) {
+        Query query = createQuery("SELECT c FROM Collection c WHERE c.user.id = :userId");
+        query.setParameter("userId", userId);
+
+        if (start > 0) {
+            query.setFirstResult(start);
         }
+
+        if (count > 0) {
+            query.setMaxResults(count);
+        }
+
+        return (List<Collection>) query.getResultList();
 
     }
 

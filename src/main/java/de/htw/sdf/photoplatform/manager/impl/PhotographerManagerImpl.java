@@ -54,9 +54,13 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         return collectionDAO.findById(collectionId);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<Collection> getCollectionByUser(User user) {
-        return collectionDAO.findByUser(user);
+    public List<Collection> getCollectionByUser(long userId, int start, int count) {
+        return collectionDAO.findCollectionsByUser(userId, start, count);
     }
 
     /**

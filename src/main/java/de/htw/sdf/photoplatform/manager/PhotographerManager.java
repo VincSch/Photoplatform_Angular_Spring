@@ -7,7 +7,6 @@
 package de.htw.sdf.photoplatform.manager;
 
 import de.htw.sdf.photoplatform.persistence.model.Collection;
-import de.htw.sdf.photoplatform.persistence.model.User;
 
 import java.util.List;
 
@@ -65,11 +64,12 @@ public interface PhotographerManager {
 
     /**
      * Returns list of user's collection.
-     *
-     * @param user collection owner.
-     * @return list of user's collection
+     *  @param user collection owner.
+     * @param userId
+     * @param start
+     * @param count @return list of user's collection
      */
-    List<Collection> getCollectionByUser(final User user);
+    List<Collection> getCollectionByUser(final long userId, int start, int count);
 
     /**
      * Create collection

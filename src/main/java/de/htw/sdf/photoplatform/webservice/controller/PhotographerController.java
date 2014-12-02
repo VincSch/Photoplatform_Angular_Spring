@@ -12,7 +12,6 @@ import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
-import de.htw.sdf.photoplatform.webservice.dto.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -37,10 +36,10 @@ public class PhotographerController extends BaseAPIController {
     /**
      * Create new collection
      */
-    @RequestMapping(value = Endpoints.PHOTOGRAPHER_COLLECTION, method = RequestMethod.POST)
+    @RequestMapping(value = Endpoints.COLLECTIONS, method = RequestMethod.POST)
     @ResponseBody
     public Collection createCollection(@RequestBody String json,
-                                           BindingResult result) throws IOException, AbstractBaseException {
+                                       BindingResult result) throws IOException, AbstractBaseException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(json);
         String name = mapper.convertValue(node.get("name"),
@@ -52,12 +51,23 @@ public class PhotographerController extends BaseAPIController {
             throw new BadRequestException("collection", result);
         }
 
-        String description =  mapper.convertValue(node.get("description"),
+        String description = mapper.convertValue(node.get("description"),
                 String.class);
 
         User user = getLoggedInUser();
 
-       return photographerManager.createCollection(user.getId(), name, description);
+        return photographerManager.createCollection(user.getId(), name, description);
+    }
 
+    /**
+     * Create new collection
+     */
+    @RequestMapping(value = Endpoints.COLLECTIONS, method = RequestMethod.GET)
+    @ResponseBody
+    public List<Collection> getCollections(@RequestParam int start,
+                                           @RequestParam int count) throws IOException, AbstractBaseException {
+        User user = getLoggedInUser();
+
+        return photographerManager.getCollectionByUser(user.getId(), start, count);
     }
 }
