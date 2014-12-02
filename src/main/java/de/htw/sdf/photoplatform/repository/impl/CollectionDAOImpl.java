@@ -56,7 +56,10 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
     @Override
     @SuppressWarnings("unchecked")
     public List<Collection> findCollectionsByUser(final long userId, final int start, final int count) {
-        Query query = createQuery("SELECT c FROM Collection c WHERE c.user.id = :userId");
+        StringBuilder queryBuilder = initFullDataCollectionSelect();
+        queryBuilder.append("WHERE owner.id = :userId");
+
+        Query query = createQuery(queryBuilder.toString());
         query.setParameter("userId", userId);
 
         if (start > 0) {

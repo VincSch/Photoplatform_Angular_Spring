@@ -98,7 +98,7 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
              * @returns {HttpPromise}
              */
             createCollection: function (name, description) {
-                return $http.post(urlBase + '/collections', {'name': name, 'description': description});
+                return $http.post(urlBase + '/collections/photographers', {'name': name, 'description': description});
             },
 
             /**
@@ -109,9 +109,8 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
              * @returns {HttpPromise}
              */
             getCollections: function (start, count) {
-                return $http.get(urlBase + '/collections', {'start': start, 'count': count});
+                return $http.get(urlBase + '/collections/photographers', {'start': start, 'count': count});
             }
         };
 
-    }])
-;
+    }]);

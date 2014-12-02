@@ -29,7 +29,7 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
             controller: 'AdminEditUserCtrl'
         }).when('/profile/photograph/register', {
             templateUrl: '/views/partials/profile/photographer/register.html',
-            controller: 'PhotographerCtrl'
+            controller: 'ProfileCtrl'
         }).when('/profile/photograph/showcase', {
             templateUrl: '/views/partials/profile/photographer/showcase.html',
             controller: ''

@@ -2,6 +2,7 @@ package de.htw.sdf.photoplatform.webservice.dto;
 
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class CollectionData implements Serializable {
 
     private long collectonid;
 
+    @NotEmpty
     private String name;
 
     private String description;

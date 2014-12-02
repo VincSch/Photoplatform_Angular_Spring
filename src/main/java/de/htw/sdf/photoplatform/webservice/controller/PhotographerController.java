@@ -44,7 +44,7 @@ public class PhotographerController extends BaseAPIController {
     /**
      * Create new collection
      */
-    @RequestMapping(value = Endpoints.COLLECTIONS, method = RequestMethod.POST)
+    @RequestMapping(value = Endpoints.COLLECTIONS_PHOTOGRAPHERS, method = RequestMethod.POST)
     @ResponseBody
     public Collection createCollection(@RequestBody String json,
                                        BindingResult result) throws IOException, AbstractBaseException {
@@ -70,7 +70,7 @@ public class PhotographerController extends BaseAPIController {
     /**
      * Create new collection
      */
-    @RequestMapping(value = Endpoints.COLLECTIONS, method = RequestMethod.GET)
+    @RequestMapping(value = Endpoints.COLLECTIONS_PHOTOGRAPHERS, method = RequestMethod.GET)
     @ResponseBody
     public List<CollectionData> getCollections(@RequestParam int start,
                                                @RequestParam int count) throws IOException, AbstractBaseException {
