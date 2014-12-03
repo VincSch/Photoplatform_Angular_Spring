@@ -66,9 +66,16 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
         $scope.createCollection = function (collection) {
             PhotographerService.createCollection(collection).success(function (newCollection) {
                 $scope.collections.unshift(newCollection);
-                $scope.success = 'Deine Sammlung wurde erfolgreich erstellt';
+                $rootScope.success = 'Deine Sammlung <a href="#' + newCollection.collectonid + '">' + newCollection.name+ '</a> wurde erfolgreich erstellt';
             }).error(function (data) {
                 $scope.errors = data.errors;
             })
-        }
+        },
+
+        /**
+         * Publish collection and show in showcase.
+         */
+        $scope.publishCollection = function(collection) {
+          // TODO: implement me
+        };
     }]);

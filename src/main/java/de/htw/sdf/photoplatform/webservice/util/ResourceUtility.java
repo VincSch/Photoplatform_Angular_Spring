@@ -80,6 +80,20 @@ public class ResourceUtility {
     }
 
     /**
+     * Returns collection without images.
+     *
+     * @param collections collections.
+     *
+     * @return list of collection data.
+     */
+    public CollectionData convertToCollectionData(Collection collection) {
+        List<Collection> collections = new ArrayList<>();
+        collections.add(collection);
+
+        return convertToCollectionData(collections,Boolean.FALSE).get(0);
+    }
+
+    /**
      * Returns collections.
      *
      * If includeImages is true, than collection with all images,

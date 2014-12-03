@@ -43,14 +43,17 @@ public class PhotographerController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.COLLECTIONS_PHOTOGRAPHERS, method = RequestMethod.POST)
     @ResponseBody
-    public Collection createCollection(@RequestBody CollectionData data,
-                                       BindingResult bindingResult) throws IOException, AbstractBaseException {
+    public CollectionData createCollection(@RequestBody CollectionData data,
+                                           BindingResult bindingResult) throws IOException, AbstractBaseException {
         if (bindingResult.hasErrors()) {
             throw new BadRequestException("createCollection", bindingResult);
         }
         User user = getAuthenticatedUser();
 
-        return photographerManager.createCollection(user.getId(), data.getName(), data.getDescription());
+        Collection collection =
+                photographerManager.createCollection(user.getId(), data.getName(), data.getDescription());
+
+        return ResourceUtility.getInstance().convertToCollectionData(collection);
     }
 
     /**
