@@ -5,14 +5,11 @@ import de.htw.sdf.photoplatform.manager.ImageManager;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import org.h2.store.fs.FileUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -21,8 +18,8 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by patrick on 28.11.14.
  */
-@Controller
-public class ImageController {
+@RestController
+public class ImageController extends BaseAPIController {
     public static final String IMG_THUMBNAIL_URI = "/image/thumbnail.jpg";
     public static final String THUMBNAIL_REQ_URI = "/thumbnail";
     private static final String PREFIX = "uploads/";
@@ -36,7 +33,7 @@ public class ImageController {
     @Resource
     private HashManager hashManager;
 
-    @RequestMapping(value = "/upload/image", method = RequestMethod.POST)
+    @RequestMapping(value = "/photographer/upload", method = RequestMethod.POST)
     public @ResponseBody String handleImageUpload(
         @RequestParam("files") MultipartFile[] files
     ) {
@@ -55,36 +52,26 @@ public class ImageController {
             for (MultipartFile file : files) {
                 Image img = new Image();
                 imageManager.create(img);
-                Long db_id = img.getId();
+                Long id = img.getId();
                 String type = file.getContentType();
                 if (type.startsWith("image")) {
                     type = type.split("/")[1];
                     try {
-                        String hash = hashManager.hash(String.valueOf(db_id));
+                        String hash = hashManager.hash(String.valueOf(id));
                         String path =
-                            PREFIX + file.getName() + "_" + hash + "." + type;
+                            PREFIX + hash + "." + type;
                         FileUtils.createFile(path);
                         img.setEnabled(true);
-                        img.setName(file.getName());
+                        img.setName(file.getOriginalFilename());
                         img.setPath(path);
                         img = imageManager.update(img);
-
                     } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
                     }
                 }
             }
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append('[');
-        for (MultipartFile file : files) {
-            sb.append(file.getName());
-            if (!files[files.length - 1].getName().equals(file.getName())) {
-                sb.append(',');
-            }
-        }
-        sb.append(']');
-        return sb.toString();
+        return "";
     }
 
     //    /**

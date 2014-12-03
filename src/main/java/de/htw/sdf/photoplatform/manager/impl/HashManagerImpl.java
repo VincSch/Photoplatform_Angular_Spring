@@ -25,8 +25,7 @@ public class HashManagerImpl extends DAOReferenceCollector
     @Override public String hash(String plain, String algo)
         throws NoSuchAlgorithmException {
         byte[] hash = hashToByte(plain, algo);
-        String hexHash = this.byteHashToHexString(hash);
-        return hash.toString();
+        return this.byteHashToHexString(hash);
     }
 
     /**
@@ -47,8 +46,10 @@ public class HashManagerImpl extends DAOReferenceCollector
      */
     private String byteHashToHexString(byte[] hash) {
         StringBuilder sb = new StringBuilder();
-        for (byte value : hash) {
-            sb.append(String.format("%08X"));
+        String result = "";
+        for (int i = 0; i < hash.length; i++) {
+            sb.append(
+                Integer.toString((hash[i] & 0xff) + 0x100, 16).substring(1));
         }
         return sb.toString();
     }

@@ -22,14 +22,13 @@ public class ViewController {
     protected final Logger log = Logger.getLogger(this.getClass().getName());
 
     @RequestMapping(value = {
-        "/register",
-        "/login",
-        "/profile",
-        "/profile/**",
-        "/admin",
-        "/wellcomeuser",
-        "/becomePhotographer",
-        "/cart" }, method = RequestMethod.GET)
+            "/register",
+            "/login",
+            "/profile",
+            "/profile/**",
+            "/admin",
+            "/admin/**",
+            "/cart"}, method = RequestMethod.GET)
     public String index() {
         return "/index.html";
     }

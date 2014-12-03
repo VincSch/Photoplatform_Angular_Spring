@@ -14,28 +14,31 @@
         <div class="row">
             <div class="col-md-12">
                 <form method="POST" enctype="multipart/form-data">
-                    File to upload:
-                    <input file-input="files"
-                           type="file" multiple><br/>
+                    <div class="col-md-6">
+                        File to upload:
+                        <input file-input="files"
+                               type="file" multiple>
+                    </div>
+
+
+                    <div class="col-md-6"></div>
+                    <div id="darg-and-drop-area" class="col-md-6">
+                        <p>
+                            drag & drop an image
+                        </p>
+                    </div>
+                    <div>
+
+                    </div>
+                    <div id="preview" class="col-md-12"></div>
+                    <li ng-repeat="file in files">{{file.name}}</li>
                     <button ng-click="uploadImage()">
                         Hochladen
                     </button>
                 </form>
-                <div id="preview"></div>
-                <li ng-repeat="file in files">{{file.name}}</li>
             </div>
         </div>
         <div class="row"></div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar"
-                         style="width: 60%;">60% Complete
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
 
         <div class="row">
             <div class="col-md-4">

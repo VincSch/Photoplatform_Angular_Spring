@@ -6,6 +6,7 @@
 
 package de.htw.sdf.photoplatform;
 
+import de.htw.sdf.photoplatform.security.RequestLoggerInterceptor;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -92,6 +93,7 @@ public class Application extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
+        registry.addInterceptor(new RequestLoggerInterceptor());
     }
 
     /**
@@ -100,8 +102,8 @@ public class Application extends WebMvcConfigurerAdapter {
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultiPartConfigFactory factory = new MultiPartConfigFactory();
-        factory.setMaxFileSize("128KB");
-        factory.setMaxRequestSize("128KB");
+        factory.setMaxFileSize("128MB");
+        factory.setMaxRequestSize("128MB");
         return factory.createMultipartConfig();
     }
 }
