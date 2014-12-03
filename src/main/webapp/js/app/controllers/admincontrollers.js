@@ -164,4 +164,15 @@ photoplatformControllers.controller('AdminEditUserCtrl', ['$scope', '$routeParam
             $location.path("/profile/admin");
         };
 
+        $scope.isUserPhotographer = function () {
+            if ($scope.userProfileData !== undefined) {
+                for (var i = 0; i < $scope.userProfileData.roles.length; ++i) {
+                    if ($scope.userProfileData.roles[i] == $rootScope.PHOTOGRAPHER) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+
     }]);

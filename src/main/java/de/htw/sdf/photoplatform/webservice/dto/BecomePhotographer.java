@@ -30,6 +30,27 @@ public class BecomePhotographer {
     @NotEmpty
     private String phone;
 
+    @NotEmpty
+    private String paypalID;
+
+    /**
+     * get Paypal ID
+     *
+     * @return paypalID
+     */
+    public String getPaypalID() {
+        return paypalID;
+    }
+
+    /**
+     * set the Paypal ID
+     *
+     * @param paypalID
+     */
+    public void setPaypalID(String paypalID) {
+        this.paypalID = paypalID;
+    }
+
     /**
      * get the company
      *

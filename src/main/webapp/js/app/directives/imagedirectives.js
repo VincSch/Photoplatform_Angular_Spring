@@ -8,7 +8,7 @@ angular.module('photoplatform')
                     $parse(attrs.fileInput)
                         .assign(scope, elem[0].files);
                     angular.forEach(elem[0].files, function (file) {
-                        var hash = file.name.slice(0, -3).replace(/[.| |_]/,'');
+                        var hash = file.name.slice(0, -4).replace(/\.| |_/g,'');
                         $('#preview').append('<img id="' + hash + '" src="#" alt="' + file.name + '" />');
                         var reader = new FileReader();
                         reader.hash = hash;

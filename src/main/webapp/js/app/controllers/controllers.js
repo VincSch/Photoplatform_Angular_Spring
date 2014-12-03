@@ -18,7 +18,7 @@ photoplatformControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$locat
                 $cookieStore.put('user', user);
                 console.log(user);
                 if ($rootScope.isCustomer())
-                    $location.path("/welcomeuser");
+                    $location.path("/profile");
                 if ($rootScope.isPhotographer())
                     $location.path("/profile");
                 if ($rootScope.isAdmin())
@@ -34,7 +34,7 @@ photoplatformControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$locat
         $scope.register = function (user) {
             UserService.register(user).success(function (data) {
                 $location.path("/login");
-                $rootScope.success = "Du hast dich erfolgreich registriert. Du kannst dich nun mit deinem Benutzernamen anmelden!";
+                $rootScope.success = "Du hast dich erfolgreich registriert. Du kannst dich nun mit deinen Daten anmelden!";
                 $rootScope.transferSuccess = true;
             }).error(function (data) {
                 $scope.errors = data.errors;

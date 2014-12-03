@@ -21,7 +21,6 @@ import java.util.List;
  */
 public class UserData implements Serializable {
 
-    @NotEmpty
     private Long id;
 
     @Email
@@ -38,10 +37,16 @@ public class UserData implements Serializable {
     private String homepage;
     private String iban;
     private String swift;
-
+    private String paypalID;
 
     private String secToken;
     private List<String> roles;
+
+
+    /**
+     * Default constructor
+     */
+    public UserData(){}
 
     /**
      * Public constructor.
@@ -63,12 +68,14 @@ public class UserData implements Serializable {
             this.company = data.getCompany();
             this.phone = data.getPhone();
             this.homepage = data.getHomepage();
+            this.paypalID = data.getPaypalID();
             this.swift = data.getSwift();
             this.iban = data.getIban();
         } else {
             this.company = "";
             this.phone = "";
             this.homepage = "";
+            this.paypalID = "";
             this.swift = "";
             this.iban = "";
         }
@@ -295,5 +302,15 @@ public class UserData implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    /**
+     * @return paypalID
+     */
+    public String getPaypalID() { return paypalID; }
+
+    /**
+     * @param paypalID
+     */
+    public void setPaypalID(String paypalID) { this.paypalID = paypalID; }
 
 }

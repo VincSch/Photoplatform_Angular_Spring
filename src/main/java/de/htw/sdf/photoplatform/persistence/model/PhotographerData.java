@@ -30,17 +30,20 @@ public class PhotographerData {
     @Column(name = "COMPANY")
     private String company;
 
+    @Column(name = "PHONE")
+    private String phone;
+
     @Column(name = "HOMEPAGE")
     private String homepage;
+
+    @Column(name = "PAYPALID")
+    private String paypalID;
 
     @Column(name = "IBAN")
     private String iban;
 
     @Column(name = "SWIFT")
     private String swift;
-
-    @Column(name = "PHONE")
-    private String phone;
 
 
     /**
@@ -130,4 +133,18 @@ public class PhotographerData {
     public void setSwift(String swift) {
         this.swift = swift;
     }
+
+    /**
+     * get the Paypal ID
+     *
+     * @return paypalID
+     */
+    public String getPaypalID() { return paypalID;}
+
+    /**
+     * set the Paypal ID
+     *
+     * @param paypalID
+     */
+    public void setPaypalID(String paypalID) { this.paypalID = paypalID;}
 }
