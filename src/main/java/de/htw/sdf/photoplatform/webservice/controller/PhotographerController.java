@@ -18,6 +18,10 @@ import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.List;
+
 /**
  * This controller present the REST user services.
  * All photographer functionality.
