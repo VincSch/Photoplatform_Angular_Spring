@@ -49,6 +49,7 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
 
         // Photographer collection
         $scope.collections = [];
+        $scope.copy = angular.copy;
 
         /**
          * Get all user collections
@@ -66,16 +67,29 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
         $scope.createCollection = function (collection) {
             PhotographerService.createCollection(collection).success(function (newCollection) {
                 $scope.collections.unshift(newCollection);
-                $rootScope.success = 'Deine Sammlung <a href="#' + newCollection.collectonid + '">' + newCollection.name+ '</a> wurde erfolgreich erstellt';
+                $rootScope.success = 'Deine Sammlung <a href="#' + newCollection.collectonid + '">' + newCollection.name + '</a> wurde erfolgreich erstellt';
             }).error(function (data) {
                 $scope.errors = data.errors;
             })
-        },
+        };
+
+        /**
+         * Create new collection
+         * @param collection
+         */
+        $scope.updateCollection = function (editCollection, originCollection) {
+            PhotographerService.updateCollection(editCollection).success(function (collection) {
+                angular.extend(originCollection, collection);
+                $rootScope.success = 'Erfolgreich aktualisiert';
+            }).error(function (data) {
+                $scope.errors = data.errors;
+            })
+        };
 
         /**
          * Publish collection and show in showcase.
          */
-        $scope.publishCollection = function(collection) {
-          // TODO: implement me
+        $scope.publishCollection = function (collection) {
+            // TODO: implement me
         };
     }]);

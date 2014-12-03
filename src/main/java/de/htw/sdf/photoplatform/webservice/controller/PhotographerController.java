@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class PhotographerController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.COLLECTIONS_PHOTOGRAPHERS, method = RequestMethod.POST)
     @ResponseBody
-    public CollectionData createCollection(@RequestBody CollectionData data,
+    public CollectionData createCollection(@Valid @RequestBody CollectionData data,
                                            BindingResult bindingResult) throws IOException, AbstractBaseException {
         if (bindingResult.hasErrors()) {
             throw new BadRequestException("createCollection", bindingResult);
@@ -52,6 +53,33 @@ public class PhotographerController extends BaseAPIController {
 
         Collection collection =
                 photographerManager.createCollection(user.getId(), data.getName(), data.getDescription());
+
+        return ResourceUtility.getInstance().convertToCollectionData(collection);
+    }
+
+    /**
+     * Create new collection
+     */
+    @RequestMapping(value = Endpoints.COLLECTIONS_PHOTOGRAPHERS, method = RequestMethod.PATCH)
+    @ResponseBody
+    public CollectionData updateCollection(@Valid @RequestBody CollectionData data,
+                                           BindingResult bindingResult) throws IOException, AbstractBaseException {
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException("createCollection", bindingResult);
+        }
+
+        User user = getAuthenticatedUser();
+
+        // FIXME this code belongs to service..not in a controller
+        Collection collection = new Collection();
+        collection.setId(data.getId());
+        collection.setName(data.getName());
+        collection.setDescription(data.getDescription());
+        collection.setUser(user);
+        collection.setPublic(data.getPublic());
+        collection.setThumbnail(null);
+
+        collection = photographerManager.update(collection);
 
         return ResourceUtility.getInstance().convertToCollectionData(collection);
     }

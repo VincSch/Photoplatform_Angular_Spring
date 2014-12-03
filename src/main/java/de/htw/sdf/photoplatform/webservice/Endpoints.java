@@ -76,6 +76,7 @@ public final class Endpoints {
     /**
      * GET: all photograph's collections.
      * POST: create new collection
+     * PATCH: update collection
      *
      * Will be used to find all photograph's collections.
      */

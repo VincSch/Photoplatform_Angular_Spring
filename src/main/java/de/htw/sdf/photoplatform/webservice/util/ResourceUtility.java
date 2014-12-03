@@ -87,10 +87,7 @@ public class ResourceUtility {
      * @return list of collection data.
      */
     public CollectionData convertToCollectionData(Collection collection) {
-        List<Collection> collections = new ArrayList<>();
-        collections.add(collection);
-
-        return convertToCollectionData(collections,Boolean.FALSE).get(0);
+        return new CollectionData(collection);
     }
 
     /**

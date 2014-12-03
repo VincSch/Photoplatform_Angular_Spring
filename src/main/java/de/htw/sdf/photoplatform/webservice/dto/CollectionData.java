@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class CollectionData implements Serializable {
 
-    private long collectonid;
+    private long id;
 
     @NotEmpty
     private String name;
@@ -49,10 +49,12 @@ public class CollectionData implements Serializable {
      * Default empty constructor.
      */
     public CollectionData(Collection collection, boolean includeImages){
-        this.collectonid = collection.getId();
+        this.id = collection.getId();
         this.name = collection.getName();
         this.description = collection.getDescription();
         this.images = new ArrayList<>();
+        this.isPublic = collection.isPublic();
+
         if(includeImages && collection.getCollectionImages() != null){
             for(CollectionImage collectionImage : collection.getCollectionImages()){
                 ImageData image = new ImageData(collectionImage.getImage());
@@ -68,17 +70,17 @@ public class CollectionData implements Serializable {
      *
      * @return collection id.
      */
-    public long getCollectonid() {
-        return collectonid;
+    public long getId() {
+        return id;
     }
 
     /**
      * Sets collection id.
      *
-     * @param collectonid collection id.
+     * @param id collection id.
      */
-    public void setCollectonid(long collectonid) {
-        this.collectonid = collectonid;
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
