@@ -3,16 +3,17 @@
  */
 package de.htw.sdf.photoplatform.webservice;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import de.htw.sdf.photoplatform.common.BaseAPITester;
+import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import de.htw.sdf.photoplatform.common.BaseAPITester;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Tests for users services.
@@ -48,6 +49,27 @@ public class PhotographerControllerTest extends BaseAPITester {
         String request = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS;
         mockMvc.perform(
                 get(request).contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")).andExpect(
+                status().isOk());
+    }
+
+    @Test
+    public void testCreateCollection() throws Exception {
+        loginAsPhotograph();
+
+        String request = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS;
+
+        CollectionData data = new CollectionData();
+        data.setName("Winter");
+        data.setDescription("Meine Winder fotos");
+
+        mockMvc.perform(
+                post(request).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(data))
+                        .characterEncoding("UTF-8")).andExpect(
+                status().isOk());
+
+        mockMvc.perform(
+                get(request).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(data))
                         .characterEncoding("UTF-8")).andExpect(
                 status().isOk());
     }

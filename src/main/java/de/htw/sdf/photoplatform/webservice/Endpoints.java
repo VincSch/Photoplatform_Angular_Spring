@@ -74,7 +74,8 @@ public final class Endpoints {
     public static final String USERS_BECOME_PHOTOGRAPHERS = "/users/becomephotographers";
 
     /**
-     * all photograph's collections.
+     * GET: all photograph's collections.
+     * POST: create new collection
      *
      * Will be used to find all photograph's collections.
      */
