@@ -3,8 +3,6 @@
  */
 package de.htw.sdf.photoplatform.webservice.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.manager.ImageManager;
@@ -18,7 +16,6 @@ import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
 import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -46,25 +43,14 @@ public class PhotographerController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.COLLECTIONS_PHOTOGRAPHERS, method = RequestMethod.POST)
     @ResponseBody
-    public Collection createCollection(@RequestBody String json,
-                                       BindingResult result) throws IOException, AbstractBaseException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(json);
-        String name = mapper.convertValue(node.get("name"),
-                String.class);
-
-        if (name.isEmpty()) {
-            result.addError(new FieldError("collection", "name",
-                    messages.getMessage("Name.empty")));
-            throw new BadRequestException("collection", result);
+    public Collection createCollection(@RequestBody CollectionData data,
+                                       BindingResult bindingResult) throws IOException, AbstractBaseException {
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException("createCollection", bindingResult);
         }
-
-        String description = mapper.convertValue(node.get("description"),
-                String.class);
-
         User user = getAuthenticatedUser();
 
-        return photographerManager.createCollection(user.getId(), name, description);
+        return photographerManager.createCollection(user.getId(), data.getName(), data.getDescription());
     }
 
     /**
