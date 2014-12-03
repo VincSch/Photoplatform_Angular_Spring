@@ -47,20 +47,26 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
         var start = 0;
         var count = 100;
 
+        // Photographer collection
+        $scope.collections = [];
+
         /**
          * Get all user collections
          */
-        PhotographerService.getCollections(start, count).success(function (collections) {
-            $scope.collections = collections;
-        });
+        $scope.getAllCollections = function () {
+            PhotographerService.getCollections(start, count).success(function (collections) {
+                $scope.collections = collections;
+            });
+        };
 
         /**
          * Create new collection
          * @param collection
          */
         $scope.createCollection = function (collection) {
-            PhotographerService.createCollection(collection.name, collection.description).success(function (data) {
-                console.log("Create Collection");
+            PhotographerService.createCollection(collection).success(function (newCollection) {
+                $scope.collections.unshift(newCollection);
+                $scope.success = 'Deine Sammlung wurde erfolgreich erstellt';
             }).error(function (data) {
                 $scope.errors = data.errors;
             })
