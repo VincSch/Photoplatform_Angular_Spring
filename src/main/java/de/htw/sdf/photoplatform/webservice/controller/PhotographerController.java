@@ -3,8 +3,23 @@
  */
 package de.htw.sdf.photoplatform.webservice.controller;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.manager.ImageManager;
@@ -17,13 +32,6 @@ import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
 import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * This controller present the REST user services.
@@ -78,7 +86,7 @@ public class PhotographerController extends BaseAPIController {
         User authenticatedUser = getAuthenticatedUser();
         List<Collection> collections = photographerManager.getCollectionByUser(authenticatedUser.getId(), start, count);
 
-        return ResourceUtility.convertToCollectionData(collections);
+        return ResourceUtility.getInstance().convertToCollectionData(collections);
     }
 
     /**
@@ -95,6 +103,6 @@ public class PhotographerController extends BaseAPIController {
         User authenticatedUser = getAuthenticatedUser();
         List<UserImage> userImages = imageManager.getPhotographImages(authenticatedUser);
 
-        return ResourceUtility.convertToImageData(userImages);
+        return ResourceUtility.getInstance().convertToImageData(userImages);
     }
 }
