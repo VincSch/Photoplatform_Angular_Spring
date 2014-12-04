@@ -56,6 +56,17 @@ public class ResourceUtility {
     }
 
     /**
+     * Returns collection without images.
+     *
+     * @param collections collections.
+     *
+     * @return list of collection data.
+     */
+    public CollectionData convertToCollectionData(Collection collection) {
+        return new CollectionData(collection);
+    }
+
+    /**
      * Returns collections.
      *
      * If includeImages is true, than collection with all images,

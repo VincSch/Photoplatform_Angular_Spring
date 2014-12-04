@@ -1,5 +1,9 @@
 package de.htw.sdf.photoplatform.webservice.dto;
 
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +64,8 @@ public class CollectionData implements Serializable {
         this.name = collection.getName();
         this.description = collection.getDescription();
         this.images = new ArrayList<>();
+        this.isPublic = collection.isPublic();
+
         if(includeImages && collection.getCollectionImages() != null){
             for(CollectionImage collectionImage : collection.getCollectionImages()){
                 ImageData image = new ImageData(collectionImage.getImage());
@@ -194,28 +200,5 @@ public class CollectionData implements Serializable {
      */
     public void setImages(List<ImageData> images) {
         this.images = images;
-    }
-
-    /**
-     * Returns list of image id's.
-     *
-     * This object can be used to add images to this collection.
-     * See: PhotographerController.addImageToCollection
-     *
-     * @return list of image id's
-     */
-    public List<Long> getImageIds() {
-        return imageIds;
-    }
-
-    /**
-     * Sets imageIds.
-     *
-     * This object can be used to add images to this collection.
-     * See: PhotographerController.addImageToCollection
-     * @param imageIds list of image ids.
-     */
-    public void setImageIds(List<Long> imageIds) {
-        this.imageIds = imageIds;
     }
 }

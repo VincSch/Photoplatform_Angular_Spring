@@ -93,12 +93,22 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
             /**
              * Create new collection
              *
-             * @param name
-             * @param description
+             * @param collection the collection
              * @returns {HttpPromise}
              */
-            createCollection: function (name, description) {
-                return $http.post(urlBase + '/collections/photographers', {'name': name, 'description': description});
+            createCollection: function (collection) {
+                return $http.post(urlBase + '/collections/photographers', collection);
+            },
+
+            /**
+             * Update collection
+             *
+             * @param collection
+             * @returns {HttpPromise}
+             */
+            updateCollection: function (collection) {
+                // There is no .pathc method in $http...
+                return $http({ method: 'PATCH', url: urlBase + 'collections/photographers', data: angular.toJson(collection)});
             },
 
             /**
@@ -109,7 +119,7 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
              * @returns {HttpPromise}
              */
             getCollections: function (start, count) {
-                return $http.get(urlBase + '/collections/photographers', {'start': start, 'count': count});
+                return $http.get(urlBase + 'collections/photographers', {params: {'start': start, 'count': count}});
             }
         };
 

@@ -82,6 +82,7 @@ public final class Endpoints {
 
     /**
      * POST: create new collection
+     * PATCH: update collection
      *
      * Will be used to create a new collection.
      */
