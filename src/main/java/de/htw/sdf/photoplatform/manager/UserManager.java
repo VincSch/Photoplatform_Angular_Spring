@@ -27,7 +27,8 @@ public interface UserManager {
      * @param password  the password  @throws ManagerException the exception
      */
     void registerUser(final String email,
-                      String firstName, String lastName, final String password) throws ManagerException;
+        String firstName, String lastName, final String password)
+        throws ManagerException;
 
     /**
      * Update user data.
@@ -126,15 +127,14 @@ public interface UserManager {
     /**
      * Returns all photographs, that should be activated.
      *
-     * @param roleName  the role name
-     * @param enabled if true, enable
+     * @param roleName the role name
+     * @param enabled  if true, enable
      * @return users.
      */
     List<User> getByRoleAndEnabled(String roleName, boolean enabled);
 
     /**
      * Become a photographer
-     *
      *
      * @param userId
      * @param company  the company
@@ -146,4 +146,29 @@ public interface UserManager {
      * @return user who wants to become photographer
      */
     boolean becomePhotographer(long userId, final String company, final String phone, final String homepage, final String paypalID, final String iban, final String swift) throws ManagerException;
+   
+    /**
+     * Check user admin role.
+     *
+     * @param user user.
+     * @return true if user has role admin.
+     */
+    Boolean isUserAdmin(User user);
+
+    /**
+     * Check user photographer role.
+     *
+     * @param user user.
+     * @return true if user has role photographer.
+     */
+    Boolean isUserPhotographer(User user);
+
+    /**
+     * Returns true, if user has the role.
+     *
+     * @param user     user.
+     * @param roleName role name.
+     * @return true or false.
+     */
+    Boolean isRoleIncluded(User user, String roleName);
 }
