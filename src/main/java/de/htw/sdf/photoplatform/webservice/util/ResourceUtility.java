@@ -58,11 +58,11 @@ public class ResourceUtility {
     /**
      * Returns collection without images.
      *
-     * @param collections collections.
+     * @param collection collection.
      *
-     * @return list of collection data.
+     * @return collection data.
      */
-    public CollectionData convertToCollectionData(Collection collection) {
+    public static CollectionData convertToCollectionData(Collection collection) {
         return new CollectionData(collection);
     }
 

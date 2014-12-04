@@ -162,5 +162,6 @@ public class PhotographerControllerTest extends BaseAPITester {
                         .content(mapper.writeValueAsString(requestCollectionData))
                         .accept(MediaType.APPLICATION_JSON)).andExpect(
                 status().isOk());
+        int test = 0 ;
     }
 }
