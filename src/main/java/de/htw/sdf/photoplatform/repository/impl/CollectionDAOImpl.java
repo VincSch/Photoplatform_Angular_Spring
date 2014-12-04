@@ -6,15 +6,17 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import de.htw.sdf.photoplatform.persistence.model.Collection;
-import de.htw.sdf.photoplatform.repository.CollectionDAO;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.repository.CollectionDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
  * Repository methods for image collection.
@@ -55,6 +57,24 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
      */
     @Override
     @SuppressWarnings("unchecked")
+    public Collection findByUserAndCollectionId(final long userId, final long collectionId) {
+        StringBuilder queryBuilder = initCollectionDataSelect();
+        queryBuilder.append("WHERE owner.id = :userId AND collection.id = :collectionId");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("userId", userId);
+        query.setParameter("collectionId", collectionId);
+        try{
+            return (Collection) query.getSingleResult();
+        }catch (NoResultException nre){
+            return null;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
     public List<Collection> findCollectionsByUser(final long userId, final int start, final int count) {
         StringBuilder queryBuilder = initFullDataCollectionSelect();
         queryBuilder.append("WHERE owner.id = :userId");
@@ -84,6 +104,13 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
         queryBuilder
                 .append("LEFT JOIN FETCH collection.collectionCategories collectionCategories ");
 
+        return queryBuilder;
+    }
+
+    private StringBuilder initCollectionDataSelect() {
+        StringBuilder queryBuilder = new StringBuilder(
+                "SELECT DISTINCT(collection) FROM Collection collection ");
+        queryBuilder.append("LEFT JOIN FETCH collection.user owner ");
         return queryBuilder;
     }
 }

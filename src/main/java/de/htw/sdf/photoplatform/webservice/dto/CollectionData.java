@@ -1,12 +1,13 @@
 package de.htw.sdf.photoplatform.webservice.dto;
 
-import de.htw.sdf.photoplatform.persistence.model.Collection;
-import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 
 /**
  * Data transfer object to get and update collection data.
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class CollectionData implements Serializable {
 
-    private long collectonid;
+    private long collectionId;
 
     @NotEmpty
     private String name;
@@ -31,6 +32,12 @@ public class CollectionData implements Serializable {
     private ImageData thumbnail;
 
     private List<ImageData> images;
+
+    /**
+     * This object can be used to add images to this collection.
+     * See: PhotographerController.addImageToCollection
+     */
+    private List<Long> imageIds;
 
     /**
      * Default empty constructor.
@@ -49,7 +56,7 @@ public class CollectionData implements Serializable {
      * Default empty constructor.
      */
     public CollectionData(Collection collection, boolean includeImages){
-        this.collectonid = collection.getId();
+        this.collectionId = collection.getId();
         this.name = collection.getName();
         this.description = collection.getDescription();
         this.images = new ArrayList<>();
@@ -68,17 +75,17 @@ public class CollectionData implements Serializable {
      *
      * @return collection id.
      */
-    public long getCollectonid() {
-        return collectonid;
+    public long getCollectionId() {
+        return collectionId;
     }
 
     /**
      * Sets collection id.
      *
-     * @param collectonid collection id.
+     * @param collectionId collection id.
      */
-    public void setCollectonid(long collectonid) {
-        this.collectonid = collectonid;
+    public void setCollectionId(long collectionId) {
+        this.collectionId = collectionId;
     }
 
     /**
@@ -187,5 +194,28 @@ public class CollectionData implements Serializable {
      */
     public void setImages(List<ImageData> images) {
         this.images = images;
+    }
+
+    /**
+     * Returns list of image id's.
+     *
+     * This object can be used to add images to this collection.
+     * See: PhotographerController.addImageToCollection
+     *
+     * @return list of image id's
+     */
+    public List<Long> getImageIds() {
+        return imageIds;
+    }
+
+    /**
+     * Sets imageIds.
+     *
+     * This object can be used to add images to this collection.
+     * See: PhotographerController.addImageToCollection
+     * @param imageIds list of image ids.
+     */
+    public void setImageIds(List<Long> imageIds) {
+        this.imageIds = imageIds;
     }
 }

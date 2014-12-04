@@ -75,11 +75,24 @@ public final class Endpoints {
 
     /**
      * GET: all photograph's collections.
-     * POST: create new collection
      *
      * Will be used to find all photograph's collections.
      */
-    public static final String COLLECTIONS_PHOTOGRAPHERS = "/collections/photographers";
+    public static final String COLLECTIONS_PHOTOGRAPHERS_START_COUNT = "/collections/photographers/{start}/{count}";
+
+    /**
+     * POST: create new collection
+     *
+     * Will be used to create a new collection.
+     */
+    public static final String COLLECTIONS_CREATE = "/collections/create";
+
+    /**
+     * POST: add image to collection.
+     *
+     * Will be used to find all photograph's collections.
+     */
+    public static final String COLLECTIONS_ADD_IMAGE = "/collections/addimage";
 
     /**
      * all photograph's images.
@@ -160,7 +173,9 @@ public final class Endpoints {
                 restBuilder(USERS_UPDATE),
                 restBuilder(USERS_START_COUNT),
                 restBuilder(IMAGES_PHOTOGRAPHERS),
-                restBuilder(COLLECTIONS_PHOTOGRAPHERS),
+                restBuilder(COLLECTIONS_PHOTOGRAPHERS_START_COUNT),
+                restBuilder(COLLECTIONS_CREATE),
+                restBuilder(COLLECTIONS_ADD_IMAGE),
                 restBuilder(USERS_BECOME_PHOTOGRAPHERS)
         };
         return securedEndpoints;

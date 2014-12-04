@@ -6,10 +6,10 @@
 
 package de.htw.sdf.photoplatform.repository;
 
+import java.util.List;
+
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
-
-import java.util.List;
 
 /**
  * Interface defining repository methods for image.
@@ -21,7 +21,7 @@ public interface ImageDAO extends GenericDAO<Image> {
     /**
      * Returns all public images.
      *
-     * @return lit of images
+     * @return list of images
      */
     List<Image> getPublicImages();
 }

@@ -62,7 +62,7 @@ public class UserController extends BaseAPIController {
     public List<UserData> getEnabledUsers(@PathVariable int start,
                                           @PathVariable int count) throws IOException, AbstractBaseException {
         List<User> users = userManager.find(start, count);
-        return UserUtility.getInstance().convertToUserData(users);
+        return UserUtility.convertToUserData(users);
     }
 
     /**
@@ -78,7 +78,7 @@ public class UserController extends BaseAPIController {
             throws IOException, AbstractBaseException {
         List<User> users = userManager.getPhotographersToActivate();
 
-        return UserUtility.getInstance().convertToUserData(users);
+        return UserUtility.convertToUserData(users);
     }
 
 
