@@ -97,7 +97,7 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
              * @returns {HttpPromise}
              */
             createCollection: function (collection) {
-                return $http.post(urlBase + '/collections/photographers', collection);
+                return $http.post(urlBase + '/collections/create', collection);
             },
 
             /**
@@ -119,7 +119,11 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
              * @returns {HttpPromise}
              */
             getCollections: function (start, count) {
-                return $http.get(urlBase + 'collections/photographers', {params: {'start': start, 'count': count}});
+                //Sorry, i have replaced this endpoint.
+                //return $http.get(urlBase + 'collections/photographers', {params: {'start': start, 'count': count}});
+
+                //Should work, not tested!
+                return $http.get(urlBase + 'collections/photographers/' + start + "/" + count);
             }
         };
 
