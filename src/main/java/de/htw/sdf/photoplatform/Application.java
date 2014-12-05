@@ -7,15 +7,21 @@
 package de.htw.sdf.photoplatform;
 
 import de.htw.sdf.photoplatform.security.RequestLoggerInterceptor;
+import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http11.Http11NioProtocol;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.MultiPartConfigFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -23,6 +29,9 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import javax.servlet.MultipartConfigElement;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Locale;
 
 /**
@@ -105,5 +114,39 @@ public class Application extends WebMvcConfigurerAdapter {
         factory.setMaxFileSize("128MB");
         factory.setMaxRequestSize("128MB");
         return factory.createMultipartConfig();
+    }
+
+    @Bean
+    public EmbeddedServletContainerFactory servletContainer() {
+        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
+        tomcat.addAdditionalTomcatConnectors(createSslConnector());
+        return tomcat;
+    }
+
+    private Connector createSslConnector() {
+        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+        Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
+        try {
+            File keystore = new ClassPathResource("keystore.p12").getFile();
+            //File truststore = new ClassPathResource("keystore").getFile();
+            connector.setScheme("https");
+            connector.setSecure(true);
+            connector.setPort(8443);
+            protocol.setSSLEnabled(true);
+            protocol.setKeystoreFile(keystore.getAbsolutePath());
+            protocol.setKeystorePass("photoplatform");
+            protocol.setKeystoreType("PKCS12");
+            //protocol.setTruststoreFile(truststore.getAbsolutePath());
+            //protocol.setTruststorePass("changeit");
+            protocol.setKeyAlias("tomcat");
+            return connector;
+        }
+        catch (FileNotFoundException ex) {
+            throw new IllegalStateException("can't access keystore: [" + "keystore"
+                    + "] or truststore: [" + "keystore" + "]", ex);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return connector;
     }
 }
