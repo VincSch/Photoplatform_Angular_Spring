@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -223,6 +224,33 @@ public class PhotographerController extends BaseAPIController {
         }
 
         return responseMessage;
+    }
+
+    /**
+     * Update collection.
+     */
+    @RequestMapping(value = Endpoints.COLLECTIONS_PHOTOGRAPHERS, method = RequestMethod.PATCH)
+    @ResponseBody
+    public CollectionData updateCollection(@Valid @RequestBody CollectionData data,
+                                           BindingResult bindingResult) throws IOException, AbstractBaseException {
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException("updateCollection", bindingResult);
+        }
+
+        User user = getAuthenticatedUser();
+
+        // FIXME this code belongs to service..not in a controller
+        Collection collection = new Collection();
+        collection.setId(data.getCollectionId());
+        collection.setName(data.getName());
+        collection.setDescription(data.getDescription());
+        collection.setUser(user);
+        collection.setPublic(data.getPublic());
+        collection.setThumbnail(null);
+
+        collection = photographerManager.update(collection);
+
+        return ResourceUtility.convertToCollectionData(collection);
     }
 
     /**
