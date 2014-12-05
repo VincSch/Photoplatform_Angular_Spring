@@ -71,5 +71,9 @@ angular.module('photoplatform').factory('UserService', ['$http',
             return $http.post(urlBaseList + '/update/', userProfileData);
         };
 
+        userService.changePassword = function (passwordData) {
+            return $http.post(urlBaseList + '/changepassword/', passwordData);
+        };
+
         return userService;
     }]);

@@ -9,6 +9,45 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
             $location.path("/login");
             return;
         }
+        //check param
+        $scope.userId = $routeParams.userId;
+        if ($scope.userId == undefined) {
+            $scope.userId = user.id;
+        }
+
+        UserService.getUserProfileData($scope.userId).success(function (responseUserProfileData) {
+            $scope.userProfileData = responseUserProfileData;
+            $scope.roles = responseUserProfileData.roles;
+        }).error(function (error) {
+            console.log(error);
+            $rootScope.error(error);
+        });
+
+        $scope.save = function () {
+            UserService.updateUserProfileData($scope.userProfileData).success(function () {
+                $rootScope.success = "Profil erfolgreich aktualisiert";
+            }).error(function (error) {
+                console.log(error);
+                $rootScope.error(error);
+            });
+            $location.path("/profile/view");
+        };
+
+        $scope.cancel = function () {
+
+        };
+
+        $scope.changePassword = function () {
+                    $scope.pw.id = $scope.userId;
+                    UserService.changePassword($scope.pw).success(function () {
+                        $rootScope.success = "Passwort erfolgreich geändert";
+                    }).error(function (error) {
+                        console.log(error);
+                        $rootScope.error(error);
+                    });
+                    $location.path("/profile/view");
+        };
+
     }]);
 
 /**
@@ -26,6 +65,8 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
             $location.path("/profile");
             return;
         }
+
+
 
         /**
          * Become a Photographer.

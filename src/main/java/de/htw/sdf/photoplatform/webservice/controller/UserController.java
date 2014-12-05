@@ -16,6 +16,8 @@ import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.BecomePhotographer;
 import de.htw.sdf.photoplatform.webservice.dto.UserData;
+import de.htw.sdf.photoplatform.webservice.dto.UserPasswordChange;
+import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 import de.htw.sdf.photoplatform.webservice.util.UserUtility;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -267,5 +269,44 @@ public class UserController extends BaseAPIController {
         } catch (Exception nfe) {
             throw new NotFoundException(msg);
         }
+    }
+
+    /**
+     * Update user profile data included bank data.
+     *
+     * @param userData the full user data.
+     * @throws AbstractBaseException the exception.
+     */
+    @RequestMapping(value = Endpoints.USERS_CHANGE_PASSWORD, method = {
+            RequestMethod.POST})
+    @ResponseBody
+    public void changePassword(@Valid @RequestBody UserPasswordChange userData,
+                           BindingResult bindingResult)
+            throws AbstractBaseException {
+
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException("changePassword", bindingResult);
+        }
+
+        try {
+            authorizationController
+                    .checkUserPermissions(userData.getId().toString());
+        } catch (AbstractBaseException abe) {
+            switch (abe.getCode()) {
+                case AbstractBaseException.AUTHORIZATION_NOT_VALID:
+                    ObjectError error = new ObjectError("authorization",
+                            messages
+                                    .getMessage("SystemHack"));
+                    throw new BadRequestException(error.getDefaultMessage());
+                default:
+                    throw new RuntimeException("Unhandled error");
+            }
+        }
+
+        // find affected user
+        User userToUpdate = userManager.findById(userData.getId());
+        // change user password data
+        userToUpdate.setPassword(userData.getNewPassword());
+        userManager.update(userToUpdate);
     }
 }
