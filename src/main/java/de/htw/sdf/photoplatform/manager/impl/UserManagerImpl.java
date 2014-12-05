@@ -47,8 +47,8 @@ public class UserManagerImpl implements UserManager {
      */
     @Override
     public void registerUser(final String email,
-                             final String firstName, final String lastName,
-                             final String password) throws ManagerException {
+        final String firstName, final String lastName,
+        final String password) throws ManagerException {
 
         checkUser(email, password);
 
@@ -71,7 +71,7 @@ public class UserManagerImpl implements UserManager {
         Role role = roleDAO.findByName(Role.CUSTOMER);
         if (role == null) {
             throw new RuntimeException("User role = " + Role.CUSTOMER
-                    + " does not exists.");
+                + " does not exists.");
         }
 
         userRole.setRole(role);
@@ -86,7 +86,7 @@ public class UserManagerImpl implements UserManager {
      * @throws ManagerException the exception
      */
     private void checkUser(final String email, final String password)
-            throws ManagerException {
+        throws ManagerException {
         if (email == null || password == null) {
             throw new RuntimeException("This should not happen");
         }
@@ -297,5 +297,33 @@ public class UserManagerImpl implements UserManager {
         addRole(user, Role.BECOME_PHOTOGRAPHER);
 
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean isUserAdmin(User user) {
+        return isRoleIncluded(user, Role.ADMIN);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean isUserPhotographer(User user) {
+        return isRoleIncluded(user, Role.PHOTOGRAPHER);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Boolean isRoleIncluded(User user, String roleName) {
+        for (UserRole userRole : user.getUserRoles()) {
+            if (userRole.getRole().getName().equals(roleName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
