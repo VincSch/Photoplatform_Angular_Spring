@@ -4,7 +4,6 @@
 package de.htw.sdf.photoplatform.webservice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -103,10 +103,6 @@ public class PhotographerController extends BaseAPIController {
         List<Long> imageIds = mapper.convertValue(node.get(PARAM_IMAGE_IDS),
                 new TypeReference<List<Long>>(){});
 
-        if(imageIds == null){
-            imageIds = new ArrayList<>();
-        }
-
         try {
             // Try to add images to collection.
             photographerManager.addImagesToCollection(authenticatedUser.getId(),collectionId,imageIds);
@@ -118,7 +114,7 @@ public class PhotographerController extends BaseAPIController {
                     bindingResult.addError(new FieldError(exceptionKey, "collectionId",msgNotValid));
                     break;
                 case AbstractBaseException.NOT_FOUND:
-                    String msgNotFount = messages.getMessage("Collection.addImages.notFound") +
+                    String msgNotFount = messages.getMessage("Collection.Images.notFound") +
                             messages.getMessage("Collection.addImages.failed") ;
                     bindingResult.addError(new FieldError(exceptionKey, "collectionId",msgNotFount));
                     break;
@@ -131,6 +127,102 @@ public class PhotographerController extends BaseAPIController {
         }
 
         return messages.getMessage("Collection.addImages.success");
+    }
+
+    /**
+     * Delete image or images from collection.
+     *
+     * Params: collectionId of Type <code>Long</code> required!
+     *         imageIds of Type <code>List<Long></code> required!
+     *
+     * @param jsonData map of params.
+     *         collectionId of Type <code>Long</code> required!
+     *         imageIds of Type <code>List<Long></code> required!
+     * @param bindingResult binding validate exception.
+     * @return success message.
+     * @throws java.io.IOException   input output exception.
+     * @throws AbstractBaseException the exception
+     */
+    @RequestMapping(value = Endpoints.COLLECTIONS_DELETE_IMAGE, method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteImageFromCollection(@RequestBody String jsonData, BindingResult bindingResult)
+            throws IOException, AbstractBaseException {
+        String exceptionKey = "collectionDeleteImage";
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException(exceptionKey, bindingResult);
+        }
+
+        User authenticatedUser = getAuthenticatedUser();
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(jsonData);
+        Long collectionId = mapper.convertValue(node.get(PARAM_COLLECTION_ID),
+                Long.class);
+        List<Long> imageIds = mapper.convertValue(node.get(PARAM_IMAGE_IDS),
+                new TypeReference<List<Long>>(){});
+
+        try {
+            // Try to add images to collection.
+            photographerManager.deleteImagesFromCollection(authenticatedUser.getId(), collectionId, imageIds);
+        } catch (ManagerException ex) {
+            switch (ex.getCode()) {
+                case AbstractBaseException.COLLECTION_ID_NOT_VALID:
+                    String msgNotValid = messages.getMessage("Collection.notValid") +
+                            messages.getMessage("Collection.deleteImages.failed") ;
+                    bindingResult.addError(new FieldError(exceptionKey, "collectionId",msgNotValid));
+                    break;
+                case AbstractBaseException.NOT_FOUND:
+                    String msgNotFount = messages.getMessage("Collection.Images.notFound") +
+                            messages.getMessage("Collection.deleteImages.failed") ;
+                    bindingResult.addError(new FieldError(exceptionKey, "collectionId",msgNotFount));
+                    break;
+
+                default:
+                    throw new RuntimeException("Unhandled error");
+            }
+
+            throw new BadRequestException(exceptionKey, bindingResult);
+        }
+
+        return messages.getMessage("Collection.deleteImages.success");
+    }
+
+    /**
+     * Delete image or images from collection.
+     *
+     * Params: collectionId of Type <code>Long</code> required!
+     *         imageIds of Type <code>List<Long></code> required!
+     *
+     * @param collectionId collection to delete.
+     * @return success message.
+     * @throws java.io.IOException   input output exception.
+     * @throws AbstractBaseException the exception
+     */
+    @RequestMapping(value = Endpoints.COLLECTIONS_DELETE, method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteCollection(@RequestParam(value="collectionId", required = true) Long collectionId)
+            throws IOException, AbstractBaseException {
+        String responseMessage = messages.getMessage("Collection.delete.success");
+
+        User authenticatedUser = getAuthenticatedUser();
+        try {
+            // Try to add images to collection.
+            photographerManager.deleteCollection(authenticatedUser.getId(), collectionId);
+        } catch (ManagerException ex) {
+            String exceptionMsg ;
+            switch (ex.getCode()) {
+                case AbstractBaseException.COLLECTION_ID_NOT_VALID:
+                    exceptionMsg = messages.getMessage("Collection.notValid") +
+                            messages.getMessage("Collection.delete.failed") ;
+                    break;
+                default:
+                    throw new RuntimeException("Unhandled error");
+            }
+
+            throw new BadRequestException(exceptionMsg);
+        }
+
+        return responseMessage;
     }
 
     /**

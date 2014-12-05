@@ -7,6 +7,7 @@
 package de.htw.sdf.photoplatform.repository.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -15,6 +16,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.repository.CollectionDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
@@ -94,15 +96,44 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public Set<CollectionImage> findCollectionImagesBy(Long userId, Long collectionId, List<Long> imageIds) {
+        StringBuilder queryBuilder = initCollectionAndImagesSelect();
+        queryBuilder.append("WHERE collection.id = :collectionId ");
+        queryBuilder.append("AND owner.id = :userId ");
+        queryBuilder.append("AND image.id IN (:imageIds) ");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("collectionId", collectionId);
+        query.setParameter("userId", userId);
+        query.setParameter("imageIds", imageIds);
+
+        Collection result = (Collection) query.getSingleResult();
+        return result.getCollectionImages();
+    }
+
     private StringBuilder initFullDataCollectionSelect() {
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT DISTINCT(collection) FROM Collection collection ");
         queryBuilder.append("LEFT JOIN FETCH collection.user owner ");
         queryBuilder.append("LEFT JOIN FETCH collection.thumbnail thumbnail ");
-        queryBuilder
-                .append("LEFT JOIN FETCH collection.collectionImages collectionImages ");
+        queryBuilder.append("LEFT JOIN FETCH collection.collectionImages collectionImages ");
+        queryBuilder.append("LEFT JOIN FETCH collectionImages.image image ");
         queryBuilder
                 .append("LEFT JOIN FETCH collection.collectionCategories collectionCategories ");
+
+        return queryBuilder;
+    }
+
+    private StringBuilder initCollectionAndImagesSelect() {
+        StringBuilder queryBuilder = new StringBuilder(
+                "SELECT DISTINCT(collection) FROM Collection collection ");
+        queryBuilder.append("LEFT JOIN FETCH collection.user owner ");
+        queryBuilder.append("LEFT JOIN FETCH collection.collectionImages collectionImages ");
+        queryBuilder.append("LEFT JOIN FETCH collectionImages.image image ");
 
         return queryBuilder;
     }
@@ -111,6 +142,7 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT DISTINCT(collection) FROM Collection collection ");
         queryBuilder.append("LEFT JOIN FETCH collection.user owner ");
+        queryBuilder.append("LEFT JOIN FETCH collection.collectionImages collectionImages ");
         return queryBuilder;
     }
 }

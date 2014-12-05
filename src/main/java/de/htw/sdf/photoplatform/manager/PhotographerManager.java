@@ -131,4 +131,58 @@ public interface PhotographerManager {
      * @throws ManagerException manager exception.
      */
     List<CollectionImage> addImagesToCollection(Long userId, Long collectionId, List<Long> imageIds) throws ManagerException ;
+
+    /**
+     * Delete one image from collection.
+     *
+     * @param userId collection owner.
+     * @param collectionId affected collection id.
+     * @param imageId deleted collectionImages.
+     * @return true if success deleted, otherwise exception.
+     * @throws ManagerException manager exception.
+     */
+    Boolean deleteImagesFromCollection(Long userId, Long collectionId, Long imageId) throws ManagerException;
+
+    /**
+     * Delete list of images from collection.
+     * @param userId collection owner.
+     * @param collectionId affected collection id.
+     * @param imageIds list of deleted collectionImages.
+     * @return true if success deleted, otherwise exception.
+     * @throws ManagerException manager exception.
+     */
+    Boolean deleteImagesFromCollection(Long userId, Long collectionId, List<Long> imageIds) throws ManagerException ;
+
+    /**
+     * Delete collection.
+     *
+     * If collection include images,
+     * than the reference between collection and images will be deleted too!
+     *
+     * @param userId collection owner.
+     * @param collectionId collection id.
+     * @return true, if deleted successfully, otherwise exception.
+     * @throws ManagerException manager exception.
+     */
+    Boolean deleteCollection(Long userId, Long collectionId) throws ManagerException ;
+
+    /**
+     * Add collection to showcase.
+     *
+     * @param userId collection owner.
+     * @param collectionId collection id.
+     * @return true, if successfully, otherwise exception.
+     * @throws ManagerException manager exception.
+     */
+    Boolean addToShowCase(Long userId, Long collectionId) throws ManagerException ;
+
+    /**
+     * Remove collection from showcase.
+     *
+     * @param userId collection owner.
+     * @param collectionId collection id.
+     * @return true, if successfully, otherwise exception.
+     * @throws ManagerException manager exception.
+     */
+    Boolean removeFromShowCase(Long userId, Long collectionId) throws ManagerException ;
 }

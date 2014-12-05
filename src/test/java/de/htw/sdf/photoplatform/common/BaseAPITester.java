@@ -15,7 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
 
-public abstract class BaseAPITester extends BaseTester {
+public abstract class BaseAPITester extends BaseImageTester {
 
     @Autowired
     protected WebApplicationContext wac;

@@ -21,7 +21,6 @@ import de.htw.sdf.photoplatform.webservice.controller.UserController;
 /**
  * Tests for users services.
  */
-@Ignore
 public class UserControllerTest extends BaseAPITester {
 
     @Autowired
@@ -50,6 +49,7 @@ public class UserControllerTest extends BaseAPITester {
     }
 
     @Test
+    @Ignore
     public void testGetDisabledUsersByRole() throws Exception {
         mockMvc.perform(
                 get("/api/users/disabled/" + Role.PHOTOGRAPHER).accept(
@@ -68,6 +68,7 @@ public class UserControllerTest extends BaseAPITester {
     }
 
     @Test
+    @Ignore
     public void testGetUserProfileData() throws Exception {
         String notExistId = "0";
         String requestNotExistId = Endpoints.API_PREFIX + Endpoints.USERS_PROFILE_BY_USER_ID.replace("{userId}", notExistId);

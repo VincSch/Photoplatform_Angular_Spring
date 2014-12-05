@@ -1,5 +1,11 @@
 package de.htw.sdf.photoplatform.common;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import de.htw.sdf.photoplatform.manager.ImageManager;
+import de.htw.sdf.photoplatform.manager.PhotographerManager;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
@@ -8,9 +14,7 @@ import de.htw.sdf.photoplatform.repository.CollectionDAO;
 import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
 import de.htw.sdf.photoplatform.repository.ImageDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.springframework.beans.factory.annotation.Autowired;
+import de.htw.sdf.photoplatform.repository.UserImageDAO;
 
 public abstract class BaseImageTester extends BaseTester {
     private static final int IMAGE_X_DIMENSION = 1920;
@@ -28,7 +32,16 @@ public abstract class BaseImageTester extends BaseTester {
     protected ImageDAO imageDAO;
 
     @Autowired
+    protected UserImageDAO userImageDAO;
+
+    @Autowired
     protected CollectionImageDAO collectionImageDAO;
+
+    @Autowired
+    protected PhotographerManager photographerManager;
+
+    @Autowired
+    protected ImageManager imageManager;
 
     @BeforeClass
     public static void initTest() {

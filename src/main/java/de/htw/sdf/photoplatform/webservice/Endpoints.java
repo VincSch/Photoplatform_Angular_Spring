@@ -25,6 +25,13 @@ public final class Endpoints {
      * /tickets/12/messages/5 - Updates message #5 for ticket #12 PATCH
      * /tickets/12/messages/5 - Partially updates message #5 for ticket #12aa
      * DELETE /tickets/12/messages/5 - Deletes message #5 for ticket #12
+     *
+     *
+     * POST: erstellt neues object
+     * GET: hollen
+     * PATCH: updaten
+     * DELETE: löschen
+     * Resource: /collections
      */
 
     /**
@@ -90,10 +97,23 @@ public final class Endpoints {
 
     /**
      * POST: add image to collection.
-     *
-     * Will be used to find all photograph's collections.
      */
     public static final String COLLECTIONS_ADD_IMAGE = "/collections/addimage";
+
+    /**
+     * POST: delete image from collection.
+     */
+    public static final String COLLECTIONS_DELETE_IMAGE = "/collections/deleteimage";
+
+    /**
+     * POST: update collection.
+     */
+    public static final String COLLECTIONS_UPDATE= "/collections/update";
+
+    /**
+     * POST: delete collection.
+     */
+    public static final String COLLECTIONS_DELETE= "/collections/delete";
 
     /**
      * all photograph's images.
@@ -177,6 +197,9 @@ public final class Endpoints {
                 restBuilder(COLLECTIONS_PHOTOGRAPHERS_START_COUNT),
                 restBuilder(COLLECTIONS_CREATE),
                 restBuilder(COLLECTIONS_ADD_IMAGE),
+                restBuilder(COLLECTIONS_DELETE_IMAGE),
+                restBuilder(COLLECTIONS_DELETE),
+                restBuilder(COLLECTIONS_UPDATE),
                 restBuilder(USERS_BECOME_PHOTOGRAPHERS)
         };
         return securedEndpoints;

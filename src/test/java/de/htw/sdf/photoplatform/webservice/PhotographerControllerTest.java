@@ -10,11 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
@@ -31,8 +29,11 @@ import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 public class PhotographerControllerTest extends BaseAPITester {
 
     private final String ENDPOINT_ADD_IMAGE = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_ADD_IMAGE;
+    private final String ENDPOINT_DELETE_IMAGE = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_DELETE_IMAGE;
     private final String ENDPOINT_CREATE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_CREATE;
+    private final String ENDPOINT_DELETE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_DELETE;
     private final String ENDPOINT_GET_COLLECTIONS = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS_START_COUNT;
+
 
     @Before
     public void setUp() throws Exception {
@@ -45,23 +46,10 @@ public class PhotographerControllerTest extends BaseAPITester {
     }
 
     @Test
-    @Ignore
     public void testGetPhotographersImages() throws Exception {
         loginAsPhotograph();
 
         String request = Endpoints.API_PREFIX + Endpoints.IMAGES_PHOTOGRAPHERS;
-        mockMvc.perform(
-                get(request).contentType(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8")).andExpect(
-                status().isOk());
-    }
-
-    @Test
-    @Ignore
-    public void testGetPhotographersCollections() throws Exception {
-        loginAsPhotograph();
-
-        String request = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS_START_COUNT;
         mockMvc.perform(
                 get(request).contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")).andExpect(
@@ -92,9 +80,15 @@ public class PhotographerControllerTest extends BaseAPITester {
                 status().isOk());
     }
 
+    /**
+     * This method tests the basic collection services:
+     * createCollection, addImage  to collection,
+     * deleteImage from collection, delete collection.
+     *
+     * @throws Exception exception.
+     */
     @Test
-    @Ignore(value="not finished!")
-    public void testAddImageToCollections() throws Exception {
+    public void testBasicCollectionsServices() throws Exception {
         loginAsPhotograph();
         User photograph = userDAO.findByEmail("sergej@test.de");
 
@@ -128,7 +122,7 @@ public class PhotographerControllerTest extends BaseAPITester {
                 status().isOk());
         photographCollections.clear();
         photographCollections = photographerManager.getCollectionByUser(photograph.getId(),0,0);
-        Assert.assertTrue("One collection should be added!",initCollectionSize + 1 == photographCollections.size());
+        Assert.assertTrue("One collection should be added!", initCollectionSize + 1 == photographCollections.size());
 
         //Add image to Collection.
         Long validCollectionId = photographCollections.get(0).getId();
@@ -145,7 +139,7 @@ public class PhotographerControllerTest extends BaseAPITester {
         List<Image> imagesToCreate = new ArrayList<>();
         String firstImageName = "myFirstImage";
         String firstImagePath = "store/" + firstImageName;
-        Image firstImage = InitDefaultImage(firstImageName,firstImagePath);
+        Image firstImage = initDefaultImage(firstImageName,Boolean.FALSE,Boolean.TRUE,firstImagePath);
         imagesToCreate.add(firstImage);
         List<UserImage> createdUserImages = photographerManager.createPhotographImage(photograph,imagesToCreate);
         Assert.assertTrue(createdUserImages.size() == 1);
@@ -162,6 +156,30 @@ public class PhotographerControllerTest extends BaseAPITester {
                         .content(mapper.writeValueAsString(requestCollectionData))
                         .accept(MediaType.APPLICATION_JSON)).andExpect(
                 status().isOk());
-        int test = 0 ;
+
+        //Delete Image From Collection
+        mockMvc.perform(
+                post(ENDPOINT_DELETE_IMAGE)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(requestCollectionData))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
+
+        //Delete collection.
+        String collectionIdToDelete = String.valueOf(requestCollectionData.getCollectionId());
+        mockMvc.perform(
+                post(ENDPOINT_DELETE_COLLECTION)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("collectionId", collectionIdToDelete)
+                        .accept(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isOk());
+
+        //RollBack rest test data!
+        List<UserImage> userImages = imageManager.getPhotographImages(photograph);
+        for(UserImage userImage : userImages){
+            Image image = userImage.getImage();
+            userImageDAO.delete(userImage);
+            imageDAO.delete(image);
+        }
     }
 }

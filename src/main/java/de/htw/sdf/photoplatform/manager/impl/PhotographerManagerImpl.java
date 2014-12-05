@@ -7,6 +7,7 @@ package de.htw.sdf.photoplatform.manager.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -140,18 +141,12 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
     @Override
     public List<CollectionImage> addImagesToCollection(Long userId, Long collectionId, List<Long> imageIds) throws ManagerException {
         List<CollectionImage> result = new ArrayList<>();
-        if (collectionId == null) {
-            throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);
-        }
 
-        if(imageIds.isEmpty()){
+        if(imageIds == null || imageIds.isEmpty()){
             throw new ManagerException(AbstractBaseException.NOT_FOUND);
         }
 
-        Collection affectedCollection = collectionDAO.findByUserAndCollectionId(userId, collectionId);
-        if(affectedCollection == null){
-            throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);
-        }
+        Collection affectedCollection = getCollection(userId, collectionId);
 
         List<UserImage> imagesToAdd = userImageDAO.getUserImagesBy(userId, imageIds);
         if(imagesToAdd.isEmpty()){
@@ -171,5 +166,97 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         }
 
         return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean deleteImagesFromCollection(Long userId, Long collectionId, Long imageId) throws ManagerException {
+        List<Long> imageIds = new ArrayList<>();
+        imageIds.add(imageId);
+        return deleteImagesFromCollection(userId, collectionId, imageIds);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean deleteImagesFromCollection(Long userId, Long collectionId, List<Long> imageIds) throws ManagerException {
+        if (collectionId == null) {
+            throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);
+        }
+
+        if(imageIds == null || imageIds.isEmpty()) {
+            throw new ManagerException(AbstractBaseException.NOT_FOUND);
+        }
+
+        Set<CollectionImage> collectionImages = collectionDAO.findCollectionImagesBy(userId, collectionId, imageIds);
+        if(collectionImages.size() != imageIds.size()){
+            throw new RuntimeException("The size of image id's is different to size of founded images. This should not happen");
+        }
+
+        for(CollectionImage collectionImage : collectionImages) {
+            collectionImageDAO.delete(collectionImage);
+        }
+
+        return true ;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean deleteCollection(Long userId, Long collectionId) throws ManagerException {
+
+        Collection affectedCollection = getCollection(userId, collectionId);
+
+        for(CollectionImage collectionImage : affectedCollection.getCollectionImages()){
+            //Hm, collection include images
+            //what should happen with images by deleting a collection.
+            //My Solution, delete reference between collection and image, but not the image!
+            collectionImageDAO.delete(collectionImage);
+        }
+
+        //now we can remove the collection!
+        collectionDAO.delete(affectedCollection);
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean addToShowCase(Long userId, Long collectionId) throws ManagerException {
+        return updateCollectionsPublicValue(userId, collectionId, Boolean.TRUE);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean removeFromShowCase(Long userId, Long collectionId) throws ManagerException {
+        return updateCollectionsPublicValue(userId, collectionId, Boolean.FALSE);
+    }
+
+    private Boolean updateCollectionsPublicValue(Long userId, Long collectionId, Boolean value) throws ManagerException {
+        Collection affectedCollection = getCollection(userId, collectionId);
+        affectedCollection.setPublic(value);
+        collectionDAO.update(affectedCollection);
+        return true ;
+    }
+
+    private Collection getCollection(Long userId, Long collectionId) throws ManagerException {
+        if (collectionId == null) {
+            throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);
+        }
+
+        Collection affectedCollection = collectionDAO.findByUserAndCollectionId(userId,collectionId);
+        if(affectedCollection == null){
+            throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);
+        }
+
+        return affectedCollection;
     }
 }

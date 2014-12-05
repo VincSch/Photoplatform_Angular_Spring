@@ -7,8 +7,10 @@
 package de.htw.sdf.photoplatform.repository;
 
 import java.util.List;
+import java.util.Set;
 
 import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 /**
@@ -46,4 +48,14 @@ public interface CollectionDAO extends GenericDAO<Collection> {
      * @return list of user's collection
      */
     List<Collection> findCollectionsByUser(final long userId, int start, int count);
+
+    /**
+     * Returns set of collection images.
+     *
+     * @param userId collection owner.
+     * @param collectionId collection id.
+     * @param imageIds list of image ids.
+     * @return set of collection images.
+     */
+    Set<CollectionImage> findCollectionImagesBy(Long userId, Long collectionId, List<Long> imageIds);
 }
