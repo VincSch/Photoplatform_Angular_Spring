@@ -19,6 +19,9 @@ import de.htw.sdf.photoplatform.webservice.dto.UserData;
 import de.htw.sdf.photoplatform.webservice.dto.UserPasswordChange;
 import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 import de.htw.sdf.photoplatform.webservice.util.UserUtility;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -288,25 +291,11 @@ public class UserController extends BaseAPIController {
             throw new BadRequestException("changePassword", bindingResult);
         }
 
-        try {
-            authorizationController
-                    .checkUserPermissions(userData.getId().toString());
-        } catch (AbstractBaseException abe) {
-            switch (abe.getCode()) {
-                case AbstractBaseException.AUTHORIZATION_NOT_VALID:
-                    ObjectError error = new ObjectError("authorization",
-                            messages
-                                    .getMessage("SystemHack"));
-                    throw new BadRequestException(error.getDefaultMessage());
-                default:
-                    throw new RuntimeException("Unhandled error");
-            }
-        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authenticatedUser = (User) authentication.getPrincipal();
 
-        // find affected user
-        User userToUpdate = userManager.findById(userData.getId());
         // change user password data
-        userToUpdate.setPassword(userData.getNewPassword());
-        userManager.update(userToUpdate);
+        authenticatedUser.setPassword(new BCryptPasswordEncoder().encode(userData.getNewPassword()));
+        userManager.update(authenticatedUser);
     }
 }

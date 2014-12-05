@@ -72,7 +72,7 @@ angular.module('photoplatform').factory('UserService', ['$http',
         };
 
         userService.changePassword = function (passwordData) {
-            return $http.post(urlBaseList + '/changepassword/', passwordData);
+            return $http.post(urlBaseList + '/changepassword', passwordData);
         };
 
         return userService;
