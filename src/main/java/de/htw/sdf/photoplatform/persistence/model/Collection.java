@@ -6,16 +6,24 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
-
-import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Entity class for a collection representing the corresponding database table.
  *
- * @author Sergej Meister.
+ * @author Sergej Meister sergej_meister@gmx.net.
  */
 @Entity
 @Table(name = "RES_COLLECTION")
