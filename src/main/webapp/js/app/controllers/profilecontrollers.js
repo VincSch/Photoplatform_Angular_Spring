@@ -47,8 +47,9 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
         $scope.changePassword = function (pw) {
             UserService.changePassword(pw).success(function (data) {
                 $rootScope.success = "Passwort erfolgreich geändert";
-                var pwModal = document.getElementById("#pwModal");
-                pwModal.dismiss('success');
+//                $scope.pwModal = document.getElementById("pwModal");
+//                $scope.pwModal.dismiss("success");
+                $('#pwModal').modal('hide');
             }).error(function (data) {
                 console.log(data);
                 $scope.errors = data.errors;
