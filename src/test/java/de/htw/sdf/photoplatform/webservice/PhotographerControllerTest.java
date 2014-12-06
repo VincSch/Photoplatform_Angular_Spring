@@ -229,11 +229,7 @@ public class PhotographerControllerTest extends BaseAPITester {
                         .andExpect(status().isOk());
 
         //RollBack rest test data!
-        List<UserImage> userImages = imageManager.getPhotographImages(photograph);
-        for(UserImage userImage : userImages){
-            Image image = userImage.getImage();
-            userImageDAO.delete(userImage);
-            imageDAO.delete(image);
-        }
+        userImageDAO.deleteAll();
+        imageDAO.deleteAll();
     }
 }

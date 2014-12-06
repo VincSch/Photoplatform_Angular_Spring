@@ -47,7 +47,7 @@ import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
 @RestController
 public class PhotographerController extends BaseAPIController {
 
-    private final static String PARAM_COLLECTION_ID = "collectionId";
+    private final static String PARAM_COLLECTION_ID = "id";
     private final static String PARAM_IMAGE_IDS = "imageIds";
 
     @Resource
