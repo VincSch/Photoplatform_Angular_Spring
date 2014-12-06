@@ -224,6 +224,17 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean updateCollectionsPublicValue(Long userId, Long collectionId, Boolean publicValue) throws ManagerException {
+        Collection collectionToUpdate = getCollection(userId, collectionId);
+        collectionToUpdate.setPublic(publicValue);
+        collectionDAO.update(collectionToUpdate);
+        return true;
+    }
+
     private Collection getCollection(Long userId, Long collectionId) throws ManagerException {
         if (collectionId == null) {
             throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);

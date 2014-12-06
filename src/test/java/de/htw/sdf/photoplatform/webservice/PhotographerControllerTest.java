@@ -4,6 +4,7 @@
 package de.htw.sdf.photoplatform.webservice;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,6 +34,8 @@ public class PhotographerControllerTest extends BaseAPITester {
     private final String ENDPOINT_CREATE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_CREATE;
     private final String ENDPOINT_DELETE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_DELETE;
     private final String ENDPOINT_GET_COLLECTIONS = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS_START_COUNT;
+    private final String ENDPOINT_COLLECTIONS_SHOWCASE= Endpoints.API_PREFIX + Endpoints.COLLECTIONS_SHOWCASE;
+    private final String ENDPOINT_COLLECTIONS_UPDATE= Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS;
 
 
     @Before
@@ -59,10 +62,12 @@ public class PhotographerControllerTest extends BaseAPITester {
     @Test
     public void testCreateCollection() throws Exception {
         loginAsPhotograph();
+        User photograph = userDAO.findByEmail("sergej@test.de");
 
         CollectionData data = new CollectionData();
         data.setName("Winter");
         data.setDescription("Meine Winder fotos");
+        data.setPublic(Boolean.FALSE);
 
         mockMvc.perform(
                 post(ENDPOINT_CREATE_COLLECTION)
@@ -71,13 +76,62 @@ public class PhotographerControllerTest extends BaseAPITester {
                         .characterEncoding("UTF-8")).andExpect(
                 status().isOk());
 
-        String start = "0";
-        String count = "0" ;
-        String requestUrl = ENDPOINT_GET_COLLECTIONS.replace("{start}",start).replace("{count}",count);
+        List<Collection> collectionList = photographerManager.getCollectionByUser(photograph.getId(),0,0);
+        Collection createdCollection = findCollectionInList(collectionList,data.getName(),data.getDescription(),data.getPublic());
+        Assert.assertNotNull(createdCollection);
+        Assert.assertTrue(createdCollection.getUser().getId().equals(photograph.getId()));
+
+        String requestUrl = ENDPOINT_GET_COLLECTIONS.replace("{start}","0").replace("{count}","0");
         mockMvc.perform(
                 get(requestUrl).contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")).andExpect(
                 status().isOk());
+
+        //add to showcase
+        mockMvc.perform(
+                post(ENDPOINT_COLLECTIONS_SHOWCASE)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("collectionId", createdCollection.getId().toString())
+                        .param("isPublic", Boolean.TRUE.toString())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        collectionList.clear();
+        collectionList = photographerManager.getCollectionByUser(photograph.getId(),0,0);
+        Collection updateCollection = findCollectionInList(collectionList,data.getName(),data.getDescription(),Boolean.TRUE);
+        Assert.assertNotNull(updateCollection);
+
+        //update collection
+        CollectionData dataToUpdate = new CollectionData();
+        dataToUpdate.setName("WinterUpdate");
+        dataToUpdate.setDescription("Meine neue Winter fotos");
+        dataToUpdate.setPublic(Boolean.FALSE);
+        mockMvc.perform(
+                patch(ENDPOINT_COLLECTIONS_UPDATE)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(dataToUpdate))
+                        .characterEncoding("UTF-8")).andExpect(
+                status().isOk());
+
+        collectionList.clear();
+        collectionList = photographerManager.getCollectionByUser(photograph.getId(),0,0);
+        Collection updatedCollectionData = findCollectionInList(collectionList,dataToUpdate.getName(),
+                dataToUpdate.getDescription(),Boolean.FALSE);
+        Assert.assertNotNull(updatedCollectionData);
+
+        //Remove created test data.
+        collectionDAO.deleteAll();
+    }
+
+    private Collection findCollectionInList(List<Collection> collectionList, String name, String description,Boolean publicValue){
+        for(Collection collection : collectionList){
+            if(collection.getName().equals(name) &&
+                    collection.getDescription().equals(description) &&
+                    collection.isPublic() == publicValue){
+                return collection;
+            }
+        }
+        return null;
     }
 
     /**

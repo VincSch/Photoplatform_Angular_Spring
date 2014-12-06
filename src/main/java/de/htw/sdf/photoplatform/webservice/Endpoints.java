@@ -86,6 +86,11 @@ public final class Endpoints {
     public static final String COLLECTIONS_PHOTOGRAPHERS = "/collections/photographers";
 
     /**
+     * Endpoint for photograph services.
+     */
+    public static final String COLLECTIONS_SHOWCASE = "/collections/showcase";
+
+    /**
      * GET: all photograph's collections.
      *
      * Will be used to find all photograph's collections.
@@ -206,6 +211,7 @@ public final class Endpoints {
                 restBuilder(COLLECTIONS_DELETE_IMAGE),
                 restBuilder(COLLECTIONS_DELETE),
                 restBuilder(COLLECTIONS_UPDATE),
+                restBuilder(COLLECTIONS_SHOWCASE),
                 restBuilder(USERS_BECOME_PHOTOGRAPHERS)
         };
         return securedEndpoints;
