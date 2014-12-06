@@ -1,5 +1,11 @@
 var xAuthTokenHeaderName = 'x-auth-token';
-var photoplatform = angular.module('photoplatform', ['ngRoute', 'ngCookies', 'photoplatformControllers', 'ui.bootstrap']);
+var photoplatform = angular.module('photoplatform',
+    [
+        'ngRoute',
+        'ngCookies',
+        'photoplatformControllers',
+        'ui.bootstrap'
+    ]);
 
 /**
  * App configuration.
@@ -40,8 +46,8 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
             templateUrl: '/views/partials/profile/photographer/collection/view.html',
             controller: 'PhotographerCtrl'
         }).when('/profile/photograph/image', {
-            templateUrl: '/views/partials/profile/photographer/image/view.html',
-            controller: ''
+            templateUrl: '/views/partials/profile/photographer/image.html',
+            controller: 'ImageCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
             controller: ''

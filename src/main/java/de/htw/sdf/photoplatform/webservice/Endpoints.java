@@ -153,6 +153,11 @@ public final class Endpoints {
     public static final String USER_UNLOCK = "/user/unlock/{id}";
 
     /**
+     * upload a picture.
+     */
+    public static final String PHOTOGRAPHER_UPLOAD = "/photographer/upload";
+
+    /**
      * Private Endpoint constructor.
      */
     private Endpoints() {
@@ -202,6 +207,7 @@ public final class Endpoints {
     public static String[] securedPhotographEndpoints() {
         String[] securedEndpoints = {
                 restBuilder(USERS_UPDATE),
+                restBuilder(PHOTOGRAPHER_UPLOAD),
                 restBuilder(USERS_START_COUNT),
                 restBuilder(IMAGES_PHOTOGRAPHERS),
                 restBuilder(COLLECTIONS_PHOTOGRAPHERS),

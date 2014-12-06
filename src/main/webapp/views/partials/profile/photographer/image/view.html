@@ -1,56 +1,76 @@
 <div class="row">
-    <div class="col-md-2" ng-include src="'/views/partials/profile/sidebar.html'"></div>
+    <div class="col-md-2" ng-include
+         src="'/views/partials/profile/sidebar.html'"></div>
     <div class="col-md-10">
         <div class="page-header">
             <h2>Fotoverwaltung</h2>
 
             <p>Lorem ipsum dolor sit amet, consectetur adipisici
                 elit,
-                <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+                <br>sed eiusmod tempor incidunt ut labore et dolore magna
+                aliqua.
                 <br>Ut enim ad minim veniam, quis nostrud</p>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Dateipfad">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="col-md-6">
+                        File to upload:
+                        <input file-input="files"
+                               type="file" multiple>
                     </div>
-                    <a class="btn btn-default">Hochladen</a>
+
+
+                    <div class="col-md-6"></div>
+                    <div id="darg-and-drop-area" class="col-md-6">
+                        <p>
+                            drag & drop an image
+                        </p>
+                    </div>
+                    <div>
+
+                    </div>
+                    <div id="preview" class="col-md-12"></div>
+                    <li ng-repeat="file in files">{{file.name}}</li>
+                    <button ng-click="uploadImage()">
+                        Hochladen
+                    </button>
                 </form>
             </div>
         </div>
         <div class="row"></div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 60%;">60% Complete</div>
-                </div>
-            </div>
-        </div>
-        <br>
+
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="thumbnail">
-                            <img src="http://placehold.it/1024x600" class="img-responsive">
+                            <img src="http://placehold.it/1024x600"
+                                 class="img-responsive">
 
                             <div class="caption">
                                 <h3>pic 1</h3>
 
-                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id
-                                    elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies
+                                <p>Cras justo odio, dapibus ac facilisis in,
+                                    egestas eget quam. Donec id
+                                    elit non mi porta gravida at eget metus.
+                                    Nullam id dolor id nibh ultricies
                                     vehicula ut id elit.</p>
 
                                 <div class="btn-toolbar" role="toolbar">
                                     <div class="btn-group">
-                                        <a type="button" class="btn btn-default">bearbeiten</a>
-                                        <a type="button" class="btn btn-default">entfernen</a>
+                                        <a type="button"
+                                           class="btn btn-default">bearbeiten</a>
+                                        <a type="button"
+                                           class="btn btn-default">entfernen</a>
 
                                         <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                verschieben&nbsp;<span class="caret"></span></a>
-                                            <ul class="dropdown-menu" role="menu">
+                                            <a class="btn btn-primary btn-sm dropdown-toggle"
+                                               data-toggle="dropdown">
+                                                verschieben&nbsp;<span
+                                                    class="caret"></span></a>
+                                            <ul class="dropdown-menu"
+                                                role="menu">
                                                 <li>
                                                     <a href="#">Album 1</a>
                                                 </li>
@@ -71,13 +91,16 @@
             </div>
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <img src="http://placehold.it/1024x600" class="img-responsive">
+                    <img src="http://placehold.it/1024x600"
+                         class="img-responsive">
 
                     <div class="caption">
                         <h3>pic 2</h3>
 
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id
-                            elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies
+                        <p>Cras justo odio, dapibus ac facilisis in, egestas
+                            eget quam. Donec id
+                            elit non mi porta gravida at eget metus. Nullam id
+                            dolor id nibh ultricies
                             vehicula ut id elit.</p>
 
                         <div class="btn-toolbar" role="toolbar">
@@ -86,8 +109,10 @@
                                 <a type="button" class="btn btn-default">entfernen</a>
 
                                 <div class="btn-group">
-                                    <a class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                        verschieben&nbsp;<span class="caret"></span></a>
+                                    <a class="btn btn-primary btn-sm dropdown-toggle"
+                                       data-toggle="dropdown">
+                                        verschieben&nbsp;<span
+                                            class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="#">Album 1</a>
@@ -107,13 +132,16 @@
             </div>
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <img src="http://placehold.it/1024x600" class="img-responsive">
+                    <img src="http://placehold.it/1024x600"
+                         class="img-responsive">
 
                     <div class="caption">
                         <h3>pic 3</h3>
 
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id
-                            elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies
+                        <p>Cras justo odio, dapibus ac facilisis in, egestas
+                            eget quam. Donec id
+                            elit non mi porta gravida at eget metus. Nullam id
+                            dolor id nibh ultricies
                             vehicula ut id elit.</p>
 
                         <div class="btn-toolbar" role="toolbar">
@@ -122,8 +150,10 @@
                                 <a type="button" class="btn btn-default">entfernen</a>
 
                                 <div class="btn-group">
-                                    <a class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                        verschieben&nbsp;<span class="caret"></span></a>
+                                    <a class="btn btn-primary btn-sm dropdown-toggle"
+                                       data-toggle="dropdown">
+                                        verschieben&nbsp;<span
+                                            class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="#">Album 1</a>
