@@ -77,10 +77,10 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
          * Create new collection
          * @param collection
          */
-        $scope.updateCollection = function (editCollection, originCollection) {
+        $scope.updateCollection = function (editCollection, originCollection, status) {
             PhotographerService.updateCollection(editCollection).success(function (collection) {
                 angular.extend(originCollection, collection);
-                $scope.editing = false;
+                status.editing = false;
                 $rootScope.success = 'Erfolgreich aktualisiert';
             }).error(function (data) {
                 $scope.errors = data.errors;

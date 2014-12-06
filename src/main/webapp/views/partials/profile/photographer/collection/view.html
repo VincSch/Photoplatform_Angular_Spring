@@ -58,10 +58,10 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-4" ng-repeat="collection in collections">
-                        <div class="thumbnail" id="collection-{{collection.id}}">
+                        <div class="thumbnail" id="collection-{{collection.id}}" ng-init="status = {editing : false }">
                             <img src="http://placehold.it/1024x600" class="img-responsive">
 
-                            <div class="caption" ng-show="!editing">
+                            <div class="caption" ng-show="!status.editing">
                                 <h3><a href="/collections/{{collection.id}}">{{collection.name}}</a></h3>
 
                                 <p>{{collection.description}}</p>
@@ -69,7 +69,7 @@
                                 <div class="btn-toolbar" role="toolbar">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default"
-                                                ng-click="editing = true; editCollection = copy(collection)">Bearbeiten
+                                                ng-click="status.editing = true; editCollection = copy(collection)">Bearbeiten
                                         </button>
                                         <button type="button" class="btn btn-default"
                                                 ng-click="deleteCollection(collection)">entfernen
@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="caption" ng-show="editing">
+                            <div class="caption" ng-show="status.editing">
                                 <form role="form" novalidate>
                                     <div class="form-group has-feedback"
                                          ng-class="{'has-error' : (form.name.$invalid || errors.name) && form.name.$dirty}">
@@ -90,7 +90,7 @@
                                             <label for="collection-name-{{collection.id}}"
                                                    class="control-label input-group-addon">Name</label>
                                             <input id="collection-name-{{collection.id}}" type="text"
-                                                   ng-model="collection.name" placeholder="Name" ng-required
+                                                   ng-model="editCollection.name" placeholder="Name" ng-required
                                                    required class="form-control">
                                         </div>
                                         <div class="help-block" ng-show="form.name.$dirty">
@@ -104,7 +104,7 @@
                                             <label for="collection-desc-{{collection.id}}"
                                                    class="control-label input-group-addon">Beschreibung</label>
                                             <textarea id="collection-desc-{{collection.id}}"
-                                                      ng-model="collection.description" placeholder="Beschreibung"
+                                                      ng-model="editCollection.description" placeholder="Beschreibung"
                                                       class="form-control"></textarea>
                                         </div>
                                         <div class="help-block" ng-show="form.description.$dirty">
@@ -113,10 +113,10 @@
                                     </div>
                                     <div class="form-group">
                                         <button type="button" class="btn btn-default"
-                                                ng-click="form.rollbackViewValue(); editing = false">Abbrechen
+                                                ng-click="status.editing = false">Abbrechen
                                         </button>
                                         <button type="submit" class="btn btn-primary"
-                                                ng-click="updateCollection(editCollection, collection); ">Speichern
+                                                ng-click="updateCollection(editCollection, collection, status); ">Speichern
                                         </button>
                                     </div>
                                 </form>
