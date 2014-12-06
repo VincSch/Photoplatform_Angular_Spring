@@ -241,7 +241,7 @@ public class PhotographerController extends BaseAPIController {
 
         // FIXME this code belongs to service..not in a controller
         Collection collection = new Collection();
-        collection.setId(data.getCollectionId());
+        collection.setId(data.getId());
         collection.setName(data.getName());
         collection.setDescription(data.getDescription());
         collection.setUser(user);

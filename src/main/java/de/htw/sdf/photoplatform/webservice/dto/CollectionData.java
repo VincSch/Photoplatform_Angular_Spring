@@ -18,7 +18,7 @@ import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
  */
 public class CollectionData implements Serializable {
 
-    private long collectionId;
+    private long id;
 
     @NotEmpty
     private String name;
@@ -56,7 +56,7 @@ public class CollectionData implements Serializable {
      * Default empty constructor.
      */
     public CollectionData(Collection collection, boolean includeImages){
-        this.collectionId = collection.getId();
+        this.id = collection.getId();
         this.name = collection.getName();
         this.description = collection.getDescription();
         this.images = new ArrayList<>();
@@ -77,17 +77,17 @@ public class CollectionData implements Serializable {
      *
      * @return collection id.
      */
-    public long getCollectionId() {
-        return collectionId;
+    public long getId() {
+        return id;
     }
 
     /**
      * Sets collection id.
      *
-     * @param collectionId collection id.
+     * @param id collection id.
      */
-    public void setCollectionId(long collectionId) {
-        this.collectionId = collectionId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**

@@ -8,6 +8,8 @@ package de.htw.sdf.photoplatform.manager.impl;
 import de.htw.sdf.photoplatform.manager.ImageManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserImage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,14 @@ import java.util.List;
 @Transactional
 public class ImageManagerImpl extends DAOReferenceCollector implements
     ImageManager {
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<UserImage> getPhotographImages(User owner) {
+        return userImageDAO.getPhotographImages(owner);
+    }
 
     @Override public void create(Image entity) {
         imageDAO.create(entity);
@@ -46,4 +56,5 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
     @Override public void deleteAll() {
         imageDAO.deleteAll();
     }
+
 }

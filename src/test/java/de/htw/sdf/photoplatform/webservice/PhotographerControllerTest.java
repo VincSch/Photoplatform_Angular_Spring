@@ -96,7 +96,7 @@ public class PhotographerControllerTest extends BaseAPITester {
         int initCollectionSize =  photographCollections.size();
 
         CollectionData requestCollectionData = new CollectionData();
-        requestCollectionData.setCollectionId(1000L);
+        requestCollectionData.setId(1000L);
         List<Long> imageIds = new ArrayList<>();
         imageIds.add(2000L);
         requestCollectionData.setImageIds(imageIds);
@@ -126,7 +126,7 @@ public class PhotographerControllerTest extends BaseAPITester {
 
         //Add image to Collection.
         Long validCollectionId = photographCollections.get(0).getId();
-        requestCollectionData.setCollectionId(validCollectionId);
+        requestCollectionData.setId(validCollectionId);
         //Now Sergej, has one collection, but no images! It should be a bad request.
         mockMvc.perform(
                 post(ENDPOINT_ADD_IMAGE)
@@ -166,7 +166,7 @@ public class PhotographerControllerTest extends BaseAPITester {
                 status().isOk());
 
         //Delete collection.
-        String collectionIdToDelete = String.valueOf(requestCollectionData.getCollectionId());
+        String collectionIdToDelete = String.valueOf(requestCollectionData.getId());
         mockMvc.perform(
                 post(ENDPOINT_DELETE_COLLECTION)
                         .contentType(MediaType.APPLICATION_JSON)

@@ -8,6 +8,8 @@ package de.htw.sdf.photoplatform.manager;
 
 import de.htw.sdf.photoplatform.persistence.model.Category;
 import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserImage;
 
 import java.util.List;
 
@@ -19,7 +21,6 @@ import java.util.List;
 public interface ImageManager {
 
     /**
-<<<<<<< HEAD
      * Returns all photograph's images.
      *
      * The image belong to photograph, when both the owner and the user is photograph.
@@ -28,7 +29,8 @@ public interface ImageManager {
      * @return Return List of user images.
      */
     List<UserImage> getPhotographImages(User owner);
-=======
+
+    /**
      * persist a category.
      *
      * @param entity the category to create
@@ -69,5 +71,4 @@ public interface ImageManager {
      * delete all categories.
      */
     void deleteAll();
->>>>>>> master
 }

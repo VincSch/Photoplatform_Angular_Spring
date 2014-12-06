@@ -62,7 +62,7 @@
                             <img src="http://placehold.it/1024x600" class="img-responsive">
 
                             <div class="caption" ng-show="!editing">
-                                <h3><a href="/">{{collection.name}}</a></h3>
+                                <h3><a href="/collections/{{collection.id}}">{{collection.name}}</a></h3>
 
                                 <p>{{collection.description}}</p>
 
@@ -90,7 +90,7 @@
                                             <label for="collection-name-{{collection.id}}"
                                                    class="control-label input-group-addon">Name</label>
                                             <input id="collection-name-{{collection.id}}" type="text"
-                                                   ng-model="editCollection.name" placeholder="Name" ng-required
+                                                   ng-model="collection.name" placeholder="Name" ng-required
                                                    required class="form-control">
                                         </div>
                                         <div class="help-block" ng-show="form.name.$dirty">
@@ -99,12 +99,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback"
-                                         ng-class="{'has-error' : (form.description.$invalid || errors.description) && form.description.$dirty}">>
+                                         ng-class="{'has-error' : (form.description.$invalid || errors.description) && form.description.$dirty}">
                                         <div class="input-group">
                                             <label for="collection-desc-{{collection.id}}"
                                                    class="control-label input-group-addon">Beschreibung</label>
                                             <textarea id="collection-desc-{{collection.id}}"
-                                                      ng-model="editCollection.description" placeholder="Beschreibung"
+                                                      ng-model="collection.description" placeholder="Beschreibung"
                                                       class="form-control"></textarea>
                                         </div>
                                         <div class="help-block" ng-show="form.description.$dirty">
@@ -113,10 +113,10 @@
                                     </div>
                                     <div class="form-group">
                                         <button type="button" class="btn btn-default"
-                                                ng-click="form.$setPristine(); editing = false">Abbrechen
+                                                ng-click="form.rollbackViewValue(); editing = false">Abbrechen
                                         </button>
                                         <button type="submit" class="btn btn-primary"
-                                                ng-click="updateCollection(editCollection, collection); editing = false;">Speichern
+                                                ng-click="updateCollection(editCollection, collection); ">Speichern
                                         </button>
                                     </div>
                                 </form>
