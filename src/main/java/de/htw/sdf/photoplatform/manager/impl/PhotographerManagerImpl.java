@@ -224,29 +224,6 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Boolean addToShowCase(Long userId, Long collectionId) throws ManagerException {
-        return updateCollectionsPublicValue(userId, collectionId, Boolean.TRUE);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Boolean removeFromShowCase(Long userId, Long collectionId) throws ManagerException {
-        return updateCollectionsPublicValue(userId, collectionId, Boolean.FALSE);
-    }
-
-    private Boolean updateCollectionsPublicValue(Long userId, Long collectionId, Boolean value) throws ManagerException {
-        Collection affectedCollection = getCollection(userId, collectionId);
-        affectedCollection.setPublic(value);
-        collectionDAO.update(affectedCollection);
-        return true ;
-    }
-
     private Collection getCollection(Long userId, Long collectionId) throws ManagerException {
         if (collectionId == null) {
             throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);

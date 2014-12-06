@@ -165,24 +165,4 @@ public interface PhotographerManager {
      * @throws ManagerException manager exception.
      */
     Boolean deleteCollection(Long userId, Long collectionId) throws ManagerException ;
-
-    /**
-     * Add collection to showcase.
-     *
-     * @param userId collection owner.
-     * @param collectionId collection id.
-     * @return true, if successfully, otherwise exception.
-     * @throws ManagerException manager exception.
-     */
-    Boolean addToShowCase(Long userId, Long collectionId) throws ManagerException ;
-
-    /**
-     * Remove collection from showcase.
-     *
-     * @param userId collection owner.
-     * @param collectionId collection id.
-     * @return true, if successfully, otherwise exception.
-     * @throws ManagerException manager exception.
-     */
-    Boolean removeFromShowCase(Long userId, Long collectionId) throws ManagerException ;
 }
