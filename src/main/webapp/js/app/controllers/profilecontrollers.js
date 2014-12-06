@@ -15,6 +15,7 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
             $scope.userId = user.id;
         }
 
+        //get user ProfileData
         UserService.getUserProfileData($scope.userId).success(function (responseUserProfileData) {
             $scope.userProfileData = responseUserProfileData;
             $scope.roles = responseUserProfileData.roles;
@@ -23,29 +24,36 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
             $rootScope.error(error);
         });
 
+        //save input from edited field
         $scope.save = function () {
-            UserService.updateUserProfileData($scope.userProfileData).success(function () {
+            UserService.updateUserProfileData($scope.userProfileData).success(function (data) {
                 $rootScope.success = "Profil erfolgreich aktualisiert";
+            }).error(function (data) {
+                $scope.errors = data.errors;
+            });
+            $location.path("/profile/view");
+        };
+        //cancel fieldinput and reset data in field
+        $scope.cancel = function (fieldToCancel) {
+            UserService.getUserProfileData($scope.userId).success(function (responseUserProfileData) {
+                $scope.userProfileData = responseUserProfileData;
+                $scope.roles = responseUserProfileData.roles;
             }).error(function (error) {
                 console.log(error);
                 $rootScope.error(error);
             });
-            $location.path("/profile/view");
         };
-
-        $scope.cancel = function () {
-
-        };
-
+        //change user password and close modal on success
         $scope.changePassword = function (pw) {
-                    pw.id = $scope.userId;
-                    UserService.changePassword(pw).success(function () {
-                        $rootScope.success = "Passwort erfolgreich geändert";
-                    }).error(function (error) {
-                        console.log(error);
-                        $rootScope.error(error);
-                    });
-                    $location.path("/profile/view");
+            UserService.changePassword(pw).success(function (data) {
+                $rootScope.success = "Passwort erfolgreich geändert";
+                var pwModal = document.getElementById("#pwModal");
+                pwModal.dismiss('success');
+            }).error(function (data) {
+                console.log(data);
+                $scope.errors = data.errors;
+            });
+            $location.path("/profile/view");
         };
 
     }]);
