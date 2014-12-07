@@ -69,12 +69,21 @@ public interface PhotographerManager {
 
     /**
      * Returns list of user's collection.
-     *  @param userId collection owner id.
-     * @param userId
-     * @param start
+     * @param userId collection owner id.
+     * @param start from value
      * @param count @return list of user's collection
      */
     List<Collection> getCollectionByUser(final long userId, int start, int count);
+
+
+    /**
+     * Return only public collection for specified user id
+     * @param userId the user id
+     * @param start the start
+     * @param count the max
+     * @return list of collection
+     */
+    List<Collection> getShowcaseByUser(Long userId, int start, int count);
 
     /**
      * Create image and set reference to user.
@@ -177,4 +186,6 @@ public interface PhotographerManager {
      * @return
      */
     Boolean updateCollectionsPublicValue(Long userId, Long collectionId,Boolean publicValue) throws ManagerException;
+
+
 }

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class CollectionDAOTest extends BaseImageTester {
@@ -135,7 +136,7 @@ public class CollectionDAOTest extends BaseImageTester {
 
         // DO TEST
         List<Collection> collectionListUserOne = collectionDAO
-                .findCollectionsByUser(userOne.getId(),0 , 10);
+                .findCollectionsByUser(userOne.getId(), 0, 10, Optional.<Boolean>empty());
         Assert.assertTrue(collectionListUserOne.size() == 1);
         Assert.assertTrue(collectionListUserOne.get(0).getName()
                 .equals(collectionOneName));
@@ -143,7 +144,7 @@ public class CollectionDAOTest extends BaseImageTester {
                 .equals(userOne.getId()));
 
         List<Collection> collectionListUserTwo = collectionDAO
-                .findCollectionsByUser(userTwo.getId(), 0, 10);
+                .findCollectionsByUser(userTwo.getId(), 0, 10, Optional.<Boolean>empty());
         Assert.assertTrue(collectionListUserTwo.size() == 2);
         Set<String> collectionsNameSet = new HashSet<>();
         collectionsNameSet.add(collectionOneName);
@@ -185,7 +186,7 @@ public class CollectionDAOTest extends BaseImageTester {
         testCollectionOcean.setCategory(categoryOcean);
         collectionCategoryDAO.create(testCollectionOcean);
 
-        List<Collection> userCollections = collectionDAO.findCollectionsByUser(userOne.getId(), 0 ,10 );
+        List<Collection> userCollections = collectionDAO.findCollectionsByUser(userOne.getId(), 0, 10, Optional.<Boolean>empty());
         Assert.assertTrue(userCollections.size() == 1);
         Collection collection = userCollections.get(0);
         Assert.assertTrue(collection.getCollectionCategories().size() == 3);

@@ -6,19 +6,18 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
-
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.repository.CollectionDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Repository methods for image collection.
@@ -65,9 +64,9 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
         Query query = createQuery(queryBuilder.toString());
         query.setParameter("userId", userId);
         query.setParameter("collectionId", collectionId);
-        try{
+        try {
             return (Collection) query.getSingleResult();
-        }catch (NoResultException nre){
+        } catch (NoResultException nre) {
             return null;
         }
     }
@@ -77,12 +76,20 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<Collection> findCollectionsByUser(final long userId, final int start, final int count) {
+    public List<Collection> findCollectionsByUser(final long userId, final int start, final int count,
+                                                  Optional<Boolean> isPublic) {
         StringBuilder queryBuilder = initFullDataCollectionSelect();
         queryBuilder.append("WHERE owner.id = :userId");
+        if (isPublic.isPresent()) {
+            queryBuilder.append(" AND collection.isPublic = :isPublic");
+        }
 
         Query query = createQuery(queryBuilder.toString());
         query.setParameter("userId", userId);
+
+        if (isPublic.isPresent()) {
+            query.setParameter("isPublic", isPublic.get());
+        }
 
         if (start > 0) {
             query.setFirstResult(start);
@@ -93,7 +100,6 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
         }
 
         return (List<Collection>) query.getResultList();
-
     }
 
     /**

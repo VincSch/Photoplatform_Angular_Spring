@@ -24,9 +24,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This controller present the REST user services.
@@ -301,6 +303,22 @@ public class PhotographerController extends BaseAPIController {
 
         User authenticatedUser = getAuthenticatedUser();
         List<Collection> collections = photographerManager.getCollectionByUser(authenticatedUser.getId(), start, count);
+
+        return ResourceUtility.convertToCollectionData(collections);
+    }
+
+
+    /**
+     * Returns list of collections.
+     */
+    @RequestMapping(value = Endpoints.SHOWCASE, method = RequestMethod.GET)
+    @ResponseBody
+    public List<CollectionData> getShowcase(@RequestParam(required = false, defaultValue = "-1") int start,
+                                            @RequestParam(required = false, defaultValue = "-1") int count)
+            throws IOException, AbstractBaseException {
+
+        User authenticatedUser = getAuthenticatedUser();
+        List<Collection> collections = photographerManager.getShowcaseByUser(authenticatedUser.getId(), start, count);
 
         return ResourceUtility.convertToCollectionData(collections);
     }

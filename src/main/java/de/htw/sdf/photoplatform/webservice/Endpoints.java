@@ -92,7 +92,7 @@ public final class Endpoints {
 
     /**
      * GET: all photograph's collections.
-     *
+     * <p>
      * Will be used to find all photograph's collections.
      */
     public static final String COLLECTIONS_PHOTOGRAPHERS_START_COUNT = "/collections/photographers/{start}/{count}";
@@ -100,7 +100,7 @@ public final class Endpoints {
     /**
      * POST: create new collection
      * PATCH: update collection
-     *
+     * <p>
      * Will be used to create a new collection.
      */
     public static final String COLLECTIONS_CREATE = "/collections/create";
@@ -118,16 +118,21 @@ public final class Endpoints {
     /**
      * POST: update collection.
      */
-    public static final String COLLECTIONS_UPDATE= "/collections/update";
+    public static final String COLLECTIONS_UPDATE = "/collections/update";
 
     /**
      * POST: delete collection.
      */
-    public static final String COLLECTIONS_DELETE= "/collections/delete";
+    public static final String COLLECTIONS_DELETE = "/collections/delete";
+
+    /**
+     * GET: return my showcase.
+     */
+    public static final String SHOWCASE = "/showcase";
 
     /**
      * all photograph's images.
-     *
+     * <p>
      * Will be used to find all photograph's images.
      */
     public static final String IMAGES_PHOTOGRAPHERS = "/images/photographers";

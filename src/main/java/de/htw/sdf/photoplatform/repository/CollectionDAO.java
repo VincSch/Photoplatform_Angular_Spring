@@ -6,12 +6,13 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import java.util.List;
-import java.util.Set;
-
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Interface defining repository methods for image collection.
@@ -33,7 +34,7 @@ public interface CollectionDAO extends GenericDAO<Collection> {
     /**
      * Returns only Collection data for affected user.
      *
-     * @param userId user id.
+     * @param userId       user id.
      * @param collectionId collection id.
      * @return collection.
      */
@@ -42,20 +43,22 @@ public interface CollectionDAO extends GenericDAO<Collection> {
     /**
      * Returns list of user's collection.
      *
-     * @param userId user id owner.
-     * @param start  index to start
-     * @param count  max return
+     * @param userId   user id owner.
+     * @param start    index to start
+     * @param count    max return
+     * @param isPublic if set filter by public
      * @return list of user's collection
      */
-    List<Collection> findCollectionsByUser(final long userId, int start, int count);
+    List<Collection> findCollectionsByUser(final long userId, int start, int count, Optional<Boolean> isPublic);
 
     /**
      * Returns set of collection images.
      *
-     * @param userId collection owner.
+     * @param userId       collection owner.
      * @param collectionId collection id.
-     * @param imageIds list of image ids.
+     * @param imageIds     list of image ids.
      * @return set of collection images.
      */
     Set<CollectionImage> findCollectionImagesBy(Long userId, Long collectionId, List<Long> imageIds);
+
 }

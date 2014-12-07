@@ -49,6 +49,7 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
 
         // Photographer collection
         $scope.collections = [];
+        $scope.showcase = [];
         $scope.copy = angular.copy;
 
         /**
@@ -57,6 +58,15 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
         $scope.getAllCollections = function () {
             PhotographerService.getCollections(start, count).success(function (collections) {
                 $scope.collections = collections;
+            });
+        };
+
+        /**
+         * Get all user collections in showcase
+         */
+        $scope.getShowcase = function () {
+            PhotographerService.getShowcase(start, count).success(function (collections) {
+                $scope.showcase = collections;
             });
         };
 

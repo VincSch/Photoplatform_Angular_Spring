@@ -5,22 +5,18 @@
  */
 package de.htw.sdf.photoplatform.manager.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.PhotographerManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.model.Collection;
-import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
-import de.htw.sdf.photoplatform.persistence.model.Image;
-import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.persistence.model.UserImage;
+import de.htw.sdf.photoplatform.persistence.model.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * business methods for categories.
@@ -69,7 +65,15 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
      */
     @Override
     public List<Collection> getCollectionByUser(long userId, int start, int count) {
-        return collectionDAO.findCollectionsByUser(userId, start, count);
+        return collectionDAO.findCollectionsByUser(userId, start, count, Optional.<Boolean>empty());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Collection> getShowcaseByUser(Long userId, int start, int count) {
+        return collectionDAO.findCollectionsByUser(userId, start, count, Optional.of(Boolean.TRUE));
     }
 
     /**
@@ -88,7 +92,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
     @Override
     public List<UserImage> createPhotographImage(User photograph, List<Image> images) throws ManagerException {
         List<UserImage> result = new ArrayList<>();
-        for(Image image : images){
+        for (Image image : images) {
             imageDAO.create(image);
 
             UserImage userImage = new UserImage();
@@ -99,8 +103,9 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             result.add(userImage);
         }
 
-        if(images.size() != result.size()){
-            throw new RuntimeException("The size of image to create is different to size of created images. This should not happen");
+        if (images.size() != result.size()) {
+            throw new RuntimeException(
+                    "The size of image to create is different to size of created images. This should not happen");
         }
 
         return result;
@@ -132,24 +137,25 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
     public CollectionImage addImageToCollection(Long userId, Long collectionId, Long imageId) throws ManagerException {
         List<Long> imageIds = new ArrayList<>();
         imageIds.add(imageId);
-        return addImagesToCollection( userId, collectionId, imageIds).get(0);
+        return addImagesToCollection(userId, collectionId, imageIds).get(0);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<CollectionImage> addImagesToCollection(Long userId, Long collectionId, List<Long> imageIds) throws ManagerException {
+    public List<CollectionImage> addImagesToCollection(Long userId, Long collectionId,
+                                                       List<Long> imageIds) throws ManagerException {
         List<CollectionImage> result = new ArrayList<>();
 
-        if(imageIds == null || imageIds.isEmpty()){
+        if (imageIds == null || imageIds.isEmpty()) {
             throw new ManagerException(AbstractBaseException.NOT_FOUND);
         }
 
         Collection affectedCollection = getCollection(userId, collectionId);
 
         List<UserImage> imagesToAdd = userImageDAO.getUserImagesBy(userId, imageIds);
-        if(imagesToAdd.isEmpty()){
+        if (imagesToAdd.isEmpty()) {
             throw new ManagerException(AbstractBaseException.NOT_FOUND);
         }
 
@@ -161,8 +167,9 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             result.add(collectionImage);
         }
 
-        if(result.size() != imageIds.size()){
-            throw new RuntimeException("The size of image id's is different to size of founded images. This should not happen");
+        if (result.size() != imageIds.size()) {
+            throw new RuntimeException(
+                    "The size of image id's is different to size of founded images. This should not happen");
         }
 
         return result;
@@ -182,25 +189,27 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
      * {@inheritDoc}
      */
     @Override
-    public Boolean deleteImagesFromCollection(Long userId, Long collectionId, List<Long> imageIds) throws ManagerException {
+    public Boolean deleteImagesFromCollection(Long userId, Long collectionId,
+                                              List<Long> imageIds) throws ManagerException {
         if (collectionId == null) {
             throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);
         }
 
-        if(imageIds == null || imageIds.isEmpty()) {
+        if (imageIds == null || imageIds.isEmpty()) {
             throw new ManagerException(AbstractBaseException.NOT_FOUND);
         }
 
         Set<CollectionImage> collectionImages = collectionDAO.findCollectionImagesBy(userId, collectionId, imageIds);
-        if(collectionImages.size() != imageIds.size()){
-            throw new RuntimeException("The size of image id's is different to size of founded images. This should not happen");
+        if (collectionImages.size() != imageIds.size()) {
+            throw new RuntimeException(
+                    "The size of image id's is different to size of founded images. This should not happen");
         }
 
-        for(CollectionImage collectionImage : collectionImages) {
+        for (CollectionImage collectionImage : collectionImages) {
             collectionImageDAO.delete(collectionImage);
         }
 
-        return true ;
+        return true;
     }
 
     /**
@@ -211,7 +220,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
 
         Collection affectedCollection = getCollection(userId, collectionId);
 
-        for(CollectionImage collectionImage : affectedCollection.getCollectionImages()){
+        for (CollectionImage collectionImage : affectedCollection.getCollectionImages()) {
             //Hm, collection include images
             //what should happen with images by deleting a collection.
             //My Solution, delete reference between collection and image, but not the image!
@@ -228,7 +237,8 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
      * {@inheritDoc}
      */
     @Override
-    public Boolean updateCollectionsPublicValue(Long userId, Long collectionId, Boolean publicValue) throws ManagerException {
+    public Boolean updateCollectionsPublicValue(Long userId, Long collectionId,
+                                                Boolean publicValue) throws ManagerException {
         Collection collectionToUpdate = getCollection(userId, collectionId);
         collectionToUpdate.setPublic(publicValue);
         collectionDAO.update(collectionToUpdate);
@@ -240,8 +250,8 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);
         }
 
-        Collection affectedCollection = collectionDAO.findByUserAndCollectionId(userId,collectionId);
-        if(affectedCollection == null){
+        Collection affectedCollection = collectionDAO.findByUserAndCollectionId(userId, collectionId);
+        if (affectedCollection == null) {
             throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);
         }
 

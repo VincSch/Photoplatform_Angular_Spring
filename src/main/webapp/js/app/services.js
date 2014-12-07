@@ -112,7 +112,7 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
             },
 
             /**
-             * Create new collection
+             * Get collection
              *
              * @param name
              * @param description
@@ -124,6 +124,17 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
 
                 //Should work, not tested!
                 return $http.get(urlBase + 'collections/photographers/' + start + "/" + count);
+            },
+
+            /**
+             * Create collection in showcase
+             *
+             * @param name
+             * @param description
+             * @returns {HttpPromise}
+             */
+            getShowcase: function (start, count) {
+                return $http.get(urlBase + 'showcase', {params: {'start': start, 'count': count}});
             },
 
             /**
