@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -33,7 +32,7 @@ public class PhotographerControllerTest extends BaseAPITester {
     private final String ENDPOINT_ADD_IMAGE = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_ADD_IMAGE;
     private final String ENDPOINT_DELETE_IMAGE = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_DELETE_IMAGE;
     private final String ENDPOINT_CREATE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_CREATE;
-    private final String ENDPOINT_DELETE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_DELETE;
+    private final String ENDPOINT_DELETE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS;
     private final String ENDPOINT_GET_COLLECTIONS = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS_START_COUNT;
     private final String ENDPOINT_COLLECTIONS_SHOWCASE= Endpoints.API_PREFIX + Endpoints.COLLECTIONS_SHOWCASE;
     private final String ENDPOINT_COLLECTIONS_UPDATE= Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS;
@@ -77,7 +76,7 @@ public class PhotographerControllerTest extends BaseAPITester {
                         .characterEncoding("UTF-8")).andExpect(
                 status().isOk());
 
-        List<Collection> collectionList = photographerManager.getCollectionByUser(photograph.getId(),0,0);
+        List<Collection> collectionList = photographerManager.getCollectionByUser(photograph.getId(), 0, 0);
         Collection createdCollection = findCollectionInList(collectionList,data.getName(),data.getDescription(),data.getPublic());
         Assert.assertNotNull(createdCollection);
         Assert.assertTrue(createdCollection.getUser().getId().equals(photograph.getId()));

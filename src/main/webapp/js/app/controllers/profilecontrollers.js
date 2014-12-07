@@ -109,4 +109,16 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
                 $scope.errors = data.errors;
             })
         };
+
+        /**
+         * Publish collection and show in showcase.
+         */
+        $scope.deleteCollection = function (collection, index) {
+            PhotographerService.deleteCollection(collection.id).success(function (message) {
+                $scope.collections.splice(index, 1);
+                $rootScope.success = message;
+            }).error(function (data) {
+                $scope.errors = data.errors;
+            })
+        };
     }]);

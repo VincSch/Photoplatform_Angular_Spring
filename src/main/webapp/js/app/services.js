@@ -108,7 +108,11 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
              */
             updateCollection: function (collection) {
                 // There is no .pathc method in $http...
-                return $http({ method: 'PATCH', url: urlBase + 'collections/photographers', data: angular.toJson(collection)});
+                return $http({
+                    method: 'PATCH',
+                    url: urlBase + 'collections/photographers',
+                    data: angular.toJson(collection)
+                });
             },
 
             /**
@@ -144,8 +148,16 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
              * @param isPublic
              * @returns {HttpPromise}
              */
-            updateCollectionShowcase: function(collectionId, isPublic) {
-                return  $http.post(urlBase + 'collections/showcase', { 'id' : collectionId, 'isPublic' : isPublic});
+            updateCollectionShowcase: function (collectionId, isPublic) {
+                return $http.post(urlBase + 'collections/showcase', {'id': collectionId, 'isPublic': isPublic});
+            },
+
+            /**
+             * Delete collection
+             * @param collectionId
+             */
+            deleteCollection: function (collectionId) {
+                return $http.delete(urlBase + 'collections/' + collectionId);
             }
         };
 

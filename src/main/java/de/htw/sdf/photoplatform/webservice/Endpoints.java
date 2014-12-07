@@ -121,9 +121,9 @@ public final class Endpoints {
     public static final String COLLECTIONS_UPDATE = "/collections/update";
 
     /**
-     * POST: delete collection.
+     * DELETE: Delete collection
      */
-    public static final String COLLECTIONS_DELETE = "/collections/delete";
+    public static final String COLLECTIONS = "/collections/{collectionId}";
 
     /**
      * GET: return my showcase.
@@ -220,7 +220,7 @@ public final class Endpoints {
                 restBuilder(COLLECTIONS_CREATE),
                 restBuilder(COLLECTIONS_ADD_IMAGE),
                 restBuilder(COLLECTIONS_DELETE_IMAGE),
-                restBuilder(COLLECTIONS_DELETE),
+                restBuilder(COLLECTIONS),
                 restBuilder(COLLECTIONS_UPDATE),
                 restBuilder(COLLECTIONS_SHOWCASE),
                 restBuilder(USERS_BECOME_PHOTOGRAPHERS)

@@ -24,11 +24,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * This controller present the REST user services.
@@ -195,9 +193,9 @@ public class PhotographerController extends BaseAPIController {
      * @throws java.io.IOException   input output exception.
      * @throws AbstractBaseException the exception
      */
-    @RequestMapping(value = Endpoints.COLLECTIONS_DELETE, method = RequestMethod.POST)
+    @RequestMapping(value = Endpoints.COLLECTIONS, method = RequestMethod.DELETE)
     @ResponseBody
-    public String deleteCollection(@RequestParam(value = "collectionId", required = true) Long collectionId)
+    public String deleteCollection(@PathVariable(value = "collectionId") Long collectionId)
             throws IOException, AbstractBaseException {
 
         User authenticatedUser = getAuthenticatedUser();
