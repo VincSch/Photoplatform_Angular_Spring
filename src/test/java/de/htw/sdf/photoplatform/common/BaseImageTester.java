@@ -19,8 +19,8 @@ import de.htw.sdf.photoplatform.repository.UserImageDAO;
 public abstract class BaseImageTester extends BaseTester {
     private static final int IMAGE_X_DIMENSION = 1920;
     private static final int IMAGE_Y_DIMENSION = 1080;
-    private static final int IMAGE_X_RESOLUTION = 16;
-    private static final int IMAGE_Y_RESOLUTION = 9;
+    private static final double IMAGE_X_RESOLUTION = 16;
+    private static final double IMAGE_Y_RESOLUTION = 9;
 
     @Autowired
     protected UserDAO userDAO;

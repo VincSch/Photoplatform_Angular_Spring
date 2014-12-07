@@ -22,13 +22,13 @@ public class ImageData implements Serializable {
 
     private String description;
 
-    private double price;
+    private Double price;
 
     private String compression;
 
-    private double xResolution;
+    private Double xResolution;
 
-    private double yResolution;
+    private Double yResolution;
 
     private String resolutionUnit;
 
@@ -135,7 +135,7 @@ public class ImageData implements Serializable {
      *
      * @return image price.
      */
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -144,7 +144,7 @@ public class ImageData implements Serializable {
      *
      * @param price image price.
      */
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -171,7 +171,7 @@ public class ImageData implements Serializable {
      *
      * @return x resolution.
      */
-    public double getxResolution() {
+    public Double getxResolution() {
         return xResolution;
     }
 
@@ -180,7 +180,7 @@ public class ImageData implements Serializable {
      *
      * @param xResolution x resolution.
      */
-    public void setxResolution(double xResolution) {
+    public void setxResolution(Double xResolution) {
         this.xResolution = xResolution;
     }
 
@@ -189,7 +189,7 @@ public class ImageData implements Serializable {
      *
      * @return y resolution.
      */
-    public double getyResolution() {
+    public Double getyResolution() {
         return yResolution;
     }
 
@@ -198,7 +198,7 @@ public class ImageData implements Serializable {
      *
      * @param yResolution
      */
-    public void setyResolution(double yResolution) {
+    public void setyResolution(Double yResolution) {
         this.yResolution = yResolution;
     }
 

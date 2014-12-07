@@ -6,12 +6,11 @@
 
 package de.htw.sdf.photoplatform.manager;
 
-import de.htw.sdf.photoplatform.persistence.model.Category;
+import java.util.List;
+
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
-
-import java.util.List;
 
 /**
  * Interface defining business methods for categories.
@@ -21,14 +20,18 @@ import java.util.List;
 public interface ImageManager {
 
     /**
-     * Returns all photograph's images.
+     * Returns all photograph's images, between start and count.
+     *
+     * If start and count lesser than 0, returns all photograph images.
      *
      * The image belong to photograph, when both the owner and the user is photograph.
      *
      * @param owner photograph.
+     * @param start the start.
+     * @param count the max.
      * @return Return List of user images.
      */
-    List<UserImage> getPhotographImages(User owner);
+    List<UserImage> getPhotographImages(User owner, int start, int count);
 
     /**
      * persist a category.

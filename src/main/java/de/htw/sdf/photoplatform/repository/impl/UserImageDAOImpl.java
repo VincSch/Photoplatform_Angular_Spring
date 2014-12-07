@@ -68,12 +68,29 @@ public class UserImageDAOImpl extends GenericDAOImpl<UserImage> implements
      */
     @Override
     public List<UserImage> getPhotographImages(User owner) {
+        Query query = initPhotographImageQuery(owner);
+
+        return (List<UserImage>) query.getResultList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<UserImage> getPhotographImages(User owner, int start, int count) {
+        Query query = initPhotographImageQuery(owner);
+        query.setFirstResult(start);
+        query.setMaxResults(count);
+        return (List<UserImage>) query.getResultList();
+    }
+
+    private Query initPhotographImageQuery(User owner) {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("WHERE owner.id = :ownerId AND user.id = :userId");
         Query query = createQuery(queryBuilder.toString());
         query.setParameter("ownerId", owner.getId());
         query.setParameter("userId", owner.getId());
-        return (List<UserImage>) query.getResultList();
+        return query;
     }
 
     private StringBuilder initSelectQuery() {

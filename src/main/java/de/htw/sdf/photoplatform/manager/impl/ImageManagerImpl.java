@@ -5,15 +5,16 @@
  */
 package de.htw.sdf.photoplatform.manager.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import de.htw.sdf.photoplatform.manager.ImageManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * business methods for categories.
@@ -29,7 +30,11 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
      * {@inheritDoc}
      */
     @Override
-    public List<UserImage> getPhotographImages(User owner) {
+    public List<UserImage> getPhotographImages(User owner,int start, int count) {
+        if (start > 0 && count > 0) {
+            return userImageDAO.getPhotographImages(owner,start,count);
+        }
+
         return userImageDAO.getPhotographImages(owner);
     }
 
