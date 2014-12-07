@@ -135,7 +135,7 @@ public final class Endpoints {
      * <p>
      * Will be used to find all photograph's images.
      */
-    public static final String IMAGES_PHOTOGRAPHERS = "/images/photographers";
+    public static final String IMAGES_PHOTOGRAPHERS = "/photographer/images";
 
     /**
      * activates a photograph user

@@ -1,15 +1,11 @@
 <div class="row">
     <div class="col-md-2" ng-include
          src="'/views/partials/profile/sidebar.html'"></div>
-    <div class="col-md-10">
+    <div class="col-md-10" ng-init="getAllImages()">
         <div class="page-header">
             <h2>Fotoverwaltung</h2>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisici
-                elit,
-                <br>sed eiusmod tempor incidunt ut labore et dolore magna
-                aliqua.
-                <br>Ut enim ad minim veniam, quis nostrud</p>
+            <p>Hier befinden sich alle Fotos</p>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -38,134 +34,75 @@
                 </form>
             </div>
         </div>
-        <div class="row"></div>
-
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/1024x600"
-                                 class="img-responsive">
+                    <div class="col-md-4" ng-repeat="image in images">
+                        <div class="thumbnail" id="image-{{image.imageId}}" ng-init="status = {editing : false }">
+                            <img src="{{image.path}}" class="img-responsive">
 
-                            <div class="caption">
-                                <h3>pic 1</h3>
+                            <div class="caption" ng-show="!status.editing">
+                                <h3><a href="/image/{{image.imageId}}">{{image.name}}</a></h3>
 
-                                <p>Cras justo odio, dapibus ac facilisis in,
-                                    egestas eget quam. Donec id
-                                    elit non mi porta gravida at eget metus.
-                                    Nullam id dolor id nibh ultricies
-                                    vehicula ut id elit.</p>
+                                <p>{{image.description}}</p>
+
+                                <p>Preis: {{image.price}}</p>
+
+                                <p>{{image.description}}</p>
+
+                                <p>{{image.description}}</p>
 
                                 <div class="btn-toolbar" role="toolbar">
                                     <div class="btn-group">
-                                        <a type="button"
-                                           class="btn btn-default">bearbeiten</a>
-                                        <a type="button"
-                                           class="btn btn-default">entfernen</a>
-
-                                        <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm dropdown-toggle"
-                                               data-toggle="dropdown">
-                                                verschieben&nbsp;<span
-                                                    class="caret"></span></a>
-                                            <ul class="dropdown-menu"
-                                                role="menu">
-                                                <li>
-                                                    <a href="#">Album 1</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Album 1</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Album 1</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="status.editing = true; editImage = copy(image)">
+                                            Bearbeiten
+                                        </button>
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="deleteImage(image, $index)">entfernen
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/1024x600"
-                         class="img-responsive">
-
-                    <div class="caption">
-                        <h3>pic 2</h3>
-
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas
-                            eget quam. Donec id
-                            elit non mi porta gravida at eget metus. Nullam id
-                            dolor id nibh ultricies
-                            vehicula ut id elit.</p>
-
-                        <div class="btn-toolbar" role="toolbar">
-                            <div class="btn-group">
-                                <a type="button" class="btn btn-default">bearbeiten</a>
-                                <a type="button" class="btn btn-default">entfernen</a>
-
-                                <div class="btn-group">
-                                    <a class="btn btn-primary btn-sm dropdown-toggle"
-                                       data-toggle="dropdown">
-                                        verschieben&nbsp;<span
-                                            class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#">Album 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Album 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Album 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/1024x600"
-                         class="img-responsive">
-
-                    <div class="caption">
-                        <h3>pic 3</h3>
-
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas
-                            eget quam. Donec id
-                            elit non mi porta gravida at eget metus. Nullam id
-                            dolor id nibh ultricies
-                            vehicula ut id elit.</p>
-
-                        <div class="btn-toolbar" role="toolbar">
-                            <div class="btn-group">
-                                <a type="button" class="btn btn-default">bearbeiten</a>
-                                <a type="button" class="btn btn-default">entfernen</a>
-
-                                <div class="btn-group">
-                                    <a class="btn btn-primary btn-sm dropdown-toggle"
-                                       data-toggle="dropdown">
-                                        verschieben&nbsp;<span
-                                            class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#">Album 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Album 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Album 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div class="caption" ng-show="status.editing">
+                                <form role="form" novalidate>
+                                    <div class="form-group has-feedback"
+                                         ng-class="{'has-error' : (form.name.$invalid || errors.name) && form.name.$dirty}">
+                                        <div class="input-group">
+                                            <label for="image-name-{{image.imageId}}"
+                                                   class="control-label input-group-addon">Name</label>
+                                            <input id="image-name-{{image.imageId}}" type="text"
+                                                   ng-model="editImage.name" placeholder="Name" ng-required
+                                                   required class="form-control">
+                                        </div>
+                                        <div class="help-block" ng-show="form.name.$dirty">
+                                            <span ng-show="form.name.$error.required">Dieses Feld wird benötigt</span>
+                                            <span ng-show="errors.name">{{errors.name[0]}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback"
+                                         ng-class="{'has-error' : (form.description.$invalid || errors.description) && form.description.$dirty}">
+                                        <div class="input-group">
+                                            <label for="collection-desc-{{collection.id}}"
+                                                   class="control-label input-group-addon">Beschreibung</label>
+                                            <textarea id="collection-desc-{{collection.id}}"
+                                                      ng-model="editImage.description" placeholder="Beschreibung"
+                                                      class="form-control"></textarea>
+                                        </div>
+                                        <div class="help-block" ng-show="form.description.$dirty">
+                                            <span ng-show="errors.name">{{errors.description[0]}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="status.editing = false">Abbrechen
+                                        </button>
+                                        <button type="submit" class="btn btn-primary"
+                                                ng-click="updateImage(editImage, image, status); ">
+                                            Speichern
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,12 @@ photoplatformControllers.controller('ImageCtrl',
                 return;
             }
 
+            var start = 0;
+            var count = 100;
+
+            $scope.copy = angular.copy;
+            $scope.images = [];
+
             $scope.uploadImage = function () {
                 var param = $scope.files;
                 ImageService.upload(param, $rootScope.user)
@@ -17,5 +23,16 @@ photoplatformControllers.controller('ImageCtrl',
                     .error(function (e) {
                         console.log(e);
                     });
-            }
+            };
+
+            /**
+             * Get all images.
+             */
+            $scope.getAllImages = function () {
+                ImageService.getAllImages(start, count).success(function (images) {
+                    $scope.images = images;
+                }).error(function (data) {
+                    $scope.errors = data.errors;
+                })
+            };
         }]);

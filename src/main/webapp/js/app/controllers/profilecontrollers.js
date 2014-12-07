@@ -50,6 +50,7 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
         // Photographer collection
         $scope.collections = [];
         $scope.showcase = [];
+
         $scope.copy = angular.copy;
 
         /**

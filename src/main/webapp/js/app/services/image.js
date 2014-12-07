@@ -19,5 +19,15 @@ angular.module('photoplatform')
                     });
             };
 
+            /**
+             * Return all images
+             * @param start
+             * @param count
+             * @returns {HttpPromise}
+             */
+            imageService.getAllImages = function(start, count){
+                return $http.get(urlBase + '/images');
+            };
+
             return imageService;
         }]);

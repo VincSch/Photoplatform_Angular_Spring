@@ -46,7 +46,7 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
             templateUrl: '/views/partials/profile/photographer/collection/view.html',
             controller: 'PhotographerCtrl'
         }).when('/profile/photograph/image', {
-            templateUrl: '/views/partials/profile/photographer/image.html',
+            templateUrl: '/views/partials/profile/photographer/image/view.html',
             controller: 'ImageCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
