@@ -67,7 +67,8 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
         $scope.createCollection = function (collection) {
             PhotographerService.createCollection(collection).success(function (newCollection) {
                 $scope.collections.unshift(newCollection);
-                $rootScope.success = 'Deine Sammlung <a href="#' + newCollection.collectonid + '">' + newCollection.name + '</a> wurde erfolgreich erstellt';
+                $rootScope.success = 'Deine Sammlung ' + newCollection.name + ' wurde erfolgreich erstellt';
+                collection = null;
             }).error(function (data) {
                 $scope.errors = data.errors;
             })
@@ -84,13 +85,18 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
                 $rootScope.success = 'Erfolgreich aktualisiert';
             }).error(function (data) {
                 $scope.errors = data.errors;
-            })
+            });
         };
 
         /**
          * Publish collection and show in showcase.
          */
-        $scope.publishCollection = function (collection) {
-            // TODO: implement me
+        $scope.updateCollectionShowcase = function (collection, isPublic) {
+            PhotographerService.updateCollectionShowcase(collection.id, isPublic).success(function (message) {
+                collection.public = isPublic;
+                $rootScope.success = message;
+            }).error(function (data) {
+                $scope.errors = data.errors;
+            })
         };
     }]);

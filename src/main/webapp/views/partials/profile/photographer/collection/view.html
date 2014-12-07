@@ -76,8 +76,8 @@
                                         </button>
                                     </div>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" ng-class="{'active' : collection.ispublic}"
-                                                ng-click="publishCollection(collection)">Showcase
+                                        <button type="button" class="btn btn-default" ng-class="{'active' : collection.public}"
+                                                ng-click="updateCollectionShowcase(collection, !collection.public)">Showcase
                                         </button>
                                     </div>
                                 </div>

@@ -3,26 +3,9 @@
  */
 package de.htw.sdf.photoplatform.webservice.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.validation.Valid;
-
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
@@ -36,6 +19,14 @@ import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
 import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * This controller present the REST user services.
@@ -49,6 +40,7 @@ public class PhotographerController extends BaseAPIController {
 
     private final static String PARAM_COLLECTION_ID = "id";
     private final static String PARAM_IMAGE_IDS = "imageIds";
+    private final static String PARAM_IS_PUBLIC = "isPublic";
 
     @Resource
     private ImageManager imageManager;
@@ -73,13 +65,13 @@ public class PhotographerController extends BaseAPIController {
 
     /**
      * Add image or images to one collection.
-     *
+     * <p>
      * Params: collectionId of Type <code>Long</code> required!
-     *         imageIds of Type <code>List<Long></code> required!
+     * imageIds of Type <code>List<Long></code> required!
      *
-     * @param jsonData map of params.
-     *         collectionId of Type <code>Long</code> required!
-     *         imageIds of Type <code>List<Long></code> required!
+     * @param jsonData      map of params.
+     *                      collectionId of Type <code>Long</code> required!
+     *                      imageIds of Type <code>List<Long></code> required!
      * @param bindingResult binding validate exception.
      * @return success message.
      * @throws java.io.IOException   input output exception.
@@ -102,22 +94,23 @@ public class PhotographerController extends BaseAPIController {
         Long collectionId = mapper.convertValue(node.get(PARAM_COLLECTION_ID),
                 Long.class);
         List<Long> imageIds = mapper.convertValue(node.get(PARAM_IMAGE_IDS),
-                new TypeReference<List<Long>>(){});
+                new TypeReference<List<Long>>() {
+                });
 
         try {
             // Try to add images to collection.
-            photographerManager.addImagesToCollection(authenticatedUser.getId(),collectionId,imageIds);
+            photographerManager.addImagesToCollection(authenticatedUser.getId(), collectionId, imageIds);
         } catch (ManagerException ex) {
             switch (ex.getCode()) {
                 case AbstractBaseException.COLLECTION_ID_NOT_VALID:
                     String msgNotValid = messages.getMessage("Collection.notValid") +
-                            messages.getMessage("Collection.addImages.failed") ;
-                    bindingResult.addError(new FieldError(exceptionKey, "collectionId",msgNotValid));
+                            messages.getMessage("Collection.addImages.failed");
+                    bindingResult.addError(new FieldError(exceptionKey, "collectionId", msgNotValid));
                     break;
                 case AbstractBaseException.NOT_FOUND:
                     String msgNotFount = messages.getMessage("Collection.Images.notFound") +
-                            messages.getMessage("Collection.addImages.failed") ;
-                    bindingResult.addError(new FieldError(exceptionKey, "collectionId",msgNotFount));
+                            messages.getMessage("Collection.addImages.failed");
+                    bindingResult.addError(new FieldError(exceptionKey, "collectionId", msgNotFount));
                     break;
 
                 default:
@@ -132,13 +125,13 @@ public class PhotographerController extends BaseAPIController {
 
     /**
      * Delete image or images from collection.
-     *
+     * <p>
      * Params: collectionId of Type <code>Long</code> required!
-     *         imageIds of Type <code>List<Long></code> required!
+     * imageIds of Type <code>List<Long></code> required!
      *
-     * @param jsonData map of params.
-     *         collectionId of Type <code>Long</code> required!
-     *         imageIds of Type <code>List<Long></code> required!
+     * @param jsonData      map of params.
+     *                      collectionId of Type <code>Long</code> required!
+     *                      imageIds of Type <code>List<Long></code> required!
      * @param bindingResult binding validate exception.
      * @return success message.
      * @throws java.io.IOException   input output exception.
@@ -159,8 +152,9 @@ public class PhotographerController extends BaseAPIController {
         JsonNode node = mapper.readTree(jsonData);
         Long collectionId = mapper.convertValue(node.get(PARAM_COLLECTION_ID),
                 Long.class);
-        List<Long> imageIds = mapper.convertValue(node.get(PARAM_IMAGE_IDS),
-                new TypeReference<List<Long>>(){});
+        List<Long> imageIds = mapper.convertValue(node.get(PARAM_IS_PUBLIC),
+                new TypeReference<List<Long>>() {
+                });
 
         try {
             // Try to add images to collection.
@@ -169,13 +163,13 @@ public class PhotographerController extends BaseAPIController {
             switch (ex.getCode()) {
                 case AbstractBaseException.COLLECTION_ID_NOT_VALID:
                     String msgNotValid = messages.getMessage("Collection.notValid") +
-                            messages.getMessage("Collection.deleteImages.failed") ;
-                    bindingResult.addError(new FieldError(exceptionKey, "collectionId",msgNotValid));
+                            messages.getMessage("Collection.deleteImages.failed");
+                    bindingResult.addError(new FieldError(exceptionKey, "collectionId", msgNotValid));
                     break;
                 case AbstractBaseException.NOT_FOUND:
                     String msgNotFount = messages.getMessage("Collection.Images.notFound") +
-                            messages.getMessage("Collection.deleteImages.failed") ;
-                    bindingResult.addError(new FieldError(exceptionKey, "collectionId",msgNotFount));
+                            messages.getMessage("Collection.deleteImages.failed");
+                    bindingResult.addError(new FieldError(exceptionKey, "collectionId", msgNotFount));
                     break;
 
                 default:
@@ -190,9 +184,9 @@ public class PhotographerController extends BaseAPIController {
 
     /**
      * Delete image or images from collection.
-     *
+     * <p>
      * Params: collectionId of Type <code>Long</code> required!
-     *         imageIds of Type <code>List<Long></code> required!
+     * imageIds of Type <code>List<Long></code> required!
      *
      * @param collectionId collection to delete.
      * @return success message.
@@ -201,7 +195,7 @@ public class PhotographerController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.COLLECTIONS_DELETE, method = RequestMethod.POST)
     @ResponseBody
-    public String deleteCollection(@RequestParam(value="collectionId", required = true) Long collectionId)
+    public String deleteCollection(@RequestParam(value = "collectionId", required = true) Long collectionId)
             throws IOException, AbstractBaseException {
 
         User authenticatedUser = getAuthenticatedUser();
@@ -209,11 +203,11 @@ public class PhotographerController extends BaseAPIController {
             // Try to add images to collection.
             photographerManager.deleteCollection(authenticatedUser.getId(), collectionId);
         } catch (ManagerException ex) {
-            String exceptionMsg ;
+            String exceptionMsg;
             switch (ex.getCode()) {
                 case AbstractBaseException.COLLECTION_ID_NOT_VALID:
                     exceptionMsg = messages.getMessage("Collection.notValid") +
-                            messages.getMessage("Collection.delete.failed") ;
+                            messages.getMessage("Collection.delete.failed");
                     break;
                 default:
                     throw new RuntimeException("Unhandled error");
@@ -227,29 +221,31 @@ public class PhotographerController extends BaseAPIController {
 
     /**
      * Add collection to showcase or delete from showcase.
-     *
+     * <p>
      * Params: collectionId of Type <code>Long</code> required!
-     *         isPublic of Type <code>Boolean<Long></code> required!
+     * isPublic of Type <code>Boolean<Long></code> required!
      *
-     * @param collectionId collection to delete.
-     * @param isPublic public value.
-     *        true, add to showcase
-     *        false, remove from showcase.
      * @return success message.
      * @throws java.io.IOException   input output exception.
      * @throws AbstractBaseException the exception
      */
     @RequestMapping(value = Endpoints.COLLECTIONS_SHOWCASE, method = RequestMethod.POST)
     @ResponseBody
-    public String updateCollectionShowcase(@RequestParam(value="collectionId", required = true) Long collectionId,
-                                           @RequestParam(value="isPublic", required = true) Boolean isPublic)
+    public String updateCollectionShowcase(@RequestBody String jsonData)
             throws IOException, AbstractBaseException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(jsonData);
+        Long collectionId = mapper.convertValue(node.get(PARAM_COLLECTION_ID),
+                Long.class);
+        Boolean isPublic = mapper.convertValue(node.get(PARAM_IS_PUBLIC),
+                Boolean.class);
 
         User authenticatedUser = getAuthenticatedUser();
         try {
             photographerManager.updateCollectionsPublicValue(authenticatedUser.getId(), collectionId, isPublic);
         } catch (ManagerException ex) {
-            String exceptionMsg ;
+            String exceptionMsg;
             switch (ex.getCode()) {
                 case AbstractBaseException.COLLECTION_ID_NOT_VALID:
                     exceptionMsg = messages.getMessage("Collection.notValid");
@@ -261,10 +257,11 @@ public class PhotographerController extends BaseAPIController {
             throw new BadRequestException(exceptionMsg);
         }
 
-        if(isPublic)
+        if (isPublic) {
             return messages.getMessage("Collection.showcase.add.success");
-        else
+        } else {
             return messages.getMessage("Collection.showcase.remove.success");
+        }
     }
 
     /**

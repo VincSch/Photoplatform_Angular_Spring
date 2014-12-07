@@ -54,7 +54,7 @@ public class Collection extends AbstractBaseAuditEntity {
     /**
      * Description.
      */
-    @Column(name = "IS_PUBLIC")
+    @Column(name = "IS_PUBLIC", columnDefinition = "boolean default false")
     private boolean isPublic;
 
     /**

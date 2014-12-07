@@ -124,6 +124,17 @@ angular.module('photoplatform').factory('PhotographerService', ['$http',
 
                 //Should work, not tested!
                 return $http.get(urlBase + 'collections/photographers/' + start + "/" + count);
+            },
+
+            /**
+             * Update collection showcase
+             *
+             * @param collectionId
+             * @param isPublic
+             * @returns {HttpPromise}
+             */
+            updateCollectionShowcase: function(collectionId, isPublic) {
+                return  $http.post(urlBase + 'collections/showcase', { 'id' : collectionId, 'isPublic' : isPublic});
             }
         };
 
