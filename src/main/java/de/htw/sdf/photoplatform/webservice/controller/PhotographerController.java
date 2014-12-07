@@ -47,7 +47,7 @@ import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
 @RestController
 public class PhotographerController extends BaseAPIController {
 
-    private final static String PARAM_COLLECTION_ID = "collectionId";
+    private final static String PARAM_COLLECTION_ID = "id";
     private final static String PARAM_IMAGE_IDS = "imageIds";
 
     @Resource
@@ -203,7 +203,6 @@ public class PhotographerController extends BaseAPIController {
     @ResponseBody
     public String deleteCollection(@RequestParam(value="collectionId", required = true) Long collectionId)
             throws IOException, AbstractBaseException {
-        String responseMessage = messages.getMessage("Collection.delete.success");
 
         User authenticatedUser = getAuthenticatedUser();
         try {
@@ -223,7 +222,49 @@ public class PhotographerController extends BaseAPIController {
             throw new BadRequestException(exceptionMsg);
         }
 
-        return responseMessage;
+        return messages.getMessage("Collection.delete.success");
+    }
+
+    /**
+     * Add collection to showcase or delete from showcase.
+     *
+     * Params: collectionId of Type <code>Long</code> required!
+     *         isPublic of Type <code>Boolean<Long></code> required!
+     *
+     * @param collectionId collection to delete.
+     * @param isPublic public value.
+     *        true, add to showcase
+     *        false, remove from showcase.
+     * @return success message.
+     * @throws java.io.IOException   input output exception.
+     * @throws AbstractBaseException the exception
+     */
+    @RequestMapping(value = Endpoints.COLLECTIONS_SHOWCASE, method = RequestMethod.POST)
+    @ResponseBody
+    public String updateCollectionShowcase(@RequestParam(value="collectionId", required = true) Long collectionId,
+                                           @RequestParam(value="isPublic", required = true) Boolean isPublic)
+            throws IOException, AbstractBaseException {
+
+        User authenticatedUser = getAuthenticatedUser();
+        try {
+            photographerManager.updateCollectionsPublicValue(authenticatedUser.getId(), collectionId, isPublic);
+        } catch (ManagerException ex) {
+            String exceptionMsg ;
+            switch (ex.getCode()) {
+                case AbstractBaseException.COLLECTION_ID_NOT_VALID:
+                    exceptionMsg = messages.getMessage("Collection.notValid");
+                    break;
+                default:
+                    throw new RuntimeException("Unhandled error");
+            }
+
+            throw new BadRequestException(exceptionMsg);
+        }
+
+        if(isPublic)
+            return messages.getMessage("Collection.showcase.add.success");
+        else
+            return messages.getMessage("Collection.showcase.remove.success");
     }
 
     /**
