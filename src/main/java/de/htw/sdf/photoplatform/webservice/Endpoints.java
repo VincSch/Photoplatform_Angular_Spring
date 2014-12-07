@@ -99,6 +99,11 @@ public final class Endpoints {
     public static final String PHOTOGRAPHER_UPLOAD = "/photographer/upload";
 
     /**
+     * get an image.
+     */
+    public static final String GET_IMAGE = "/image/{name}";
+
+    /**
      * Private Endpoint constructor.
      */
     private Endpoints() {
@@ -114,8 +119,9 @@ public final class Endpoints {
      */
     public static String[] securedUserEndpoints() {
         String[] securedEndpoints = {
-                restBuilder(USERS_UPDATE),
-                restBuilder(USER_BECOME_PHOTOGRAPHER)
+            restBuilder(GET_IMAGE),
+            restBuilder(USERS_UPDATE),
+            restBuilder(USER_BECOME_PHOTOGRAPHER)
         };
         return securedEndpoints;
     }
@@ -129,11 +135,12 @@ public final class Endpoints {
      */
     public static String[] securedAdminEndpoints() {
         String[] securedEndpoints = {
-                restBuilder(USERS_START_COUNT),
-                restBuilder(USERS_BECOME_PHOTOGRAPHERS),
-                restBuilder(USER_MAKE_ADMIN),
-                restBuilder(USER_LOCK),
-                restBuilder(USER_UNLOCK)
+            restBuilder(GET_IMAGE),
+            restBuilder(USERS_START_COUNT),
+            restBuilder(USERS_BECOME_PHOTOGRAPHERS),
+            restBuilder(USER_MAKE_ADMIN),
+            restBuilder(USER_LOCK),
+            restBuilder(USER_UNLOCK)
         };
         return securedEndpoints;
     }
@@ -147,6 +154,7 @@ public final class Endpoints {
      */
     public static String[] securedPhotographEndpoints() {
         String[] securedEndpoints = {
+            restBuilder(GET_IMAGE),
             restBuilder(USERS_UPDATE),
             restBuilder(PHOTOGRAPHER_UPLOAD),
             restBuilder(USERS_START_COUNT),

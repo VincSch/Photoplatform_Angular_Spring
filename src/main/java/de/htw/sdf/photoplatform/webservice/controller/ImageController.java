@@ -6,8 +6,13 @@ import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
+import org.apache.commons.io.IOUtils;
 import org.h2.store.fs.FileUtils;
 import org.imgscalr.Scalr;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +22,9 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -46,6 +53,22 @@ public class ImageController extends BaseAPIController {
 
     @Resource
     private HashManager hashManager;
+
+    @RequestMapping(value = "/image/{name}", method = RequestMethod.GET)
+    public @ResponseBody ResponseEntity<byte[]> handleImageUpload(
+        @RequestParam("name") String fileName) {
+        try {
+            InputStream imageStream = new FileInputStream(PREFIX + fileName);
+            final HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_PNG);
+
+            return new ResponseEntity<byte[]>(IOUtils.toByteArray(imageStream),
+                headers, HttpStatus.CREATED);
+        } catch (IOException e) {
+            log.warn(e);
+            throw new RuntimeException(e);
+        }
+    }
 
     @RequestMapping(value = "/photographer/upload", method = RequestMethod.POST)
     public @ResponseBody String handleImageUpload(
@@ -82,7 +105,7 @@ public class ImageController extends BaseAPIController {
                 }
             }
         }
-        return "true";
+        return "image was uploaded";
     }
 
     private void processThumbnails(BufferedImage img, String path,
