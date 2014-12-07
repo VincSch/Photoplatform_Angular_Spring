@@ -152,7 +152,7 @@ public class PhotographerController extends BaseAPIController {
         JsonNode node = mapper.readTree(jsonData);
         Long collectionId = mapper.convertValue(node.get(PARAM_COLLECTION_ID),
                 Long.class);
-        List<Long> imageIds = mapper.convertValue(node.get(PARAM_IS_PUBLIC),
+        List<Long> imageIds = mapper.convertValue(node.get(PARAM_IMAGE_IDS),
                 new TypeReference<List<Long>>() {
                 });
 

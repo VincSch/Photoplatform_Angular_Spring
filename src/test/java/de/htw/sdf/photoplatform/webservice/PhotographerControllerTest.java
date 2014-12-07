@@ -3,26 +3,25 @@
  */
 package de.htw.sdf.photoplatform.webservice;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.http.MediaType;
-
 import de.htw.sdf.photoplatform.common.BaseAPITester;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
 import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.http.MediaType;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Tests for users services.
@@ -33,9 +32,10 @@ public class PhotographerControllerTest extends BaseAPITester {
     private final String ENDPOINT_DELETE_IMAGE = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_DELETE_IMAGE;
     private final String ENDPOINT_CREATE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_CREATE;
     private final String ENDPOINT_DELETE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS;
-    private final String ENDPOINT_GET_COLLECTIONS = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS_START_COUNT;
-    private final String ENDPOINT_COLLECTIONS_SHOWCASE= Endpoints.API_PREFIX + Endpoints.COLLECTIONS_SHOWCASE;
-    private final String ENDPOINT_COLLECTIONS_UPDATE= Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS;
+    private final String ENDPOINT_GET_COLLECTIONS =
+            Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS_START_COUNT;
+    private final String ENDPOINT_COLLECTIONS_SHOWCASE = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_SHOWCASE;
+    private final String ENDPOINT_COLLECTIONS_UPDATE = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_PHOTOGRAPHERS;
 
 
     @Before
@@ -77,28 +77,33 @@ public class PhotographerControllerTest extends BaseAPITester {
                 status().isOk());
 
         List<Collection> collectionList = photographerManager.getCollectionByUser(photograph.getId(), 0, 0);
-        Collection createdCollection = findCollectionInList(collectionList,data.getName(),data.getDescription(),data.getPublic());
+        Collection createdCollection =
+                findCollectionInList(collectionList, data.getName(), data.getDescription(), data.getPublic());
         Assert.assertNotNull(createdCollection);
         Assert.assertTrue(createdCollection.getUser().getId().equals(photograph.getId()));
 
-        String requestUrl = ENDPOINT_GET_COLLECTIONS.replace("{start}","0").replace("{count}","0");
+        String requestUrl = ENDPOINT_GET_COLLECTIONS.replace("{start}", "0").replace("{count}", "0");
         mockMvc.perform(
                 get(requestUrl).contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")).andExpect(
                 status().isOk());
 
         //add to showcase
+        Map<String, String> map = new HashMap<>();
+        map.put("id", createdCollection.getId().toString());
+        map.put("isPublic", Boolean.TRUE.toString());
+
         mockMvc.perform(
                 post(ENDPOINT_COLLECTIONS_SHOWCASE)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("collectionId", createdCollection.getId().toString())
-                        .param("isPublic", Boolean.TRUE.toString())
+                        .content(mapper.writeValueAsString(map))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         collectionList.clear();
-        collectionList = photographerManager.getCollectionByUser(photograph.getId(),0,0);
-        Collection updateCollection = findCollectionInList(collectionList,data.getName(),data.getDescription(),Boolean.TRUE);
+        collectionList = photographerManager.getCollectionByUser(photograph.getId(), 0, 0);
+        Collection updateCollection =
+                findCollectionInList(collectionList, data.getName(), data.getDescription(), Boolean.TRUE);
         Assert.assertNotNull(updateCollection);
 
         //update collection
@@ -114,20 +119,21 @@ public class PhotographerControllerTest extends BaseAPITester {
                 status().isOk());
 
         collectionList.clear();
-        collectionList = photographerManager.getCollectionByUser(photograph.getId(),0,0);
-        Collection updatedCollectionData = findCollectionInList(collectionList,dataToUpdate.getName(),
-                dataToUpdate.getDescription(),Boolean.FALSE);
+        collectionList = photographerManager.getCollectionByUser(photograph.getId(), 0, 0);
+        Collection updatedCollectionData = findCollectionInList(collectionList, dataToUpdate.getName(),
+                dataToUpdate.getDescription(), Boolean.FALSE);
         Assert.assertNotNull(updatedCollectionData);
 
         //Remove created test data.
         collectionDAO.deleteAll();
     }
 
-    private Collection findCollectionInList(List<Collection> collectionList, String name, String description,Boolean publicValue){
-        for(Collection collection : collectionList){
-            if(collection.getName().equals(name) &&
+    private Collection findCollectionInList(List<Collection> collectionList, String name, String description,
+                                            Boolean publicValue) {
+        for (Collection collection : collectionList) {
+            if (collection.getName().equals(name) &&
                     collection.getDescription().equals(description) &&
-                    collection.isPublic() == publicValue){
+                    collection.isPublic() == publicValue) {
                 return collection;
             }
         }
@@ -146,8 +152,8 @@ public class PhotographerControllerTest extends BaseAPITester {
         loginAsPhotograph();
         User photograph = userDAO.findByEmail("sergej@test.de");
 
-        List<Collection> photographCollections = photographerManager.getCollectionByUser(photograph.getId(),0,0);
-        int initCollectionSize =  photographCollections.size();
+        List<Collection> photographCollections = photographerManager.getCollectionByUser(photograph.getId(), 0, 0);
+        int initCollectionSize = photographCollections.size();
 
         CollectionData requestCollectionData = new CollectionData();
         requestCollectionData.setId(1000L);
@@ -175,7 +181,7 @@ public class PhotographerControllerTest extends BaseAPITester {
                         .characterEncoding("UTF-8")).andExpect(
                 status().isOk());
         photographCollections.clear();
-        photographCollections = photographerManager.getCollectionByUser(photograph.getId(),0,0);
+        photographCollections = photographerManager.getCollectionByUser(photograph.getId(), 0, 0);
         Assert.assertTrue("One collection should be added!", initCollectionSize + 1 == photographCollections.size());
 
         //Add image to Collection.
@@ -193,9 +199,9 @@ public class PhotographerControllerTest extends BaseAPITester {
         List<Image> imagesToCreate = new ArrayList<>();
         String firstImageName = "myFirstImage";
         String firstImagePath = "store/" + firstImageName;
-        Image firstImage = initDefaultImage(firstImageName,Boolean.FALSE,Boolean.TRUE,firstImagePath);
+        Image firstImage = initDefaultImage(firstImageName, Boolean.FALSE, Boolean.TRUE, firstImagePath);
         imagesToCreate.add(firstImage);
-        List<UserImage> createdUserImages = photographerManager.createPhotographImage(photograph,imagesToCreate);
+        List<UserImage> createdUserImages = photographerManager.createPhotographImage(photograph, imagesToCreate);
         Assert.assertTrue(createdUserImages.size() == 1);
         Assert.assertTrue(createdUserImages.get(0).getImage().getName().equals(firstImageName));
 
@@ -221,12 +227,15 @@ public class PhotographerControllerTest extends BaseAPITester {
 
         //Delete collection.
         String collectionIdToDelete = String.valueOf(requestCollectionData.getId());
+        Map<String, String> map = new HashMap<>();
+        map.put("collectionId", collectionIdToDelete);
+
+        final String deleteEndpoint = ENDPOINT_DELETE_COLLECTION.replace("{collectionId}", collectionIdToDelete);
         mockMvc.perform(
-                post(ENDPOINT_DELETE_COLLECTION)
+                delete(deleteEndpoint)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("collectionId", collectionIdToDelete)
                         .accept(MediaType.APPLICATION_JSON))
-                        .andExpect(status().isOk());
+                .andExpect(status().isOk());
 
         //RollBack rest test data!
         userImageDAO.deleteAll();
