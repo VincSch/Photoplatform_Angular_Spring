@@ -14,7 +14,7 @@ import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
 
 /**
- * Interface defining business methods for categories.
+ * Interface defining business methods for images.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */

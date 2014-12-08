@@ -1,1 +1,3 @@
 script: "./travis-ci-build.sh"
+jdk:
+  - oraclejdk8
