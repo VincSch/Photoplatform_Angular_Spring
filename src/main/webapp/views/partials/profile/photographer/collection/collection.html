@@ -4,11 +4,6 @@
         <div class="row">
             <div class="page-header">
                 <h2>Sammlungsverwaltung</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisici
-                    elit,
-                    <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-                    <br>Ut enim ad minim veniam, quis nostrud</p>
             </div>
         </div>
         <div class="row">
@@ -59,7 +54,9 @@
                 <div class="row">
                     <div class="col-md-4" ng-repeat="collection in collections">
                         <div class="thumbnail" id="collection-{{collection.id}}" ng-init="status = {editing : false }">
-                            <img src="http://placehold.it/1024x600" class="img-responsive">
+                            <a href="/profile/photograph/collection/{{collection.name}}">
+                                <img src="http://placehold.it/1024x600" class="img-responsive">
+                            </a>
 
                             <div class="caption" ng-show="!status.editing">
                                 <h3><a href="/collections/{{collection.id}}">{{collection.name}}</a></h3>

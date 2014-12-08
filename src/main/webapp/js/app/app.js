@@ -43,10 +43,13 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
             templateUrl: '/views/partials/profile/photographer/collection/edit.html',
             controller: 'PhotographerCtrl'
         }).when('/profile/photograph/collection', {
-            templateUrl: '/views/partials/profile/photographer/collection/view.html',
+            templateUrl: '/views/partials/profile/photographer/collection/collection.html',
             controller: 'PhotographerCtrl'
+        }).when('/profile/photograph/collection/:collectionName', {
+            templateUrl: '/views/partials/profile/photographer/collection/images.html',
+            controller: 'CollectionCtrl'
         }).when('/profile/photograph/image', {
-            templateUrl: '/views/partials/profile/photographer/image/view.html',
+            templateUrl: '/views/partials/profile/photographer/image/image.html',
             controller: 'ImageCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
