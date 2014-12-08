@@ -79,8 +79,8 @@ public class XAuthTokenFilter extends GenericFilterBean {
 
                 SecurityContextHolder.getContext().setAuthentication(
                         authentication);
-                log.info("========================> "
-                        + authentication.getName() + " , "
+                log.debug("request from: "
+                        + authentication.getName() + " , authenticated:"
                         + authentication.isAuthenticated());
 
             }
@@ -103,8 +103,6 @@ public class XAuthTokenFilter extends GenericFilterBean {
             throw new BadCredentialsException(
                     "Invalid username password or token Expired.");
         }
-
-        Collection<? extends GrantedAuthority> a = user.getAuthorities();
 
         return new UsernamePasswordAuthenticationToken(user, null,
                 user.getAuthorities());
