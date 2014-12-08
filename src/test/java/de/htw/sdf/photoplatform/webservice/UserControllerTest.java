@@ -7,6 +7,9 @@ import de.htw.sdf.photoplatform.common.BaseAPITester;
 import de.htw.sdf.photoplatform.persistence.model.Role;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.webservice.controller.UserController;
+import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
+import de.htw.sdf.photoplatform.webservice.dto.UserPasswordChange;
+import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -29,11 +33,6 @@ public class UserControllerTest extends BaseAPITester {
     @Before
     public void setUp() throws Exception {
         initAPITest();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        cancel();
     }
 
     @Test
@@ -95,6 +94,56 @@ public class UserControllerTest extends BaseAPITester {
                         MediaType.APPLICATION_JSON).characterEncoding("UTF-8"))
                 .andExpect(status().isBadRequest());
 
+    }
+
+    @Test
+    public void testChangeUserPassword() throws Exception {
+        String email = "test@test.de";
+        String password = "password";
+
+        UserRegister userRegister = new UserRegister();
+
+        userRegister.setEmail(email);
+        userRegister.setFirstName("valid");
+        userRegister.setLastName("user");
+        userRegister.setPassword(password);
+        userRegister.setPasswordConfirm(password);
+
+        // Register User
+        mockMvc.perform(
+                post("/api/user/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userRegister))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
+
+        // Login user
+        UserCredential userCredential = new UserCredential();
+        userCredential.setEmail(email);
+        userCredential.setPassword(password);
+
+        mockMvc.perform(
+                post("/api/user/login").contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userCredential))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
+
+        String newPassword = "newPassword";
+        String passwordConfirm = "newPassword";
+
+        UserPasswordChange userPWChange = new UserPasswordChange();
+
+        userPWChange.setPassword(password);
+        userPWChange.setNewPassword(newPassword);
+        userPWChange.setPasswordConfirm(passwordConfirm);
+
+        // Register User
+        mockMvc.perform(
+                post("/api/users/changepassword")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userPWChange))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                status().isOk());
     }
 
     @Test
@@ -174,5 +223,10 @@ public class UserControllerTest extends BaseAPITester {
 //        Assert.assertTrue(updatedPeterData.getIban().equals(peterIban));
 //        Assert.assertTrue("Bank data should be null, because Peter is not photographer!",
 //                updatedPeterData.getBankId() == null);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        cancel();
     }
 }
