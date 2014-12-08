@@ -54,7 +54,7 @@ photoplatformControllers.controller('ImageCtrl',
              */
             $scope.updateImage = function (editImage, originImage, status) {
                 //replace comma by dot.
-                editImage.price = editImage.price.replace(",", ".");
+                editImage.price = ("" + editImage.price).replace(",", ".");
                 ImageService.updateImage(editImage).success(function (image) {
                     angular.extend(originImage, image);
                     status.editing = false;
