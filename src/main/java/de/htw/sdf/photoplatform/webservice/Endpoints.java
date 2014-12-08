@@ -25,13 +25,6 @@ public final class Endpoints {
      * /tickets/12/messages/5 - Updates message #5 for ticket #12 PATCH
      * /tickets/12/messages/5 - Partially updates message #5 for ticket #12aa
      * DELETE /tickets/12/messages/5 - Deletes message #5 for ticket #12
-     *
-     *
-     * POST: erstellt neues object
-     * GET: hollen
-     * PATCH: updaten
-     * DELETE: löschen
-     * Resource: /collections
      */
 
     /**
@@ -52,7 +45,7 @@ public final class Endpoints {
     public static final String USER_REGISTER = "/user/register";
 
     /**
-     * Become photographer.
+     * USER_BECOME_PHOTOGRAPHER.
      */
     public static final String USER_BECOME_PHOTOGRAPHER = "/user/becomePhotographer";
 
@@ -176,6 +169,11 @@ public final class Endpoints {
     public static final String PHOTOGRAPHER_UPLOAD = "/photographer/upload";
 
     /**
+     * change users password.
+     */
+    public static final String USERS_CHANGE_PASSWORD = "/users/changepassword";
+
+    /**
      * Private Endpoint constructor.
      */
     private Endpoints() {
@@ -192,7 +190,8 @@ public final class Endpoints {
     public static String[] securedUserEndpoints() {
         String[] securedEndpoints = {
                 restBuilder(USERS_UPDATE),
-                restBuilder(USER_BECOME_PHOTOGRAPHER)
+                restBuilder(USER_BECOME_PHOTOGRAPHER),
+                restBuilder(USERS_CHANGE_PASSWORD)
         };
         return securedEndpoints;
     }
