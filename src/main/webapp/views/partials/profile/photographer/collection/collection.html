@@ -54,12 +54,12 @@
                 <div class="row">
                     <div class="col-md-4" ng-repeat="collection in collections">
                         <div class="thumbnail" id="collection-{{collection.id}}" ng-init="status = {editing : false }">
-                            <a href="/profile/photograph/collection/{{collection.name}}">
-                                <img src="http://placehold.it/1024x600" class="img-responsive">
+                            <a href="/collection/{{collection.name}}">
+                            <img src="http://placehold.it/1024x600" class="img-responsive">
                             </a>
 
                             <div class="caption" ng-show="!status.editing">
-                                <h3><a href="/collections/{{collection.id}}">{{collection.name}}</a></h3>
+                                <h3><a href="/collection/{{collection.name}}">{{collection.name}}</a></h3>
 
                                 <p>{{collection.description}}</p>
 
