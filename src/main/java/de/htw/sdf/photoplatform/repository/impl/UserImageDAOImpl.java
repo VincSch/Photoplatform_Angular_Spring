@@ -9,6 +9,7 @@ package de.htw.sdf.photoplatform.repository.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
@@ -93,6 +94,24 @@ public class UserImageDAOImpl extends GenericDAOImpl<UserImage> implements
         query.setFirstResult(start);
         query.setMaxResults(count);
         return (List<UserImage>) query.getResultList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UserImage getPhotographImage(User owner, Long imageId) {
+        StringBuilder queryBuilder = initSelectQuery();
+        queryBuilder.append("WHERE owner.id = :ownerId AND user.id = :userId AND image.id= :imageId");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("ownerId", owner.getId());
+        query.setParameter("userId", owner.getId());
+        query.setParameter("imageId", imageId);
+        try {
+            return (UserImage) query.getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
     }
 
     private Query initPhotographImageQuery(User owner) {

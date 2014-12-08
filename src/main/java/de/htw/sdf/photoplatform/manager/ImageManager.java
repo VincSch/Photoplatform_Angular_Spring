@@ -8,6 +8,7 @@ package de.htw.sdf.photoplatform.manager;
 
 import java.util.List;
 
+import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
@@ -74,4 +75,17 @@ public interface ImageManager {
      * delete all categories.
      */
     void deleteAll();
+
+    /**
+     * Update image.
+     *
+     * @param imageId image id.
+     * @param name image name.
+     * @param price image price.
+     * @param description image description.
+     * @param owner image owner.
+     * @return updated image.
+     * @throws ManagerException manager exception.
+     */
+    Image update(Long imageId, String name, Double price, String description, User owner) throws ManagerException;
 }

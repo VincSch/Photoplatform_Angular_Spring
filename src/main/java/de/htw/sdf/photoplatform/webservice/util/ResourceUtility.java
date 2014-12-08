@@ -9,6 +9,8 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
 import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
@@ -23,13 +25,23 @@ import de.htw.sdf.photoplatform.webservice.dto.ImageData;
  */
 @Component
 public class ResourceUtility {
-    private static ResourceUtility ourInstance = new ResourceUtility();
 
     private ResourceUtility() {
     }
 
     /**
-     * Convert list of domain object user to list of transfer objects UserData.
+     * Convert domain object Image to transfer objects ImageData.
+     *
+     * @param image  image.
+     * @return image data.
+     */
+    public static ImageData convertToImageData(Image image) {
+        ImageData imageData = new ImageData(image);
+        return imageData;
+    }
+
+    /**
+     * Convert list of domain object UserImage to list of transfer objects ImageData.
      *
      * @param userImages list of user images.
      * @return list of image data.
@@ -53,6 +65,27 @@ public class ResourceUtility {
      */
     public static List<CollectionData> convertToCollectionData(List<Collection> collections) {
         return convertToCollectionData(collections,Boolean.FALSE);
+    }
+
+    /**
+     * Utility method to convert DTO to domain.
+     *
+     * Convert data transfer object CollectionData to domain object collection.
+     *
+     * @param data data transfer object collection.
+     * @param owner collection owner.
+     * @return
+     */
+    public static Collection convertToCollection(CollectionData data, User owner){
+        Collection collection = new Collection();
+        collection.setId(data.getId());
+        collection.setName(data.getName());
+        collection.setDescription(data.getDescription());
+        collection.setUser(owner);
+        collection.setPublic(data.getPublic());
+        collection.setThumbnail(null);
+
+        return collection;
     }
 
     /**

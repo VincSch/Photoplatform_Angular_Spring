@@ -64,8 +64,16 @@ public interface UserImageDAO extends GenericDAO<UserImage> {
      * @param owner photograph.
      * @param start the start.
      * @param count the max.
-     * @return Return List of user images.
+     * @return List of user images.
      */
     List<UserImage> getPhotographImages(User owner, int start, int count);
 
+    /**
+     * Returns one photograph's image.
+     *
+     * @param owner photograph.
+     * @param imageId affected image id.
+     * @return one photograph's image.
+     */
+    UserImage getPhotographImage(User owner, Long imageId);
 }

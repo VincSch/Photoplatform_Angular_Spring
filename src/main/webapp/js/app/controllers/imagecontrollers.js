@@ -37,12 +37,28 @@ photoplatformControllers.controller('ImageCtrl',
             };
 
             /**
-             * Get all images.
+             * Delete one image by image id.
              */
             $scope.deleteImage = function (image, index) {
                 ImageService.deleteImage(image.id).success(function (message) {
                     $scope.images.splice(index, 1);
                     $rootScope.success = message;
+                }).error(function (data) {
+                    $scope.log(data.errors);
+                    $scope.errors = data.errors;
+                })
+            };
+
+            /**
+             * Update one image by image id.
+             */
+            $scope.updateImage = function (editImage, originImage, status) {
+                //replace comma by dot.
+                editImage.price = editImage.price.replace(",", ".");
+                ImageService.updateImage(editImage).success(function (image) {
+                    angular.extend(originImage, image);
+                    status.editing = false;
+                    $rootScope.success = image.messageSuccess;
                 }).error(function (data) {
                     $scope.log(data.errors);
                     $scope.errors = data.errors;

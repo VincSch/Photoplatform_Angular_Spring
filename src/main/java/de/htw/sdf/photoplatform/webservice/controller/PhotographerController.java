@@ -29,6 +29,7 @@ import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.ImageManager;
 import de.htw.sdf.photoplatform.manager.PhotographerManager;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
@@ -49,7 +50,6 @@ public class PhotographerController extends BaseAPIController {
 
     private final static String PARAM_COLLECTION_ID = "id";
     private final static String PARAM_IMAGE_IDS = "imageIds";
-    private final static String PARAM_IMAGE_ID = "imageId";
     private final static String PARAM_IS_PUBLIC = "isPublic";
 
     @Resource
@@ -285,17 +285,8 @@ public class PhotographerController extends BaseAPIController {
             throw new BadRequestException("updateCollection", bindingResult);
         }
 
-        User user = getAuthenticatedUser();
-
-        // FIXME this code belongs to service..not in a controller
-        Collection collection = new Collection();
-        collection.setId(data.getId());
-        collection.setName(data.getName());
-        collection.setDescription(data.getDescription());
-        collection.setUser(user);
-        collection.setPublic(data.getPublic());
-        collection.setThumbnail(null);
-
+        User authenticatedUser = getAuthenticatedUser();
+        Collection collection = ResourceUtility.convertToCollection(data,authenticatedUser);
         collection = photographerManager.update(collection);
 
         return ResourceUtility.convertToCollectionData(collection);
@@ -377,5 +368,43 @@ public class PhotographerController extends BaseAPIController {
         }
 
         return messages.getMessage("Image.delete.success");
+    }
+
+    /**
+     * Update collection.
+     */
+    @RequestMapping(value = Endpoints.PHOTOGRAPHERS_IMAGES, method = RequestMethod.PATCH)
+    @ResponseBody
+    public ImageData updateImage(@Valid @RequestBody ImageData data,
+                                           BindingResult bindingResult) throws IOException, AbstractBaseException {
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException("updateCollection", bindingResult);
+        }
+
+        User authenticatedUser = getAuthenticatedUser();
+        ImageData response;
+        Image updatedImage;
+        try {
+            updatedImage = imageManager.update(data.getId(), data.getName(), data.getPrice(), data.getDescription(), authenticatedUser);
+        }catch (ManagerException ex) {
+            String exceptionMsg;
+            switch (ex.getCode()) {
+                case AbstractBaseException.PARAM_IS_NOT_VALID:
+                    exceptionMsg = messages.getMessage("Image.notValid").replace("(id)",data.getId().toString()) +
+                            messages.getMessage("Image.update.failed");
+                    break;
+                case AbstractBaseException.NOT_FOUND:
+                    exceptionMsg = messages.getMessage("Image.notValid").replace("(id)",data.getId().toString()) +
+                            messages.getMessage("Image.update.failed");
+                    break;
+                default:
+                    throw new RuntimeException("Unhandled error");
+            }
+
+            throw new BadRequestException(exceptionMsg);
+        }
+        response = ResourceUtility.convertToImageData(updatedImage);
+        response.setMessageSuccess(messages.getMessage("Image.update.success"));
+        return response;
     }
 }

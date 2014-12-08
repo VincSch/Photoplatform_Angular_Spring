@@ -131,7 +131,8 @@ public final class Endpoints {
     public static final String SHOWCASE = "/showcase";
 
     /**
-     * all photograph's images.
+     * GET: get all photograph's images.
+     * PATCH: update photograph image.
      * <p>
      * Will be used to find all photograph's images.
      */

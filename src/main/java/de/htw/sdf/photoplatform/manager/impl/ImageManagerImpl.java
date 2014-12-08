@@ -10,6 +10,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
+import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.ImageManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import de.htw.sdf.photoplatform.persistence.model.Image;
@@ -60,6 +62,27 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
 
     @Override public void deleteAll() {
         imageDAO.deleteAll();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Image update(Long imageId, String name, Double price, String description, User owner) throws ManagerException {
+        if (imageId == null) {
+            throw new ManagerException(AbstractBaseException.PARAM_IS_NOT_VALID);
+        }
+
+        UserImage imageToUpdate = userImageDAO.getPhotographImage(owner,imageId);
+        if (imageToUpdate == null) {
+            throw new ManagerException(AbstractBaseException.NOT_FOUND);
+        }
+        imageToUpdate.getImage().setName(name);
+        imageToUpdate.getImage().setPrice(price);
+        imageToUpdate.getImage().setDescription(description);
+        imageDAO.update(imageToUpdate.getImage());
+        return imageToUpdate.getImage();
     }
 
 }
