@@ -6,7 +6,6 @@
 
 package de.htw.sdf.photoplatform.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,12 +23,9 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.Collection;
-import java.util.HashMap;
 
 /**
  * Sifts through all incoming requests and installs a Spring Security principal
@@ -52,34 +48,40 @@ public class XAuthTokenFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest arg0, ServletResponse arg1,
-        FilterChain filterChain) throws IOException, ServletException {
+                         FilterChain filterChain) throws IOException, ServletException {
         try {
             HttpServletRequest httpServletRequest = (HttpServletRequest) arg0;
             String authToken = httpServletRequest
-                .getHeader(this.xAuthTokenHeaderName);
+                    .getHeader(this.xAuthTokenHeaderName);
 
             arg0.setAttribute(FILTER_APPLIED, Boolean.TRUE);
-            Cookie[] cookies = httpServletRequest.getCookies();
-            Cookie cookie = cookies[0];
-            String domain = cookie.getDomain();
-            String name = cookie.getName();
-            String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
-            HashMap obj = new ObjectMapper().readValue(value, HashMap.class);
-            String cookieUsername = TokenUtils.getUserNameFromToken(value);
+
+            //TODO This code can be used to retrieve the authenticate an image request
+//            if (httpServletRequest.getRequestURI().startsWith("/api/image/")) {
+//                log.info(httpServletRequest.getMethod() + " : " + httpServletRequest.getRequestURI());
+//                           Cookie[] cookies = httpServletRequest.getCookies();
+//                           Cookie cookie = cookies[0];
+//                          String domain = cookie.getDomain();
+//                         String name = cookie.getName();
+//                           String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
+//                           HashMap obj = new ObjectMapper().readValue(value, HashMap.class);
+//            }
+            
+            String cookieUsername = TokenUtils.getUserNameFromToken(authToken);
             if (StringUtils.hasText(authToken)) {
                 String username = TokenUtils.getUserNameFromToken(authToken);
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    username, authToken);
+                        username, authToken);
 
                 token.setDetails(new WebAuthenticationDetailsSource()
-                    .buildDetails(httpServletRequest));
+                        .buildDetails(httpServletRequest));
                 Authentication authentication = authenticate(token);
 
                 SecurityContextHolder.getContext().setAuthentication(
-                    authentication);
+                        authentication);
                 log.info("========================> "
-                    + authentication.getName() + " , "
-                    + authentication.isAuthenticated());
+                        + authentication.getName() + " , "
+                        + authentication.isAuthenticated());
 
             }
             filterChain.doFilter(arg0, arg1);
@@ -89,7 +91,7 @@ public class XAuthTokenFilter extends GenericFilterBean {
     }
 
     public Authentication authenticate(Authentication authentication)
-        throws AuthenticationException {
+            throws AuthenticationException {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
 
         String username = (String) token.getPrincipal();
@@ -99,12 +101,12 @@ public class XAuthTokenFilter extends GenericFilterBean {
 
         if (!TokenUtils.validateToken(authToken, user)) {
             throw new BadCredentialsException(
-                "Invalid username password or token Expired.");
+                    "Invalid username password or token Expired.");
         }
 
         Collection<? extends GrantedAuthority> a = user.getAuthorities();
 
         return new UsernamePasswordAuthenticationToken(user, null,
-            user.getAuthorities());
+                user.getAuthorities());
     }
 }
