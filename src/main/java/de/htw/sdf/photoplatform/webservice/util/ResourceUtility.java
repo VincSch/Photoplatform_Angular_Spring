@@ -5,10 +5,12 @@ package de.htw.sdf.photoplatform.webservice.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
 import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
@@ -114,6 +116,22 @@ public class ResourceUtility {
         for (Collection collection : collections) {
             CollectionData collectionData = new CollectionData(collection,includeImages);
             result.add(collectionData);
+        }
+
+        return result;
+    }
+
+    /**
+     * Returns list of data transfer object  image data.
+     *
+     * @param collectionImages list of domain object collection image.
+     * @return list of data transfer object ImageData.
+     */
+    public static List<ImageData> convertToCollectionData(Set<CollectionImage> collectionImages) {
+        List<ImageData> result = new ArrayList<>();
+        for (CollectionImage collectionImage : collectionImages) {
+            ImageData imageData = new ImageData(collectionImage.getImage());
+            result.add(imageData);
         }
 
         return result;

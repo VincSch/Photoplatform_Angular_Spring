@@ -19,7 +19,7 @@ import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
 
 /**
- * business methods for categories.
+ * business methods for images.
  *
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
  */

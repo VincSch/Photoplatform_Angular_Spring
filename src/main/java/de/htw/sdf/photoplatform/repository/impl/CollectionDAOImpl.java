@@ -6,18 +6,20 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import de.htw.sdf.photoplatform.persistence.model.Collection;
-import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
-import de.htw.sdf.photoplatform.repository.CollectionDAO;
-import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+
+import org.springframework.stereotype.Repository;
+
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
+import de.htw.sdf.photoplatform.repository.CollectionDAO;
+import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
 
 /**
  * Repository methods for image collection.
@@ -119,6 +121,38 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
 
         Collection result = (Collection) query.getSingleResult();
         return result.getCollectionImages();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public Set<CollectionImage> findCollectionImagesBy(Long collectionId) {
+        Query query = initCollectionImagesQuery (collectionId);
+        Collection result = (Collection) query.getSingleResult();
+        return result.getCollectionImages();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public Set<CollectionImage> findCollectionImagesBy(Long collectionId, int start, int count) {
+        Query query = initCollectionImagesQuery (collectionId);
+        query.setFirstResult(start);
+        query.setMaxResults(count);
+        Collection result = (Collection) query.getSingleResult();
+        return result.getCollectionImages();
+    }
+
+    private Query initCollectionImagesQuery (Long collectionId){
+        StringBuilder queryBuilder = initCollectionAndImagesSelect();
+        queryBuilder.append("WHERE collection.id = :collectionId ");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("collectionId", collectionId);
+        return query;
     }
 
     private StringBuilder initFullDataCollectionSelect() {

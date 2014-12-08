@@ -106,6 +106,11 @@ public final class Endpoints {
     public static final String COLLECTIONS_CREATE = "/collections/create";
 
     /**
+     * GET: returns collection's images.
+     */
+    public static final String COLLECTIONS_ID_IMAGES = "/collections/{collectionId}/images";
+
+    /**
      * POST: add image to collection.
      */
     public static final String COLLECTIONS_ADD_IMAGE = "/collections/addimage";
@@ -226,6 +231,7 @@ public final class Endpoints {
                 restBuilder(PHOTOGRAPHERS_IMAGES_ID),
                 restBuilder(COLLECTIONS_PHOTOGRAPHERS),
                 restBuilder(COLLECTIONS_PHOTOGRAPHERS_START_COUNT),
+                restBuilder(COLLECTIONS_ID_IMAGES),
                 restBuilder(COLLECTIONS_CREATE),
                 restBuilder(COLLECTIONS_ADD_IMAGE),
                 restBuilder(COLLECTIONS_DELETE_IMAGE),
