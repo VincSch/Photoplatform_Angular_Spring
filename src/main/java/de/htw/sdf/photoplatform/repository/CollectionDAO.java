@@ -7,7 +7,6 @@
 package de.htw.sdf.photoplatform.repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import de.htw.sdf.photoplatform.persistence.model.Collection;
@@ -49,7 +48,7 @@ public interface CollectionDAO extends GenericDAO<Collection> {
      * @param isPublic if set filter by public
      * @return list of user's collection
      */
-    List<Collection> findCollectionsByUser(final long userId, int start, int count, Optional<Boolean> isPublic);
+    List<Collection> findCollectionsByUser(final long userId, int start, int count, Boolean isPublic);
 
     /**
      * Returns set of collection images.

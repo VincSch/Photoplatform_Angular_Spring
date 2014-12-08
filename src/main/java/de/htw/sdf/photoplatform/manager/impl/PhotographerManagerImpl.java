@@ -70,7 +70,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
      */
     @Override
     public List<Collection> getCollectionByUser(long userId, int start, int count) {
-        return collectionDAO.findCollectionsByUser(userId, start, count, Optional.<Boolean>empty());
+        return collectionDAO.findCollectionsByUser(userId, start, count, null);
     }
 
     /**
@@ -78,7 +78,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
      */
     @Override
     public List<Collection> getShowcaseByUser(Long userId, int start, int count) {
-        return collectionDAO.findCollectionsByUser(userId, start, count, Optional.of(Boolean.TRUE));
+        return collectionDAO.findCollectionsByUser(userId, start, count, Boolean.TRUE);
     }
 
     /**

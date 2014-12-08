@@ -79,18 +79,18 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
     @Override
     @SuppressWarnings("unchecked")
     public List<Collection> findCollectionsByUser(final long userId, final int start, final int count,
-                                                  Optional<Boolean> isPublic) {
+                                                  Boolean isPublic) {
         StringBuilder queryBuilder = initFullDataCollectionSelect();
         queryBuilder.append("WHERE owner.id = :userId");
-        if (isPublic.isPresent()) {
+        if (isPublic != null) {
             queryBuilder.append(" AND collection.isPublic = :isPublic");
         }
 
         Query query = createQuery(queryBuilder.toString());
         query.setParameter("userId", userId);
 
-        if (isPublic.isPresent()) {
-            query.setParameter("isPublic", isPublic.get());
+        if (isPublic != null) {
+            query.setParameter("isPublic", isPublic);
         }
 
         if (start > 0) {
