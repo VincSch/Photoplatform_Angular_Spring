@@ -10,11 +10,4 @@ photoplatformControllers.controller('CollectionCtrl',
 
             $scope.collectionName = $routeParams.collectionName;
 
-
-            $rootScope.goBack = function ($window, $rootScope) {
-                $window.history.back();
-                scope.$apply();
-            }
-
-
         }]);
