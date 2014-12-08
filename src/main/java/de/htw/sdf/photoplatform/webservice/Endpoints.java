@@ -135,7 +135,14 @@ public final class Endpoints {
      * <p>
      * Will be used to find all photograph's images.
      */
-    public static final String IMAGES_PHOTOGRAPHERS = "/photographer/images";
+    public static final String PHOTOGRAPHERS_IMAGES = "/photographer/images";
+
+    /**
+     * To delete photograph image by image id.
+     * <p>
+     * Will be used to find all photograph's images.
+     */
+    public static final String PHOTOGRAPHERS_IMAGES_ID = "/photographer/images/{imageId}";
 
     /**
      * activates a photograph user
@@ -214,7 +221,8 @@ public final class Endpoints {
                 restBuilder(USERS_UPDATE),
                 restBuilder(PHOTOGRAPHER_UPLOAD),
                 restBuilder(USERS_START_COUNT),
-                restBuilder(IMAGES_PHOTOGRAPHERS),
+                restBuilder(PHOTOGRAPHERS_IMAGES),
+                restBuilder(PHOTOGRAPHERS_IMAGES_ID),
                 restBuilder(COLLECTIONS_PHOTOGRAPHERS),
                 restBuilder(COLLECTIONS_PHOTOGRAPHERS_START_COUNT),
                 restBuilder(COLLECTIONS_CREATE),

@@ -27,6 +27,16 @@ public interface UserImageDAO extends GenericDAO<UserImage> {
      */
     List<UserImage> getUserImagesBy(User user);
 
+
+    /**
+     * Returns list of userImages by given user id and list of image id's.
+     *
+     * @param ownerId user id of the image owner.
+     * @param imageId affected image.
+     * @return list of userImage.
+     */
+    List<UserImage> getOwnerImages(long ownerId, Long imageId);
+
     /**
      * Returns list of userImages by given user id and list of image id's.
      *
@@ -34,7 +44,7 @@ public interface UserImageDAO extends GenericDAO<UserImage> {
      * @param imageIds list of affected images.
      * @return list of userImage.
      */
-    List<UserImage> getUserImagesBy(long ownerId, List<Long> imageIds);
+    List<UserImage> getOwnerImages(long ownerId, List<Long> imageIds);
 
     /**
      * Returns all photograph's images.

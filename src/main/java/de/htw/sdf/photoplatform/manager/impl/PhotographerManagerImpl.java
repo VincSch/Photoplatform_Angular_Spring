@@ -5,18 +5,23 @@
  */
 package de.htw.sdf.photoplatform.manager.impl;
 
-import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
-import de.htw.sdf.photoplatform.exception.common.ManagerException;
-import de.htw.sdf.photoplatform.manager.PhotographerManager;
-import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.model.*;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
+import de.htw.sdf.photoplatform.exception.common.ManagerException;
+import de.htw.sdf.photoplatform.manager.PhotographerManager;
+import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
+import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserImage;
 
 /**
  * business methods for categories.
@@ -154,7 +159,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
 
         Collection affectedCollection = getCollection(userId, collectionId);
 
-        List<UserImage> imagesToAdd = userImageDAO.getUserImagesBy(userId, imageIds);
+        List<UserImage> imagesToAdd = userImageDAO.getOwnerImages(userId, imageIds);
         if (imagesToAdd.isEmpty()) {
             throw new ManagerException(AbstractBaseException.NOT_FOUND);
         }
@@ -210,6 +215,39 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         }
 
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean deleteImage(Long ownerId, Long imageId) throws ManagerException {
+        if (imageId == null) {
+            throw new ManagerException(AbstractBaseException.PARAM_IS_NOT_VALID);
+        }
+
+        List<UserImage> imagesToDelete = userImageDAO.getOwnerImages(ownerId, imageId);
+        if (imagesToDelete.isEmpty()) {
+            throw new ManagerException(AbstractBaseException.NOT_FOUND);
+        }
+
+        if(imagesToDelete.size() > 1){
+            //The image was bought.
+            //remove only reference to photograph.
+            for(UserImage userImage : imagesToDelete){
+                if(userImage.getOwner().getId().equals(ownerId) &&
+                        userImage.getUser().getId().equals(ownerId)){
+                    userImageDAO.delete(userImage);
+                }
+            }
+        }else{
+            UserImage userImage = imagesToDelete.get(0);
+            imageDAO.delete(userImage.getImage());
+            userImageDAO.delete(userImage);
+            return true;
+        }
+
+        return false;
     }
 
     /**

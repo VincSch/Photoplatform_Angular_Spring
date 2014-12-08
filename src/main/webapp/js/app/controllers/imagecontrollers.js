@@ -35,4 +35,18 @@ photoplatformControllers.controller('ImageCtrl',
                     $scope.errors = data.errors;
                 })
             };
+
+            /**
+             * Get all images.
+             */
+            $scope.deleteImage = function (image, index) {
+                ImageService.deleteImage(image.id).success(function (message) {
+                    $scope.images.splice(index, 1);
+                    $rootScope.success = message;
+                }).error(function (data) {
+                    $scope.log(data.errors);
+                    $scope.errors = data.errors;
+                })
+            };
+
         }]);

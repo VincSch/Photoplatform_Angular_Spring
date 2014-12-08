@@ -91,6 +91,7 @@ public interface PhotographerManager {
      * @param photograph user with photograph role.
      * @param image image to create.
      * @return created userImage.
+     * @throws ManagerException manager exception.
      */
     UserImage createPhotographImage(User photograph, Image image) throws ManagerException ;
 
@@ -100,6 +101,7 @@ public interface PhotographerManager {
      * @param photograph user with photograph role.
      * @param images list of image to create.
      * @return list of created userImage.
+     * @throws ManagerException manager exception.
      */
     List<UserImage> createPhotographImage(User photograph, List<Image> images) throws ManagerException ;
 
@@ -183,9 +185,22 @@ public interface PhotographerManager {
      * @param publicValue showcase value.
      *        true, add to showcase
      *        false, remove from showcase.
-     * @return
+     * @return true if ok, otherwise exception.
+     * @throws ManagerException manager exception.
      */
     Boolean updateCollectionsPublicValue(Long userId, Long collectionId,Boolean publicValue) throws ManagerException;
 
 
+    /**
+     * Delete photograph image.
+     *
+     * If the image was bought, than delete only reference.
+     * Returns false if only reference was deleted, return true if the image was hard deleted.
+     *
+     * @param ownerId image owner.
+     * @param imageId image id
+     * @return false if only reference was deleted, return true if the image was hard deleted.
+     * @throws ManagerException manager exception.
+     */
+    Boolean deleteImage(Long ownerId, Long imageId) throws ManagerException ;
 }

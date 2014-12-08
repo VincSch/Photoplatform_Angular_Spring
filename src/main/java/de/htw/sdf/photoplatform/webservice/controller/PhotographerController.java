@@ -49,6 +49,7 @@ public class PhotographerController extends BaseAPIController {
 
     private final static String PARAM_COLLECTION_ID = "id";
     private final static String PARAM_IMAGE_IDS = "imageIds";
+    private final static String PARAM_IMAGE_ID = "imageId";
     private final static String PARAM_IS_PUBLIC = "isPublic";
 
     @Resource
@@ -337,7 +338,7 @@ public class PhotographerController extends BaseAPIController {
      * @throws java.io.IOException   input output exception.
      * @throws AbstractBaseException the exception
      */
-    @RequestMapping(value = Endpoints.IMAGES_PHOTOGRAPHERS, method = RequestMethod.GET)
+    @RequestMapping(value = Endpoints.PHOTOGRAPHERS_IMAGES, method = RequestMethod.GET)
     @ResponseBody
     public List<ImageData> getPhotographersImages(@RequestParam(required = false, defaultValue = "-1") int start,
                                                   @RequestParam(required = false, defaultValue = "-1") int count)
@@ -345,5 +346,36 @@ public class PhotographerController extends BaseAPIController {
         User authenticatedUser = getAuthenticatedUser();
         List<UserImage> userImages = imageManager.getPhotographImages(authenticatedUser,start,count);
         return ResourceUtility.convertToImageData(userImages);
+    }
+
+    /**
+     * Delete a photograph image.
+     *
+     * @return success message if ok, otherwise exception.
+     * @throws java.io.IOException   input output exception.
+     * @throws AbstractBaseException the exception
+     */
+    @RequestMapping(value = Endpoints.PHOTOGRAPHERS_IMAGES_ID, method = RequestMethod.DELETE)
+    @ResponseBody
+    public String deletePhotographersImage(@PathVariable(value = "imageId") Long imageId)
+            throws IOException, AbstractBaseException {
+        User authenticatedUser = getAuthenticatedUser();
+        try {
+            photographerManager.deleteImage(authenticatedUser.getId(),imageId);
+        } catch (ManagerException ex) {
+            String exceptionMsg;
+            switch (ex.getCode()) {
+                case AbstractBaseException.PARAM_IS_NOT_VALID:
+                    exceptionMsg = messages.getMessage("Image.notValid").replace("(id)",imageId.toString()) +
+                            messages.getMessage("Image.delete.failed");
+                    break;
+                default:
+                    throw new RuntimeException("Unhandled error");
+            }
+
+            throw new BadRequestException(exceptionMsg);
+        }
+
+        return messages.getMessage("Image.delete.success");
     }
 }

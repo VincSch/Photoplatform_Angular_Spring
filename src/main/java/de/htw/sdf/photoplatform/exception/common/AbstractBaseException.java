@@ -39,6 +39,11 @@ public abstract class AbstractBaseException extends Exception {
      */
     public static final int COLLECTION_ID_NOT_VALID = 11003;
 
+    /**
+     * Param is not valid, is null or empty or doesn't belong to the request user.
+     */
+    public static final int PARAM_IS_NOT_VALID = 11004;
+
     private static final long serialVersionUID = 1L;
 
     protected final Logger log = Logger.getLogger(this.getClass().getName());

@@ -3,25 +3,29 @@
  */
 package de.htw.sdf.photoplatform.webservice;
 
-import de.htw.sdf.photoplatform.common.BaseAPITester;
-import de.htw.sdf.photoplatform.persistence.model.Collection;
-import de.htw.sdf.photoplatform.persistence.model.Image;
-import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.persistence.model.UserImage;
-import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.http.MediaType;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.http.MediaType;
+
+import de.htw.sdf.photoplatform.common.BaseAPITester;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserImage;
+import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 
 /**
  * Tests for users services.
@@ -52,7 +56,7 @@ public class PhotographerControllerTest extends BaseAPITester {
     public void testGetPhotographersImages() throws Exception {
         loginAsPhotograph();
 
-        String request = Endpoints.API_PREFIX + Endpoints.IMAGES_PHOTOGRAPHERS;
+        String request = Endpoints.API_PREFIX + Endpoints.PHOTOGRAPHERS_IMAGES;
         mockMvc.perform(
                 get(request).contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")).andExpect(

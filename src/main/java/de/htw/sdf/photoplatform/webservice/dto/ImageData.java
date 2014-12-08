@@ -16,7 +16,7 @@ import de.htw.sdf.photoplatform.persistence.model.UserImage;
  */
 public class ImageData implements Serializable {
 
-    private String imageId;
+    private Long id;
 
     private String name;
 
@@ -63,7 +63,7 @@ public class ImageData implements Serializable {
      * @param image user image.
      */
     public ImageData(Image image) {
-        this.imageId = image.getId().toString();
+        this.id = image.getId();
         this.name = image.getName();
         this.description = image.getDescription();
         this.price = image.getPrice();
@@ -81,17 +81,17 @@ public class ImageData implements Serializable {
      *
      * @return image id.
      */
-    public String getImageId() {
-        return imageId;
+    public Long getId() {
+        return id;
     }
 
     /**
      * Sets image id.
      *
-     * @param imageId image id.
+     * @param id image id.
      */
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**

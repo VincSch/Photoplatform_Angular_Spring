@@ -6,6 +6,7 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -53,8 +54,18 @@ public class UserImageDAOImpl extends GenericDAOImpl<UserImage> implements
      * {@inheritDoc}
      */
     @Override
+    public List<UserImage> getOwnerImages(long ownerId, Long imageId) {
+        List<Long> imageIds= new ArrayList<>();
+        imageIds.add(imageId);
+        return getOwnerImages(ownerId, imageIds);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @SuppressWarnings("unchecked")
-    public List<UserImage> getUserImagesBy(long ownerId, List<Long> imageIds) {
+    public List<UserImage> getOwnerImages(long ownerId, List<Long> imageIds) {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("WHERE owner.id = :ownerId AND image.id IN (:imageIds)");
         Query query = createQuery(queryBuilder.toString());
