@@ -12,16 +12,26 @@ import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.PhotographerData;
 import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.BecomePhotographer;
 import de.htw.sdf.photoplatform.webservice.dto.UserData;
+import de.htw.sdf.photoplatform.webservice.dto.UserPasswordChange;
+import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 import de.htw.sdf.photoplatform.webservice.util.UserUtility;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -39,6 +49,10 @@ public class UserController extends BaseAPIController {
 
     @Resource
     private UserManager userManager;
+
+    @Resource
+    @Qualifier(value = "myAuthManager")
+    private AuthenticationManager authenticationManager;
 
     /**
      * GET list of enabled users between start an count.
@@ -267,5 +281,56 @@ public class UserController extends BaseAPIController {
         } catch (Exception nfe) {
             throw new NotFoundException(msg);
         }
+    }
+
+    /**
+     * Update user password.
+     *
+     * @param userPwData Passworddata containing old password, new password and confirmation password.
+     * @throws AbstractBaseException the exception.
+     */
+    @RequestMapping(value = Endpoints.USERS_CHANGE_PASSWORD, method = {
+            RequestMethod.POST})
+    public UserData changePassword(@Valid @RequestBody UserPasswordChange userPwData,
+                           BindingResult bindingResult) throws Exception {
+
+        // Check if password match
+        if (!userPwData.getNewPassword().equals(
+                userPwData.getPasswordConfirm())) {
+            bindingResult
+                    .addError(new FieldError("changePassword", "passwordConfirm",
+                            messages.getMessage("Password.confirm")));
+        }
+
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException("changePassword", bindingResult);
+        }
+
+        //get the user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authenticatedUser = (User) authentication.getPrincipal();
+
+        //try to authenticate user, to check if old password was correct
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                authenticatedUser.getUsername(), userPwData.getPassword());
+
+        Authentication auth;
+        try {
+            auth = authenticationManager.authenticate(token);
+        } catch (DisabledException | LockedException | BadCredentialsException  | NoResultException ex) {
+            bindingResult.addError(new FieldError("changePassword", "password", messages
+                    .getMessage("Password.confirm")));
+            throw new BadRequestException("changePassword", bindingResult);
+        }
+
+        // change user password data
+        authenticatedUser.setPassword(new BCryptPasswordEncoder().encode(userPwData.getNewPassword()));
+        userManager.update(authenticatedUser);
+
+        // set the new token
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        authenticatedUser.setSecToken(TokenUtils.createToken(authenticatedUser));
+
+        return new UserData(authenticatedUser);
     }
 }

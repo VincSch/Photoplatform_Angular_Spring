@@ -45,7 +45,7 @@ public final class Endpoints {
     public static final String USER_REGISTER = "/user/register";
 
     /**
-     * USER_REGISTER.
+     * USER_BECOME_PHOTOGRAPHER.
      */
     public static final String USER_BECOME_PHOTOGRAPHER = "/user/becomePhotographer";
 
@@ -99,6 +99,11 @@ public final class Endpoints {
     public static final String PHOTOGRAPHER_UPLOAD = "/photographer/upload";
 
     /**
+     * change users password.
+     */
+    public static final String USERS_CHANGE_PASSWORD = "/users/changepassword";
+
+    /**
      * Private Endpoint constructor.
      */
     private Endpoints() {
@@ -115,7 +120,8 @@ public final class Endpoints {
     public static String[] securedUserEndpoints() {
         String[] securedEndpoints = {
                 restBuilder(USERS_UPDATE),
-                restBuilder(USER_BECOME_PHOTOGRAPHER)
+                restBuilder(USER_BECOME_PHOTOGRAPHER),
+                restBuilder(USERS_CHANGE_PASSWORD)
         };
         return securedEndpoints;
     }

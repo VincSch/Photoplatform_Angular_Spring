@@ -9,6 +9,56 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
             $location.path("/login");
             return;
         }
+        //check param
+        $scope.userId = $routeParams.userId;
+        if ($scope.userId == undefined) {
+            $scope.userId = user.id;
+        }
+
+        //get user ProfileData
+        UserService.getUserProfileData($scope.userId).success(function (responseUserProfileData) {
+            $scope.userProfileData = responseUserProfileData;
+            $scope.roles = responseUserProfileData.roles;
+        }).error(function (error) {
+            console.log(error);
+            $rootScope.error(error);
+        });
+
+        //save input from edited field
+        $scope.save = function () {
+            UserService.updateUserProfileData($scope.userProfileData).success(function (data) {
+                $rootScope.success = "Profil erfolgreich aktualisiert";
+            }).error(function (data) {
+                $scope.errors = data.errors;
+            });
+            $location.path("/profile/view");
+        };
+        //cancel fieldinput and reset data in field
+        $scope.cancel = function (fieldToCancel) {
+            UserService.getUserProfileData($scope.userId).success(function (responseUserProfileData) {
+                $scope.userProfileData = responseUserProfileData;
+                $scope.roles = responseUserProfileData.roles;
+            }).error(function (error) {
+                console.log(error);
+                $rootScope.error(error);
+            });
+        };
+        //change user password and close modal on success
+        $scope.changePassword = function (pw) {
+            UserService.changePassword(pw).success(function (user) {
+                $rootScope.success = "Passwort erfolgreich geändert";
+                $('#pwModal').modal('hide');
+                // set the new token
+                $rootScope.user = user;
+                $http.defaults.headers.common[xAuthTokenHeaderName] = user.secToken;
+                $cookieStore.put('user', user);
+            }).error(function (data) {
+                console.log(data);
+                $scope.errors = data.errors;
+            });
+            $location.path("/profile/view");
+        };
+
     }]);
 
 /**
@@ -26,6 +76,8 @@ photoplatformControllers.controller('PhotographerCtrl', ['$scope', '$rootScope',
             $location.path("/profile");
             return;
         }
+
+
 
         /**
          * Become a Photographer.
