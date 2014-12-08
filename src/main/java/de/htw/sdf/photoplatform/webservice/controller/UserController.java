@@ -18,7 +18,6 @@ import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.BecomePhotographer;
 import de.htw.sdf.photoplatform.webservice.dto.UserData;
 import de.htw.sdf.photoplatform.webservice.dto.UserPasswordChange;
-import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 import de.htw.sdf.photoplatform.webservice.util.UserUtility;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.*;
@@ -102,7 +101,7 @@ public class UserController extends BaseAPIController {
             throw new BadRequestException("becomePhotographer", bindingResult);
         }
 
-        User user = getLoggedInUser();
+        User user = getAuthenticatedUser();
 
         return userManager.becomePhotographer(user.getId(), data.getCompany(), data.getPhone(), data.getHomepage(),
                 data.getPaypalID(), data.getIban(), data.getSwift());

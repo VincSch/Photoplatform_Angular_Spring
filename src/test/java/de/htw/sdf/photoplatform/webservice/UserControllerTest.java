@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Tests for users services.
  */
-@Ignore
 public class UserControllerTest extends BaseAPITester {
 
     @Autowired
@@ -48,6 +47,7 @@ public class UserControllerTest extends BaseAPITester {
     }
 
     @Test
+    @Ignore
     public void testGetDisabledUsersByRole() throws Exception {
         mockMvc.perform(
                 get("/api/users/disabled/" + Role.PHOTOGRAPHER).accept(
@@ -66,11 +66,12 @@ public class UserControllerTest extends BaseAPITester {
     }
 
     @Test
+    @Ignore
     public void testGetUserProfileData() throws Exception {
         String notExistId = "0";
         String requestNotExistId = Endpoints.API_PREFIX + Endpoints.USERS_PROFILE_BY_USER_ID.replace("{userId}", notExistId);
 
-        login();
+        loginAsAdmin();
 
         mockMvc.perform(
                 get(requestNotExistId).contentType(MediaType.APPLICATION_JSON)
@@ -150,7 +151,7 @@ public class UserControllerTest extends BaseAPITester {
     @Ignore
     public void testUpdateUserProfileData() throws Exception {
         //Init test data
-        login();
+        loginAsAdmin();
 
 //        User sergejUser = userDAO.findByUserName("Sergej");
 //        String sergejId = sergejUser.getId().toString();

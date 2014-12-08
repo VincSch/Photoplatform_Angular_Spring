@@ -74,6 +74,76 @@ public final class Endpoints {
     public static final String USERS_BECOME_PHOTOGRAPHERS = "/users/becomephotographers";
 
     /**
+     * Endpoint for photograph services.
+     */
+    public static final String COLLECTIONS_PHOTOGRAPHERS = "/collections/photographers";
+
+    /**
+     * Endpoint for photograph services.
+     */
+    public static final String COLLECTIONS_SHOWCASE = "/collections/showcase";
+
+    /**
+     * GET: all photograph's collections.
+     * <p>
+     * Will be used to find all photograph's collections.
+     */
+    public static final String COLLECTIONS_PHOTOGRAPHERS_START_COUNT = "/collections/photographers/{start}/{count}";
+
+    /**
+     * POST: create new collection
+     * PATCH: update collection
+     * <p>
+     * Will be used to create a new collection.
+     */
+    public static final String COLLECTIONS_CREATE = "/collections/create";
+
+    /**
+     * GET: returns collection's images.
+     */
+    public static final String COLLECTIONS_ID_IMAGES = "/collections/{collectionId}/images";
+
+    /**
+     * POST: add image to collection.
+     */
+    public static final String COLLECTIONS_ADD_IMAGE = "/collections/addimage";
+
+    /**
+     * POST: delete image from collection.
+     */
+    public static final String COLLECTIONS_DELETE_IMAGE = "/collections/deleteimage";
+
+    /**
+     * POST: update collection.
+     */
+    public static final String COLLECTIONS_UPDATE = "/collections/update";
+
+    /**
+     * DELETE: Delete collection
+     */
+    public static final String COLLECTIONS = "/collections/{collectionId}";
+
+    /**
+     * GET: return my showcase.
+     */
+    public static final String SHOWCASE = "/showcase";
+
+    /**
+     * GET: get all photograph's images.
+     * PATCH: update photograph image.
+     * <p>
+     * Will be used to find all photograph's images.
+     */
+    public static final String PHOTOGRAPHERS_IMAGES = "/photographer/images";
+
+    /**
+     * To delete photograph image by image id.
+     * <p>
+     * Will be used to find all photograph's images.
+     */
+    public static final String PHOTOGRAPHERS_IMAGES_ID = "/photographer/images/{imageId}";
+
+    /**
      * activates a photograph user
      */
     public static final String USER_ENABLE_PHOTOGRAPHER = "/user/enablephotographer";
@@ -153,10 +223,21 @@ public final class Endpoints {
      */
     public static String[] securedPhotographEndpoints() {
         String[] securedEndpoints = {
-            restBuilder(USERS_UPDATE),
-            restBuilder(PHOTOGRAPHER_UPLOAD),
-            restBuilder(USERS_START_COUNT),
-            restBuilder(USERS_BECOME_PHOTOGRAPHERS)
+                restBuilder(USERS_UPDATE),
+                restBuilder(PHOTOGRAPHER_UPLOAD),
+                restBuilder(USERS_START_COUNT),
+                restBuilder(PHOTOGRAPHERS_IMAGES),
+                restBuilder(PHOTOGRAPHERS_IMAGES_ID),
+                restBuilder(COLLECTIONS_PHOTOGRAPHERS),
+                restBuilder(COLLECTIONS_PHOTOGRAPHERS_START_COUNT),
+                restBuilder(COLLECTIONS_ID_IMAGES),
+                restBuilder(COLLECTIONS_CREATE),
+                restBuilder(COLLECTIONS_ADD_IMAGE),
+                restBuilder(COLLECTIONS_DELETE_IMAGE),
+                restBuilder(COLLECTIONS),
+                restBuilder(COLLECTIONS_UPDATE),
+                restBuilder(COLLECTIONS_SHOWCASE),
+                restBuilder(USERS_BECOME_PHOTOGRAPHERS)
         };
         return securedEndpoints;
     }

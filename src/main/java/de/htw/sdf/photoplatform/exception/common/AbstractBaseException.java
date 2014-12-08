@@ -35,14 +35,14 @@ public abstract class AbstractBaseException extends Exception {
     public static final int USER_EMAIL_EXISTS = 11002;
 
     /**
-     * Email not valid.
+     * Collection Id is not valid!
      */
-    public static final int USER_EMAIL_NOT_VALID = 11003;
+    public static final int COLLECTION_ID_NOT_VALID = 11003;
 
     /**
-     * Not valid date format.
+     * Param is not valid, is null or empty or doesn't belong to the request user.
      */
-    public static final int DATE_FORMAT_NOT_VALID = 11004;
+    public static final int PARAM_IS_NOT_VALID = 11004;
 
     private static final long serialVersionUID = 1L;
 

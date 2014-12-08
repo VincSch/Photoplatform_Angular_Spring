@@ -6,17 +6,11 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Entity class for a user representing the corresponding database table.
@@ -45,6 +39,8 @@ public class PhotographerData {
     @Column(name = "SWIFT")
     private String swift;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Collection> collections;
 
     /**
      * get phone number
@@ -132,6 +128,20 @@ public class PhotographerData {
      */
     public void setSwift(String swift) {
         this.swift = swift;
+    }
+
+    /**
+     * @return the collection
+     */
+    public List<Collection> getCollections() {
+        return collections;
+    }
+
+    /**
+     * @param collections the collections to set
+     */
+    public void setCollections(List<Collection> collections) {
+        this.collections = collections;
     }
 
     /**

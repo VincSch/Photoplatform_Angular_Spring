@@ -19,5 +19,39 @@ angular.module('photoplatform')
                     });
             };
 
+            /**
+             * Return all images.
+             * @param start.
+             * @param count.
+             * @returns {HttpPromise}
+             */
+            imageService.getAllImages = function(start, count){
+                return $http.get(urlBase + '/images');
+            };
+
+            /**
+             * Delete image by id.
+             * @param start.
+             * @returns {HttpPromise}
+             */
+            imageService.deleteImage = function (imageId) {
+                return $http.delete(urlBase + '/images/' + imageId);
+            };
+
+            /**
+             * Update image.
+             *
+             * @param data image data.
+             * @returns {HttpPromise}
+             */
+            imageService.updateImage = function (image) {
+                // There is no .pathc method in $http...
+                return $http({
+                    method: 'PATCH',
+                    url: urlBase + '/images',
+                    data: angular.toJson(image)
+                });
+            };
+
             return imageService;
         }]);

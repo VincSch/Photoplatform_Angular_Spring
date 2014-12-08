@@ -12,9 +12,9 @@ import de.htw.sdf.photoplatform.exception.NotFoundException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ResponseError;
 import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.webservice.controller.AuthorizationController;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +34,9 @@ public class BaseAPIController {
     protected final Logger log = Logger.getLogger(this.getClass().getName());
 
     @Resource
+    private AuthorizationController authorizationController;
+    
+    @Resource
     protected Messages messages;
 
 
@@ -42,8 +45,8 @@ public class BaseAPIController {
      *
      * @return the user
      */
-    public User getLoggedInUser(){
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public User getAuthenticatedUser(){
+        return authorizationController.getAuthenticatedUser();
     }
 
     /**

@@ -6,11 +6,11 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
-import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a image representing the corresponding database table.
@@ -33,17 +33,17 @@ public class Image extends AbstractBaseAuditEntity {
     @Column(name = "IS_ENABLED")
     private boolean enabled;
 
-    @Column(name = "PRICE")
-    private double price;
+    @Column(name = "PRICE", precision=10, scale=2)
+    private Double price;
 
     @Column(name = "COMRESSION")
     private String compression;
 
     @Column(name = "X_RESOLUTION")
-    private double xResolution;
+    private Double xResolution;
 
     @Column(name = "Y_RESOLUTION")
-    private double yResolution;
+    private Double yResolution;
 
     @Column(name = "RESOLUTION_UNIT")
     private String resolutionUnit;
@@ -134,7 +134,7 @@ public class Image extends AbstractBaseAuditEntity {
      *
      * @return image price.
      */
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -143,7 +143,7 @@ public class Image extends AbstractBaseAuditEntity {
      *
      * @param price image price.
      */
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -175,7 +175,7 @@ public class Image extends AbstractBaseAuditEntity {
      *
      * @return x resolution.
      */
-    public double getXResolution() {
+    public Double getXResolution() {
         return xResolution;
     }
 
@@ -184,7 +184,7 @@ public class Image extends AbstractBaseAuditEntity {
      *
      * @param xResolution x resolution
      */
-    public void setXResolution(double xResolution) {
+    public void setXResolution(Double xResolution) {
         this.xResolution = xResolution;
     }
 
@@ -193,7 +193,7 @@ public class Image extends AbstractBaseAuditEntity {
      *
      * @return y resolution.
      */
-    public double getYResolution() {
+    public Double getYResolution() {
         return yResolution;
     }
 
@@ -202,7 +202,7 @@ public class Image extends AbstractBaseAuditEntity {
      *
      * @param yResolution y resolution
      */
-    public void setYResolution(double yResolution) {
+    public void setYResolution(Double yResolution) {
         this.yResolution = yResolution;
     }
 

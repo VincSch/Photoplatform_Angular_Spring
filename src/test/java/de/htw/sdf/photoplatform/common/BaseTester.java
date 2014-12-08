@@ -6,13 +6,8 @@
 
 package de.htw.sdf.photoplatform.common;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import de.htw.sdf.photoplatform.Application;
-import de.htw.sdf.photoplatform.DBUtil;
-import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.repository.RoleDAO;
-import de.htw.sdf.photoplatform.repository.UserDAO;
-import de.htw.sdf.photoplatform.repository.UserRoleDAO;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +15,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import de.htw.sdf.photoplatform.Application;
+import de.htw.sdf.photoplatform.DBUtil;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.repository.RoleDAO;
+import de.htw.sdf.photoplatform.repository.UserDAO;
+import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Application.class})
@@ -52,5 +54,4 @@ public abstract class BaseTester {
         dbUtil.clearTables();
         users = null;
     }
-
 }

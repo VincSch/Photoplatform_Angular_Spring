@@ -1,65 +1,43 @@
-/*
- *
- * Copyright (C) 2014
+/**
  *
  */
 package de.htw.sdf.photoplatform.manager.impl;
 
-import de.htw.sdf.photoplatform.manager.CollectionManager;
-import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
-import de.htw.sdf.photoplatform.persistence.model.Collection;
-import de.htw.sdf.photoplatform.persistence.model.User;
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
+import de.htw.sdf.photoplatform.exception.common.ManagerException;
+import de.htw.sdf.photoplatform.manager.CollectionManager;
+import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 
 /**
- * business methods for categories.
+ * business methods for collection.
  *
- * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
+ * @author <a href="mailto:sergej_meister@gmx.net">Sergej Meister</a>
  */
 @Service
 @Transactional
 public class CollectionManagerImpl extends DAOReferenceCollector implements
         CollectionManager {
-    @Override
-    public void create(Collection entity) {
-        collectionDAO.create(entity);
-    }
 
-    @Override
-    public Collection update(Collection entity) {
-        return collectionDAO.update(entity);
-    }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void delete(Collection entity) {
-        collectionDAO.delete(entity);
-    }
+    public Set<CollectionImage> getCollectionImages( Long collectionId, int start, int count) throws ManagerException {
+        if (collectionId == null) {
+            throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);
+        }
 
-    @Override
-    public Collection findById(long id) {
-        return collectionDAO.findOne(id);
-    }
+        if(start > 0 && count > 0){
+            return collectionDAO.findCollectionImagesBy(collectionId, start, count);
+        }
 
-    @Override
-    public List<Collection> findAll() {
-        return collectionDAO.findAll();
-    }
-
-    @Override
-    public void deleteAll() {
-        collectionDAO.findAll();
-    }
-
-    @Override
-    public Collection findById(Long collectionId) {
-        return collectionDAO.findById(collectionId);
-    }
-
-    @Override
-    public List<Collection> findByUser(User user) {
-        return collectionDAO.findByUser(user);
+        return collectionDAO.findCollectionImagesBy(collectionId);
     }
 }

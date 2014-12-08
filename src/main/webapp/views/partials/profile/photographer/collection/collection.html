@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="col-md-2" ng-include src="'/views/partials/profile/sidebar.html'"></div>
+    <div class="col-md-10" ng-controller="PhotographerCtrl" ng-init="getAllCollections()">
+        <div class="row">
+            <div class="page-header">
+                <h2>Sammlungsverwaltung</h2>
+            </div>
+        </div>
+        <div class="row">
+            <form name="form" class="form-horizontal" role="form"
+                  novalidate>
+                <div class="col-md-10">
+                    <p>Eine neue Sammlung erstellen</p>
+
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error' : (form.name.$invalid || errors.name) && form.name.$dirty}">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="name" class="control-label input-group-addon">Name</label>
+                                <input ng-model="c.name" name="name" type="text"
+                                       id="name" class="form-control"
+                                       placeholder="z.B Winter 2014" required>
+                            </div>
+                            <div class="help-block" ng-show="form.name.$dirty">
+                                <span ng-show="form.name.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="errors.name">{{errors.name[0]}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error' : errors.description && form.description.$dirty}">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="name" class="control-label input-group-addon">Beschreibung</label>
+                            <textarea ng-model="c.description" name="description" type="text"
+                                      id="description" class="form-control"
+                                      placeholder="z.B Meine besten Winter Bilder"></textarea>
+                            </div>
+                            <div class="help-block" ng-show="form.description.$dirty">
+                                <span ng-show="errors.description">{{errors.description[0]}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="createCollection(c)"
+                                ng-disabled="form.$invalid">Sammlung erstellen
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4" ng-repeat="collection in collections">
+                        <div class="thumbnail" id="collection-{{collection.id}}" ng-init="status = {editing : false }">
+                            <a href="/collection/{{collection.name}}">
+                            <img src="http://placehold.it/1024x600" class="img-responsive">
+                            </a>
+
+                            <div class="caption" ng-show="!status.editing">
+                                <h3><a href="/collection/{{collection.name}}">{{collection.name}}</a></h3>
+
+                                <p>{{collection.description}}</p>
+
+                                <div class="btn-toolbar" role="toolbar">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="status.editing = true; editCollection = copy(collection)">Bearbeiten
+                                        </button>
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="deleteCollection(collection, $index)">entfernen
+                                        </button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default" ng-class="{'active' : collection.public}"
+                                                ng-click="updateCollectionShowcase(collection, !collection.public)">Showcase
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="caption" ng-show="status.editing">
+                                <form role="form" novalidate>
+                                    <div class="form-group has-feedback"
+                                         ng-class="{'has-error' : (form.name.$invalid || errors.name) && form.name.$dirty}">
+                                        <div class="input-group">
+                                            <label for="collection-name-{{collection.id}}"
+                                                   class="control-label input-group-addon">Name</label>
+                                            <input id="collection-name-{{collection.id}}" type="text"
+                                                   ng-model="editCollection.name" placeholder="Name" ng-required
+                                                   required class="form-control">
+                                        </div>
+                                        <div class="help-block" ng-show="form.name.$dirty">
+                                            <span ng-show="form.name.$error.required">Dieses Feld wird benötigt</span>
+                                            <span ng-show="errors.name">{{errors.name[0]}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback"
+                                         ng-class="{'has-error' : (form.description.$invalid || errors.description) && form.description.$dirty}">
+                                        <div class="input-group">
+                                            <label for="collection-desc-{{collection.id}}"
+                                                   class="control-label input-group-addon">Beschreibung</label>
+                                            <textarea id="collection-desc-{{collection.id}}"
+                                                      ng-model="editCollection.description" placeholder="Beschreibung"
+                                                      class="form-control"></textarea>
+                                        </div>
+                                        <div class="help-block" ng-show="form.description.$dirty">
+                                            <span ng-show="errors.name">{{errors.description[0]}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="status.editing = false">Abbrechen
+                                        </button>
+                                        <button type="submit" class="btn btn-primary"
+                                                ng-click="updateCollection(editCollection, collection, status); ">Speichern
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

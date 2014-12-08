@@ -23,7 +23,8 @@ photoplatformControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$locat
                     $location.path("/profile");
                 if ($rootScope.isAdmin())
                     $location.path("/profile");
-            }).error(function (error) {
+            }).error(function (data) {
+                $scope.errors = data.errors;
             });
         };
 
@@ -35,20 +36,6 @@ photoplatformControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$locat
             UserService.register(user).success(function (data) {
                 $location.path("/login");
                 $rootScope.success = "Du hast dich erfolgreich registriert. Du kannst dich nun mit deinen Daten anmelden!";
-                $rootScope.transferSuccess = true;
-            }).error(function (data) {
-                $scope.errors = data.errors;
-            });
-        };
-
-        /**
-         * Become Photographer
-         * @param user photographer
-         */
-        $scope.becomePhotographer = function (user) {
-            UserService.becomePhotographer(user).success(function (data) {
-                $location.path("/profile");
-                $rootScope.success = "Du hast dich erfolgreich als Fotograf beworben. Ein Admin muss zuerst dein Account freischalten!";
                 $rootScope.transferSuccess = true;
             }).error(function (data) {
                 $scope.errors = data.errors;
