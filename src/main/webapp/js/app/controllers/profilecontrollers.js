@@ -45,11 +45,13 @@ photoplatformControllers.controller('ProfileCtrl', ['$scope', '$routeParams', '$
         };
         //change user password and close modal on success
         $scope.changePassword = function (pw) {
-            UserService.changePassword(pw).success(function (data) {
+            UserService.changePassword(pw).success(function (user) {
                 $rootScope.success = "Passwort erfolgreich geändert";
-//                $scope.pwModal = document.getElementById("pwModal");
-//                $scope.pwModal.dismiss("success");
                 $('#pwModal').modal('hide');
+                // set the new token
+                $rootScope.user = user;
+                $http.defaults.headers.common[xAuthTokenHeaderName] = user.secToken;
+                $cookieStore.put('user', user);
             }).error(function (data) {
                 console.log(data);
                 $scope.errors = data.errors;

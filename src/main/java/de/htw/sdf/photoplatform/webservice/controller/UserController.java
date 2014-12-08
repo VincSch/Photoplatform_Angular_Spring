@@ -12,6 +12,7 @@ import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.PhotographerData;
 import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.BecomePhotographer;
@@ -290,7 +291,7 @@ public class UserController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.USERS_CHANGE_PASSWORD, method = {
             RequestMethod.POST})
-    public void changePassword(@Valid @RequestBody UserPasswordChange userPwData,
+    public UserData changePassword(@Valid @RequestBody UserPasswordChange userPwData,
                            BindingResult bindingResult) throws Exception {
 
         // Check if password match
@@ -312,8 +313,10 @@ public class UserController extends BaseAPIController {
         //try to authenticate user, to check if old password was correct
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 authenticatedUser.getUsername(), userPwData.getPassword());
+
+        Authentication auth;
         try {
-            Authentication auth = authenticationManager.authenticate(token);
+            auth = authenticationManager.authenticate(token);
         } catch (DisabledException | LockedException | BadCredentialsException  | NoResultException ex) {
             bindingResult.addError(new FieldError("changePassword", "password", messages
                     .getMessage("Password.confirm")));
@@ -323,5 +326,11 @@ public class UserController extends BaseAPIController {
         // change user password data
         authenticatedUser.setPassword(new BCryptPasswordEncoder().encode(userPwData.getNewPassword()));
         userManager.update(authenticatedUser);
+
+        // set the new token
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        authenticatedUser.setSecToken(TokenUtils.createToken(authenticatedUser));
+
+        return new UserData(authenticatedUser);
     }
 }
