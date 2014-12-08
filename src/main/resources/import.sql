@@ -51,8 +51,8 @@ INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('11','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/11');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('12','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/12');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('13','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/13');
-INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('14','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/14');
-INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('15','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/15');
+INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('14','ErdeUndMond', 'Planet,Erde,Mond,Universum','true','true','2.30','jpg','/store/14');
+INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('15','Erde', 'Planet,Erde,Universum','true','true','2.30','jpg','/store/15');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('16','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/16');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('17','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/17');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('18','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/18');
@@ -62,7 +62,7 @@ INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('22','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/22');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('23','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/23');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('24','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/24');
-INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('25','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/25');
+INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('25','Milchstraße', 'Universum,Galaktik','true','true','2.30','jpg','/store/25');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('26','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/26');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('27','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/27');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('28','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/28');
@@ -87,20 +87,21 @@ INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('47','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/47');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('48','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/48');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('49','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/49');
-INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('50','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/50');
-INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('51','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/51');
-INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('52','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/52');
-INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('53','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/53');
-INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('54','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/54');
+INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('50','Steinberg', 'Gebirge,Natur','true','true','2.30','jpg','/store/50');
+INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('51','GebirgeInNebel', 'Gebirge,Natur,Nebel','true','true','2.30','jpg','/store/51');
+INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('52','GebirgeSonnenuntergang', 'Gebirge,Natur,Sonnenuntergang','true','true','2.30','jpg','/store/52');
+INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('53','BergMitSee', 'Gebirge,Natur,See','true','true','2.30','jpg','/store/53');
+INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('54','SteinbergMitSonnenuntergang', 'ebirge,Natur,Sonnenuntergang','true','true','2.30','jpg','/store/54');
 INSERT INTO RES_IMAGE (ID,NAME,DESCRIPTION,IS_PUBLIC,IS_ENABLED,PRICE,COMRESSION,PATH) VALUES ('55','Lorem ipsum', 'Lorem ipsum dolor sit amet.','true','true','2.30','jpg','/store/55');
+
 
 -- image collections created by photographer.
 INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('1','6', 'Natur pur!','Lorem ipsum dolor sit amet.');
 INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('2','5', 'Irgendwas!','Lorem ipsum dolor sit amet.');
 INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('3','4', 'Mal was Anderes','Lorem ipsum dolor sit amet.');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('4','5', 'Schon wieder ne Sammlung','Lorem ipsum dolor sit amet.');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('4','5', 'Schon wieder eine Sammlung','Lorem ipsum dolor sit amet.');
 INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('5','6', 'Paar Bilder','Lorem ipsum dolor sit amet.');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('6','3', 'Gebirge','Gebirge');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('6','3', 'Gebierge','Gebirge');
 INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('7','3', 'Ocean','Ocean,Meer,See,Fluss');
 
 -- images uploaded by photographer. None of them have been bought yet

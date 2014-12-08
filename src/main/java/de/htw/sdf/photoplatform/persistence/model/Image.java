@@ -33,7 +33,7 @@ public class Image extends AbstractBaseAuditEntity {
     @Column(name = "IS_ENABLED")
     private boolean enabled;
 
-    @Column(name = "PRICE")
+    @Column(name = "PRICE", precision=10, scale=2)
     private Double price;
 
     @Column(name = "COMRESSION")
