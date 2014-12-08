@@ -7,7 +7,6 @@
 package de.htw.sdf.photoplatform.repository.impl;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.NoResultException;
