@@ -11,17 +11,24 @@
     <a href="/profile/admin" ng-show="isAdmin()" class="list-group-item">
         <i class="fa fa-user"></i> Admin Einstellungen
     </a>
-    <a href="/profile/photograph/showcase" ng-show="isPhotographer()" class="list-group-item">
-        <i ng-show="isPhotographer()" class="fa fa-folder-open-o"></i> Mein Showcase
+    <a href="/profile/photograph/showcase" ng-show="isPhotographer()"
+       class="list-group-item">
+        <i ng-show="isPhotographer()" class="fa fa-folder-open-o"></i> Mein
+        Showcase
     </a>
-    <a href="/profile/photograph/collection" ng-show="isPhotographer()" class="list-group-item">
-        <i ng-show="isPhotographer()" class="fa fa-bar-chart-o"></i> Sammlungen <span ng-show="isPhotographer()"
-                                                                                      class="badge">14</span>
+    <a href="/profile/photograph/collection" ng-show="isPhotographer()"
+       class="list-group-item">
+        <i ng-show="isPhotographer()" class="fa fa-bar-chart-o"></i> Sammlungen <span
+            ng-show="isPhotographer()"
+            class="badge">14</span>
     </a>
-    <a href="/profile/photograph/image" ng-show="isPhotographer()" class="list-group-item">
-        <i class="fa fa-envelope" ng-show="isPhotographer()"></i> Fotos <span ng-show="isPhotographer()" class="badge">55</span>
+    <a href="/profile/photograph/image" ng-show="isPhotographer()"
+       class="list-group-item">
+        <i class="fa fa-envelope" ng-show="isPhotographer()"></i> Fotos <span
+            ng-show="isPhotographer()" class="badge">55</span>
     </a>
-    <a href="/profile/photograph/register" ng-hide="isPhotographer()" class="list-group-item">
+    <a href="/profile/photograph/register" ng-hide="isPhotographer()"
+       class="list-group-item">
         <i class="fa fa-envelope"></i> Fotograph werden
     </a>
 </div>

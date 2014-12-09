@@ -14,27 +14,46 @@
         <div class="row">
             <div class="col-md-12">
                 <form method="POST" enctype="multipart/form-data">
-                    <div class="col-md-6">
-                        File to upload:
-                        <input file-input="files"
-                               type="file" multiple>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="fileUpload btn btn-primary">
+                                <span class="glyphicon glyphicon-folder-open"></span>
+                                Upload
+                                <input class="upload" file-input="files"
+                                       type="file"
+                                       accept="image/*;capture=camera"
+                                       multiple>
+                            </div>
+                            <button class="btn btn-primary upload" disabled
+                                    ng-click="uploadImage()">
+                                <span class="glyphicon glyphicon-open"></span>
+                                Hochladen
+                            </button>
+                        </div>
                     </div>
 
-
-                    <div class="col-md-6"></div>
-                    <div id="darg-and-drop-area" class="col-md-6">
-                        <p>
-                            drag & drop an image
-                        </p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="darg-and-drop-area" class="col-md-6">
+                                <p align="center">
+                                    drag & drop an image
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
+                    <div id="preview" class="col-md-12">
 
                     </div>
-                    <div id="preview" class="col-md-12"></div>
-                    <li ng-repeat="file in files">{{file.name}}</li>
-                    <button ng-click="uploadImage()">
-                        Hochladen
-                    </button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button id="bottom-upload" disabled
+                                    class="btn btn-primary upload pull-right"
+                                    ng-click="uploadImage()">
+                                <span class="glyphicon glyphicon-open"></span>
+                                Hochladen
+                            </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
