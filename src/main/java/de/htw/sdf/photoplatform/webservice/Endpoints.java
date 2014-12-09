@@ -111,7 +111,7 @@ public final class Endpoints {
     /**
      * POST: delete image from collection.
      */
-    public static final String COLLECTIONS_DELETE_IMAGE = "/collections/deleteimage";
+    public static final String COLLECTIONS_DELETE_IMAGE = "/collections/{collectionId}/images/{imageId}";
 
     /**
      * POST: update collection.

@@ -8,9 +8,8 @@ photoplatformControllers.controller('CollectionCtrl',
                 $location.path("/login");
                 return;
             }
-
+            $scope.collectionId = $routeParams.collectionId;
             $scope.collectionName = $routeParams.collectionName;
-            $scope.collectionId = 1;
             var start = 0;
             var count = 100;
 
@@ -24,9 +23,41 @@ photoplatformControllers.controller('CollectionCtrl',
              * Get all collections images.
              */
             $scope.getCollectionsImages = function () {
-                CollectionService.getCollectionsImages($scope.collectionId, start, count).success(function (collections) {
-                    $scope.collections = collections;
+                CollectionService.getCollectionsImages($scope.collectionId, start, count).success(function (images) {
+                    $scope.images = images;
+                }).error(function (data) {
+                    $scope.log(data.errors);
+                    $scope.errors = data.errors;
                 });
+            };
+
+            /**
+             * Delete one image by image id.
+             */
+            $scope.deleteImage = function (image, index) {
+                CollectionService.deleteImage($scope.collectionId, image.id).success(function (message) {
+                    $scope.images.splice(index, 1);
+                    $rootScope.success = message;
+                }).error(function (data) {
+                    $scope.log(data.errors);
+                    $scope.errors = data.errors;
+                })
+            };
+
+            /**
+             * Update one image by image id.
+             */
+            $scope.updateImage = function (editImage, originImage, status) {
+                //replace comma by dot.
+                editImage.price = ("" + editImage.price).replace(",", ".");
+                ImageService.updateImage(editImage).success(function (image) {
+                    angular.extend(originImage, image);
+                    status.editing = false;
+                    $rootScope.success = image.messageSuccess;
+                }).error(function (data) {
+                    $scope.log(data.errors);
+                    $scope.errors = data.errors;
+                })
             };
 
         }]);

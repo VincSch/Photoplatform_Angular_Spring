@@ -59,6 +59,7 @@ public class CollectionController extends BaseAPIController {
         Set<CollectionImage> collectionImages = new HashSet<>();
 
         try {
+
             collectionImages = collectionManager.getCollectionImages(collectionId,start,count);
         } catch (ManagerException ex) {
             String exceptionMsg;

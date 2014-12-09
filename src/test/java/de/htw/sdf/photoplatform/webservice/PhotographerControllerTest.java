@@ -222,10 +222,12 @@ public class PhotographerControllerTest extends BaseAPITester {
                 status().isOk());
 
         //Delete Image From Collection
+        String deleteUrl =ENDPOINT_DELETE_IMAGE.replace("{collectionId}",String.valueOf(requestCollectionData.getId()))
+                .replace("{imageId}",validImageId.toString()) ;
+
         mockMvc.perform(
-                post(ENDPOINT_DELETE_IMAGE)
+                delete(deleteUrl)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(requestCollectionData))
                         .accept(MediaType.APPLICATION_JSON)).andExpect(
                 status().isOk());
 

@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4" ng-repeat="image in images">
+                <div class="thumbnail" id="image-{{image.imageId}}" ng-init="status = {editing : false }">
+                    <img src="{{image.path}}.{{image.compression}}" class="img-responsive"
+                         onerror="this.src='http://placehold.it/1024x600'">
+
+                    <div class="caption" ng-show="!status.editing">
+                        <h3><a href="/image/{{image.imageId}}">{{image.name}}</a></h3>
+
+                        <p>{{image.description}}</p>
+
+                        <p>Preis: {{image.price}} €</p>
+
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default"
+                                        ng-click="status.editing = true; editImage = copy(image)">
+                                    Bearbeiten
+                                </button>
+                                <button type="button" class="btn btn-default"
+                                        ng-click="deleteImage(image, $index)">entfernen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="caption" ng-show="status.editing">
+                        <form role="form" novalidate>
+                            <div class="form-group has-feedback"
+                                 ng-class="{'has-error' : (form.name.$invalid || errors.name) && form.name.$dirty}">
+                                <div class="input-group">
+                                    <label for="image-name-{{image.imageId}}"
+                                           class="control-label input-group-addon">Name</label>
+                                    <input id="image-name-{{image.imageId}}" type="text"
+                                           ng-model="editImage.name" placeholder="Name" ng-required
+                                           required class="form-control">
+                                </div>
+                                <div class="help-block" ng-show="form.name.$dirty">
+                                    <span ng-show="form.name.$error.required">Dieses Feld wird benötigt</span>
+                                    <span ng-show="errors.name">{{errors.name[0]}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback"
+                                 ng-class="{'has-error' : (form.price.$invalid || errors.price) && form.price.$dirty}">
+                                <div class="input-group">
+                                    <label for="image-price-{{image.imageId}}"
+                                           class="control-label input-group-addon">Preis</label>
+                                    <input id="image-price-{{image.imageId}}" type="text"
+                                           ng-model="editImage.price" placeholder="Preis"
+                                           class="form-control">
+                                </div>
+                                <div class="help-block" ng-show="form.name.$dirty">
+                                    <span ng-show="errors.price">{{errors.price[0]}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback"
+                                 ng-class="{'has-error' : (form.description.$invalid || errors.description) && form.description.$dirty}">
+                                <div class="input-group">
+                                    <label for="collection-desc-{{collection.id}}"
+                                           class="control-label input-group-addon">Beschreibung</label>
+                                    <textarea id="collection-desc-{{collection.id}}"
+                                              ng-model="editImage.description" placeholder="Beschreibung"
+                                              class="form-control"></textarea>
+                                </div>
+                                <div class="help-block" ng-show="form.description.$dirty">
+                                    <span ng-show="errors.name">{{errors.description[0]}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-default"
+                                        ng-click="status.editing = false">Abbrechen
+                                </button>
+                                <button type="submit" class="btn btn-primary"
+                                        ng-click="updateImage(editImage, image, status); ">
+                                    Speichern
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
