@@ -30,7 +30,11 @@ public class MailServiceTest extends BaseTester {
         SimpleSmtpServer server = SimpleSmtpServer.start(1313);
         User user = new User();
         user.setUsername("testnutzer@testwebsite.com");
-        mailService.sendTestMailTo(user);
+        mailService.sendMail(user, "Test Mail", "Test message");
+        Assert.assertEquals(true, server.getReceivedEmailSize() == 1);
+        Assert.assertEquals(false, mailService.sendMail(user, null, "Test message"));
+        Assert.assertEquals(false, mailService.sendMail(null, "Test Mail", "Test message"));
+        Assert.assertEquals(false, mailService.sendMail(user, "Test Mail", null));
         Assert.assertEquals(true, server.getReceivedEmailSize() == 1);
         server.stop();
     }

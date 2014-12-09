@@ -26,20 +26,21 @@ public class MailService extends DAOReferenceCollector {
     @Autowired
     private SimpleMailMessage templateMessage;
 
-    public boolean sendSalesConfirmationMail() {
-        return true;
-    }
-
-    public boolean sendPasswordRecoveryMail() {
-        return true;
-    }
-
-
-    public boolean sendTestMailTo(User user) {
+    /**
+     * Send an email to a specific user with a subject and message
+     *
+     * @param user    send to user
+     * @param subject subject
+     * @param message message
+     * @return true if mail was send successfully, false otherwise
+     */
+    public boolean sendMail(User user, String subject, String message) {
         SimpleMailMessage msg = new SimpleMailMessage(templateMessage);
+        if (subject == null || message == null || user == null) return false;
         String email = user.getUsername();
+        msg.setSubject(subject);
         msg.setTo(email);
-        msg.setText(generateTestMailTxt());
+        msg.setText(message);
         try {
             this.mailSender.send(msg);
         } catch (MailException ex) {
@@ -47,11 +48,5 @@ public class MailService extends DAOReferenceCollector {
             return false;
         }
         return true;
-    }
-
-    private String generateTestMailTxt() {
-        StringBuffer buffer = new StringBuffer(20);
-        buffer.append("Test Mail");
-        return buffer.toString();
     }
 }
