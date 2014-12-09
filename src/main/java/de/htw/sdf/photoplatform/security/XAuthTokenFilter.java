@@ -38,9 +38,8 @@ import java.util.Collection;
 public class XAuthTokenFilter extends GenericFilterBean {
 
     static final String FILTER_APPLIED = "__spring_security_scpf_applied";
-    protected Logger log = Logger.getLogger(XAuthTokenFilter.class);
     private final UserDetailsService userDetailsService;
-
+    protected Logger log = Logger.getLogger(XAuthTokenFilter.class);
     private String xAuthTokenHeaderName = "x-auth-token";
 
     XAuthTokenFilter(final UserDetailsService userDetailsService) {
@@ -57,10 +56,20 @@ public class XAuthTokenFilter extends GenericFilterBean {
 
             arg0.setAttribute(FILTER_APPLIED, Boolean.TRUE);
 
+            //TODO This code can be used to retrieve the authenticate an image request
+//            if (httpServletRequest.getRequestURI().startsWith("/api/image/")) {
+//                log.info(httpServletRequest.getMethod() + " : " + httpServletRequest.getRequestURI());
+//                           Cookie[] cookies = httpServletRequest.getCookies();
+//                           Cookie cookie = cookies[0];
+//                          String domain = cookie.getDomain();
+//                         String name = cookie.getName();
+//                           String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
+//                           HashMap obj = new ObjectMapper().readValue(value, HashMap.class);
+//            }
+            
+            String cookieUsername = TokenUtils.getUserNameFromToken(authToken);
             if (StringUtils.hasText(authToken)) {
-
                 String username = TokenUtils.getUserNameFromToken(authToken);
-
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                         username, authToken);
 
@@ -77,7 +86,7 @@ public class XAuthTokenFilter extends GenericFilterBean {
             }
             filterChain.doFilter(arg0, arg1);
         } catch (Exception ex) {
-            log.debug(ex.getMessage());
+            log.info(ex.getMessage());
         }
     }
 

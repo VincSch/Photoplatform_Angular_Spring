@@ -16,30 +16,78 @@
 <!-- Navigation -->
 <nav id="slide-menu">
     <ul>
+        <li>
+            <a href="/profile/admin" onclick="fadeOutMenu();"
+               ng-show="isAdmin()">
+                <span class="glyphicon glyphicon-wranch"></span>
+                <i class="fa fa-user"></i> Admin Einstellungen
+            </a>
+        </li>
+        <li>
+            <a href="/profile/photograph/showcase" onclick="fadeOutMenu();"
+               ng-show="isPhotographer()">
+                <span class="glyphicon glyphicon-film"></span>
+                <i ng-show="isPhotographer()" class="fa fa-folder-open-o"></i>
+                Mein
+                Showcase
+            </a>
+        </li>
+        <li>
+            <a href="/profile/photograph/collection" onclick="fadeOutMenu();"
+               ng-show="isPhotographer()">
+                <span class="glyphicon glyphicon-book"></span>
+                <i ng-show="isPhotographer()" class="fa fa-bar-chart-o"></i>
+                Sammlungen <span
+                    ng-show="isPhotographer()"
+                    class="badge">14</span>
+            </a>
+        </li>
+        <li>
+            <a href="/profile/photograph/image" onclick="fadeOutMenu();"
+               ng-show="isPhotographer()">
+                <span class="glyphicon glyphicon-picture"></span>
+                <i class="fa fa-envelope" ng-show="isPhotographer()"></i>
+                Fotos <span
+                    ng-show="isPhotographer()" class="badge">55</span>
+            </a>
+        </li>
+        <li>
+            <a href="/profile/photograph/register" onclick="fadeOutMenu();"
+               ng-hide="isPhotographer()">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <i class="fa fa-envelope"></i> Fotograph werden
+            </a>
+        </li>
+
+
+        <!-- old -->
         <li ng-show="isLoggedIn()">
-            <a href="/profile">
+            <a href="/profile" onclick="fadeOutMenu();">
                 <span class="glyphicon glyphicon-user"></span>
                 {{user.firstName}}
             </a></li>
         <li ng-show="isLoggedIn()">
-            <a href="/cart">
+            <a href="/profile/shoppinglist" onclick="fadeOutMenu();">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
                 Warenkorb
             </a>
         </li>
         <li class="sep" ng-hide="isLoggedIn()">
-            <span class="glyphicon glyphicon-log-in"></span>
-            <a href="/login">Anmelden</a>
+
+            <a href="/login" onclick="fadeOutMenu();">
+                <span class="glyphicon glyphicon-log-in"></span>
+                Anmelden
+            </a>
         </li>
         <li ng-hide="isLoggedIn()">
             <span class="glyphicon glyphicon-pencil"></span>
-            <a class="navbar-right"
+            <a class="navbar-right" onclick="fadeOutMenu();"
                href="/register">Registrierung</a>
         </li>
         <li class="sep" ng-show="isLoggedIn()">
             <span class="glyphicon glyphicon-log-out"></span>
             <a class="navbar-right"
-               ng-click="logout()">Abmelden</a>
+               ng-click="logout();fadeOutMenu();">Abmelden</a>
         </li>
     </ul>
 </nav>
@@ -49,7 +97,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <div class="menu-trigger"></div>
-            <a class="navbar-brand" href="/"><img src="/img/PhotLogoK.png" width="85" height="40" border="0" alt="Home"></a>
+            <a class="navbar-brand" href="/"><img src="/img/PhotLogoK.png" width="85" height="30" border="0" alt="Home"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

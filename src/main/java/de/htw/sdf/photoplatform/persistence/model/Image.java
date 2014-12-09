@@ -57,6 +57,15 @@ public class Image extends AbstractBaseAuditEntity {
     @Column(name = "PATH", unique = true)
     private String path;
 
+    @Column(name = "THUMB_PATH", unique = true)
+    private String thumbPath;
+
+    @Column(name = "SMALL_THUMB_PATH", unique = true)
+    private String smallThumbPath;
+
+    @Column(name = "MOBILE_THUMB_PATH", unique = true)
+    private String mobileThumbPath;
+
     /**
      * Returns image name.
      *
@@ -282,6 +291,30 @@ public class Image extends AbstractBaseAuditEntity {
      */
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getThumbPath() {
+        return thumbPath;
+    }
+
+    public void setThumbPath(String thumbPath) {
+        this.thumbPath = thumbPath;
+    }
+
+    public String getSmallThumbPath() {
+        return smallThumbPath;
+    }
+
+    public void setSmallThumbPath(String smallThumbPath) {
+        this.smallThumbPath = smallThumbPath;
+    }
+
+    public String getMobileThumbPath() {
+        return mobileThumbPath;
+    }
+
+    public void setMobileThumbPath(String mobileThumbPath) {
+        this.mobileThumbPath = mobileThumbPath;
     }
 
     /**

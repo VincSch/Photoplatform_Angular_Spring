@@ -21,6 +21,9 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
         }).when('/register', {
             templateUrl: '/views/partials/home/register.html',
             controller: 'AuthCtrl'
+        }).when('/login', {
+            templateUrl: '/views/partials/profile/login.html',
+            controller: 'AuthCtrl'
         }).when('/profile/admin', {
             templateUrl: '/views/partials/profile/admin/control.html',
             controller: 'AdminMenuCtrl'

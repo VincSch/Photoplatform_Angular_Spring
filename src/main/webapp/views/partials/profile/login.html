@@ -1,0 +1,24 @@
+<form class="navbar-form navbar-right vcenter" role="form"
+      ng-controller="AuthCtrl">
+    <div class="form-group" ng-hide="isLoggedIn()">
+        <div class="input-group input-group">
+                <span class="input-group-addon" aria-hidden="true">
+                    <span class=" glyphicon glyphicon-envelope"></span>
+                </span>
+            <input type="email" name="email" ng-model="email"
+                   class="form-control" placeholder="E-Mail">
+        </div>
+        <div class="input-group input-group">
+                        <span class="input-group-addon" aria-hidden="true">
+                            <span class="glyphicon glyphicon-lock"></span>
+                        </span>
+            <input type="password" name="password"
+                   ng-model="password" class="form-control"
+                   placeholder="Passwort">
+        </div>
+
+        <button type="submit" class="btn btn-primary"
+                ng-click="login(email, password)">Anmelden
+        </button>
+    </div>
+</form>

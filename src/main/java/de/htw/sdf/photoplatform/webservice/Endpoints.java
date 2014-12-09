@@ -205,11 +205,11 @@ public final class Endpoints {
      */
     public static String[] securedAdminEndpoints() {
         String[] securedEndpoints = {
-                restBuilder(USERS_START_COUNT),
-                restBuilder(USERS_BECOME_PHOTOGRAPHERS),
-                restBuilder(USER_MAKE_ADMIN),
-                restBuilder(USER_LOCK),
-                restBuilder(USER_UNLOCK)
+            restBuilder(USERS_START_COUNT),
+            restBuilder(USERS_BECOME_PHOTOGRAPHERS),
+            restBuilder(USER_MAKE_ADMIN),
+            restBuilder(USER_LOCK),
+            restBuilder(USER_UNLOCK)
         };
         return securedEndpoints;
     }
