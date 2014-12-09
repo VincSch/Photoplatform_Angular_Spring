@@ -6,15 +6,24 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
-import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
-
-import javax.persistence.*;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a collection representing the corresponding database table.
  *
- * @author Sergej Meister.
+ * @author Sergej Meister sergej_meister@gmx.net.
  */
 @Entity
 @Table(name = "RES_COLLECTION")
@@ -25,8 +34,9 @@ public class Collection extends AbstractBaseAuditEntity {
     /**
      * User.
      */
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    @JsonIgnore
     private User user;
 
     /**
@@ -44,7 +54,7 @@ public class Collection extends AbstractBaseAuditEntity {
     /**
      * Description.
      */
-    @Column(name = "IS_PUBLIC")
+    @Column(name = "IS_PUBLIC", columnDefinition = "boolean default false")
     private boolean isPublic;
 
     /**
@@ -119,6 +129,21 @@ public class Collection extends AbstractBaseAuditEntity {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    /**
+     * @return is public
+     */
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    /**
+     * @param isPublic is public to set
+     */
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
 
     /**

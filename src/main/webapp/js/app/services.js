@@ -23,16 +23,12 @@ angular.module('photoplatform').factory('UserService', ['$http',
             return $http.post(urlBase + '/register', user);
         };
 
-        userService.becomePhotographer= function (user) {
+        userService.becomePhotographer = function (user) {
             return $http.post(urlBase + '/becomePhotographer', user);
         };
 
         userService.update = function (user) {
             return $http.post(urlBase + '/update', user);
-        };
-
-        userService.updatePhotographer = function (user) {
-            return $http.post(urlBase + '/updatePhotographer', user);
         };
 
         userService.getUsers = function (name) {
@@ -52,7 +48,7 @@ angular.module('photoplatform').factory('UserService', ['$http',
         };
 
         userService.enablePhotographer = function (id) {
-            return $http.post(urlBase + '/enablephotographer', {userId : id});
+            return $http.post(urlBase + '/enablephotographer', {userId: id});
         };
 
         userService.makeAdmin = function (id) {
@@ -71,5 +67,102 @@ angular.module('photoplatform').factory('UserService', ['$http',
             return $http.post(urlBaseList + '/update/', userProfileData);
         };
 
+        userService.changePassword = function (passwordData) {
+            return $http.post(urlBaseList + '/changepassword', passwordData);
+        };
+
         return userService;
+    }]);
+
+/**
+ * Photographer Service.
+ * Login, register and update user.
+ */
+angular.module('photoplatform').factory('PhotographerService', ['$http',
+    function ($http) {
+        var urlBase = '/api/';
+
+        return {
+
+            /**
+             * Update photographer
+             *
+             * @param photographer
+             * @returns {HttpPromise}
+             */
+            updatePhotographer: function (photographer) {
+                return $http.post(urlBase + '/updatePhotographer', photographer);
+            },
+
+            /**
+             * Create new collection
+             *
+             * @param collection the collection
+             * @returns {HttpPromise}
+             */
+            createCollection: function (collection) {
+                return $http.post(urlBase + '/collections/create', collection);
+            },
+
+            /**
+             * Update collection
+             *
+             * @param collection
+             * @returns {HttpPromise}
+             */
+            updateCollection: function (collection) {
+                // There is no .pathc method in $http...
+                return $http({
+                    method: 'PATCH',
+                    url: urlBase + 'collections/photographers',
+                    data: angular.toJson(collection)
+                });
+            },
+
+            /**
+             * Get collection
+             *
+             * @param name
+             * @param description
+             * @returns {HttpPromise}
+             */
+            getCollections: function (start, count) {
+                //Sorry, i have replaced this endpoint.
+                //return $http.get(urlBase + 'collections/photographers', {params: {'start': start, 'count': count}});
+
+                //Should work, not tested!
+                return $http.get(urlBase + 'collections/photographers/' + start + "/" + count);
+            },
+
+            /**
+             * Create collection in showcase
+             *
+             * @param name
+             * @param description
+             * @returns {HttpPromise}
+             */
+            getShowcase: function (start, count) {
+                return $http.get(urlBase + 'showcase', {params: {'start': start, 'count': count}});
+            },
+
+            /**
+             * Update collection showcase
+             *
+             * @param collectionId
+             * @param isPublic
+             * @returns {HttpPromise}
+             */
+            updateCollectionShowcase: function (collectionId, isPublic) {
+                return $http.post(urlBase + 'collections/showcase', {'id': collectionId, 'isPublic': isPublic});
+            },
+
+            /**
+             * Delete collection
+             * @param collectionId
+             */
+            deleteCollection: function (collectionId) {
+                return $http.delete(urlBase + 'collections/' + collectionId);
+            }
+        };
+
     }]);

@@ -6,7 +6,6 @@
 
 package de.htw.sdf.photoplatform.repository;
 
-import de.htw.sdf.photoplatform.DBUtil;
 import de.htw.sdf.photoplatform.common.BaseImageTester;
 import de.htw.sdf.photoplatform.persistence.model.*;
 import org.junit.After;
@@ -136,7 +135,7 @@ public class CollectionDAOTest extends BaseImageTester {
 
         // DO TEST
         List<Collection> collectionListUserOne = collectionDAO
-                .findByUser(userOne);
+                .findCollectionsByUser(userOne.getId(), 0, 10, null);
         Assert.assertTrue(collectionListUserOne.size() == 1);
         Assert.assertTrue(collectionListUserOne.get(0).getName()
                 .equals(collectionOneName));
@@ -144,7 +143,7 @@ public class CollectionDAOTest extends BaseImageTester {
                 .equals(userOne.getId()));
 
         List<Collection> collectionListUserTwo = collectionDAO
-                .findByUser(userTwo);
+                .findCollectionsByUser(userTwo.getId(), 0, 10, null);
         Assert.assertTrue(collectionListUserTwo.size() == 2);
         Set<String> collectionsNameSet = new HashSet<>();
         collectionsNameSet.add(collectionOneName);
@@ -186,7 +185,7 @@ public class CollectionDAOTest extends BaseImageTester {
         testCollectionOcean.setCategory(categoryOcean);
         collectionCategoryDAO.create(testCollectionOcean);
 
-        List<Collection> userCollections = collectionDAO.findByUser(userOne);
+        List<Collection> userCollections = collectionDAO.findCollectionsByUser(userOne.getId(), 0, 10, null);
         Assert.assertTrue(userCollections.size() == 1);
         Collection collection = userCollections.get(0);
         Assert.assertTrue(collection.getCollectionCategories().size() == 3);

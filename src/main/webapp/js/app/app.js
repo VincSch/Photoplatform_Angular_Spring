@@ -38,15 +38,21 @@ photoplatform.config(['$routeProvider', '$locationProvider', '$httpProvider',
             controller: 'AdminEditUserCtrl'
         }).when('/profile/photograph/register', {
             templateUrl: '/views/partials/profile/photographer/register.html',
-            controller: 'PhotographerCtrl'
+            controller: 'ProfileCtrl'
         }).when('/profile/photograph/showcase', {
             templateUrl: '/views/partials/profile/photographer/showcase.html',
             controller: ''
+        }).when('/profile/photograph/collection/edit', {
+            templateUrl: '/views/partials/profile/photographer/collection/edit.html',
+            controller: 'PhotographerCtrl'
         }).when('/profile/photograph/collection', {
-            templateUrl: '/views/partials/profile/photographer/collection.html',
-            controller: ''
+            templateUrl: '/views/partials/profile/photographer/collection/collection.html',
+            controller: 'PhotographerCtrl'
+        }).when('/collection/:collectionName', {
+            templateUrl: '/views/partials/profile/photographer/collection/images.html',
+            controller: 'CollectionCtrl'
         }).when('/profile/photograph/image', {
-            templateUrl: '/views/partials/profile/photographer/image.html',
+            templateUrl: '/views/partials/profile/photographer/image/image.html',
             controller: 'ImageCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
