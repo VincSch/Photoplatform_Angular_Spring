@@ -230,6 +230,20 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             throw new ManagerException(AbstractBaseException.NOT_FOUND);
         }
 
+        //check reference to collection?
+        CollectionImage collectionImage = collectionImageDAO.findBy(ownerId,imageId);
+        if(collectionImage != null) {
+            //check thumbnail
+            if(collectionImage.getCollection().getThumbnail() != null &&
+                    collectionImage.getCollection().getThumbnail().getId().equals(imageId)){
+                //remove this image from collection thumbnail.
+                collectionImage.getCollection().setThumbnail(null);
+                collectionDAO.update(collectionImage.getCollection());
+            }
+            //remove reference to collection.
+            collectionImageDAO.delete(collectionImage);
+        }
+
         if(imagesToDelete.size() > 1){
             //The image was bought.
             //remove only reference to photograph.

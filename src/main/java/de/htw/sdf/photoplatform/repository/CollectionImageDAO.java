@@ -15,4 +15,11 @@ import de.htw.sdf.photoplatform.repository.common.GenericDAO;
  * @author Sergej Meister.
  */
 public interface CollectionImageDAO extends GenericDAO<CollectionImage> {
+
+    /**
+     * Returns CollectionImage by filter collection owner id and image id.
+     * @param ownerId
+     * @param imageId
+     */
+    CollectionImage findBy(Long ownerId, Long imageId);
 }
