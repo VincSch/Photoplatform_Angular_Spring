@@ -108,7 +108,7 @@ public class ImageController extends BaseAPIController {
                 if (type.startsWith("image")) {
                     type = type.split("/")[1];
                     try {
-                        storeImage(file, type);
+                        storeImage(file, type, user);
                     } catch (NoSuchAlgorithmException | IOException e) {
                         log.debug(e);
                         return "false";
@@ -136,7 +136,7 @@ public class ImageController extends BaseAPIController {
         }
     }
 
-    private boolean storeImage(MultipartFile file, String type) throws NoSuchAlgorithmException, IOException {
+    private boolean storeImage(MultipartFile file, String type, User user) throws NoSuchAlgorithmException, IOException {
         Image image = new Image();
         image.setName(file.getOriginalFilename());
         imageManager.create(image);
