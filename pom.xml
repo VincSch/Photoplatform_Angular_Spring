@@ -16,7 +16,8 @@
 
     <dependencies>
         <!--***************************************************************************
-            BOOT DEPENDENCIES *************************************************************************** -->
+            BOOT DEPENDENCIES
+            *************************************************************************** -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,7 +36,8 @@
 
 
         <!--***************************************************************************
-            CORE DEPENDENCIES *************************************************************************** -->
+            CORE DEPENDENCIES
+            *************************************************************************** -->
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -58,7 +60,8 @@
         </dependency>
 
         <!--***************************************************************************
-            PERSISTENCE DEPENDENCIES *************************************************************************** -->
+            PERSISTENCE DEPENDENCIES
+            *************************************************************************** -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
@@ -81,7 +84,8 @@
         </dependency>
 
         <!--***************************************************************************
-            VALIDATION DEPENDENCIES *************************************************************************** -->
+            VALIDATION DEPENDENCIES
+            *************************************************************************** -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -96,6 +100,18 @@
         </dependency>
 
         <dependency>
+            <groupId>com.drewnoakes</groupId>
+            <artifactId>metadata-extractor</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20140107</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
@@ -106,7 +122,8 @@
         </dependency>
 
         <!--***************************************************************************
-            TEST DEPENDENCIES *************************************************************************** -->
+            TEST DEPENDENCIES
+            *************************************************************************** -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -114,7 +131,8 @@
         </dependency>
 
         <!--***************************************************************************
-            LOGGING DEPENDENCIES *************************************************************************** -->
+            LOGGING DEPENDENCIES
+            *************************************************************************** -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>

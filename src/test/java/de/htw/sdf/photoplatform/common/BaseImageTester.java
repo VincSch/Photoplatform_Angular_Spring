@@ -68,18 +68,17 @@ public abstract class BaseImageTester extends BaseTester {
                                            final boolean isPublic, final boolean isEnabled, final String path) {
         Image image = new Image();
         image.setName(name);
-        image.setCompression("jpg");
+        image.setMetaData("jpg");
         image.setEnabled(isEnabled);
         image.setPublic(isPublic);
         // image no exist, path is wrong!
         image.setPath(path);
+        image.setMetaData("");
+//        image.setSmallThumbPath("");
+//        image.setMobileThumbPath("");
+//        image.setThumbPath("");
         final double price = 10.18;
         image.setPrice(price);
-        image.setXDemension(IMAGE_X_DIMENSION);
-        image.setYDemension(IMAGE_Y_DIMENSION);
-        image.setXResolution(IMAGE_X_RESOLUTION);
-        image.setYResolution(IMAGE_Y_RESOLUTION);
-        image.setResolutionUnit("Inch");
 
         return image;
     }

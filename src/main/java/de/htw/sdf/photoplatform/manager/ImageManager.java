@@ -6,12 +6,12 @@
 
 package de.htw.sdf.photoplatform.manager;
 
-import java.util.List;
-
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+
+import java.util.List;
 
 /**
  * Interface defining business methods for images.
@@ -22,9 +22,9 @@ public interface ImageManager {
 
     /**
      * Returns all photograph's images, between start and count.
-     *
+     * <p/>
      * If start and count lesser than 0, returns all photograph images.
-     *
+     * <p/>
      * The image belong to photograph, when both the owner and the user is photograph.
      *
      * @param owner photograph.
@@ -79,13 +79,23 @@ public interface ImageManager {
     /**
      * Update image.
      *
-     * @param imageId image id.
-     * @param name image name.
-     * @param price image price.
+     * @param imageId     image id.
+     * @param name        image name.
+     * @param price       image price.
      * @param description image description.
-     * @param owner image owner.
+     * @param owner       image owner.
      * @return updated image.
      * @throws ManagerException manager exception.
      */
-    Image update(Long imageId, String name, Double price, String description, User owner) throws ManagerException;
+    Image update(Long imageId, String name, Double price, String description,
+        User owner) throws ManagerException;
+
+    /**
+     * Adds the owner of the image to the mapping.
+     *
+     * @param img
+     * @param owner
+     * @return UserImage
+     */
+    public UserImage addOwnerToImage(Image img, User owner);
 }

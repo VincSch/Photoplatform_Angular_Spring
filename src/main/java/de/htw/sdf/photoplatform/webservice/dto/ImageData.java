@@ -3,10 +3,10 @@
  */
 package de.htw.sdf.photoplatform.webservice.dto;
 
-import java.io.Serializable;
-
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+
+import java.io.Serializable;
 
 /**
  * Data transfer object to get and update image data.
@@ -24,26 +24,24 @@ public class ImageData extends ResponseMessageData implements Serializable {
 
     private Double price;
 
-    private String compression;
-
-    private Double xResolution;
-
-    private Double yResolution;
-
-    private String resolutionUnit;
-
-    private Integer xDemension;
-
-    private Integer yDemension;
+    private String mime;
 
     private String path;
+
+    private String metadata;
+
+    private String thumbnailPath;
+
+    private String smallPath;
+
+    private String mobilePath;
 
     private UserData userData;
 
     /**
      * Default empty constructor.
      */
-    public ImageData(){
+    public ImageData() {
         //Default empty constructor.
     }
 
@@ -67,13 +65,11 @@ public class ImageData extends ResponseMessageData implements Serializable {
         this.name = image.getName();
         this.description = image.getDescription();
         this.price = image.getPrice();
-        this.compression = image.getCompression();
-        this.xDemension = image.getXDemension();
-        this.yDemension = image.getYDemension();
-        this.xResolution = image.getXResolution();
-        this.yResolution = image.getYResolution();
-        this.resolutionUnit = image.getResolutionUnit();
-        this.path = image.getPath();
+        this.mime = image.getMime();
+        this.metadata = image.getMetaData();
+        this.thumbnailPath = image.getThumbPath();
+        this.smallPath = image.getSmallThumbPath();
+        this.mobilePath = image.getMobileThumbPath();
     }
 
     /**
@@ -149,114 +145,6 @@ public class ImageData extends ResponseMessageData implements Serializable {
     }
 
     /**
-     * Returns image compression.
-     *
-     * @return image compression.
-     */
-    public String getCompression() {
-        return compression;
-    }
-
-    /**
-     * Sets image compression.
-     *
-     * @param compression image compression.
-     */
-    public void setCompression(String compression) {
-        this.compression = compression;
-    }
-
-    /**
-     * Returns x resolution.
-     *
-     * @return x resolution.
-     */
-    public Double getxResolution() {
-        return xResolution;
-    }
-
-    /**
-     * Sets x resolution.
-     *
-     * @param xResolution x resolution.
-     */
-    public void setxResolution(Double xResolution) {
-        this.xResolution = xResolution;
-    }
-
-    /**
-     * Returns y resolution.
-     *
-     * @return y resolution.
-     */
-    public Double getyResolution() {
-        return yResolution;
-    }
-
-    /**
-     * Sets y resolution.
-     *
-     * @param yResolution
-     */
-    public void setyResolution(Double yResolution) {
-        this.yResolution = yResolution;
-    }
-
-    /**
-     * Returns resolution unit.
-     *
-     * @return resolution unit.
-     */
-    public String getResolutionUnit() {
-        return resolutionUnit;
-    }
-
-    /**
-     * Sets resolution unit.
-     *
-     * @param resolutionUnit resolution unit.
-     */
-    public void setResolutionUnit(String resolutionUnit) {
-        this.resolutionUnit = resolutionUnit;
-    }
-
-    /**
-     * Returns x demension.
-     *
-     * @return x demension.
-     */
-    public Integer getxDemension() {
-        return xDemension;
-    }
-
-    /**
-     * Sets x demension.
-     *
-     * @param xDemension x demension.
-     */
-    public void setxDemension(Integer xDemension) {
-        this.xDemension = xDemension;
-    }
-
-    /**
-     * Returns y demension.
-     *
-     * @return y demension.
-     */
-    public Integer getyDemension() {
-        return yDemension;
-    }
-
-    /**
-     * Sets y demension.
-     *
-     * @param yDemension y demension.
-     */
-    public void setyDemension(Integer yDemension) {
-        this.yDemension = yDemension;
-    }
-
-    /**
      * Returns path.
      *
      * @return path.
@@ -274,6 +162,46 @@ public class ImageData extends ResponseMessageData implements Serializable {
         this.path = path;
     }
 
+    public String getMime() {
+        return mime;
+    }
+
+    public void setMime(String mime) {
+        this.mime = mime;
+    }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
+    public String getThumbnailPath() {
+        return thumbnailPath;
+    }
+
+    public void setThumbnailPath(String thumbnailPath) {
+        this.thumbnailPath = thumbnailPath;
+    }
+
+    public String getSmallPath() {
+        return smallPath;
+    }
+
+    public void setSmallPath(String smallPath) {
+        this.smallPath = smallPath;
+    }
+
+    public String getMobilePath() {
+        return mobilePath;
+    }
+
+    public void setMobilePath(String mobilePath) {
+        this.mobilePath = mobilePath;
+    }
+
     /**
      * Returns user data.
      *
@@ -285,7 +213,7 @@ public class ImageData extends ResponseMessageData implements Serializable {
 
     /**
      * Sets user data.
-     * 
+     *
      * @param userData user data.
      */
     public void setUserData(UserData userData) {

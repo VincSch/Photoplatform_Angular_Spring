@@ -16,15 +16,16 @@ angular.module('photoplatform')
                     FileDragHover(e);
                     // fetch FileList object
                     var files = e.target.files || e.dataTransfer.files;
+                    elem[0].files = files;
                     // process all File objects
-                    angular.forEach(files, function (file) {
-                        console.log(elem[0].files);
-                        console.log(files);
-                        console.log(this);
-                        if (elem[0].files.indexOf(file) == -1) {
-                            elem[0].files.push(file);
-                        }
-                    });
+                    //angular.forEach(files, function (file) {
+                    //    console.log(elem[0].files);
+                    //    console.log(files);
+                    //    console.log(this);
+                    //    if (elem[0].files.indexOf(file) == -1) {
+                    //        elem[0].files.push(file);
+                    //    }
+                    //});
                 }
                 var dropElem = $('#darg-and-drop-area');
                 if (window.File && window.FileList && window.FileReader) {
@@ -39,7 +40,7 @@ angular.module('photoplatform')
                     $parse(attrs.fileInput)
                         .assign(scope, elem[0].files);
                     angular.forEach(elem[0].files, function (file) {
-                        var hash = file.name.slice(0, -4).replace(/\.| |_|:/g, '');
+                        var hash = file.name.slice(0, -4).replace(/[\.\(\)\{\}\\ _#:]/g, '');
                         $('#preview').append('<img id="' + hash + '" src="#" alt="' + file.name + '" class="preview-img" />');
                         $('#preview').append('<span onclick="removePreviewImage(this)" class="glyphicon glyphicon-trash"> <span/>');
 

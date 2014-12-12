@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="stylesheet/less" type="text/css" href="/less/styles.less" />
+    <link rel="stylesheet/less" type="text/css" href="/less/styles.less"/>
     <!-- link rel="stylesheet" type="text/css" href="/css/styles.css" -->
     <title>Photoplattform</title>
 </head>
@@ -16,56 +16,47 @@
 <!-- Navigation -->
 <nav id="slide-menu">
     <ul>
-        <li>
-            <a href="/profile/admin" onclick="fadeOutMenu();"
-               ng-show="isAdmin()">
+        <li ng-show="isAdmin()">
+            <a href="/profile/admin" onclick="fadeOutMenu();">
                 <span class="glyphicon glyphicon-wranch"></span>
-                <i class="fa fa-user"></i> Admin Einstellungen
+                <!--<i class="fa fa-user"></i> -->
+                Admin Einstellungen
             </a>
         </li>
-        <li>
-            <a href="/profile/photograph/showcase" onclick="fadeOutMenu();"
-               ng-show="isPhotographer()">
+        <li ng-show="isPhotographer()">
+            <a href="/profile/photograph/showcase" onclick="fadeOutMenu();">
                 <span class="glyphicon glyphicon-film"></span>
-                <i ng-show="isPhotographer()" class="fa fa-folder-open-o"></i>
-                Mein
-                Showcase
+                <!--<i ng-show="isPhotographer()" class="fa fa-folder-open-o"></i>-->
+                Mein Showcase
             </a>
         </li>
-        <li>
-            <a href="/profile/photograph/collection" onclick="fadeOutMenu();"
-               ng-show="isPhotographer()">
+        <li ng-show="isPhotographer()">
+            <a href="/profile/photograph/collection" onclick="fadeOutMenu();">
                 <span class="glyphicon glyphicon-book"></span>
-                <i ng-show="isPhotographer()" class="fa fa-bar-chart-o"></i>
-                Sammlungen <span
-                    ng-show="isPhotographer()"
-                    class="badge">14</span>
+                <!--<i ng-show="isPhotographer()" class="fa fa-bar-chart-o"></i>-->
+                Sammlungen <span class="badge">14</span>
             </a>
         </li>
-        <li>
-            <a href="/profile/photograph/image" onclick="fadeOutMenu();"
-               ng-show="isPhotographer()">
+        <li ng-show="isPhotographer()">
+            <a href="/profile/photograph/image" onclick="fadeOutMenu();">
                 <span class="glyphicon glyphicon-picture"></span>
-                <i class="fa fa-envelope" ng-show="isPhotographer()"></i>
-                Fotos <span
-                    ng-show="isPhotographer()" class="badge">55</span>
+                <!--<i class="fa fa-envelope" ng-show="isPhotographer()"></i>-->
+                Fotos <span class="badge">55</span>
             </a>
         </li>
-        <li>
-            <a href="/profile/photograph/register" onclick="fadeOutMenu();"
-               ng-hide="isPhotographer()">
+        <li ng-show="isCustomer()">
+            <a href="/profile/photograph/register" onclick="fadeOutMenu();">
                 <span class="glyphicon glyphicon-pencil"></span>
-                <i class="fa fa-envelope"></i> Fotograph werden
+                <!--<i class="fa fa-envelope"></i>-->
+                Fotograph werden
             </a>
         </li>
-
-
-        <!-- old -->
         <li ng-show="isLoggedIn()">
             <a href="/profile" onclick="fadeOutMenu();">
                 <span class="glyphicon glyphicon-user"></span>
                 {{user.firstName}}
-            </a></li>
+            </a>
+        </li>
         <li ng-show="isLoggedIn()">
             <a href="/profile/shoppinglist" onclick="fadeOutMenu();">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
@@ -97,7 +88,9 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <div class="menu-trigger"></div>
-            <a class="navbar-brand" href="/"><img src="/img/PhotLogoK.png" width="85" height="30" border="0" alt="Home"></a>
+            <a class="navbar-brand" href="/"><img src="/img/PhotLogoK.png"
+                                                  width="85" height="30"
+                                                  border="0" alt="Home"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -124,7 +117,7 @@
                        ng-hide="isLoggedIn()">Registrierung</a>
                 </li>
                 <li>
-                    <a class="navbar-right"
+                    <a class="navbar-right" href="/"
                        ng-show="isLoggedIn()" ng-click="logout()">Abmelden</a>
                 </li>
             </ul>

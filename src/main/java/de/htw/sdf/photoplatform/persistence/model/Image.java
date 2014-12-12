@@ -6,11 +6,11 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for a image representing the corresponding database table.
@@ -33,26 +33,8 @@ public class Image extends AbstractBaseAuditEntity {
     @Column(name = "IS_ENABLED")
     private boolean enabled;
 
-    @Column(name = "PRICE", precision=10, scale=2)
+    @Column(name = "PRICE", precision = 10, scale = 2)
     private Double price;
-
-    @Column(name = "COMRESSION")
-    private String compression;
-
-    @Column(name = "X_RESOLUTION")
-    private Double xResolution;
-
-    @Column(name = "Y_RESOLUTION")
-    private Double yResolution;
-
-    @Column(name = "RESOLUTION_UNIT")
-    private String resolutionUnit;
-
-    @Column(name = "X_DEMENSION")
-    private Integer xDemension;
-
-    @Column(name = "Y_DEMENSION")
-    private Integer yDemension;
 
     @Column(name = "PATH", unique = true)
     private String path;
@@ -65,6 +47,12 @@ public class Image extends AbstractBaseAuditEntity {
 
     @Column(name = "MOBILE_THUMB_PATH", unique = true)
     private String mobileThumbPath;
+
+    @Column(name = "MIME")
+    private String mime;
+
+    @Column(name = "METADATA", columnDefinition="TEXT")
+    private String metaData;
 
     /**
      * Returns image name.
@@ -157,125 +145,6 @@ public class Image extends AbstractBaseAuditEntity {
     }
 
     /**
-     * Returns image compression type.
-     * <p/>
-     * Supported compression type jpg,png.
-     *
-     * @return compression
-     * @since 1.0
-     */
-    public String getCompression() {
-        return compression;
-    }
-
-    /**
-     * Sets compression type.
-     * <p/>
-     * Supported compression type jpg,png.
-     *
-     * @param compression image compression type.
-     */
-    public void setCompression(String compression) {
-        this.compression = compression;
-    }
-
-    /**
-     * Returns x resolution.
-     *
-     * @return x resolution.
-     */
-    public Double getXResolution() {
-        return xResolution;
-    }
-
-    /**
-     * Sets x resolution.
-     *
-     * @param xResolution x resolution
-     */
-    public void setXResolution(Double xResolution) {
-        this.xResolution = xResolution;
-    }
-
-    /**
-     * Returns y resolution.
-     *
-     * @return y resolution.
-     */
-    public Double getYResolution() {
-        return yResolution;
-    }
-
-    /**
-     * Sets y resolution.
-     *
-     * @param yResolution y resolution
-     */
-    public void setYResolution(Double yResolution) {
-        this.yResolution = yResolution;
-    }
-
-    /**
-     * Returns resolution unit.
-     *
-     * @return resolution unit.
-     */
-    public String getResolutionUnit() {
-        return resolutionUnit;
-    }
-
-    /**
-     * Sets resolution units
-     *
-     * @param resolutionUnit resolution unit.
-     */
-    public void setResolutionUnit(String resolutionUnit) {
-        this.resolutionUnit = resolutionUnit;
-    }
-
-    /**
-     * Returns x demension.
-     * <p/>
-     * Image width.
-     *
-     * @return image width.
-     */
-    public Integer getXDemension() {
-        return xDemension;
-    }
-
-    /**
-     * Sets x demension.
-     * <p/>
-     * Image width.
-     *
-     * @param xDemension
-     */
-    public void setXDemension(Integer xDemension) {
-        this.xDemension = xDemension;
-    }
-
-    /**
-     * Returns image high.
-     *
-     * @return high
-     */
-    public Integer getYDemension() {
-        return yDemension;
-    }
-
-    /**
-     * Sets y demension.
-     * <p/>
-     * Image hight.
-     *
-     * @param yDemension image hight
-     */
-    public void setYDemension(Integer yDemension) {
-        this.yDemension = yDemension;
-    }
-
-    /**
      * Returns path to image resource.
      *
      * @return path to image.
@@ -317,14 +186,30 @@ public class Image extends AbstractBaseAuditEntity {
         this.mobileThumbPath = mobileThumbPath;
     }
 
+    public String getMime() {
+        return mime;
+    }
+
+    public void setMime(String mime) {
+        this.mime = mime;
+    }
+
+    public String getMetaData() {
+        return metaData;
+    }
+
+    public void setMetaData(String metaData) {
+        this.metaData = metaData;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
         return "Image{" + "name='" + name + '\'' + ", path='" + path + '\''
-                + ", isPublic=" + isPublic + ", enabled=" + enabled
-                + ", price=" + price + ", compression='" + compression + '\''
-                + '}';
+            + ", isPublic=" + isPublic + ", enabled=" + enabled
+            + ", price=" + price
+            + '}';
     }
 }

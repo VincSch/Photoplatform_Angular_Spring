@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-4" ng-repeat="image in images">
                 <div class="thumbnail" id="image-{{image.imageId}}" ng-init="status = {editing : false }">
-                    <img src="{{image.path}}.{{image.compression}}" class="img-responsive"
+                    <img src="{{image.smallPath}}" class="img-responsive"
                          onerror="this.src='http://placehold.it/1024x600'">
 
                     <div class="caption" ng-show="!status.editing">

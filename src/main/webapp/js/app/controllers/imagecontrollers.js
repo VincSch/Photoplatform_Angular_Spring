@@ -18,6 +18,10 @@ photoplatformControllers.controller('ImageCtrl',
                 var param = $scope.files;
                 ImageService.upload(param, $rootScope.user)
                     .success(function (message) {
+                        $('#preview').hide();
+                        $('#preview').html('');
+                        $('.upload').prop('enabled', false);
+                        $('.upload').prop('disabled', true);
                         console.log(message);
                     })
                     .error(function (e) {
