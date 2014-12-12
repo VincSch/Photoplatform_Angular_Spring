@@ -133,7 +133,6 @@ public class ImageController extends BaseAPIController {
                 jsonTag.put("description", desc);
                 jsonTag.put("directoryName", dirName);
                 json.put(jsonTag);
-
             }
         }
         img.setMetaData(json.toString());

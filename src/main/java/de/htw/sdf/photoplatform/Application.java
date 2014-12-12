@@ -140,8 +140,7 @@ public class Application extends WebMvcConfigurerAdapter {
             //protocol.setTruststorePass("changeit");
             protocol.setKeyAlias("tomcat");
             return connector;
-        }
-        catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             throw new IllegalStateException("can't access keystore: [" + "keystore"
                     + "] or truststore: [" + "keystore" + "]", ex);
         } catch (IOException e) {
