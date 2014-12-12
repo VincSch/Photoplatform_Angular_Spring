@@ -40,6 +40,8 @@ public class ImageData extends ResponseMessageData implements Serializable {
 
     private UserData userData;
 
+    private Boolean isAdded;
+
     /**
      * Default empty constructor.
      */
@@ -290,5 +292,24 @@ public class ImageData extends ResponseMessageData implements Serializable {
      */
     public void setUserData(UserData userData) {
         this.userData = userData;
+    }
+
+    /**
+     * Is added to collection.
+     *
+     * True if added.
+     * @return added status.
+     */
+    public Boolean getAdded() {
+        return isAdded;
+    }
+
+    /**
+     * Sets added value.
+     *
+     * @param isAdded added value.
+     */
+    public void setAdded(Boolean isAdded) {
+        this.isAdded = isAdded;
     }
 }

@@ -6,8 +6,11 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
@@ -65,6 +68,9 @@ public class Image extends AbstractBaseAuditEntity {
 
     @Column(name = "MOBILE_THUMB_PATH", unique = true)
     private String mobileThumbPath;
+
+    @OneToMany(mappedBy="image")
+    private List<CollectionImage> collectionImages;
 
     /**
      * Returns image name.
@@ -326,5 +332,23 @@ public class Image extends AbstractBaseAuditEntity {
                 + ", isPublic=" + isPublic + ", enabled=" + enabled
                 + ", price=" + price + ", compression='" + compression + '\''
                 + '}';
+    }
+
+    /**
+     * Returns collections of image.
+     *
+     * @return list of CollectionImage.
+     */
+    public List<CollectionImage> getCollectionImages() {
+        return collectionImages;
+    }
+
+    /**
+     * Sets collections of image.
+     *
+     * @param collectionImages list of CollectionImage.
+     */
+    public void setCollectionImages(List<CollectionImage> collectionImages) {
+        this.collectionImages = collectionImages;
     }
 }

@@ -76,4 +76,12 @@ public interface UserImageDAO extends GenericDAO<UserImage> {
      * @return one photograph's image.
      */
     UserImage getPhotographImage(User owner, Long imageId);
+
+    /**
+     * Returns images that are not added to the collection.
+     *
+     * @param owner photograph.
+     * @return list of UserImage.
+     */
+    List<UserImage> getPhotographImagesWithoutCollection(User owner);
 }

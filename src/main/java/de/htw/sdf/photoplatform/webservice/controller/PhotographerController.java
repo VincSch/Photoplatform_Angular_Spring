@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -79,55 +79,40 @@ public class PhotographerController extends BaseAPIController {
      * Params: collectionId of Type <code>Long</code> required!
      * imageIds of Type <code>List<Long></code> required!
      *
-     * @param jsonData      map of params.
-     *                      collectionId of Type <code>Long</code> required!
-     *                      imageIds of Type <code>List<Long></code> required!
-     * @param bindingResult binding validate exception.
+     * @param collectionId collectionId of Type <code>Long</code> required!     map of params.
+     * @param imageIds imageIds of Type <code>List<Long></code> required!
      * @return success message.
      * @throws java.io.IOException   input output exception.
      * @throws AbstractBaseException the exception
      */
-    @RequestMapping(value = Endpoints.COLLECTIONS_ADD_IMAGE, method = RequestMethod.POST)
+    //@RequestMapping(value = Endpoints.COLLECTIONS_ID_IMAGES, method = RequestMethod.PUT)
+    @RequestMapping(value = Endpoints.COLLECTIONS_ID_IMAGES, method = RequestMethod.PUT)
     @ResponseBody
-    public String addImageToCollection(@RequestBody String jsonData, BindingResult bindingResult)
+    public String addImageToCollection(@PathVariable Long collectionId, @RequestParam(required = true) List<Long> imageIds)
             throws IOException, AbstractBaseException {
 
-        String exceptionKey = "collectionAddImage";
-        if (bindingResult.hasErrors()) {
-            throw new BadRequestException(exceptionKey, bindingResult);
-        }
-
         User authenticatedUser = getAuthenticatedUser();
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(jsonData);
-        Long collectionId = mapper.convertValue(node.get(PARAM_COLLECTION_ID),
-                Long.class);
-        List<Long> imageIds = mapper.convertValue(node.get(PARAM_IMAGE_IDS),
-                new TypeReference<List<Long>>() {
-                });
 
         try {
             // Try to add images to collection.
             photographerManager.addImagesToCollection(authenticatedUser.getId(), collectionId, imageIds);
         } catch (ManagerException ex) {
+            String exceptionMsg ;
             switch (ex.getCode()) {
                 case AbstractBaseException.COLLECTION_ID_NOT_VALID:
-                    String msgNotValid = messages.getMessage("Collection.notValid") +
+                    exceptionMsg = messages.getMessage("Collection.notValid") +
                             messages.getMessage("Collection.addImages.failed");
-                    bindingResult.addError(new FieldError(exceptionKey, "collectionId", msgNotValid));
                     break;
                 case AbstractBaseException.NOT_FOUND:
-                    String msgNotFount = messages.getMessage("Collection.Images.notFound") +
+                    exceptionMsg = messages.getMessage("Collection.Images.notFound") +
                             messages.getMessage("Collection.addImages.failed");
-                    bindingResult.addError(new FieldError(exceptionKey, "collectionId", msgNotFount));
                     break;
 
                 default:
                     throw new RuntimeException("Unhandled error");
             }
 
-            throw new BadRequestException(exceptionKey, bindingResult);
+            throw new BadRequestException(exceptionMsg);
         }
 
         return messages.getMessage("Collection.addImages.success");
@@ -317,13 +302,49 @@ public class PhotographerController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.PHOTOGRAPHERS_IMAGES, method = RequestMethod.GET)
     @ResponseBody
-    public List<ImageData> getPhotographersImages(@RequestParam(required = false, defaultValue = "-1") int start,
+    public List<ImageData> getPhotographersImages(@RequestParam(required = false) Boolean isAdded,
+                                                  @RequestParam(required = false, defaultValue = "-1") int start,
                                                   @RequestParam(required = false, defaultValue = "-1") int count)
             throws IOException, AbstractBaseException {
         User authenticatedUser = getAuthenticatedUser();
-        List<UserImage> userImages = imageManager.getPhotographImages(authenticatedUser,start,count);
-        return ResourceUtility.convertToImageData(userImages);
+        if(isAdded == null){
+            List<UserImage> userImages = imageManager.getPhotographImages(authenticatedUser,start,count);
+            return ResourceUtility.convertToImageData(userImages);
+        }else{
+            if(!isAdded) {
+                List<UserImage> userImages = photographerManager.getImagesWithoutCollection(authenticatedUser);
+                return ResourceUtility.convertToImageData(userImages);
+            }else{
+                throw new NotImplementedException();
+            }
+        }
     }
+
+//    /**
+//     * Return list of images belong to photograph.
+//     *
+//     * Filter: true, Return list of images belong to photograph and added to collection.
+//     *         false, Return list of images belong to photograph and not added to collection.
+//     *
+//     * @param isAdded is added to collection.
+//     *
+//     * @return true, Return list of images belong to photograph and added to collection.
+//     *         false, Return list of images belong to photograph and not added to collection.
+//     * @throws java.io.IOException   input output exception.
+//     * @throws AbstractBaseException the exception
+//     */
+//    @RequestMapping(value = Endpoints.PHOTOGRAPHERS_IMAGES, method = RequestMethod.GET)
+//    @ResponseBody
+//    public List<ImageData> getPhotographersImagesByFilter(@RequestParam Boolean isAdded)
+//            throws IOException, AbstractBaseException {
+//        User authenticatedUser = getAuthenticatedUser();
+//            if(!isAdded){
+//                List<UserImage> userImages = photographerManager.getImagesWithoutCollection(authenticatedUser);
+//                return ResourceUtility.convertToImageData(userImages);
+//        }else{
+//            throw new NotImplementedException();
+//        }
+//    }
 
     /**
      * Delete a photograph image.

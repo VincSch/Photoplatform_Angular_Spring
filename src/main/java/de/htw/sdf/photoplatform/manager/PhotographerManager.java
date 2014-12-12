@@ -203,4 +203,12 @@ public interface PhotographerManager {
      * @throws ManagerException manager exception.
      */
     Boolean deleteImage(Long ownerId, Long imageId) throws ManagerException ;
+
+    /**
+     * Returns images that are not added to the collection.
+     *
+     * @param photograph image owner.
+     * @return list of images.
+     */
+    List<UserImage> getImagesWithoutCollection(final User photograph);
 }

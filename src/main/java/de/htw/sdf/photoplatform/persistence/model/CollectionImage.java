@@ -6,12 +6,13 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
-import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 /**
  * Entity class for the relation between collection and images.
@@ -19,7 +20,8 @@ import javax.persistence.Table;
  * Created by Sergej Meister.
  */
 @Entity
-@Table(name = "RES_COLLECTION_IMAGE")
+@Table(name = "RES_COLLECTION_IMAGE",
+        uniqueConstraints=@UniqueConstraint(columnNames = {"COLLECTION_ID", "IMAGE_ID"}))
 public class CollectionImage extends AbstractBaseAuditEntity {
 
     private static final long serialVersionUID = -5332090503705930932L;

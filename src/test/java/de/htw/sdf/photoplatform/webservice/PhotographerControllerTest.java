@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -32,8 +33,8 @@ import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
  */
 public class PhotographerControllerTest extends BaseAPITester {
 
-    private final String ENDPOINT_ADD_IMAGE = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_ADD_IMAGE;
     private final String ENDPOINT_DELETE_IMAGE = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_DELETE_IMAGE;
+    private final String ENDPOINT_ADD_IMAGE = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_ID_IMAGES;
     private final String ENDPOINT_CREATE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS_CREATE;
     private final String ENDPOINT_DELETE_COLLECTION = Endpoints.API_PREFIX + Endpoints.COLLECTIONS;
     private final String ENDPOINT_GET_COLLECTIONS =
@@ -159,18 +160,13 @@ public class PhotographerControllerTest extends BaseAPITester {
         List<Collection> photographCollections = photographerManager.getCollectionByUser(photograph.getId(), 0, 0);
         int initCollectionSize = photographCollections.size();
 
-        CollectionData requestCollectionData = new CollectionData();
-        requestCollectionData.setId(1000L);
-        List<Long> imageIds = new ArrayList<>();
-        imageIds.add(2000L);
-        requestCollectionData.setImageIds(imageIds);
         //Add image to collection,
         // Sergej has no collection with id = 1000, should be a bad request.
+        String wrongCollectionUrl = ENDPOINT_ADD_IMAGE.replace("{collectionId}","1000");
         mockMvc.perform(
-                post(ENDPOINT_ADD_IMAGE)
+                put(wrongCollectionUrl)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(requestCollectionData))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                        .param("imageIds", String.valueOf(2000))).andExpect(
                 status().isBadRequest());
 
         //Create Collection.
@@ -190,13 +186,13 @@ public class PhotographerControllerTest extends BaseAPITester {
 
         //Add image to Collection.
         Long validCollectionId = photographCollections.get(0).getId();
-        requestCollectionData.setId(validCollectionId);
+        String validCollectionUrl = ENDPOINT_ADD_IMAGE.replace("{collectionId}", validCollectionId.toString());
+
         //Now Sergej, has one collection, but no images! It should be a bad request.
         mockMvc.perform(
-                post(ENDPOINT_ADD_IMAGE)
+                put(validCollectionUrl)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(requestCollectionData))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                        .param("imageIds", String.valueOf(2000))).andExpect(
                 status().isBadRequest());
 
         //Create Images.
@@ -212,17 +208,14 @@ public class PhotographerControllerTest extends BaseAPITester {
         //Add image to Collection.
         //Now sergej has one collection and one image, should be ok!
         Long validImageId = createdUserImages.get(0).getImage().getId();
-        requestCollectionData.getImageIds().clear();
-        requestCollectionData.getImageIds().add(validImageId);
         mockMvc.perform(
-                post(ENDPOINT_ADD_IMAGE)
+                put(validCollectionUrl)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(requestCollectionData))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(
+                        .param("imageIds", String.valueOf(validImageId))).andExpect(
                 status().isOk());
 
         //Delete Image From Collection
-        String deleteUrl =ENDPOINT_DELETE_IMAGE.replace("{collectionId}",String.valueOf(requestCollectionData.getId()))
+        String deleteUrl =ENDPOINT_DELETE_IMAGE.replace("{collectionId}",String.valueOf(validCollectionId))
                 .replace("{imageId}",validImageId.toString()) ;
 
         mockMvc.perform(
@@ -231,12 +224,7 @@ public class PhotographerControllerTest extends BaseAPITester {
                         .accept(MediaType.APPLICATION_JSON)).andExpect(
                 status().isOk());
 
-        //Delete collection.
-        String collectionIdToDelete = String.valueOf(requestCollectionData.getId());
-        Map<String, String> map = new HashMap<>();
-        map.put("collectionId", collectionIdToDelete);
-
-        final String deleteEndpoint = ENDPOINT_DELETE_COLLECTION.replace("{collectionId}", collectionIdToDelete);
+        final String deleteEndpoint = ENDPOINT_DELETE_COLLECTION.replace("{collectionId}",  validCollectionId.toString());
         mockMvc.perform(
                 delete(deleteEndpoint)
                         .contentType(MediaType.APPLICATION_JSON)
