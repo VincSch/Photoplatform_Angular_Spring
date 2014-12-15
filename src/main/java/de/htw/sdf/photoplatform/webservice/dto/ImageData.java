@@ -3,10 +3,10 @@
  */
 package de.htw.sdf.photoplatform.webservice.dto;
 
+import java.io.Serializable;
+
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
-
-import java.io.Serializable;
 
 /**
  * Data transfer object to get and update image data.
@@ -26,13 +26,13 @@ public class ImageData extends ResponseMessageData implements Serializable {
 
     private String mime;
 
-    private String path;
-
     private String metadata;
 
-    private String thumbnailPath;
+    private String path;
 
     private String smallPath;
+
+    private String thumbnailPath;
 
     private String mobilePath;
 
@@ -146,24 +146,6 @@ public class ImageData extends ResponseMessageData implements Serializable {
         this.price = price;
     }
 
-    /**
-     * Returns path.
-     *
-     * @return path.
-     */
-    public String getPath() {
-        return path;
-    }
-
-    /**
-     * Sets image path.
-     *
-     * @param path image path.
-     */
-    public void setPath(String path) {
-        this.path = path;
-    }
-
     public String getMime() {
         return mime;
     }
@@ -180,26 +162,76 @@ public class ImageData extends ResponseMessageData implements Serializable {
         this.metadata = metadata;
     }
 
+    /**
+     * Returns origin image path.
+     *
+     * @return path.
+     */
+    public String getPath() {
+        return path;
+    }
+
+    /**
+     * Sets origin image path.
+     *
+     * @param path image path.
+     */
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    /**
+     * Returns thumbnail path - enhanced desktop view.
+     *
+     * by image click.
+     *
+     * @return thumbnail path.
+     */
     public String getThumbnailPath() {
         return thumbnailPath;
     }
 
+    /**
+     * Sets thumbnail path for enhanced desktop view.
+     *
+     * @param thumbnailPath thumbnail path.
+     */
     public void setThumbnailPath(String thumbnailPath) {
         this.thumbnailPath = thumbnailPath;
     }
 
+    /**
+     * Returns default thumbnail view for mobile and desktop.
+     *
+     * @return default thumbnail.
+     */
     public String getSmallPath() {
         return smallPath;
     }
 
+    /**
+     * Sets default thumbnail.
+     *
+     * @param smallPath default thumbnail.
+     */
     public void setSmallPath(String smallPath) {
         this.smallPath = smallPath;
     }
 
+    /**
+     * Returns thumbnail path for mobile devices.
+     *
+     * @return mobile thumbnail path.
+     */
     public String getMobilePath() {
         return mobilePath;
     }
 
+    /**
+     * Sets mobile thumbnail path.
+     *
+     * @param mobilePath mobile thumbnail path.
+     */
     public void setMobilePath(String mobilePath) {
         this.mobilePath = mobilePath;
     }
