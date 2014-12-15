@@ -6,7 +6,8 @@
                 <h2>Album: {{collectionName}}</h2>
             </div>
         </div>
-        <div class="row"><a class="btn btn-primary">Bild hinzufügen</a></div>
+        <div class="row"><a class="btn btn-primary" ng-click="open()">Bilder hinzufügen</a></div>
+        <div ng-show="selected">Selection from a modal: {{ selected }}</div>
         <div class="row" ng-include src="'/views/partials/profile/photographer/imageComponent.html'"></div>
     </div>
 </div>

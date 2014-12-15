@@ -114,6 +114,20 @@ public class UserImageDAOImpl extends GenericDAOImpl<UserImage> implements
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<UserImage> getPhotographImagesWithoutCollection(User owner) {
+        StringBuilder queryBuilder = initSelectWithCollection();
+        queryBuilder.append("WHERE owner.id = :ownerId AND user.id = :userId AND collectionImages IS NULL ");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("ownerId", owner.getId());
+        query.setParameter("userId", owner.getId());
+
+        return (List<UserImage>) query.getResultList();
+    }
+
     private Query initPhotographImageQuery(User owner) {
         StringBuilder queryBuilder = initSelectQuery();
         queryBuilder.append("WHERE owner.id = :ownerId AND user.id = :userId");
@@ -129,6 +143,13 @@ public class UserImageDAOImpl extends GenericDAOImpl<UserImage> implements
         queryBuilder.append("LEFT JOIN FETCH userImage.image image ");
         queryBuilder.append("LEFT JOIN FETCH userImage.owner owner ");
         queryBuilder.append("LEFT JOIN FETCH userImage.user user ");
+
+        return queryBuilder;
+    }
+
+    private StringBuilder initSelectWithCollection() {
+        StringBuilder queryBuilder = initSelectQuery();
+        queryBuilder.append("LEFT JOIN FETCH image.collectionImages collectionImages ");
 
         return queryBuilder;
     }

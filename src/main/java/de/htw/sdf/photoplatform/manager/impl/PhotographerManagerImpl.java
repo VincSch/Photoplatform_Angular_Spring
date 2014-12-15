@@ -267,6 +267,14 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
      * {@inheritDoc}
      */
     @Override
+    public List<UserImage> getImagesWithoutCollection(final User photograph) {
+        return userImageDAO.getPhotographImagesWithoutCollection(photograph);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Boolean deleteCollection(Long userId, Long collectionId) throws ManagerException {
 
         Collection affectedCollection = getCollection(userId, collectionId);

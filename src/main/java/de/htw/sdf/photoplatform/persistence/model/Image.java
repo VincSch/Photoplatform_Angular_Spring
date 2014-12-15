@@ -10,7 +10,9 @@ import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * Entity class for a image representing the corresponding database table.
@@ -51,8 +53,11 @@ public class Image extends AbstractBaseAuditEntity {
     @Column(name = "MIME")
     private String mime;
 
-    @Column(name = "METADATA", columnDefinition="TEXT")
+    @Column(name = "METADATA", columnDefinition = "TEXT")
     private String metaData;
+
+    @OneToMany(mappedBy = "image")
+    private List<CollectionImage> collectionImages;
 
     /**
      * Returns image name.
@@ -200,6 +205,14 @@ public class Image extends AbstractBaseAuditEntity {
 
     public void setMetaData(String metaData) {
         this.metaData = metaData;
+    }
+
+    public List<CollectionImage> getCollectionImages() {
+        return collectionImages;
+    }
+
+    public void setCollectionImages(List<CollectionImage> collectionImages) {
+        this.collectionImages = collectionImages;
     }
 
     /**

@@ -25,8 +25,18 @@ angular.module('photoplatform')
              * @param count.
              * @returns {HttpPromise}
              */
-            imageService.getAllImages = function(start, count){
+            imageService.getAllImages = function (start, count) {
                 return $http.get(urlBase + '/images');
+            };
+
+            /**
+             * Return photograph images without collection.
+             * @param start.
+             * @param count.
+             * @returns {HttpPromise}
+             */
+            imageService.getPhotographImagesWithoutCollection = function () {
+                return $http.get(urlBase + '/images', {params: { isAdded: false }});
             };
 
             /**

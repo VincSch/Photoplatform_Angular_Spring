@@ -100,6 +100,7 @@ public final class Endpoints {
 
     /**
      * GET: returns collection's images.
+     * PUT: add image to collection.
      */
     public static final String COLLECTIONS_ID_IMAGES = "/collections/{collectionId}/images";
 
@@ -109,7 +110,7 @@ public final class Endpoints {
     public static final String COLLECTIONS_ADD_IMAGE = "/collections/addimage";
 
     /**
-     * POST: delete image from collection.
+     * DELETE: delete image from collection.
      */
     public static final String COLLECTIONS_DELETE_IMAGE = "/collections/{collectionId}/images/{imageId}";
 
