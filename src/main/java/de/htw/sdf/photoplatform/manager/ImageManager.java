@@ -6,11 +6,15 @@
 
 package de.htw.sdf.photoplatform.manager;
 
+import com.drew.imaging.ImageProcessingException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -98,4 +102,22 @@ public interface ImageManager {
      * @return UserImage
      */
     public UserImage addOwnerToImage(Image img, User owner);
+
+    /**
+     * store an file to the filesystem, create appropriate thumbnails and add data base reference
+     * @param file
+     * @param type
+     * @param user
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     * @throws ImageProcessingException
+     */
+    Image storeImage(MultipartFile file, String type, User user)
+            throws NoSuchAlgorithmException, IOException, ImageProcessingException;
+
+    /**
+     * create the appropriate file structure /upload and webapp/img/upload for thumbnails
+     */
+    void createDirectoryStructure();
 }

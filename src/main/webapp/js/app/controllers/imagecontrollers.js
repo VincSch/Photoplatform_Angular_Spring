@@ -22,10 +22,11 @@ photoplatformControllers.controller('ImageCtrl',
                         $('#preview').html('');
                         $('.upload').prop('enabled', false);
                         $('.upload').prop('disabled', true);
-                        console.log(message);
+                        $route.reload();
+                        $scope.success = message;
                     })
                     .error(function (e) {
-                        console.log(e);
+                        $scope.errors = e;
                     });
             };
 

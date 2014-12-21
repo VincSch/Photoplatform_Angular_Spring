@@ -12,7 +12,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="image in imagesWithoutCollection">
-                <td><img src="{{image.path}}.{{image.compression}}" class="img-responsive" width="70" height="30"
+                <td><img src="{{image.smallPath}}" class="img-responsive" width="70" height="30"
                          onerror="this.src='http://placehold.it/70x30'"></td>
                 <td>{{image.name}}</td>
                 <td><input type="checkbox" ng-model="image.isAdded"></td>
