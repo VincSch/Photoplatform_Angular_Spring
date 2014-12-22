@@ -39,6 +39,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,6 +65,7 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
     private static String PREFIX = "upload/";
     private static String UPLOAD_THUMB_PREFIX = null;
     private static String THUMB_PREFIX = "/img/upload/";
+    private List<String> importantExifTags = new ArrayList<String>();
 
     @Resource
     private HashManager hashManager;
@@ -72,6 +74,13 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
 
     @PostConstruct
     public void initIt() throws Exception {
+        importantExifTags.add("Date/Time");
+        importantExifTags.add("Data Precision");
+        importantExifTags.add("Image Height");
+        importantExifTags.add("Image Width");
+        importantExifTags.add("Compression Type");
+        importantExifTags.add("ISO Speed Ratings");
+        importantExifTags.add("Resolution");
         UPLOAD_THUMB_PREFIX = servletContext.getRealPath("/") + "/img/upload/";
     }
 
@@ -163,15 +172,17 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
         JSONArray json = new JSONArray();
         for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
+
                 String desc = tag.getDescription();
                 String dirName = tag.getDirectoryName();
                 String tagName = tag.getTagName();
-                int tagType = tag.getTagType();
-                JSONObject jsonTag = new JSONObject();
-                jsonTag.put("tag", tagName);
-                jsonTag.put("description", desc);
-                jsonTag.put("directoryName", dirName);
-                json.put(jsonTag);
+                if (importantExifTags.contains(tagName)) {
+                    JSONObject jsonTag = new JSONObject();
+                    jsonTag.put("tag", tagName);
+                    jsonTag.put("description", desc);
+                    jsonTag.put("directoryName", dirName);
+                    json.put(jsonTag);
+                }
             }
         }
         img.setMetaData(json.toString());
