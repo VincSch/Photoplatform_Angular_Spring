@@ -22,8 +22,7 @@ photoplatformControllers.controller('ImageCtrl',
                         $('#preview').html('');
                         $('.upload').prop('enabled', false);
                         $('.upload').prop('disabled', true);
-                        $route.reload();
-                        $scope.success = message;
+                        $rootScope.success = message;
                     })
                     .error(function (e) {
                         $scope.errors = e;

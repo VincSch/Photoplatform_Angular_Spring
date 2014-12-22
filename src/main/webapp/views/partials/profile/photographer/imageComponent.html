@@ -5,7 +5,6 @@
             <div class="thumbnail" id="image-{{image.imageId}}" ng-init="status = {editing : false }">
                     <img src="{{image.smallPath}}" class="img-responsive"
                          onerror="this.src='http://placehold.it/1024x600'">
-
                     <div class="caption" ng-show="!status.editing">
                         <h3><a href="/image/{{image.imageId}}">{{image.name}}</a></h3>
 

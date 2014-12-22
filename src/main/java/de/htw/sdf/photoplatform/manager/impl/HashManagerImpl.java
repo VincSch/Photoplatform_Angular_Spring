@@ -5,6 +5,7 @@ import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -14,16 +15,18 @@ import java.security.NoSuchAlgorithmException;
 @Service
 @Transactional
 public class HashManagerImpl extends DAOReferenceCollector
-    implements HashManager {
+        implements HashManager {
 
     private static final String SHA_512 = "SHA-512";
 
-    @Override public String hash(String plain) throws NoSuchAlgorithmException {
+    @Override
+    public String hash(String plain) throws NoSuchAlgorithmException {
         return this.hash(plain, SHA_512);
     }
 
-    @Override public String hash(String plain, String algo)
-        throws NoSuchAlgorithmException {
+    @Override
+    public String hash(String plain, String algo)
+            throws NoSuchAlgorithmException {
         byte[] hash = hashToByte(plain, algo);
         return this.byteHashToHexString(hash);
     }
@@ -35,7 +38,7 @@ public class HashManagerImpl extends DAOReferenceCollector
      * @throws NoSuchAlgorithmException
      */
     private byte[] hashToByte(String value, String algorithm)
-        throws NoSuchAlgorithmException {
+            throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance(algorithm);
         return md.digest(value.getBytes());
     }
@@ -45,12 +48,6 @@ public class HashManagerImpl extends DAOReferenceCollector
      * @return
      */
     private String byteHashToHexString(byte[] hash) {
-        StringBuilder sb = new StringBuilder();
-        String result = "";
-        for (int i = 0; i < hash.length; i++) {
-            sb.append(
-                Integer.toString((hash[i] & 0xff) + 0x100, 16).substring(1));
-        }
-        return sb.toString();
+        return DatatypeConverter.printHexBinary(hash).toLowerCase();
     }
 }

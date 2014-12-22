@@ -221,13 +221,15 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
                 .read(file.getInputStream());
         storeToDisk(imageBuffer, path, type);
         processThumbnails(imageBuffer, type, image);
+        //this.extractExifData(image, file.getInputStream());
         image = imageDAO.update(image);
-        this.extractExifData(image, file.getInputStream());
+        addOwnerToImage(image, user);
         return image;
     }
 
     private void processThumbnails(BufferedImage imgBuffer,
                                    String type, Image image) throws IOException, NoSuchAlgorithmException {
+
 
         String mobileThumbnailHash = hashManager
                 .hash(String.valueOf(image.getId()) + MOBILE_THUMBNAIL_NAME) + "."
