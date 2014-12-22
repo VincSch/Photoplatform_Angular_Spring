@@ -221,7 +221,7 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
                 .read(file.getInputStream());
         storeToDisk(imageBuffer, path, type);
         processThumbnails(imageBuffer, type, image);
-        //this.extractExifData(image, file.getInputStream());
+        this.extractExifData(image, file.getInputStream());
         image = imageDAO.update(image);
         addOwnerToImage(image, user);
         return image;

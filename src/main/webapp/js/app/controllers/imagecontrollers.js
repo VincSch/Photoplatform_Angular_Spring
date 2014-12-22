@@ -21,6 +21,7 @@ photoplatformControllers.controller('ImageCtrl',
                         $('#preview').hide();
                         $('#preview').html('');
                         $('#upload').prop('disabled', true);
+                        $scope.getAllImages();
                         $rootScope.success = message;
                     })
                     .error(function (e) {
