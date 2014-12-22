@@ -10,7 +10,6 @@ import de.htw.sdf.photoplatform.persistence.model.Image;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.domain.Page;
-import org.springframework.data.elasticsearch.ElasticsearchException;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -58,12 +57,8 @@ public class ImageSearchManagerImpl extends DAOReferenceCollector implements Ima
 
     private void initIndex(Image image) {
         IndexQuery indexQuery = new IndexQueryBuilder().withId(image.getId().toString()).withObject(image).build();
-        try {
-            elasticSearchTemplate.index(indexQuery);
-            elasticSearchTemplate.refresh(Image.class, true);
-        } catch (ElasticsearchException ese) {
-            ese.printStackTrace();
-        }
+        elasticSearchTemplate.index(indexQuery);
+        elasticSearchTemplate.refresh(Image.class, true);
     }
 
     /**
