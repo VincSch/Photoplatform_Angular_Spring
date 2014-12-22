@@ -20,8 +20,7 @@ photoplatformControllers.controller('ImageCtrl',
                     .success(function (message) {
                         $('#preview').hide();
                         $('#preview').html('');
-                        $('.upload').prop('enabled', false);
-                        $('.upload').prop('disabled', true);
+                        $('#upload').prop('disabled', true);
                         $rootScope.success = message;
                     })
                     .error(function (e) {

@@ -10,7 +10,7 @@
                 <form method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-xs-6">
-                            <div class="fileUpload btn btn-primary">
+                            <div class="fileUpload btn btn-primary" id="uploadsearch">
                                 <span class="glyphicon glyphicon-folder-open"></span>
                                 Durchsuchen
                                 <input class="upload" file-input="files"
@@ -18,7 +18,7 @@
                                        accept="image/*;capture=camera"
                                        multiple>
                             </div>
-                            <button class="btn btn-primary upload" disabled
+                            <button class="btn btn-primary upload" id="upload" disabled
                                     ng-click="uploadImage()">
                                 <span class="glyphicon glyphicon-open"></span>
                                 Hochladen
