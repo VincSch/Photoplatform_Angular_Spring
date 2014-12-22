@@ -94,6 +94,15 @@ public class ImageSearchManagerImpl extends DAOReferenceCollector implements Ima
      * {@inheritDoc}
      */
     @Override
+    public Page<Image> getAll() {
+        QueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
+        return executeNativeSearchQuery(queryBuilder);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Page<Image> searchByNameAndDescription(String searchData) {
         //this example for exact value!
         //QueryBuilder queryBuilder = QueryBuilders.multiMatchQuery(searchData, "name", "description");

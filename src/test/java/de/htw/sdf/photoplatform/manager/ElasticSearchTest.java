@@ -20,6 +20,7 @@ import java.util.List;
  * @author Sergej Meister.
  */
 public class ElasticSearchTest extends BaseImageTester {
+
     //Test image 1
     private static final String OCEANBEACH_IMAGE_NAME = "OceanBeach";
     private static final String OCEANBEACH_IMAGE_DESCRIPTION = "Natur,Ocean,Beach";
@@ -157,6 +158,12 @@ public class ElasticSearchTest extends BaseImageTester {
 
         images = imageSearchManager.searchByNameAndDescription("Famil");
         Assert.assertTrue(images.getTotalElements() == 1);
+    }
+
+    @Test
+    public void testGetAll() {
+        Page<Image> images = imageSearchManager.getAll();
+        Assert.assertTrue(images.getTotalElements() == 4);
     }
 
     @After

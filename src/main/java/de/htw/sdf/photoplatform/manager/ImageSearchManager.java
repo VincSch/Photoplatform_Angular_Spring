@@ -6,12 +6,11 @@ import org.springframework.data.domain.Page;
 /**
  * Search engine for image data.
  * <p/>
- * Use with spring data elasticsearch.
+ * Use with spring data elasticSearch.
  *
  * @author Sergej Meister
  */
 public interface ImageSearchManager {
-
 
     /**
      * Init index for all public image's in db.
@@ -20,7 +19,6 @@ public interface ImageSearchManager {
      * The image is public, if it is added to collection, and collection is added to showcase!
      */
     void initIndexes();
-
 
     /**
      * Create search index.
@@ -49,6 +47,14 @@ public interface ImageSearchManager {
      * @return affected image's.
      */
     Page<Image> searchById(String searchId);
+
+
+    /**
+     * Return all images between start and count.
+     *
+     * @return all images.
+     */
+    Page<Image> getAll();
 
     /**
      * Search image by name and/or description.
