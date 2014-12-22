@@ -1,10 +1,7 @@
 package de.htw.sdf.photoplatform.common;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import de.htw.sdf.photoplatform.manager.ImageManager;
+import de.htw.sdf.photoplatform.manager.ImageSearchManager;
 import de.htw.sdf.photoplatform.manager.PhotographerManager;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
@@ -15,6 +12,9 @@ import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
 import de.htw.sdf.photoplatform.repository.ImageDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserImageDAO;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class BaseImageTester extends BaseTester {
     private static final int IMAGE_X_DIMENSION = 1920;
@@ -42,6 +42,9 @@ public abstract class BaseImageTester extends BaseTester {
 
     @Autowired
     protected ImageManager imageManager;
+
+    @Autowired
+    protected ImageSearchManager imageSearchManager;
 
     @BeforeClass
     public static void initTest() {
@@ -80,6 +83,21 @@ public abstract class BaseImageTester extends BaseTester {
         final double price = 10.18;
         image.setPrice(price);
 
+        return image;
+    }
+
+    /**
+     * Create default image by name, escription and path.
+     *
+     * @param name
+     * @param description
+     * @param path
+     * @return
+     */
+    protected Image createDefaultImage(final String name, final String description, final String path) {
+        Image image = initDefaultImage(name, Boolean.TRUE, Boolean.TRUE, path);
+        image.setDescription(description);
+        imageDAO.create(image);
         return image;
     }
 

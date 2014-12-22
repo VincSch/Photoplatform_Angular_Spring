@@ -6,14 +6,14 @@
 
 package de.htw.sdf.photoplatform.manager;
 
-import java.util.List;
-
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+
+import java.util.List;
 
 /**
  * Interface defining business methods for collections.
@@ -134,6 +134,7 @@ public interface PhotographerManager {
      * Find collection by collection and user id.
      * Find all images by image and user id.
      * add images to collection.
+     * create search index(elasticsearch).
      *
      * @param userId collection owner.
      * @param collectionId affected collection id.

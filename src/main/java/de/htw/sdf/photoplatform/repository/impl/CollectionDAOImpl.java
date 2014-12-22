@@ -6,19 +6,17 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
-
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.repository.CollectionDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Repository methods for image collection.
@@ -108,6 +106,21 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
      */
     @Override
     @SuppressWarnings("unchecked")
+    public Set<CollectionImage> findCollectionImagesBy(Boolean isPublic) {
+        StringBuilder queryBuilder = initCollectionAndImagesSelect();
+        queryBuilder.append("WHERE collection.isPublic = :isPublic ");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("isPublic", isPublic);
+
+        Collection result = (Collection) query.getSingleResult();
+        return result.getCollectionImages();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
     public Set<CollectionImage> findCollectionImagesBy(Long userId, Long collectionId, List<Long> imageIds) {
         StringBuilder queryBuilder = initCollectionAndImagesSelect();
         queryBuilder.append("WHERE collection.id = :collectionId ");
@@ -128,7 +141,7 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
     @Override
     @SuppressWarnings("unchecked")
     public Set<CollectionImage> findCollectionImagesBy(Long collectionId) {
-        Query query = initCollectionImagesQuery (collectionId);
+        Query query = initCollectionImagesQuery(collectionId);
         Collection result = (Collection) query.getSingleResult();
         return result.getCollectionImages();
     }
@@ -139,14 +152,14 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
     @Override
     @SuppressWarnings("unchecked")
     public Set<CollectionImage> findCollectionImagesBy(Long collectionId, int start, int count) {
-        Query query = initCollectionImagesQuery (collectionId);
+        Query query = initCollectionImagesQuery(collectionId);
         query.setFirstResult(start);
         query.setMaxResults(count);
         Collection result = (Collection) query.getSingleResult();
         return result.getCollectionImages();
     }
 
-    private Query initCollectionImagesQuery (Long collectionId){
+    private Query initCollectionImagesQuery(Long collectionId) {
         StringBuilder queryBuilder = initCollectionAndImagesSelect();
         queryBuilder.append("WHERE collection.id = :collectionId ");
         Query query = createQuery(queryBuilder.toString());

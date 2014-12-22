@@ -3,6 +3,7 @@
 .settings/
 .project
 
+upload/
 target/
 node_modules/
 photoplatform-webservice-angular.iml

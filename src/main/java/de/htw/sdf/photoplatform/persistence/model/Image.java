@@ -6,7 +6,12 @@
 
 package de.htw.sdf.photoplatform.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.htw.sdf.photoplatform.persistence.AbstractBaseAuditEntity;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,12 +25,15 @@ import java.util.List;
  */
 @Entity
 @Table(name = "RES_IMAGE")
+@Document(indexName = "image", replicas = 0, shards = 1, indexStoreType = "memory")
 public class Image extends AbstractBaseAuditEntity {
     private static final long serialVersionUID = 5117200999390055688L;
 
+    @Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
     @Column(name = "NAME")
     private String name;
 
+    @Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
     @Column(name = "DESCRIPTION")
     private String description;
 
@@ -56,6 +64,7 @@ public class Image extends AbstractBaseAuditEntity {
     @Column(name = "METADATA", columnDefinition = "TEXT")
     private String metaData;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "image")
     private List<CollectionImage> collectionImages;
 
@@ -221,8 +230,8 @@ public class Image extends AbstractBaseAuditEntity {
     @Override
     public String toString() {
         return "Image{" + "name='" + name + '\'' + ", path='" + path + '\''
-            + ", isPublic=" + isPublic + ", enabled=" + enabled
-            + ", price=" + price
-            + '}';
+                + ", isPublic=" + isPublic + ", enabled=" + enabled
+                + ", price=" + price
+                + '}';
     }
 }

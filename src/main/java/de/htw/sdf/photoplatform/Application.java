@@ -10,11 +10,11 @@ import de.htw.sdf.photoplatform.security.RequestLoggerInterceptor;
 import org.apache.catalina.connector.Connector;
 import org.apache.coyote.http11.Http11NioProtocol;
 import org.apache.log4j.Logger;
+import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.MultiPartConfigFactory;
-import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +22,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -106,7 +107,9 @@ public class Application extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * @return
+     * Create MultipartConfigElement and returns MultipartConfigElement.
+     *
+     * @return MultipartConfigElement.
      */
     @Bean
     public MultipartConfigElement multipartConfigElement() {
@@ -121,6 +124,16 @@ public class Application extends WebMvcConfigurerAdapter {
         TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
         tomcat.addAdditionalTomcatConnectors(createSslConnector());
         return tomcat;
+    }
+
+    /**
+     * Init elasticsearch client and returns ElasticsearchTemplate.
+     *
+     * @return default ElasticsearchTemplate
+     */
+    @Bean
+    public ElasticsearchTemplate elasticSearchTemplate() {
+        return new ElasticsearchTemplate(nodeBuilder().local(true).node().client());
     }
 
     private Connector createSslConnector() {

@@ -3,6 +3,17 @@
  */
 package de.htw.sdf.photoplatform.webservice;
 
+import de.htw.sdf.photoplatform.common.BaseAPITester;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserImage;
+import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -14,19 +25,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.http.MediaType;
-
-import de.htw.sdf.photoplatform.common.BaseAPITester;
-import de.htw.sdf.photoplatform.persistence.model.Collection;
-import de.htw.sdf.photoplatform.persistence.model.Image;
-import de.htw.sdf.photoplatform.persistence.model.User;
-import de.htw.sdf.photoplatform.persistence.model.UserImage;
-import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 
 /**
  * Tests for users services.
@@ -200,6 +198,7 @@ public class PhotographerControllerTest extends BaseAPITester {
         String firstImageName = "myFirstImage";
         String firstImagePath = "store/" + firstImageName;
         Image firstImage = initDefaultImage(firstImageName, Boolean.FALSE, Boolean.TRUE, firstImagePath);
+        //firstImage.setDescription("BLA");
         imagesToCreate.add(firstImage);
         List<UserImage> createdUserImages = photographerManager.createPhotographImage(photograph, imagesToCreate);
         Assert.assertTrue(createdUserImages.size() == 1);
@@ -215,7 +214,7 @@ public class PhotographerControllerTest extends BaseAPITester {
                 status().isOk());
 
         //Delete Image From Collection
-        String deleteUrl =ENDPOINT_DELETE_IMAGE.replace("{collectionId}",String.valueOf(validCollectionId))
+        String deleteUrl = ENDPOINT_DELETE_IMAGE.replace("{collectionId}", String.valueOf(validCollectionId))
                 .replace("{imageId}",validImageId.toString()) ;
 
         mockMvc.perform(
