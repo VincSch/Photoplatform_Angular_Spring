@@ -50,13 +50,13 @@ public interface CollectionDAO extends GenericDAO<Collection> {
      */
     List<Collection> findCollectionsByUser(final long userId, int start, int count, Boolean isPublic);
 
-    /**
-     * Returns list of all public collection's with their images.
-     *
-     * @param isPublic if set filter by public
-     * @return list of collection with images.
-     */
-    Set<CollectionImage> findCollectionImagesBy(Boolean isPublic);
+//    /**
+//     * Returns list of all public collection's with their images.
+//     *
+//     * @param isPublic if set filter by public
+//     * @return list of collection with images.
+//     */
+//    Set<CollectionImage> findCollectionImagesBy(Boolean isPublic);
 
     /**
      * Returns set of collection images.

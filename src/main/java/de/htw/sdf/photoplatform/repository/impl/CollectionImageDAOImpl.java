@@ -6,15 +6,15 @@
 
 package de.htw.sdf.photoplatform.repository.impl;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
-
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * repository methods for relation between collection and image.
@@ -50,6 +50,28 @@ public class CollectionImageDAOImpl extends GenericDAOImpl<CollectionImage>
         }catch (NoResultException nre){
             return null;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<CollectionImage> findCollectionImagesBy(Boolean isCollectionPublic) {
+        StringBuilder queryBuilder = initCollectionAndImagesSelect();
+        queryBuilder.append("WHERE collection.isPublic = :isPublic ");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("isPublic", isCollectionPublic);
+
+        return (List<CollectionImage>) query.getResultList();
+    }
+
+    private StringBuilder initCollectionAndImagesSelect() {
+        StringBuilder queryBuilder = new StringBuilder(
+                "SELECT DISTINCT(collectionImage) FROM CollectionImage collectionImage ");
+        queryBuilder.append("LEFT JOIN FETCH collectionImage.collection collection ");
+        queryBuilder.append("LEFT JOIN FETCH collectionImage.image image ");
+        return queryBuilder;
     }
 
     private StringBuilder initSelect() {

@@ -16,7 +16,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * business methods for search images.
@@ -31,10 +31,14 @@ public class ImageSearchManagerImpl extends DAOReferenceCollector implements Ima
      */
     @Override
     public void initIndexes() {
-        Set<CollectionImage> collectionImages = collectionDAO.findCollectionImagesBy(Boolean.TRUE);
+        List<CollectionImage> collectionImages = collectionImageDAO.findCollectionImagesBy(Boolean.TRUE);
         initIndexTypeIfNotExist();
         for (CollectionImage collectionImage : collectionImages) {
-            initIndex(collectionImage.getImage());
+            if (collectionImage.getCollection().isPublic()) {
+                //index only image's, which are added to collection,
+                // and collection is added to showcase!
+                initIndex(collectionImage.getImage());
+            }
         }
     }
 
@@ -83,9 +87,7 @@ public class ImageSearchManagerImpl extends DAOReferenceCollector implements Ima
     @Override
     public Page<Image> searchById(String searchId) {
         QueryBuilder queryBuilder = QueryBuilders.matchQuery("id", searchId);
-        SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(queryBuilder).build();
-        Page<Image> searchResult = elasticSearchTemplate.queryForPage(searchQuery, Image.class);
-        return searchResult;
+        return executeNativeSearchQuery(queryBuilder);
     }
 
     /**
@@ -93,9 +95,16 @@ public class ImageSearchManagerImpl extends DAOReferenceCollector implements Ima
      */
     @Override
     public Page<Image> searchByNameAndDescription(String searchData) {
-        QueryBuilder queryBuilder = QueryBuilders.multiMatchQuery(searchData, "name", "description");
+        //this example for exact value!
+        //QueryBuilder queryBuilder = QueryBuilders.multiMatchQuery(searchData, "name", "description");
+
+        //this is an example for like value!
+        QueryBuilder queryBuilder = QueryBuilders.fuzzyLikeThisQuery("name", "description").likeText(searchData);
+        return executeNativeSearchQuery(queryBuilder);
+    }
+
+    private Page<Image> executeNativeSearchQuery(QueryBuilder queryBuilder) {
         SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(queryBuilder).build();
-        Page<Image> searchResult = elasticSearchTemplate.queryForPage(searchQuery, Image.class);
-        return searchResult;
+        return elasticSearchTemplate.queryForPage(searchQuery, Image.class);
     }
 }

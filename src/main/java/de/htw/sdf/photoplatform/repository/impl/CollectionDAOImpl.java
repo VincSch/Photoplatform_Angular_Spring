@@ -58,7 +58,8 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
     @Override
     @SuppressWarnings("unchecked")
     public Collection findByUserAndCollectionId(final long userId, final long collectionId) {
-        StringBuilder queryBuilder = initCollectionDataSelect();
+        //StringBuilder queryBuilder = initCollectionDataSelect();
+        StringBuilder queryBuilder = initCollectionAndImagesSelect();
         queryBuilder.append("WHERE owner.id = :userId AND collection.id = :collectionId");
         Query query = createQuery(queryBuilder.toString());
         query.setParameter("userId", userId);
@@ -101,20 +102,20 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
         return (List<Collection>) query.getResultList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public Set<CollectionImage> findCollectionImagesBy(Boolean isPublic) {
-        StringBuilder queryBuilder = initCollectionAndImagesSelect();
-        queryBuilder.append("WHERE collection.isPublic = :isPublic ");
-        Query query = createQuery(queryBuilder.toString());
-        query.setParameter("isPublic", isPublic);
-
-        Collection result = (Collection) query.getSingleResult();
-        return result.getCollectionImages();
-    }
+//    /**
+//     * {@inheritDoc}
+//     */
+//    @Override
+//    @SuppressWarnings("unchecked")
+//    public Set<CollectionImage> findCollectionImagesBy(Boolean isPublic) {
+//        StringBuilder queryBuilder = initCollectionAndImagesSelect();
+//        queryBuilder.append("WHERE collection.isPublic = :isPublic ");
+//        Query query = createQuery(queryBuilder.toString());
+//        query.setParameter("isPublic", isPublic);
+//
+//        Collection result = (Collection) query.getSingleResult();
+//        return result.getCollectionImages();
+//    }
 
     /**
      * {@inheritDoc}
@@ -190,11 +191,11 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
         return queryBuilder;
     }
 
-    private StringBuilder initCollectionDataSelect() {
-        StringBuilder queryBuilder = new StringBuilder(
-                "SELECT DISTINCT(collection) FROM Collection collection ");
-        queryBuilder.append("LEFT JOIN FETCH collection.user owner ");
-        queryBuilder.append("LEFT JOIN FETCH collection.collectionImages collectionImages ");
-        return queryBuilder;
-    }
+//    private StringBuilder initCollectionDataSelect() {
+//        StringBuilder queryBuilder = new StringBuilder(
+//                "SELECT DISTINCT(collection) FROM Collection collection ");
+//        queryBuilder.append("LEFT JOIN FETCH collection.user owner ");
+//        queryBuilder.append("LEFT JOIN FETCH collection.collectionImages collectionImages ");
+//        return queryBuilder;
+//    }
 }

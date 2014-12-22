@@ -14,9 +14,10 @@ public interface ImageSearchManager {
 
 
     /**
-     * Init index for all image's in db.
+     * Init index for all public image's in db.
      * <p/>
      * Indexes will be used for full-text search.
+     * The image is public, if it is added to collection, and collection is added to showcase!
      */
     void initIndexes();
 
