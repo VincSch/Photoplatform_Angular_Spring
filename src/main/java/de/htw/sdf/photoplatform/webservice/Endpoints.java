@@ -35,6 +35,17 @@ public final class Endpoints {
     /**
      * Endpoints for users.
      */
+
+    /**
+     * Endpoints to search images as guest.
+     */
+    //public static final String GUEST_IMAGE_SEARCH = API_PREFIX + "/_search";
+
+    /**
+     * Endpoints to search images as guest.
+     */
+    public static final String IMAGE_SEARCH = "/images/_search";
+
     /**
      * USER_LOGIN.
      */

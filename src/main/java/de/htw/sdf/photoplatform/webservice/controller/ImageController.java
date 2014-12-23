@@ -6,18 +6,28 @@ import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifReader;
+import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.manager.HashManager;
 import de.htw.sdf.photoplatform.manager.ImageManager;
+import de.htw.sdf.photoplatform.manager.ImageSearchManager;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
+import de.htw.sdf.photoplatform.webservice.Endpoints;
+import de.htw.sdf.photoplatform.webservice.dto.ImageData;
+import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
 import org.h2.store.fs.FileUtils;
 import org.imgscalr.Scalr;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
@@ -30,6 +40,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * Created by patrick on 28.11.14.
@@ -45,10 +56,11 @@ public class ImageController extends BaseAPIController {
     private static final int SMALL_THUMBNAIL_HEIGHT = 250;
     private static final int SMALL_THUMBNAIL_WIDTH = 250;
     private static final String SMALL_THUMBNAIL_NAME = "_thumbnail_small";
+    //Search params.
+    private static final String SEARCH_PARAM_ALL = "*";
     private static String PREFIX = "upload/";
     private static String UPLOAD_THUMB_PREFIX = null;
     private static String THUMB_PREFIX = "/img/upload/";
-
     @Autowired
     private ServletContext servletContext;
 
@@ -59,11 +71,36 @@ public class ImageController extends BaseAPIController {
     private UserManager userManager;
 
     @Resource
+    private ImageSearchManager imageSearchManager;
+
+    @Resource
     private HashManager hashManager;
 
     @PostConstruct
     public void initIt() throws Exception {
-        UPLOAD_THUMB_PREFIX = servletContext.getRealPath("/") + "/img/upload/";
+        UPLOAD_THUMB_PREFIX = servletContext.getRealPath("/") + THUMB_PREFIX;
+    }
+
+    /**
+     * Returns list of founded images.
+     * <p/>
+     * Search images in elasticsearch context.
+     */
+    @RequestMapping(value = Endpoints.IMAGE_SEARCH, method = RequestMethod.GET)
+    @ResponseBody
+    public List<ImageData> searchImages(@RequestParam("searchData") String searchData)
+            throws IOException, AbstractBaseException {
+        User authenticatedUser = getAuthenticatedUser();
+        Page<Image> foundedImages = null;
+        switch (searchData) {
+            case SEARCH_PARAM_ALL:
+                foundedImages = imageSearchManager.getAll();
+                break;
+            default:
+                foundedImages = imageSearchManager.searchByNameAndDescription(searchData);
+        }
+
+        return ResourceUtility.convertToImageData(foundedImages);
     }
 
     //    @RequestMapping(value = "/image/{name}", method = RequestMethod.GET)
@@ -86,8 +123,8 @@ public class ImageController extends BaseAPIController {
 
     @RequestMapping(value = "/photographer/upload", method = RequestMethod.POST)
     public
-    @ResponseBody String handleImageUpload(
-        @RequestParam("files") MultipartFile[] files
+    @ResponseBody
+    String handleImageUpload(@RequestParam("files") MultipartFile[] files
     ) {
 
         User user = this.getAuthenticatedUser();

@@ -5,16 +5,9 @@
         <div class="page-header">
             <h2>Willkommen {{user.username}}</h2>
         </div>
-        <div class="input-group input-group" style="width:40%">
-            <input type="text" class="form-control"
-                   placeholder="Natur, Wasser ...">
-                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><span
-                                    class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-            </span>
-        </div>
+        <div class="row" ng-controller="ImageSearchCtrl" ng-include
+             src="'/views/partials/home/imageSearchBar.html'"></div>
+
         <div class="row">
             <div class="col-md-12">
             </div>
@@ -25,23 +18,20 @@
                 <h3>Unsere Empfehlung</h3>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-3">
-                <img src="http://placehold.it/1024x600" class="img-responsive">
 
-                <p class="text-center">Fotograf</p>
-            </div>
-            <div class="col-xs-12 col-md-3">
-                <img src="http://placehold.it/1024x600" class="img-responsive">
-
-                <p class="text-center">Fotograf</p>
-            </div>
-            <div class="col-xs-12 col-md-3">
-                <img src="http://placehold.it/1024x600" class="img-responsive">
-
-                <p class="text-center">Fotograf</p>
+        <!-- Images-->
+        <div class="row" ng-controller="ImageSearchCtrl" ng-init="searchAllImages()">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3" ng-repeat="image in images">
+                        <div class="row" ng-include src="'/views/partials/home/customerImage.html'"></div>
+                    </div>
+                </div>
             </div>
         </div>
+
+
+        <!-- My Images-->
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <hr>

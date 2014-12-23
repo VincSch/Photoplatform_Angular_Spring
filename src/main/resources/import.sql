@@ -96,13 +96,13 @@ INSERT INTO RES_IMAGE(ID, CREATED_AT, CREATED_BY, UPDATED_AT, UPDATED_BY, DESCRI
 
 -- image collections created by photographer.
 
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('1','6', 'Natur pur!','Lorem ipsum dolor sit amet.');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('2','5', 'Irgendwas!','Lorem ipsum dolor sit amet.');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('3','4', 'Mal was Anderes','Lorem ipsum dolor sit amet.');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('4','5', 'Schon wieder eine Sammlung','Lorem ipsum dolor sit amet.');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('5','6', 'Paar Bilder','Lorem ipsum dolor sit amet.');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('6','3', 'Gebierge','Gebirge');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION) VALUES ('7','3', 'Universum','Universum,Planet,Erde');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('1','6', 'Natur pur!','Lorem ipsum dolor sit amet.','false');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('2','5', 'Irgendwas!','Lorem ipsum dolor sit amet.','false');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('3','4', 'Mal was Anderes','Lorem ipsum dolor sit amet.','false');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('4','5', 'Schon wieder eine Sammlung','Lorem ipsum dolor sit amet.','false');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('5','6', 'Paar Bilder','Lorem ipsum dolor sit amet.','false');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('6','3', 'Gebierge','Gebirge','true');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('7','3', 'Universum','Universum,Planet,Erde','false');
 
 
 -- images uploaded by photographer. None of them have been bought yet

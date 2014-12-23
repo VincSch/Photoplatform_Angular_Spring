@@ -6,6 +6,7 @@
 
 package de.htw.sdf.photoplatform;
 
+import de.htw.sdf.photoplatform.manager.ImageSearchManager;
 import de.htw.sdf.photoplatform.security.RequestLoggerInterceptor;
 import org.apache.catalina.connector.Connector;
 import org.apache.coyote.http11.Http11NioProtocol;
@@ -58,6 +59,11 @@ public class Application extends WebMvcConfigurerAdapter {
      */
     public static void main(final String[] args) {
         context = SpringApplication.run(Application.class);
+        //init elastic search indexes, for all images in db.
+        //I know, that is no a good idea, but for study project is ok!
+        //we don't have a lot of images!
+        ImageSearchManager imageSearchManager = context.getBean(ImageSearchManager.class);
+        imageSearchManager.initIndexes();
     }
 
     /**
@@ -107,9 +113,8 @@ public class Application extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * Create MultipartConfigElement and returns MultipartConfigElement.
-     *
-     * @return MultipartConfigElement.
+     * Create MultipartConfigElement.
+     * @return
      */
     @Bean
     public MultipartConfigElement multipartConfigElement() {

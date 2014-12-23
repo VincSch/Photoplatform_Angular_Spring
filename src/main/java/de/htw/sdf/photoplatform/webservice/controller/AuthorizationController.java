@@ -68,6 +68,11 @@ public class AuthorizationController {
      */
     public User getAuthenticatedUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (User) authentication.getPrincipal();
+        if (authentication.getPrincipal() instanceof User) {
+            return (User) authentication.getPrincipal();
+        }
+
+        //Anonymous user.
+        return null;
     }
 }

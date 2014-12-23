@@ -63,5 +63,15 @@ angular.module('photoplatform')
                 });
             };
 
+            /**
+             * Search images.
+             *
+             * @param searchData
+             * @returns {HttpPromise}
+             */
+            imageService.searchImages = function (searchData) {
+                return $http.get('api/images/_search', {params: {'searchData': searchData}});
+            };
+
             return imageService;
         }]);

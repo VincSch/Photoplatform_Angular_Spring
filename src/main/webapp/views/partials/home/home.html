@@ -19,16 +19,9 @@
 
     <p>Auf dieser Seite können Sie Bilder kaufen und verkaufen.</p>
 
-    <p><a href="#/register" class="btn btn-primary btn-large">Werde
-        Mitglied!</a></p>
+    <p><a href="#/register" class="btn btn-primary btn-large">Werde Mitglied!</a></p>
     <br>
 
-    <div class="input-group input-group" style="width:40%">
-        <input type="text" class="form-control" placeholder="Natur, Wasser ...">
-         <span class="input-group-btn">
-            <button class="btn btn-default" type="button"><span
-                    class="glyphicon glyphicon-search"></span>
-            </button>
-        </span>
-    </div>
+    <div class="row" ng-controller="ImageSearchCtrl" ng-include src="'/views/partials/home/imageSearchBar.html'"></div>
 </div>
+
