@@ -1,5 +1,3 @@
-var photoplatformControllers = angular.module('photoplatformControllers', []);
-
 /**
  * Authentication Controller.
  * Handles authentication, registering, forgot password.
