@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-10" ng-controller="PhotographerCtrl" ng-init="getShowcase()">
+        <div class="page-header">
+            <h2>USERNAME Showcase</h2>
+
+            <p>Folgende Sammlungen und Bilder bietet USERNAME zum Kauf an.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4" ng-repeat="collection in showcase">
+                        <div class="thumbnail" id="collection-{{collection.id}}" ng-init="status = {editing : false }">
+                            <a href="/profile/photograph/collection/{{collection.id}}/{{collection.name}}">
+                                <img src="http://placehold.it/1024x600" class="img-responsive">
+                            </a>
+
+                            <div class="caption">
+                                <h3><a href="/profile/photograph/collection/{{collection.id}}/{{collection.name}}">{{collection.name}}</a>
+                                </h3>
+
+                                <p>{{collection.description}}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

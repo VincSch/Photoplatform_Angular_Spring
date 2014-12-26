@@ -9,15 +9,19 @@ import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.NotFoundException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
+import de.htw.sdf.photoplatform.manager.PhotographerManager;
 import de.htw.sdf.photoplatform.manager.UserManager;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.PhotographerData;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.BecomePhotographer;
+import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 import de.htw.sdf.photoplatform.webservice.dto.UserData;
 import de.htw.sdf.photoplatform.webservice.dto.UserPasswordChange;
+import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
 import de.htw.sdf.photoplatform.webservice.util.UserUtility;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.*;
@@ -52,6 +56,9 @@ public class UserController extends BaseAPIController {
     @Resource
     @Qualifier(value = "myAuthManager")
     private AuthenticationManager authenticationManager;
+
+    @Resource
+    private PhotographerManager photographerManager;
 
     /**
      * GET list of enabled users between start an count.
@@ -331,5 +338,21 @@ public class UserController extends BaseAPIController {
         authenticatedUser.setSecToken(TokenUtils.createToken(authenticatedUser));
 
         return new UserData(authenticatedUser);
+    }
+
+    /**
+     * Returns the showcase as a list of collections from specified user.
+     */
+    @RequestMapping(value = Endpoints.SHOWCASE, method = RequestMethod.GET)
+    @ResponseBody
+    public List<CollectionData> getShowcaseFrom(@RequestParam(required = false, defaultValue = "-1") int start,
+                                            @RequestParam(required = false, defaultValue = "-1") int count,
+                                            @RequestParam(required = true) String requestUserId)
+            throws IOException, AbstractBaseException {
+
+        User user = findUserById(requestUserId);
+        List<Collection> collections = photographerManager.getShowcaseByUser(user.getId(), start, count);
+
+        return ResourceUtility.convertToCollectionData(collections);
     }
 }

@@ -28,6 +28,9 @@ photoplatform.config([
         }).when('/login', {
             templateUrl: '/views/partials/profile/login.html',
             controller: 'AuthCtrl'
+        }).when('/showcase', {
+            templateUrl: '/views/partials/home/showcase.html',
+            controller: ''
         }).when('/profile/password/reset', {
             templateUrl: '/views/partials/home/passwordreset.html',
             controller: 'AuthCtrl'
