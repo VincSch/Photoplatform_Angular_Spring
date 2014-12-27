@@ -27,14 +27,19 @@ import java.util.List;
 @Table(name = "RES_IMAGE")
 @Document(indexName = "image", replicas = 0, shards = 1, indexStoreType = "memory")
 public class Image extends AbstractBaseAuditEntity {
+    public static final String COLUMN_NAME = "NAME";
+    public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
+    /**
+     *
+     */
     private static final long serialVersionUID = 5117200999390055688L;
-
     @Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
-    @Column(name = "NAME")
+    //@Column(name = "NAME")
+    @Column(name = COLUMN_NAME)
     private String name;
 
     @Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
-    @Column(name = "DESCRIPTION")
+    @Column(name = COLUMN_DESCRIPTION)
     private String description;
 
     @Column(name = "IS_PUBLIC")

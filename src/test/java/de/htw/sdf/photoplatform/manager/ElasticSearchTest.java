@@ -27,6 +27,7 @@ public class ElasticSearchTest extends BaseImageTester {
     //Test image 2
     private static final String OCEANSTORM_IMAGE_NAME = "OceanStorm";
     private static final String OCEANSTORM_IMAGE_DESCRIPTION = "Natur,Ocean";
+
     //Test image 3
     private static final String MONTAIN_IMAGE_NAME = "BergNebel";
     private static final String MONTAINL_IMAGE_DESCRIPTION = "Natur,Berg,Nebel";
@@ -130,7 +131,7 @@ public class ElasticSearchTest extends BaseImageTester {
     @Test
     public void testSearchByNameAndDescription() {
         Page<Image> images = imageSearchManager.searchByNameAndDescription("");
-        Assert.assertTrue(images.getTotalElements() == 0);
+        Assert.assertTrue(images.getTotalElements() == 4);
 
         images = imageSearchManager.searchByNameAndDescription("OceanBeach");
         Assert.assertTrue(images.getTotalElements() == 1);
@@ -158,6 +159,15 @@ public class ElasticSearchTest extends BaseImageTester {
 
         images = imageSearchManager.searchByNameAndDescription("Famil");
         Assert.assertTrue(images.getTotalElements() == 1);
+
+        images = imageSearchManager.searchByNameAndDescription("Storm");
+        Assert.assertTrue(images.getTotalElements() == 1);
+        found = images.getContent().get(0);
+        Assert.assertTrue(found.getName().equals(OCEANSTORM_IMAGE_NAME));
+        Assert.assertTrue(found.getDescription().equals(OCEANSTORM_IMAGE_DESCRIPTION));
+
+        images = imageSearchManager.searchByNameAndDescription("O");
+        Assert.assertTrue(images.getTotalElements() == 2);
     }
 
     @Test

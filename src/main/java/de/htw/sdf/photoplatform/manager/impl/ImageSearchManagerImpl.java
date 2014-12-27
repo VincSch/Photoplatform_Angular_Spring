@@ -51,6 +51,27 @@ public class ImageSearchManagerImpl extends DAOReferenceCollector implements Ima
         initIndex(image);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateIndex(Image image) {
+//        IndexRequest indexRequest = new IndexRequest();
+//        indexRequest.source("NAME", image.getName(),"DESCRIPTION",image.getDescription());
+//        UpdateQuery updateQuery = new UpdateQueryBuilder().withId(image.getId().toString())
+//                .withDoUpsert(true).withClass(Image.class)
+//                .withIndexRequest(indexRequest).build();
+//        //when
+//        elasticSearchTemplate.update(updateQuery);
+
+        //Should be only one image!
+        Page<Image> foundImage = searchById(image.getId().toString());
+        for (Image imageToUpdate : foundImage) {
+            deleteIndex(image);
+            createIndex(image);
+        }
+    }
+
     private void initIndexTypeIfNotExist() {
         if (!elasticSearchTemplate.indexExists(Image.class)) {
             elasticSearchTemplate.createIndex(Image.class);
@@ -104,11 +125,8 @@ public class ImageSearchManagerImpl extends DAOReferenceCollector implements Ima
      */
     @Override
     public Page<Image> searchByNameAndDescription(String searchData) {
-        //this example for exact value!
-        //QueryBuilder queryBuilder = QueryBuilders.multiMatchQuery(searchData, "name", "description");
-
-        //this is an example for like value!
-        QueryBuilder queryBuilder = QueryBuilders.fuzzyLikeThisQuery("name", "description").likeText(searchData);
+        QueryBuilder queryBuilder = QueryBuilders.queryString("*" + searchData + "*").
+                field(Image.COLUMN_NAME.toLowerCase()).field(Image.COLUMN_DESCRIPTION.toLowerCase());
         return executeNativeSearchQuery(queryBuilder);
     }
 

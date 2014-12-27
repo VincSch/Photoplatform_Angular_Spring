@@ -28,6 +28,12 @@ public interface ImageSearchManager {
     void createIndex(Image image);
 
     /**
+     * Update image index data of given image.
+     *
+     * @param image updated image.
+     */
+    void updateIndex(Image image);
+    /**
      * Delete search index.
      *
      * @param image image.
