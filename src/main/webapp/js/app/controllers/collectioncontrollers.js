@@ -126,3 +126,24 @@ photoplatformControllers.controller('ImagesModalCtrl', function ($scope, $rootSc
         $modalInstance.dismiss('cancel');
     };
 });
+
+
+
+/**
+ * Get showcase from specified user
+ */
+photoplatformControllers.controller('ViewShowcaseCtrl', ['$scope', '$routeParams', '$rootScope', '$location', '$http', '$cookieStore', 'CollectionService', '$route',
+    function ($scope, $routeParams, $rootScope, $location, $http, $cookieStore, CollectionService, $route) {
+        /**
+         * Get showcase from specified user
+         */
+        $scope.getShowcaseFrom = function () {
+            var start = 0;
+            var count = 100;
+            var requestUserId = 6;
+            CollectionService.getShowcaseFrom(start, count, requestUserId).success(function (collections) {
+                $scope.showcase = collections;
+            });
+        };
+    }
+]);

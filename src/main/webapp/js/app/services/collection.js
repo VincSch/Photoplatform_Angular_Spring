@@ -48,5 +48,9 @@ angular.module('photoplatform')
 
             };
 
+            collectionService.getShowcaseFrom = function (start, count, requestUserId) {
+                return $http.get('/api/' + 'viewshowcase', {params: {'start': start, 'count': count, 'requestUserId': requestUserId }});
+            };
+
             return collectionService;
         }]);

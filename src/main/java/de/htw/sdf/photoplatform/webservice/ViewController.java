@@ -30,6 +30,7 @@ public class ViewController {
             "/admin/**",
             "/wellcomeuser",
             "/becomePhotographer",
+            "/viewShowcase",
             "/cart"}, method = RequestMethod.GET)
     public String index() {
         return "/index.html";
