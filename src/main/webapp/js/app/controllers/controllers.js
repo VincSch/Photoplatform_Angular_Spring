@@ -87,7 +87,7 @@ photoplatform.controller('ImageSearchCtrl', ['$scope', '$rootScope', 'ImageServi
                 $scope.foundedImagesLength = foundedImages.length;
                 $scope.showSearchResult = true;
                 $scope.showSearchPagination = $scope.foundedImagesLength > $scope.imagesPerPage;
-                if ($scope.foundedImagesLength == 1) {
+                if (foundedImages.length == 1) {
                     $scope.foundedMsg = foundedImages.length + " Bild gefunden!"
                 } else {
                     $scope.foundedMsg = foundedImages.length + " Bilder gefunden!"

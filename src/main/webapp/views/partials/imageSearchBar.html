@@ -1,8 +1,9 @@
 <!-- View - Image search content-->
+<form name="searchForm" class="form" ng-submit="searchImage(searchData)">
 <div class="input-group input-group" style="width:40%">
     <input type="text" class="form-control" ng-model="searchData" placeholder="Natur, Wasser ...">
      <span class="input-group-btn">
-         <button ng-click="searchImage(searchData)" class="btn btn-default" type="button">
+         <button class="btn btn-default" type="submit">
              <span class="glyphicon glyphicon-search"></span>
          </button>
          <button ng-show="showClearButton" ng-click="clear()" class="btn btn-default" type="button">
@@ -29,3 +30,4 @@
         </div>
     </div>
 </div>
+</form>
