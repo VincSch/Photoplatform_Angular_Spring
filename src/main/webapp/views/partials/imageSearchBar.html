@@ -17,8 +17,13 @@
         <h3>Suchergebnisse: {{foundedMsg}}</h3>
     </div>
     <div class="col-md-12">
+        <pagination ng-show="showSearchPagination"
+                    total-items="foundedImagesLength"
+                    items-per-page="foundedImagesPerPage"
+                    ng-model="foundedCurrentPage"
+                    ng-change=""></pagination>
         <div class="row">
-            <div class="col-md-3" ng-repeat="image in foundedImages">
+            <div class="col-md-3" ng-repeat="image in foundedFilterImages">
                 <div class="row" ng-include src="'/views/partials/home/customerImage.html'"></div>
             </div>
         </div>

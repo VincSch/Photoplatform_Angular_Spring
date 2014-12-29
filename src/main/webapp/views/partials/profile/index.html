@@ -19,11 +19,28 @@
             </div>
         </div>
 
-        <!-- Images-->
-        <div class="row" ng-controller="ImageSearchCtrl" ng-init="searchAllImages()">
+        <!-- Images with carousel, not finished!-->
+        <!--
+        <div class="row" ng-controller="ImageSearchCtrl" ng-init="initRecomendationCarousel()">
+            <carousel>
+                    <slide ng-repeat="slideContent in recomendationSlides" active="slideContent.active">
+                        <div class="col-xs-5" ng-repeat="image in slideContent">
+                            <div ng-include src="'/views/partials/home/customerImage.html'"></div>
+                        </div>
+                    </slide>
+            </carousel>
+        </div>
+        -->
+
+        <!--Alte Logic -->
+        <div class="row" ng-controller="ImageSearchCtrl" ng-init="initRecomendationContent()">
             <div class="col-md-12">
+                <pagination total-items="recomendationImagesLength"
+                            items-per-page="imagesPerPage"
+                            ng-model="recomendationCurrentPage"
+                            ng-change=""></pagination>
                 <div class="row">
-                    <div class="col-md-3" ng-repeat="image in images">
+                    <div class="col-md-3" ng-repeat="image in recomendationFilteredImages">
                         <div class="row" ng-include src="'/views/partials/home/customerImage.html'"></div>
                     </div>
                 </div>
