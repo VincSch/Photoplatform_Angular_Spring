@@ -1,6 +1,6 @@
 photoplatformControllers.controller('ImageCtrl',
-    ['$scope', '$rootScope', '$location', '$http', '$cookieStore', '$route', 'UserService', 'ImageService',
-        function ($scope, $rootScope, $location, $http, $cookieStore, $route, UserService, ImageService) {
+    ['$scope', '$rootScope', '$location', '$http', '$cookieStore', '$route', 'UserService', 'ImageService','$modal',
+        function ($scope, $rootScope, $location, $http, $cookieStore, $route, UserService, ImageService, $modal) {
             var user = $cookieStore.get('user');
             //if user is not logged in or logged in redirect to login page
             if (undefined == user || !$rootScope.isLoggedIn()) {
@@ -16,16 +16,22 @@ photoplatformControllers.controller('ImageCtrl',
 
             $scope.uploadImage = function () {
                 var param = $scope.files;
+                $scope.modalInstance = $modal.open({
+                    templateUrl: '/views/partials/profile/photographer/image/uploadIndicator.html',
+                    windowClass: 'upload-dialog'
+                });
+
                 ImageService.upload(param, $rootScope.user)
                     .success(function (message) {
+                        $scope.modalInstance.close();
                         $('#preview').hide();
                         $('#preview').html('');
-                        $('.upload').prop('enabled', false);
-                        $('.upload').prop('disabled', true);
-                        console.log(message);
+                        $('#upload').prop('disabled', true);
+                        $scope.getAllImages();
+                        $rootScope.success = message;
                     })
                     .error(function (e) {
-                        console.log(e);
+                        $scope.errors = e;
                     });
             };
 
@@ -69,4 +75,5 @@ photoplatformControllers.controller('ImageCtrl',
                 })
             };
 
-        }]);
+        }])
+;

@@ -206,7 +206,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         Set<CollectionImage> collectionImages = collectionDAO.findCollectionImagesBy(userId, collectionId, imageIds);
         if (collectionImages.size() != imageIds.size()) {
             throw new RuntimeException(
-                    "The size of image id's is different to size of founded images. This should not happen");
+                    "The size of image id's is different to size of found images. This should not happen");
         }
 
         for (CollectionImage collectionImage : collectionImages) {

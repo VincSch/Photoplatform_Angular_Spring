@@ -14,6 +14,8 @@ import de.htw.sdf.photoplatform.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletContext;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,9 @@ public class DBUtil {
 
     @Autowired
     CollectionImageDAO collectionImageDAO;
+
+    @Autowired
+    private ServletContext servletContext;
 
     /**
      * Insert test data.

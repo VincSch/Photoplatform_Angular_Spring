@@ -4,30 +4,31 @@
     <div class="col-md-10" ng-init="getAllImages()">
         <div class="page-header">
             <h2>Fotoverwaltung</h2>
-
-            <p>Hier befinden sich alle Fotos</p>
         </div>
-        <div class="row">
+        <div class="row" style="border:1px solid #dddddd; padding: 10px;">
             <div class="col-md-12">
                 <form method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-xs-6">
-                            <div class="fileUpload btn btn-primary">
+                            <div class="fileUpload btn btn-primary" id="uploadsearch">
                                 <span class="glyphicon glyphicon-folder-open"></span>
-                                Upload
+                                Durchsuchen
                                 <input class="upload" file-input="files"
                                        type="file"
                                        accept="image/*;capture=camera"
                                        multiple>
                             </div>
-                            <button class="btn btn-primary upload" disabled
+                            <button class="btn btn-primary upload" id="upload" disabled
                                     ng-click="uploadImage()">
                                 <span class="glyphicon glyphicon-open"></span>
                                 Hochladen
                             </button>
                         </div>
                     </div>
-
+                    <br>
+                    <div id="preview" class="col-md-12">
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-md-12">
                             <div id="darg-and-drop-area" class="col-md-6">
@@ -37,22 +38,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="preview" class="col-md-12">
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button id="bottom-upload" disabled
-                                    class="btn btn-primary upload pull-right"
-                                    ng-click="uploadImage()">
-                                <span class="glyphicon glyphicon-open"></span>
-                                Hochladen
-                            </button>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>
+        <br>
         <div class="row" ng-include src="'/views/partials/profile/photographer/imageComponent.html'"></div>
     </div>
 </div>
