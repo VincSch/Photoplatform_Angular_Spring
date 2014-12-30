@@ -11,10 +11,13 @@
                 <div class="row">
                     <div class="col-md-4" ng-repeat="collection in showcase">
                         <div class="thumbnail" id="collection-{{collection.id}}" ng-init="status = {editing : false }">
-                            <img src="http://placehold.it/1024x600" class="img-responsive">
+                            <a href="/profile/photograph/collection/{{collection.id}}/{{collection.name}}">
+                                <img src="http://placehold.it/1024x600" class="img-responsive">
+                            </a>
 
                             <div class="caption">
-                                <h3><a href="/collections/{{collection.id}}">{{collection.name}}</a></h3>
+                                <h3><a href="/profile/photograph/collection/{{collection.id}}/{{collection.name}}">{{collection.name}}</a>
+                                </h3>
 
                                 <p>{{collection.description}}</p>
 

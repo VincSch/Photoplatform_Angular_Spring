@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
@@ -47,6 +48,7 @@ import java.util.List;
  */
 @RestController
 public class ImageController extends BaseAPIController {
+
     private static final int THUMBNAIL_HEIGHT = 1024;
     private static final int THUMBNAIL_WIDTH = 768;
     private static final String THUMBNAIL_NAME = "_thumbnail";
@@ -124,21 +126,22 @@ public class ImageController extends BaseAPIController {
     @RequestMapping(value = "/photographer/upload", method = RequestMethod.POST)
     public
     @ResponseBody
+    String handleImageUpload(
+            @RequestParam("files") MultipartFile[] files
+    @ResponseBody
     String handleImageUpload(@RequestParam("files") MultipartFile[] files
     ) {
 
         User user = this.getAuthenticatedUser();
         if (files.length != 0 &&
-            userManager.isUserPhotographer(user)) {
-            this.createDirectoryStructure();
-
+                userManager.isUserPhotographer(user)) {
+            imageManager.createDirectoryStructure();
             for (MultipartFile file : files) {
                 String type = file.getContentType();
                 if (type.startsWith("image")) {
                     type = type.split("/")[1];
                     try {
-                        Image img = storeImage(file, type);
-                        imageManager.addOwnerToImage(img, user);
+                        imageManager.storeImage(file, type, user);
                     } catch (NoSuchAlgorithmException | IOException e) {
                         log.error(e);
                         return "false";
@@ -150,7 +153,7 @@ public class ImageController extends BaseAPIController {
                 }
             }
         }
-        return "image was uploaded";
+        return messages.getMessage("Image.upload.success");
     }
 
     private void extractExifData(Image img, InputStream fileStream)

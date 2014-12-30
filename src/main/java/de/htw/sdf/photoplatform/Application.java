@@ -6,6 +6,7 @@
 
 package de.htw.sdf.photoplatform;
 
+import de.htw.sdf.photoplatform.common.StartUpUtil;
 import de.htw.sdf.photoplatform.manager.ImageSearchManager;
 import de.htw.sdf.photoplatform.security.RequestLoggerInterceptor;
 import org.apache.catalina.connector.Connector;
@@ -16,6 +17,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.MultiPartConfigFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -59,11 +61,13 @@ public class Application extends WebMvcConfigurerAdapter {
      */
     public static void main(final String[] args) {
         context = SpringApplication.run(Application.class);
+        context.getBean(StartUpUtil.class).cleanUploadDirectories();
         //init elastic search indexes, for all images in db.
         //I know, that is no a good idea, but for study project is ok!
         //we don't have a lot of images!
         ImageSearchManager imageSearchManager = context.getBean(ImageSearchManager.class);
         imageSearchManager.initIndexes();
+        
     }
 
     /**
