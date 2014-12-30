@@ -10,12 +10,16 @@ import de.htw.sdf.photoplatform.persistence.model.PhotographerData;
 import de.htw.sdf.photoplatform.persistence.model.Role;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserRole;
-import de.htw.sdf.photoplatform.repository.*;
+import de.htw.sdf.photoplatform.repository.CollectionDAO;
+import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
+import de.htw.sdf.photoplatform.repository.ImageDAO;
+import de.htw.sdf.photoplatform.repository.RoleDAO;
+import de.htw.sdf.photoplatform.repository.UserDAO;
+import de.htw.sdf.photoplatform.repository.UserRoleDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletContext;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

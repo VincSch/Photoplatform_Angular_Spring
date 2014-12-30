@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
@@ -93,7 +92,7 @@ public class ImageController extends BaseAPIController {
     public List<ImageData> searchImages(@RequestParam("searchData") String searchData)
             throws IOException, AbstractBaseException {
         User authenticatedUser = getAuthenticatedUser();
-        Page<Image> foundedImages = null;
+        Page<Image> foundedImages;
         switch (searchData) {
             case SEARCH_PARAM_ALL:
                 foundedImages = imageSearchManager.getAll();
@@ -126,12 +125,7 @@ public class ImageController extends BaseAPIController {
     @RequestMapping(value = "/photographer/upload", method = RequestMethod.POST)
     public
     @ResponseBody
-    String handleImageUpload(
-            @RequestParam("files") MultipartFile[] files
-    @ResponseBody
-    String handleImageUpload(@RequestParam("files") MultipartFile[] files
-    ) {
-
+    String handleImageUpload(@RequestParam("files") MultipartFile[] files) {
         User user = this.getAuthenticatedUser();
         if (files.length != 0 &&
                 userManager.isUserPhotographer(user)) {
@@ -157,7 +151,7 @@ public class ImageController extends BaseAPIController {
     }
 
     private void extractExifData(Image img, InputStream fileStream)
-        throws IOException, ImageProcessingException {
+            throws IOException, ImageProcessingException {
         BufferedInputStream stream = new BufferedInputStream(fileStream);
         ExifReader exif = new ExifReader();
         Metadata metadata = ImageMetadataReader.readMetadata(stream, true);
@@ -195,13 +189,13 @@ public class ImageController extends BaseAPIController {
     }
 
     private Image storeImage(MultipartFile file, String type)
-        throws NoSuchAlgorithmException, IOException, ImageProcessingException {
+            throws NoSuchAlgorithmException, IOException, ImageProcessingException {
         Image image = new Image();
         image.setName(file.getOriginalFilename());
         imageManager.create(image);
         String path =
-            PREFIX + hashManager.hash(String.valueOf(image.getId())) + "."
-                + type;
+                PREFIX + hashManager.hash(String.valueOf(image.getId())) + "."
+                        + type;
         image.setEnabled(true);
         image.setPath(path);
         image.setMime(type);
@@ -209,7 +203,7 @@ public class ImageController extends BaseAPIController {
         String originalPath = image.getPath();
         path = originalPath.split("/\\./")[0];
         BufferedImage imageBuffer = ImageIO
-            .read(file.getInputStream());
+                .read(file.getInputStream());
         storeToDisk(imageBuffer, path, type);
         processThumbnails(imageBuffer, type, image);
         image = imageManager.update(image);
@@ -218,48 +212,48 @@ public class ImageController extends BaseAPIController {
     }
 
     private void processThumbnails(BufferedImage imgBuffer,
-        String type, Image image) throws IOException, NoSuchAlgorithmException {
+                                   String type, Image image) throws IOException, NoSuchAlgorithmException {
 
         String mobileThumbnailHash = hashManager
-            .hash(String.valueOf(image.getId()) + MOBILE_THUMBNAIL_NAME) + "."
-            + type;
+                .hash(String.valueOf(image.getId()) + MOBILE_THUMBNAIL_NAME) + "."
+                + type;
         image.setMobileThumbPath(THUMB_PREFIX + mobileThumbnailHash);
         String smallThumbnailHash = hashManager
-            .hash(String.valueOf(image.getId()) + SMALL_THUMBNAIL_NAME) + "."
-            + type;
+                .hash(String.valueOf(image.getId()) + SMALL_THUMBNAIL_NAME) + "."
+                + type;
         image.setSmallThumbPath(THUMB_PREFIX + smallThumbnailHash);
         String thumbnailHash =
-            hashManager.hash(String.valueOf(image.getId()) + THUMBNAIL_NAME)
-                + "." + type;
+                hashManager.hash(String.valueOf(image.getId()) + THUMBNAIL_NAME)
+                        + "." + type;
         image.setThumbPath(THUMB_PREFIX + thumbnailHash);
 
         createThumbnail(imgBuffer, UPLOAD_THUMB_PREFIX + thumbnailHash,
-            type,
-            THUMBNAIL_WIDTH,
-            THUMBNAIL_HEIGHT);
+                type,
+                THUMBNAIL_WIDTH,
+                THUMBNAIL_HEIGHT);
         createThumbnail(imgBuffer, UPLOAD_THUMB_PREFIX + mobileThumbnailHash,
-            type,
-            MOBILE_THUMBNAIL_WIDTH,
-            MOBILE_THUMBNAIL_HEIGHT);
+                type,
+                MOBILE_THUMBNAIL_WIDTH,
+                MOBILE_THUMBNAIL_HEIGHT);
         createThumbnail(imgBuffer, UPLOAD_THUMB_PREFIX + smallThumbnailHash,
-            type,
-            SMALL_THUMBNAIL_WIDTH,
-            SMALL_THUMBNAIL_HEIGHT);
+                type,
+                SMALL_THUMBNAIL_WIDTH,
+                SMALL_THUMBNAIL_HEIGHT);
     }
 
     private void createThumbnail(BufferedImage image, String path, String type,
-        int width,
-        int height)
-        throws IOException {
+                                 int width,
+                                 int height)
+            throws IOException {
         BufferedImage thumbnail =
-            Scalr.resize(image, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH,
-                width, height);
+                Scalr.resize(image, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH,
+                        width, height);
         if (!this.storeToDisk(thumbnail, path, type))
             log.warn("Can't write Thumbnail. " + path);
     }
 
     private boolean storeToDisk(BufferedImage img, String path, String type)
-        throws IOException {
+            throws IOException {
         File outputFile = new File(path);
         return ImageIO.write(img, type, outputFile);
     }

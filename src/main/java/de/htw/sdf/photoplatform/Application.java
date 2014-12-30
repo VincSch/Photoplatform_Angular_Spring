@@ -17,7 +17,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.MultiPartConfigFactory;
-import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -67,7 +66,7 @@ public class Application extends WebMvcConfigurerAdapter {
         //we don't have a lot of images!
         ImageSearchManager imageSearchManager = context.getBean(ImageSearchManager.class);
         imageSearchManager.initIndexes();
-        
+
     }
 
     /**

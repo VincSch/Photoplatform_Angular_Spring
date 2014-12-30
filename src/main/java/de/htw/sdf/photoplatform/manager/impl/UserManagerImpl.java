@@ -18,7 +18,6 @@ import de.htw.sdf.photoplatform.persistence.model.UserRole;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
-import org.apache.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

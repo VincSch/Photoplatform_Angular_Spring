@@ -105,6 +105,7 @@ public interface ImageManager {
 
     /**
      * store an file to the filesystem, create appropriate thumbnails and add data base reference
+     *
      * @param file
      * @param type
      * @param user

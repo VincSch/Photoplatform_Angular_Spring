@@ -20,6 +20,11 @@ import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+import org.apache.log4j.Logger;
+import org.h2.store.fs.FileUtils;
+import org.imgscalr.Scalr;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,10 +53,6 @@ import java.util.List;
 public class ImageManagerImpl extends DAOReferenceCollector implements
         ImageManager {
 
-    @Autowired
-    private ImageSearchManager imageSearchManager;
-
-    private final Logger log = Logger.getLogger(this.getClass().getName());
     private static final int THUMBNAIL_HEIGHT = 1024;
     private static final int THUMBNAIL_WIDTH = 768;
     private static final String THUMBNAIL_NAME = "_thumbnail";
@@ -64,10 +65,15 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
     private static String PREFIX = "upload/";
     private static String UPLOAD_THUMB_PREFIX = null;
     private static String THUMB_PREFIX = "/img/upload/";
+    private final Logger log = Logger.getLogger(this.getClass().getName());
     private List<String> importantExifTags = new ArrayList<String>();
+
+    @Autowired
+    private ImageSearchManager imageSearchManager;
 
     @Resource
     private HashManager hashManager;
+
     @Autowired
     private ServletContext servletContext;
 
