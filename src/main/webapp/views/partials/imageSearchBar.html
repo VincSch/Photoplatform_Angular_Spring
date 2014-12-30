@@ -1,5 +1,5 @@
 <!-- View - Image search content-->
-<form name="searchForm" class="form" ng-submit="searchImage(searchData)">
+<form name="searchForm" class="form" ng-controller="ImageSearchCtrl" ng-submit="searchImage(searchData)">
 <div class="input-group input-group" style="width:40%">
     <input type="text" class="form-control" ng-model="searchData" placeholder="Natur, Wasser ...">
      <span class="input-group-btn">
