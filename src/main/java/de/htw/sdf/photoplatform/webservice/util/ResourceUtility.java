@@ -3,12 +3,6 @@
  */
 package de.htw.sdf.photoplatform.webservice.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.stereotype.Component;
-
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
@@ -16,6 +10,12 @@ import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
 import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This is a help class for image controller.
@@ -52,6 +52,22 @@ public class ResourceUtility {
         List<ImageData> result = new ArrayList<>();
         for (UserImage userImage : userImages) {
             ImageData imageData = new ImageData(userImage);
+            result.add(imageData);
+        }
+
+        return result;
+    }
+
+    /**
+     * Convert list of domain object Image to list of transfer objects ImageData.
+     *
+     * @param images list of images.
+     * @return list of image data.
+     */
+    public static List<ImageData> convertToImageData(Page<Image> images) {
+        List<ImageData> result = new ArrayList<>();
+        for (Image image : images) {
+            ImageData imageData = new ImageData(image);
             result.add(imageData);
         }
 

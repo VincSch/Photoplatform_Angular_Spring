@@ -44,6 +44,16 @@ public abstract class AbstractBaseException extends Exception {
      */
     public static final int PARAM_IS_NOT_VALID = 11004;
 
+    /**
+     * Image price is empty.
+     */
+    public static final int IMAGE_PRICE_EMPTY = 21000;
+
+    /**
+     * Image name is empty.
+     */
+    public static final int IMAGE_NAME_EMPTY = 21001;
+
     private static final long serialVersionUID = 1L;
 
     protected final Logger log = Logger.getLogger(this.getClass().getName());

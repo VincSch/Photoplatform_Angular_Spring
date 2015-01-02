@@ -42,7 +42,7 @@ public class Messages {
      *             look like "{0}", "{1,date}", "{2,time}" within a message),
      * @return the message
      */
-    public String getMessage(String code, String ... args) {
+    public String getMessage(String code, String... args) {
         return messageSource.getMessage(code, args, defaultLocale);
     }
 

@@ -6,14 +6,14 @@
 
 package de.htw.sdf.photoplatform.manager;
 
-import java.util.List;
-
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+
+import java.util.List;
 
 /**
  * Interface defining business methods for collections.
@@ -59,7 +59,7 @@ public interface PhotographerManager {
 
     /**
      * Returns exact one with all data.
-     * <p>
+     * <p/>
      * Fetch all data.
      *
      * @param collectionId collection id
@@ -69,18 +69,20 @@ public interface PhotographerManager {
 
     /**
      * Returns list of user's collection.
+     *
      * @param userId collection owner id.
-     * @param start from value
-     * @param count @return list of user's collection
+     * @param start  from value
+     * @param count  @return list of user's collection
      */
     List<Collection> getCollectionByUser(final long userId, int start, int count);
 
 
     /**
      * Return only public collection for specified user id
+     *
      * @param userId the user id
-     * @param start the start
-     * @param count the max
+     * @param start  the start
+     * @param count  the max
      * @return list of collection
      */
     List<Collection> getShowcaseByUser(Long userId, int start, int count);
@@ -89,66 +91,68 @@ public interface PhotographerManager {
      * Create image and set reference to user.
      *
      * @param photograph user with photograph role.
-     * @param image image to create.
+     * @param image      image to create.
      * @return created userImage.
      * @throws ManagerException manager exception.
      */
-    UserImage createPhotographImage(User photograph, Image image) throws ManagerException ;
+    UserImage createPhotographImage(User photograph, Image image) throws ManagerException;
 
     /**
      * Create images and set reference to user.
      *
      * @param photograph user with photograph role.
-     * @param images list of image to create.
+     * @param images     list of image to create.
      * @return list of created userImage.
      * @throws ManagerException manager exception.
      */
-    List<UserImage> createPhotographImage(User photograph, List<Image> images) throws ManagerException ;
+    List<UserImage> createPhotographImage(User photograph, List<Image> images) throws ManagerException;
 
     /**
      * Create collection
-     * @param userId the user id
-     * @param name   the name
+     *
+     * @param userId      the user id
+     * @param name        the name
      * @param description the description
      */
-    Collection createCollection(Long userId, String name, String description) ;
+    Collection createCollection(Long userId, String name, String description);
 
     /**
      * Add List of images to collection.
-     *
+     * <p/>
      * Find collection by collection and user id.
      * Find all images by image and user id.
      * add images to collection.
      *
-     * @param userId collection owner.
+     * @param userId       collection owner.
      * @param collectionId affected collection id.
-     * @param imageId image id
+     * @param imageId      image id
      * @return created collectionImage.
      * @throws ManagerException manager exception.
      */
-    CollectionImage addImageToCollection(Long userId, Long collectionId, Long imageId) throws ManagerException ;
+    CollectionImage addImageToCollection(Long userId, Long collectionId, Long imageId) throws ManagerException;
 
     /**
      * Add List of images to collection.
-     *
+     * <p/>
      * Find collection by collection and user id.
      * Find all images by image and user id.
      * add images to collection.
+     * create search index(elasticsearch).
      *
-     * @param userId collection owner.
+     * @param userId       collection owner.
      * @param collectionId affected collection id.
-     * @param imageIds list of image id's
+     * @param imageIds     list of image id's
      * @return list of created collectionImages.
      * @throws ManagerException manager exception.
      */
-    List<CollectionImage> addImagesToCollection(Long userId, Long collectionId, List<Long> imageIds) throws ManagerException ;
+    List<CollectionImage> addImagesToCollection(Long userId, Long collectionId, List<Long> imageIds) throws ManagerException;
 
     /**
      * Delete one image from collection.
      *
-     * @param userId collection owner.
+     * @param userId       collection owner.
      * @param collectionId affected collection id.
-     * @param imageId deleted collectionImages.
+     * @param imageId      deleted collectionImages.
      * @return true if success deleted, otherwise exception.
      * @throws ManagerException manager exception.
      */
@@ -156,44 +160,48 @@ public interface PhotographerManager {
 
     /**
      * Delete list of images from collection.
-     * @param userId collection owner.
+     *
+     * @param userId       collection owner.
      * @param collectionId affected collection id.
-     * @param imageIds list of deleted collectionImages.
+     * @param imageIds     list of deleted collectionImages.
      * @return true if success deleted, otherwise exception.
      * @throws ManagerException manager exception.
      */
-    Boolean deleteImagesFromCollection(Long userId, Long collectionId, List<Long> imageIds) throws ManagerException ;
+    Boolean deleteImagesFromCollection(Long userId, Long collectionId, List<Long> imageIds) throws ManagerException;
 
     /**
      * Delete collection.
-     *
+     * <p/>
      * If collection include images,
      * than the reference between collection and images will be deleted too!
      *
-     * @param userId collection owner.
+     * @param userId       collection owner.
      * @param collectionId collection id.
      * @return true, if deleted successfully, otherwise exception.
      * @throws ManagerException manager exception.
      */
-    Boolean deleteCollection(Long userId, Long collectionId) throws ManagerException ;
+    Boolean deleteCollection(Long userId, Long collectionId) throws ManagerException;
 
     /**
      * This method add collection to showcase and remove from showcase.
+     * <p/>
+     * By add collection to showcase, create image search index for each image in the collection.
+     * By remove collection form showcase, delete image search index for each image in the collection.
      *
-     * @param userId collection owner.
+     * @param userId       collection owner.
      * @param collectionId collection id.
-     * @param publicValue showcase value.
-     *        true, add to showcase
-     *        false, remove from showcase.
+     * @param publicValue  showcase value.
+     *                     true, add to showcase
+     *                     false, remove from showcase.
      * @return true if ok, otherwise exception.
      * @throws ManagerException manager exception.
      */
-    Boolean updateCollectionsPublicValue(Long userId, Long collectionId,Boolean publicValue) throws ManagerException;
+    Boolean updateCollectionsPublicValue(Long userId, Long collectionId, Boolean publicValue) throws ManagerException;
 
 
     /**
      * Delete photograph image.
-     *
+     * <p/>
      * If the image was bought, than delete only reference.
      * Returns false if only reference was deleted, return true if the image was hard deleted.
      *
@@ -202,7 +210,7 @@ public interface PhotographerManager {
      * @return false if only reference was deleted, return true if the image was hard deleted.
      * @throws ManagerException manager exception.
      */
-    Boolean deleteImage(Long ownerId, Long imageId) throws ManagerException ;
+    Boolean deleteImage(Long ownerId, Long imageId) throws ManagerException;
 
     /**
      * Returns images that are not added to the collection.

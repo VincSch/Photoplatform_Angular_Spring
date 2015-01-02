@@ -5,15 +5,9 @@
  */
 package de.htw.sdf.photoplatform.manager.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
+import de.htw.sdf.photoplatform.manager.ImageSearchManager;
 import de.htw.sdf.photoplatform.manager.PhotographerManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
@@ -21,6 +15,13 @@ import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * business methods for categories.
@@ -32,6 +33,9 @@ import de.htw.sdf.photoplatform.persistence.model.UserImage;
 @Transactional
 public class PhotographerManagerImpl extends DAOReferenceCollector implements
         PhotographerManager {
+
+    @Autowired
+    private ImageSearchManager imageSearchManager;
 
     @Override
     public Collection update(Collection entity) {
@@ -164,11 +168,25 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         }
 
         for (UserImage userImage : imagesToAdd) {
+            if (userImage.getImage().getPrice() == null || userImage.getImage().getPrice() <= 0) {
+                throw new ManagerException(AbstractBaseException.IMAGE_PRICE_EMPTY);
+            }
+
+            if (userImage.getImage().getName() == null || userImage.getImage().getName().isEmpty()) {
+                throw new ManagerException(AbstractBaseException.IMAGE_NAME_EMPTY);
+            }
+
             CollectionImage collectionImage = new CollectionImage();
             collectionImage.setCollection(affectedCollection);
             collectionImage.setImage(userImage.getImage());
             collectionImageDAO.create(collectionImage);
             result.add(collectionImage);
+
+            if (affectedCollection.isPublic()) {
+                //create index for full-text search data!
+                //only for images in public collections.
+                imageSearchManager.createIndex(collectionImage.getImage());
+            }
         }
 
         if (result.size() != imageIds.size()) {
@@ -211,9 +229,23 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
 
         for (CollectionImage collectionImage : collectionImages) {
             collectionImageDAO.delete(collectionImage);
+            //remove image elasticsearch index
+            removeImageSearchIndexIfPublic(collectionImage.getCollection(), collectionImage.getImage());
         }
 
         return true;
+    }
+
+    /**
+     * Delete search index of image, if collection is public.
+     *
+     * @param collection affected collection.
+     * @param image      affected image.
+     */
+    private void removeImageSearchIndexIfPublic(Collection collection, Image image) {
+        if (collection.isPublic()) {
+            imageSearchManager.deleteIndex(image);
+        }
     }
 
     /**
@@ -231,11 +263,11 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         }
 
         //check reference to collection?
-        CollectionImage collectionImage = collectionImageDAO.findBy(ownerId,imageId);
-        if(collectionImage != null) {
+        CollectionImage collectionImage = collectionImageDAO.findBy(ownerId, imageId);
+        if (collectionImage != null) {
             //check thumbnail
-            if(collectionImage.getCollection().getThumbnail() != null &&
-                    collectionImage.getCollection().getThumbnail().getId().equals(imageId)){
+            if (collectionImage.getCollection().getThumbnail() != null &&
+                    collectionImage.getCollection().getThumbnail().getId().equals(imageId)) {
                 //remove this image from collection thumbnail.
                 collectionImage.getCollection().setThumbnail(null);
                 collectionDAO.update(collectionImage.getCollection());
@@ -244,16 +276,16 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             collectionImageDAO.delete(collectionImage);
         }
 
-        if(imagesToDelete.size() > 1){
+        if (imagesToDelete.size() > 1) {
             //The image was bought.
             //remove only reference to photograph.
-            for(UserImage userImage : imagesToDelete){
-                if(userImage.getOwner().getId().equals(ownerId) &&
-                        userImage.getUser().getId().equals(ownerId)){
+            for (UserImage userImage : imagesToDelete) {
+                if (userImage.getOwner().getId().equals(ownerId) &&
+                        userImage.getUser().getId().equals(ownerId)) {
                     userImageDAO.delete(userImage);
                 }
             }
-        }else{
+        } else {
             UserImage userImage = imagesToDelete.get(0);
             imageDAO.delete(userImage.getImage());
             userImageDAO.delete(userImage);
@@ -284,6 +316,8 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             //what should happen with images by deleting a collection.
             //My Solution, delete reference between collection and image, but not the image!
             collectionImageDAO.delete(collectionImage);
+            //remove image elasticsearch index
+            removeImageSearchIndexIfPublic(collectionImage.getCollection(), collectionImage.getImage());
         }
 
         //now we can remove the collection!
@@ -301,6 +335,18 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         Collection collectionToUpdate = getCollection(userId, collectionId);
         collectionToUpdate.setPublic(publicValue);
         collectionDAO.update(collectionToUpdate);
+
+        //remove or add image search index!
+        if (publicValue) {
+            for (CollectionImage collectionImage : collectionToUpdate.getCollectionImages()) {
+                imageSearchManager.createIndex(collectionImage.getImage());
+            }
+        } else {
+            for (CollectionImage collectionImage : collectionToUpdate.getCollectionImages()) {
+                imageSearchManager.deleteIndex(collectionImage.getImage());
+            }
+        }
+
         return true;
     }
 

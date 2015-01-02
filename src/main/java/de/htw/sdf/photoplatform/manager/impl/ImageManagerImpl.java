@@ -15,6 +15,7 @@ import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.HashManager;
 import de.htw.sdf.photoplatform.manager.ImageManager;
+import de.htw.sdf.photoplatform.manager.ImageSearchManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
@@ -52,7 +53,6 @@ import java.util.List;
 public class ImageManagerImpl extends DAOReferenceCollector implements
         ImageManager {
 
-    private final Logger log = Logger.getLogger(this.getClass().getName());
     private static final int THUMBNAIL_HEIGHT = 1024;
     private static final int THUMBNAIL_WIDTH = 768;
     private static final String THUMBNAIL_NAME = "_thumbnail";
@@ -65,10 +65,15 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
     private static String PREFIX = "upload/";
     private static String UPLOAD_THUMB_PREFIX = null;
     private static String THUMB_PREFIX = "/img/upload/";
+    private final Logger log = Logger.getLogger(this.getClass().getName());
     private List<String> importantExifTags = new ArrayList<String>();
+
+    @Autowired
+    private ImageSearchManager imageSearchManager;
 
     @Resource
     private HashManager hashManager;
+
     @Autowired
     private ServletContext servletContext;
 
@@ -147,6 +152,10 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
         imageToUpdate.getImage().setPrice(price);
         imageToUpdate.getImage().setDescription(description);
         imageDAO.update(imageToUpdate.getImage());
+
+        //update image search index.
+        imageSearchManager.updateIndex(imageToUpdate.getImage());
+
         return imageToUpdate.getImage();
     }
 

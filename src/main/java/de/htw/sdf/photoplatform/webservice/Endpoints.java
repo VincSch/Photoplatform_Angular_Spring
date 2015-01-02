@@ -32,9 +32,19 @@ public final class Endpoints {
      */
     public static final String API_PREFIX = "/api";
 
-    //
-    // Endpoints for users.
-    //
+    /**
+     * Endpoints for users.
+     */
+
+    /**
+     * Endpoints to search images as guest.
+     */
+    //public static final String GUEST_IMAGE_SEARCH = API_PREFIX + "/_search";
+
+    /**
+     * Endpoints to search images as guest.
+     */
+    public static final String IMAGE_SEARCH = "/images/_search";
 
     /**
      * USER_LOGIN.
@@ -65,6 +75,10 @@ public final class Endpoints {
      * USERS_UPDATE.
      */
     public static final String USERS_UPDATE = "/users/update";
+    /**
+     * USER_BY_NAME.
+     */
+    public static final String USER_BY_NAME = "/user/{name}";
 
     /**
      * all users between start and count.

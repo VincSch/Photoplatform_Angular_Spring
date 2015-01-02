@@ -6,8 +6,6 @@
 
 package de.htw.sdf.photoplatform.manager.common;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import de.htw.sdf.photoplatform.repository.CategoryDAO;
 import de.htw.sdf.photoplatform.repository.CollectionDAO;
 import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
@@ -16,6 +14,8 @@ import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserImageDAO;
 import de.htw.sdf.photoplatform.repository.UserRoleDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 
 /**
  * @author <a href="mailto:s0541962@htw-berlin.de">Vincent Schwarzer</a>
@@ -45,4 +45,7 @@ public class DAOReferenceCollector {
 
     @Autowired
     protected CollectionImageDAO collectionImageDAO;
+
+    @Autowired
+    protected ElasticsearchTemplate elasticSearchTemplate;
 }

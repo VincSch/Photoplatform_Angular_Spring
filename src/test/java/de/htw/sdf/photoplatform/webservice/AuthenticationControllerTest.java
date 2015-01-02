@@ -11,20 +11,19 @@ import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.webservice.dto.PasswordResetDto;
 import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
 import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
+import static org.hamcrest.Matchers.notNullValue;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Test for user loginAsAdmin register user

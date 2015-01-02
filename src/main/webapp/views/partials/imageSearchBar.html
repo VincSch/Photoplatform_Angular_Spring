@@ -1,0 +1,33 @@
+<!-- View - Image search content-->
+<form name="searchForm" class="form" ng-controller="ImageSearchCtrl" ng-submit="searchImage(searchData)">
+<div class="input-group input-group" style="width:40%">
+    <input type="text" class="form-control" ng-model="searchData" placeholder="Natur, Wasser ...">
+     <span class="input-group-btn">
+         <button class="btn btn-default" type="submit">
+             <span class="glyphicon glyphicon-search"></span>
+         </button>
+         <button ng-show="showClearButton" ng-click="clear()" class="btn btn-default" type="button">
+             <span class="glyphicon glyphicon-remove"></span>
+         </button>
+    </span>
+</div>
+
+<div class="row" ng-show="showSearchResult">
+    <div class="col-xs-12 col-md-12">
+        <hr>
+        <h3>Suchergebnisse: {{foundedMsg}}</h3>
+    </div>
+    <div class="col-md-12">
+        <pagination ng-show="showSearchPagination"
+                    total-items="foundedImagesLength"
+                    items-per-page="foundedImagesPerPage"
+                    ng-model="foundedCurrentPage"
+                    ng-change=""></pagination>
+        <div class="row">
+            <div class="col-md-3" ng-repeat="image in foundedFilterImages">
+                <div class="row" ng-include src="'/views/partials/home/customerImage.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>

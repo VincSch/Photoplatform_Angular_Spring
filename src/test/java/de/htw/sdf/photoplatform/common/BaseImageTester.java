@@ -1,26 +1,29 @@
 package de.htw.sdf.photoplatform.common;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import de.htw.sdf.photoplatform.manager.ImageManager;
+import de.htw.sdf.photoplatform.manager.ImageSearchManager;
 import de.htw.sdf.photoplatform.manager.PhotographerManager;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserImage;
 import de.htw.sdf.photoplatform.repository.CollectionDAO;
 import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
 import de.htw.sdf.photoplatform.repository.ImageDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserImageDAO;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public abstract class BaseImageTester extends BaseTester {
-    private static final int IMAGE_X_DIMENSION = 1920;
-    private static final int IMAGE_Y_DIMENSION = 1080;
-    private static final double IMAGE_X_RESOLUTION = 16;
-    private static final double IMAGE_Y_RESOLUTION = 9;
+//    private static final int IMAGE_X_DIMENSION = 1920;
+//    private static final int IMAGE_Y_DIMENSION = 1080;
+//    private static final double IMAGE_X_RESOLUTION = 16;
+//    private static final double IMAGE_Y_RESOLUTION = 9;
 
     @Autowired
     protected UserDAO userDAO;
@@ -42,6 +45,9 @@ public abstract class BaseImageTester extends BaseTester {
 
     @Autowired
     protected ImageManager imageManager;
+
+    @Autowired
+    protected ImageSearchManager imageSearchManager;
 
     @BeforeClass
     public static void initTest() {
@@ -84,6 +90,21 @@ public abstract class BaseImageTester extends BaseTester {
     }
 
     /**
+     * Create default image by name, description and path.
+     *
+     * @param name image name.
+     * @param description image description.
+     * @param path image path.
+     * @return created image.
+     */
+    protected Image createDefaultImage(final String name, final String description, final String path) {
+        Image image = initDefaultImage(name, Boolean.TRUE, Boolean.TRUE, path);
+        image.setDescription(description);
+        imageDAO.create(image);
+        return image;
+    }
+
+    /**
      * Init simple collection with Sergej as user :).
      *
      * @param name collection name
@@ -115,5 +136,22 @@ public abstract class BaseImageTester extends BaseTester {
         collectionImage.setCollection(collection);
         collectionImage.setImage(image);
         return collectionImage;
+    }
+
+    protected void createUserImage(User user, User owner, List<Image> images) {
+        for (Image image : images) {
+            UserImage userImage = new UserImage();
+            userImage.setOwner(owner);
+            userImage.setUser(user);
+            userImage.setImage(image);
+            userImageDAO.create(userImage);
+        }
+    }
+
+    protected Collection createCollection(User owner, String name, Boolean isPublic) {
+        Collection collection = initEmptyCollection(name, owner);
+        collection.setPublic(isPublic);
+        collectionDAO.create(collection);
+        return collection;
     }
 }

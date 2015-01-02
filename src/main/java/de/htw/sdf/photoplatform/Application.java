@@ -7,10 +7,12 @@
 package de.htw.sdf.photoplatform;
 
 import de.htw.sdf.photoplatform.common.StartUpUtil;
+import de.htw.sdf.photoplatform.manager.ImageSearchManager;
 import de.htw.sdf.photoplatform.security.RequestLoggerInterceptor;
 import org.apache.catalina.connector.Connector;
 import org.apache.coyote.http11.Http11NioProtocol;
 import org.apache.log4j.Logger;
+import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
@@ -22,6 +24,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -58,6 +61,12 @@ public class Application extends WebMvcConfigurerAdapter {
     public static void main(final String[] args) {
         context = SpringApplication.run(Application.class);
         context.getBean(StartUpUtil.class).cleanUploadDirectories();
+        //init elastic search indexes, for all images in db.
+        //I know, that is no a good idea, but for study project is ok!
+        //we don't have a lot of images!
+        ImageSearchManager imageSearchManager = context.getBean(ImageSearchManager.class);
+        imageSearchManager.initIndexes();
+
     }
 
     /**
@@ -107,6 +116,7 @@ public class Application extends WebMvcConfigurerAdapter {
     }
 
     /**
+     * Create MultipartConfigElement.
      * @return
      */
     @Bean
@@ -122,6 +132,16 @@ public class Application extends WebMvcConfigurerAdapter {
         TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
         tomcat.addAdditionalTomcatConnectors(createSslConnector());
         return tomcat;
+    }
+
+    /**
+     * Init elasticsearch client and returns ElasticsearchTemplate.
+     *
+     * @return default ElasticsearchTemplate
+     */
+    @Bean
+    public ElasticsearchTemplate elasticSearchTemplate() {
+        return new ElasticsearchTemplate(nodeBuilder().local(true).node().client());
     }
 
     private Connector createSslConnector() {
