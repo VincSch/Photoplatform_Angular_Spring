@@ -134,16 +134,20 @@ photoplatformControllers.controller('ImagesModalCtrl', function ($scope, $rootSc
  */
 photoplatformControllers.controller('ViewShowcaseCtrl', ['$scope', '$routeParams', '$rootScope', '$location', '$http', '$cookieStore', 'CollectionService', '$route',
     function ($scope, $routeParams, $rootScope, $location, $http, $cookieStore, CollectionService, $route) {
+
+        $scope.userId = $routeParams.userId;
+
         /**
          * Get showcase from specified user
          */
-        $scope.getShowcaseFrom = function () {
+        //$scope.getShowcaseFrom = function () {
             var start = 0;
             var count = 100;
-            var requestUserId = 6;
-            CollectionService.getShowcaseFrom(start, count, requestUserId).success(function (collections) {
+            //var requestUserId = 3;
+            CollectionService.getShowcaseFrom(start, count, $scope.userId).success(function (collections) {
                 $scope.showcase = collections;
+                console.log("blaa");
             });
-        };
+        //};
     }
 ]);

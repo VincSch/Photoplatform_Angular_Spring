@@ -1,8 +1,8 @@
 /**
  * Image search controller.
  */
-photoplatformControllers.controller('ImageSearchCtrl', ['$scope', '$rootScope', 'ImageService',
-    function ($scope, $rootScope, ImageService) {
+photoplatformControllers.controller('ImageSearchCtrl', ['$scope', '$rootScope', 'ImageService', '$location',
+    function ($scope, $rootScope, ImageService, $location) {
 
         /**
          * Search images one image by image id.
@@ -78,6 +78,10 @@ photoplatformControllers.controller('ImageSearchCtrl', ['$scope', '$rootScope', 
                 $scope.errors = data.errors;
                 $scope.log(data.errors);
             })
+        };
+
+        $scope.goToPhotograph = function (requestUserId) {
+            $location.path("view/showcase/" + requestUserId);
         };
 
         /**

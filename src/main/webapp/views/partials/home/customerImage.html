@@ -1,9 +1,9 @@
-<div class="thumbnail" id="image-{{image.imageId}}" ng-init="status = {editing : false }">
+<div class="thumbnail" id="image-{{image.id}}" ng-init="status = {editing : false }">
     <img src="{{image.smallPath}}" class="img-responsive"
          onerror="this.src='http://placehold.it/1024x600'">
 
     <div class="caption">
-        <h3><a href="/image/{{image.imageId}}">{{image.name}}</a></h3>
+        <h3><a href="/image/{{image.id}}">{{image.name}}</a></h3>
 
         <p>{{image.description}}</p>
 
@@ -19,7 +19,7 @@
                         ng-click="goToCollection(image.imageId)">Sammlung
                 </button>
                 <button type="button" class="btn btn-default"
-                        ng-click="goToPhotograph(image.imageId)">Fotograf
+                        ng-click="goToPhotograph(image.userData.id)">{{image.userData.firstName}} {{image.userData.lastName}}
                 </button>
             </div>
         </div>
