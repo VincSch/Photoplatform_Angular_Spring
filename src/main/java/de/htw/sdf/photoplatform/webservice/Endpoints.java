@@ -152,6 +152,11 @@ public final class Endpoints {
     public static final String SHOWCASE = "/showcase";
 
     /**
+     * GET: return any showcase.
+     */
+    public static final String VIEW_SHOWCASE = "/viewshowcase";
+
+    /**
      * GET: get all photograph's images.
      * PATCH: update photograph image.
      * <p>

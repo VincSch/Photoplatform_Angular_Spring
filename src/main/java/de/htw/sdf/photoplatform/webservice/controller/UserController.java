@@ -53,6 +53,7 @@ public class UserController extends BaseAPIController {
     @Qualifier(value = "myAuthManager")
     private AuthenticationManager authenticationManager;
 
+
     /**
      * GET list of enabled users between start an count.
      *

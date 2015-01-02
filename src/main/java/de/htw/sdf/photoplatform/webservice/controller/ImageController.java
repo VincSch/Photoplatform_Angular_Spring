@@ -13,9 +13,11 @@ import de.htw.sdf.photoplatform.manager.ImageSearchManager;
 import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
+import de.htw.sdf.photoplatform.persistence.model.UserImage;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
+import de.htw.sdf.photoplatform.webservice.dto.UserData;
 import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
 import org.h2.store.fs.FileUtils;
 import org.imgscalr.Scalr;
@@ -40,6 +42,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -91,7 +94,6 @@ public class ImageController extends BaseAPIController {
     @ResponseBody
     public List<ImageData> searchImages(@RequestParam("searchData") String searchData)
             throws IOException, AbstractBaseException {
-        User authenticatedUser = getAuthenticatedUser();
         Page<Image> foundedImages;
         switch (searchData) {
             case SEARCH_PARAM_ALL:
@@ -101,7 +103,24 @@ public class ImageController extends BaseAPIController {
                 foundedImages = imageSearchManager.searchByNameAndDescription(searchData);
         }
 
-        return ResourceUtility.convertToImageData(foundedImages);
+        //return ResourceUtility.convertToImageData(foundedImages);
+
+
+        List<ImageData> imageDatas = new ArrayList<>();
+        for (Image image : foundedImages) {
+            ImageData imageData = new ImageData(image);
+            UserData allUserData = new UserData(userManager.findByName(image.getCreatedBy()));
+            //for privacy reasons we dont want to return all of the users data
+            UserData userDataToShow = new UserData();
+            userDataToShow.setId(allUserData.getId());
+            userDataToShow.setFirstName(allUserData.getFirstName());
+            userDataToShow.setLastName(allUserData.getLastName());
+
+            imageData.setUserData(userDataToShow);
+            imageDatas.add(imageData);
+        }
+
+        return imageDatas;
     }
 
     //    @RequestMapping(value = "/image/{name}", method = RequestMethod.GET)

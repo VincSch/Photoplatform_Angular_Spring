@@ -4,12 +4,18 @@
 package de.htw.sdf.photoplatform.webservice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
+import de.htw.sdf.photoplatform.manager.PhotographerManager;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
+import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
+import de.htw.sdf.photoplatform.webservice.dto.UserData;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +45,9 @@ public class CollectionController extends BaseAPIController {
 
     @Resource
     CollectionManager collectionManager;
+
+    @Resource
+    private PhotographerManager photographerManager;
 
     /**
      * Returns list of collections.
@@ -75,6 +84,33 @@ public class CollectionController extends BaseAPIController {
         }
 
         return ResourceUtility.convertToCollectionData(collectionImages);
+    }
+
+    /**
+     * Returns the showcase as a list of collections from specified user.
+     */
+    @RequestMapping(value = Endpoints.VIEW_SHOWCASE, method = RequestMethod.GET)
+    @ResponseBody
+    public List<CollectionData> getShowcaseFrom(@RequestParam(required = false, defaultValue = "-1") int start,
+                                                @RequestParam(required = false, defaultValue = "-1") int count,
+                                                @RequestParam(required = true) String requestUserId)
+            throws IOException, AbstractBaseException {
+
+       // User user = findUserById(requestUserId);
+        Long userId = Long.valueOf(requestUserId);
+        List<Collection> collections = photographerManager.getShowcaseByUser(userId, start, count);
+
+
+        List<CollectionData> collectionDatas = ResourceUtility.convertToCollectionData(collections);
+        for (CollectionData collection : collectionDatas) {
+            UserData userToReturn = new UserData();
+            userToReturn.setId( collection.getUserdata().getId());
+            userToReturn.setFirstName( collection.getUserdata().getFirstName());
+            userToReturn.setLastName( collection.getUserdata().getLastName());
+            collection.setUserdata(userToReturn);
+        }
+
+        return collectionDatas;
     }
 
 }
