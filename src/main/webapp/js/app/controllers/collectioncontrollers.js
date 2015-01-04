@@ -1,15 +1,9 @@
 photoplatformControllers.controller('CollectionCtrl',
     ['$scope', '$rootScope', '$location', '$http', '$cookieStore', '$route', '$rootScope', '$routeParams', '$modal', 'UserService', 'ImageService', 'CollectionService',
         function ($scope, $rootScope, $location, $http, $cookieStore, $route, $rootScope, $routeParams, $modal, UserService, ImageService, CollectionService) {
-
-            var user = $cookieStore.get('user');
-            //if user is not logged in or logged in redirect to login page
-            if (undefined == user || !$rootScope.isLoggedIn()) {
-                $location.path("/login");
-                return;
-            }
+            
             $scope.collectionId = $routeParams.collectionId;
-            $scope.collectionName = $routeParams.collectionName;
+            
             var start = 0;
             var count = 100;
 
@@ -17,7 +11,21 @@ photoplatformControllers.controller('CollectionCtrl',
             $scope.images = [];
 
             $scope.copy = angular.copy;
-
+			
+			/**
+			 * Get collections data
+			 */
+			 $scope.getCollectionsData = function() {
+			 	CollectionService.getCollection($scope.collectionId).success(function (data) {
+                    $scope.collectionName = data.name; 
+                    $scope.collectionDescription = data.description;
+                    $scope.images = data.images;
+                }).error(function (data) {
+                    $scope.log(data.errors);
+                    $scope.errors = data.errors;
+                });
+			 };
+			
             /**
              * Get all collections images.
              */

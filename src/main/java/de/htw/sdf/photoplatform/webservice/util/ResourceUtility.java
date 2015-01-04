@@ -118,6 +118,17 @@ public class ResourceUtility {
     }
 
     /**
+     * Returns collection including images.
+     *
+     * @param collection collection.
+     *
+     * @return collection data.
+     */
+    public static CollectionData convertToCollectionDataIncludingImages(Collection collection) {
+        return new CollectionData(collection, Boolean.TRUE);
+    }
+
+    /**
      * Returns collections.
      *
      * If includeImages is true, than collection with all images,

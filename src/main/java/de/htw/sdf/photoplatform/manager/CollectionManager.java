@@ -7,6 +7,7 @@ import java.util.Set;
 
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
 
 /**
  * Interface defining business methods for collections.
@@ -15,6 +16,15 @@ import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
  */
 public interface CollectionManager {
 
+    /**
+     * Returns a single collection.
+     *
+     * @param collectionId collection id.
+     * @return collection.
+     * @throws ManagerException exception.
+     */
+	Collection getCollection(Long collectionId) throws ManagerException;
+	
     /**
      * Returns list of collection images.
      *
