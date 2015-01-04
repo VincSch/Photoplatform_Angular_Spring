@@ -16,7 +16,7 @@ import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
  *
  * @author Sergej Meister
  */
-public class CollectionData implements Serializable {
+public class CollectionData  extends ResponseMessageData implements Serializable {
 
     private long id;
 

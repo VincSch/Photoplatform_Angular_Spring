@@ -21,10 +21,12 @@ import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.CollectionManager;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
+import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
 import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
 
@@ -39,6 +41,32 @@ public class CollectionController extends BaseAPIController {
 
     @Resource
     CollectionManager collectionManager;
+    
+    /**
+     * Returns the collection name and description
+     */
+    @RequestMapping(value = Endpoints.COLLECTIONS, method = RequestMethod.GET)
+    @ResponseBody
+    public CollectionData getCollectionData(@PathVariable Long collectionId) throws IOException, AbstractBaseException {
+    	Collection collectionData = null;
+    	
+        try {
+        	collectionData = collectionManager.getCollection(collectionId);
+        } catch (ManagerException ex) {
+            String exceptionMsg;
+            switch (ex.getCode()) {
+                case AbstractBaseException.COLLECTION_ID_NOT_VALID:
+                    exceptionMsg = messages.getMessage("Collection.notValid");
+                    break;
+                default:
+                    throw new RuntimeException("Unhandled error");
+            }
+
+            throw new BadRequestException(exceptionMsg);
+        }
+
+        return ResourceUtility.convertToCollectionData(collectionData);
+    }
 
     /**
      * Returns list of collections.

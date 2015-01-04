@@ -12,6 +12,7 @@ import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.CollectionManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 
 /**
@@ -24,6 +25,17 @@ import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 public class CollectionManagerImpl extends DAOReferenceCollector implements
         CollectionManager {
 
+    /**
+     * {@inheritDoc}
+     */
+	 @Override
+	 public Collection getCollection(Long collectionId) throws ManagerException {
+		 if (collectionId == null) {
+	            throw new ManagerException(AbstractBaseException.COLLECTION_ID_NOT_VALID);
+	        }
+		 
+		 return collectionDAO.findById(collectionId);
+	 };
 
     /**
      * {@inheritDoc}

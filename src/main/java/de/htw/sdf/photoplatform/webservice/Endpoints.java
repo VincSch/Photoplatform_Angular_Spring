@@ -128,6 +128,7 @@ public final class Endpoints {
     public static final String COLLECTIONS_UPDATE = "/collections/update";
 
     /**
+     * GET: return collection
      * DELETE: Delete collection
      */
     public static final String COLLECTIONS = "/collections/{collectionId}";
