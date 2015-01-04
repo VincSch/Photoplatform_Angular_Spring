@@ -65,7 +65,7 @@ public class CollectionController extends BaseAPIController {
             throw new BadRequestException(exceptionMsg);
         }
 
-        return ResourceUtility.convertToCollectionData(collectionData);
+        return ResourceUtility.convertToCollectionDataIncludingImages(collectionData);
     }
 
     /**
