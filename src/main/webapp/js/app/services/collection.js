@@ -6,6 +6,15 @@ angular.module('photoplatform')
             var collectionService = {};
 
             /**
+             * Returns the collection data.
+             * @param collectionId
+             * @returns {HttpPromise}
+             */
+			collectionService.getCollection = function(collectionId) {
+                return $http.get(urlBase + '/' + collectionId);
+			};
+			
+            /**
              * Return all images.
              * @param collectionId
              * @param start.
