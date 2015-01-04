@@ -1,9 +1,10 @@
-<div class="thumbnail" id="image-{{image.id}}" ng-init="status = {editing : false }">
-    <img src="{{image.smallPath}}" class="img-responsive"
-         onerror="this.src='http://placehold.it/1024x600'">
+<div class="thumbnail" id="image-{{image.id}}" ng-init="status = {editing : false }" customerimage>
+    <img src="{{image.smallPath}}" class="img-responsive img-rounded"
+         onerror="this.src='http://placehold.it/1024x600'"
+         ng-click="openModal(image)">
 
     <div class="caption">
-        <h3><a href="/image/{{image.id}}">{{image.name}}</a></h3>
+        <h3 ng-click="openModal(image)">{{image.name}}</h3>
 
         <p>{{image.description}}</p>
 
