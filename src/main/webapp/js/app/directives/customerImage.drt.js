@@ -2,6 +2,12 @@
 
 angular.module('photoplatform')
     .controller('customerImageModalCtrl', ['$scope', '$modalInstance', 'imageData', function($scope, $modalInstance, imageData ){
+
+        //dirty hotfix
+        if(imageData.metadata == "test metadata")
+        {
+            imageData.metadata = "{}";
+        }
         var exif = imageData.metadata;
         exif = '{"Metadata":' + exif + '}';
         imageData.metadata = JSON.parse(exif).Metadata;
@@ -16,12 +22,13 @@ angular.module('photoplatform')
         $scope.addToCart = function(image){
             console.log(image);
         }
+
     }])
 
-    .directive('customerimage', ['$modal', function ($modal) {
+    .directive('customerimage', ['$modal', '$location', function ($modal, $location) {
         return {
             restrict: 'A',
-            templateUrl: 'views/partials/profile/customerImage.drt.html',
+            templateUrl: 'views/partials/profile/customerImage.html',
             scope: {
                 image: '=customerimage'
             },
@@ -45,6 +52,14 @@ angular.module('photoplatform')
                       }
                     });
                 }
+
+                scope.goToPhotograph = function (requestUserId) {
+                    $location.path("view/showcase/" + requestUserId);
+                };
+
+                scope.goToCollection = function (requestImageId) {
+                    //$location.path("view/showcase/" + requestUserId);
+                };
             }
         }
     }])

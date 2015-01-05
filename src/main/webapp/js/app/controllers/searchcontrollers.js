@@ -80,10 +80,6 @@ photoplatformControllers.controller('ImageSearchCtrl', ['$scope', '$rootScope', 
             })
         };
 
-        $scope.goToPhotograph = function (requestUserId) {
-            $location.path("view/showcase/" + requestUserId);
-        };
-
         /**
          * Backup code for carousel view.
          * The html-code is comment out!
