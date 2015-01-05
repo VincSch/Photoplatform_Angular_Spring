@@ -54,7 +54,7 @@ public class CollectionController extends BaseAPIController {
     /**
      * Returns the collection name and description
      */
-    @RequestMapping(value = Endpoints.COLLECTIONS, method = RequestMethod.GET)
+    @RequestMapping(value = Endpoints.VIEW_COLLECTION, method = RequestMethod.GET)
     @ResponseBody
     public CollectionData getCollectionData(@PathVariable Long collectionId) throws IOException, AbstractBaseException {
     	Collection collectionData = null;

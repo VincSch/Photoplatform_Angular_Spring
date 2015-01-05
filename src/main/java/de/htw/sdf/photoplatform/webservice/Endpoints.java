@@ -142,7 +142,6 @@ public final class Endpoints {
     public static final String COLLECTIONS_UPDATE = "/collections/update";
 
     /**
-     * GET: return collection
      * DELETE: Delete collection
      */
     public static final String COLLECTIONS = "/collections/{collectionId}";
@@ -156,6 +155,11 @@ public final class Endpoints {
      * GET: return any showcase.
      */
     public static final String VIEW_SHOWCASE = "/viewshowcase";
+
+    /**
+     * GET: return any collection.
+     */
+    public static final String VIEW_COLLECTION = "/viewcollection/{collectionId}";
 
     /**
      * GET: get all photograph's images.
