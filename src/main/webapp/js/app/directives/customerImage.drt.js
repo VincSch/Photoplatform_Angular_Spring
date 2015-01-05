@@ -1,7 +1,13 @@
 
 
 angular.module('photoplatform')
-    .controller('customerImageModalCtrl', ['$scope', '$modalInstance', 'imageData', function ($scope, $modalInstance, imageData, location) {
+    .controller('customerImageModalCtrl', ['$scope', '$modalInstance', 'imageData', function($scope, $modalInstance, imageData ){
+
+        //dirty hotfix
+        if(imageData.metadata == "test metadata")
+        {
+            imageData.metadata = "{}";
+        }
         var exif = imageData.metadata;
         exif = '{"Metadata":' + exif + '}';
         imageData.metadata = JSON.parse(exif).Metadata;
