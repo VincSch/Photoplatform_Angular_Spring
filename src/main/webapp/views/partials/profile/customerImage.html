@@ -1,6 +1,6 @@
-<div class="thumbnail" id="image-{{image.id}}" ng-init="status = {editing : false }" customerimage>
+<div class="thumbnail" id="image-{{image.id}}" ng-init="status = {editing : false }">
     <img src="{{image.smallPath}}" class="img-responsive img-rounded"
-         onerror="this.src='http://placehold.it/1024x600'"
+         onerror="this.src='http://placehold.it/300x300'"
          ng-click="openModal(image)">
 
     <div class="caption">
@@ -12,10 +12,11 @@
 
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
+                <!--
                 <button type="button" class="btn btn-default"
-                        ng-click="addToCart(image)">
-                    Warenkorb
+                        ng-click="addToCart(image)">Warenkorb
                 </button>
+                -->
                 <button type="button" class="btn btn-default"
                         ng-click="goToCollection(image.imageId)">Sammlung
                 </button>

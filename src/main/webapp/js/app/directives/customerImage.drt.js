@@ -21,7 +21,7 @@ angular.module('photoplatform')
     .directive('customerimage', ['$modal', function ($modal) {
         return {
             restrict: 'A',
-            templateUrl: 'views/partials/profile/customerImage.drt.html',
+            templateUrl: 'views/partials/profile/customerImage.html',
             scope: {
                 image: '=customerimage'
             },
