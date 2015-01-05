@@ -67,7 +67,7 @@ public class Application extends WebMvcConfigurerAdapter {
         ImageSearchManager imageSearchManager = context.getBean(ImageSearchManager.class);
         //delete image indexes.
         imageSearchManager.deleteIndexes();
-        // create indexes.
+        // create indexes
         imageSearchManager.initIndexes();
     }
 
