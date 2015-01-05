@@ -5,6 +5,7 @@ package de.htw.sdf.photoplatform.webservice.dto;
 
 import java.io.Serializable;
 
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
 
@@ -37,6 +38,8 @@ public class ImageData extends ResponseMessageData implements Serializable {
     private String mobilePath;
 
     private UserData userData;
+    
+    private Long collectionId;
 
     private Boolean isAdded;
 
@@ -72,6 +75,15 @@ public class ImageData extends ResponseMessageData implements Serializable {
         this.thumbnailPath = image.getThumbPath();
         this.smallPath = image.getSmallThumbPath();
         this.mobilePath = image.getMobileThumbPath();
+
+        if(!image.getCollectionImages().isEmpty())
+        {
+        	this.collectionId = image.getCollectionImages().get(0).getCollection().getId();
+        }
+        else 
+        {
+        	this.collectionId = (long) -1;
+        }
     }
 
     /**
@@ -252,6 +264,24 @@ public class ImageData extends ResponseMessageData implements Serializable {
      */
     public void setUserData(UserData userData) {
         this.userData = userData;
+    }
+    
+    /**
+     * Returns the collection id.
+     *
+     * @return collection id.
+     */
+    public Long getCollectionId() {
+        return collectionId;
+    }
+
+    /**
+     * Sets collection id.
+     *
+     * @param id collection id.
+     */
+    public void setCollectionId(Long collectionId) {
+        this.collectionId = collectionId;
     }
 
     /**

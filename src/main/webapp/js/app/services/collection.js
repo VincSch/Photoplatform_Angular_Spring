@@ -11,7 +11,7 @@ angular.module('photoplatform')
              * @returns {HttpPromise}
              */
 			collectionService.getCollection = function(collectionId) {
-                return $http.get(urlBase + '/' + collectionId);
+                return $http.get('/api/viewcollection/' + collectionId);
 			};
 			
             /**
