@@ -3,8 +3,12 @@
 angular.module('photoplatform')
     .controller('customerImageModalCtrl', ['$scope', '$modalInstance', 'imageData', function($scope, $modalInstance, imageData ){
 
+        //imageData.metadata = JSON.parse(imageData.metadata);
+
+
         $scope.image = imageData;
-        console.log( imageData );
+        //var test = JSON.parse(imageData.metadata);
+        console.log($scope.image.metadata);
 
         $scope.close = function(){
             console.log('Closing imageModal');
