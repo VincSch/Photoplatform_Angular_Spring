@@ -108,7 +108,11 @@ public class ImageController extends BaseAPIController {
 
         List<ImageData> imageDatas = new ArrayList<>();
         for (Image image : foundedImages) {
-            ImageData imageData = new ImageData(image);
+        	
+        	//Quick'n'Dirty fix to get the collectionId, images returned by imageSearchManager return null for getCollectionImage
+        	Image imageWithCollectionId = imageManager.findById(image.getId());
+        	
+            ImageData imageData = new ImageData(imageWithCollectionId);
             UserData allUserData = new UserData(userManager.findByName(image.getCreatedBy()));
             //for privacy reasons we dont want to return all of the users data
             UserData userDataToShow = new UserData();

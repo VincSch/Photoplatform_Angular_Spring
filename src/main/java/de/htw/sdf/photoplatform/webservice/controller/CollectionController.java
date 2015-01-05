@@ -54,7 +54,7 @@ public class CollectionController extends BaseAPIController {
     /**
      * Returns the collection name and description
      */
-    @RequestMapping(value = Endpoints.COLLECTIONS, method = RequestMethod.GET)
+    @RequestMapping(value = Endpoints.VIEW_COLLECTION, method = RequestMethod.GET)
     @ResponseBody
     public CollectionData getCollectionData(@PathVariable Long collectionId) throws IOException, AbstractBaseException {
     	Collection collectionData = null;
@@ -73,7 +73,13 @@ public class CollectionController extends BaseAPIController {
 
             throw new BadRequestException(exceptionMsg);
         }
-
+        
+        //Check if Collection is public or i am the owner
+        User authenticatedUser = getAuthenticatedUser();
+        if((authenticatedUser != collectionData.getUser()) && (!collectionData.isPublic()) ){
+            throw new BadRequestException(messages.getMessage("Collection.notPublic"));
+        }
+        
         return ResourceUtility.convertToCollectionDataIncludingImages(collectionData);
     }
 
