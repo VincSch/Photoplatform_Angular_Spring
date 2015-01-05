@@ -73,7 +73,13 @@ public class CollectionController extends BaseAPIController {
 
             throw new BadRequestException(exceptionMsg);
         }
-
+        
+        //Check if Collection is public or i am the owner
+        User authenticatedUser = getAuthenticatedUser();
+        if((authenticatedUser != collectionData.getUser()) && (!collectionData.isPublic()) ){
+            throw new BadRequestException(messages.getMessage("Collection.notPublic"));
+        }
+        
         return ResourceUtility.convertToCollectionDataIncludingImages(collectionData);
     }
 
