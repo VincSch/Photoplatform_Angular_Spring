@@ -2,13 +2,11 @@
 
 angular.module('photoplatform')
     .controller('customerImageModalCtrl', ['$scope', '$modalInstance', 'imageData', function($scope, $modalInstance, imageData ){
-
-        //imageData.metadata = JSON.parse(imageData.metadata);
-
-
+        var exif = imageData.metadata;
+        exif = '{"Metadata":' + exif + '}';
+        imageData.metadata = JSON.parse(exif).Metadata;
         $scope.image = imageData;
-        //var test = JSON.parse(imageData.metadata);
-        console.log($scope.image.metadata);
+        console.log( imageData );
 
         $scope.close = function(){
             console.log('Closing imageModal');
