@@ -14,11 +14,17 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 /**
+ * Entity class for a res_purchases representing the corresponding database table.
+ *
+ * PurchaseItem represent an image in the shopping cart.
+ * That mean, for every image in shoppingCart will be created a PurchaseItem.
+ * Not good, but is simple to implement.
+ *
  * @author Sergej Meister
  */
 @Entity
-@Table(name = "RES_CART", uniqueConstraints = @UniqueConstraint(columnNames = {"USER_ID", "IMAGE_ID"}))
-public class ShoppingCart extends AbstractBaseAuditEntity {
+@Table(name = "RES_PURCHASES", uniqueConstraints = @UniqueConstraint(columnNames = {"USER_ID", "IMAGE_ID"}))
+public class PurchaseItem extends AbstractBaseAuditEntity {
 
     /**
      * User.
