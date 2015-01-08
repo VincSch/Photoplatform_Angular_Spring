@@ -28,7 +28,7 @@ angular.module('photoplatform')
     .directive('customerimage', ['$modal', '$location', function ($modal, $location) {
         return {
             restrict: 'A',
-            templateUrl: 'views/partials/profile/customerImage.html',
+            templateUrl: '/views/partials/profile/customerImage.html',
             scope: {
                 image: '=customerimage'
             },
@@ -41,7 +41,7 @@ angular.module('photoplatform')
 //                    console.log( imageData );
 
                     $modal.open({
-                      templateUrl: 'views/partials/profile/customerImage.mdl.html',
+                      templateUrl: '/views/partials/profile/customerImage.mdl.html',
                       controller: 'customerImageModalCtrl',
                       windowClass: 'customerImageModal',
                       size: 'lg',
