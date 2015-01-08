@@ -66,7 +66,7 @@ photoplatform.config([
             controller: 'ImageCtrl'
         }).when('/collection/:collectionId', {
             templateUrl: '/views/partials/collection/images.html',
-            controller: 'CollectionCtrl'
+            controller: 'ViewCollectionCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
             controller: ''
