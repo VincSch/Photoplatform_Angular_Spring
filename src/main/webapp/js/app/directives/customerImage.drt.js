@@ -57,8 +57,8 @@ angular.module('photoplatform')
                     $location.path("view/showcase/" + requestUserId);
                 };
 
-                scope.goToCollection = function (requestImageId) {
-                    //$location.path("view/showcase/" + requestUserId);
+                scope.goToCollection = function (collectionId) {
+                    $location.path("collection/" + collectionId);
                 };
             }
         }
