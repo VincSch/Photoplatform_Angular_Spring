@@ -110,10 +110,10 @@ photoplatformControllers.controller('ViewCollectionCtrl',
 		function ($scope, $rootScope, $location, $http, $cookieStore, $route, $rootScope, $routeParams, $modal, UserService, ImageService, CollectionService) {
         	    
             $scope.collectionId = $routeParams.collectionId;
-           
+           	
             // Photographer collection
             $scope.images = [];
-            
+            $scope.show = false;
 			/**
 			 * Get collections data
 			 */
@@ -122,6 +122,7 @@ photoplatformControllers.controller('ViewCollectionCtrl',
                     $scope.collectionName = data.name; 
                     $scope.collectionDescription = data.description;
                     $scope.images = data.images;
+           			$scope.show = true;;
                 }).error(function (data) {
                     $scope.log(data.errors);
                     $scope.errors = data.errors;
