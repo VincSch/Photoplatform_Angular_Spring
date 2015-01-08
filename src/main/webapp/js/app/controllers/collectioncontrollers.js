@@ -1,7 +1,7 @@
 photoplatformControllers.controller('CollectionCtrl',
     ['$scope', '$rootScope', '$location', '$http', '$cookieStore', '$route', '$rootScope', '$routeParams', '$modal', 'UserService', 'ImageService', 'CollectionService',
         function ($scope, $rootScope, $location, $http, $cookieStore, $route, $rootScope, $routeParams, $modal, UserService, ImageService, CollectionService) {
-            
+            var user = $cookieStore.get('user');
             //if user is not logged in or authorized redirect to login page
             if (undefined == user || !$rootScope.isLoggedIn()) {
                 $location.path("/login");
