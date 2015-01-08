@@ -26,6 +26,8 @@ angular.module('photoplatform')
     }])
 
     .directive('customerimage', ['$modal', '$location', function ($modal, $location) {
+    	console.log($location);
+    	
         return {
             restrict: 'A',
             templateUrl: '/views/partials/profile/customerImage.html',
@@ -35,6 +37,10 @@ angular.module('photoplatform')
             link: function (scope, elem, attrs) {
 
                 //scope.image = scope.customerimage;
+                
+                //Hide Collection and Showcase Link if CollectionView
+                scope.searchResultView = (attrs.collectionview != "true");
+                //console.log(scope.searchResultView);
 
                 scope.openModal = function(imageData){
 

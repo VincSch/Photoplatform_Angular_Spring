@@ -17,10 +17,10 @@
                         ng-click="addToCart(image)">Warenkorb
                 </button>
 
-                <button type="button" class="btn btn-default"
+                <button type="button" class="btn btn-default" ng-show="searchResultView"
                         ng-click="goToCollection(image.collectionId)">Sammlung
                 </button>
-                <button type="button" class="btn btn-default"
+                <button type="button" class="btn btn-default" ng-show="searchResultView"
                         ng-click="goToPhotograph(image.userData.id)">{{image.userData.firstName}} {{image.userData.lastName}}
                 </button>
             </div>
