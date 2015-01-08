@@ -119,10 +119,12 @@ photoplatformControllers.controller('ViewCollectionCtrl',
 			 */
 			 $scope.getCollectionsData = function() {
 			 	CollectionService.getCollection($scope.collectionId).success(function (data) {
+			 	console.log(data);
                     $scope.collectionName = data.name; 
+                    $scope.photographer = data.userdata;
                     $scope.collectionDescription = data.description;
                     $scope.images = data.images;
-           			$scope.show = true;;
+           			$scope.show = true;
                 }).error(function (data) {
                     $scope.log(data.errors);
                     $scope.errors = data.errors;
