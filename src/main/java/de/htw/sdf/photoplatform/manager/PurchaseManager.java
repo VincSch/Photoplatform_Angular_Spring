@@ -1,0 +1,75 @@
+/**
+ *
+ */
+package de.htw.sdf.photoplatform.manager;
+
+import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
+import de.htw.sdf.photoplatform.persistence.model.User;
+
+import java.util.List;
+
+/**
+ * Interface defining business methods for purchaseItem and represent ShoppingCart.
+ *
+ * @author Sergej Meister
+ */
+public interface PurchaseManager {
+
+    /**
+     * Add image to shopping cart.
+     *
+     * @param user  user
+     * @param image image
+     */
+    void addToShoppingCart(final User user, final Image image);
+
+    /**
+     * Remove image from shopping cart.
+     *
+     * @param user  user
+     * @param image image
+     */
+    void removeFromShoppingCart(final User user, final Image image);
+
+    /**
+     * @param item purchaseItem.
+     */
+    void removeFromShoppingCart(final PurchaseItem item);
+
+    /**
+     * Purchase images.
+     * <p/>
+     * Update attribute purchased to true.
+     *
+     * @param items images to buy.
+     * @return true, if ok.
+     */
+    Boolean purchase(List<PurchaseItem> items);
+
+    /**
+     * Calculate total price of all images.
+     *
+     * @param images list of images to buy.
+     * @return total price of all images.
+     */
+    Double calculatePrice(List<PurchaseItem> images);
+
+
+    /**
+     * Returns all images, that user would like to buy.
+     *
+     * @param user affected user.
+     * @return list of images in shopping cart.
+     */
+    List<PurchaseItem> getItemsInShoppingCart(User user);
+
+    /**
+     * Returns all images, which user has bought.
+     *
+     * @param user affected user.
+     * @return list of images
+     */
+    List<Image> getUserImages(User user);
+
+}

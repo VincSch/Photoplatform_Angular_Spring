@@ -7,8 +7,10 @@ import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.repository.PurchaseItemDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -16,6 +18,8 @@ import java.util.List;
  *
  * @author Sergej Meister
  */
+@Repository
+@Transactional
 public class PurchaseItemImpl extends GenericDAOImpl<PurchaseItem> implements PurchaseItemDAO {
 
     /**
