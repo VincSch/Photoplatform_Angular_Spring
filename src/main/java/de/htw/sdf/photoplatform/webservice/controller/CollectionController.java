@@ -76,7 +76,7 @@ public class CollectionController extends BaseAPIController {
         
         //Check if Collection is public or i am the owner
         User authenticatedUser = getAuthenticatedUser();
-        if((authenticatedUser != collectionData.getUser()) && (!collectionData.isPublic()) ){
+        if((authenticatedUser.getId() != collectionData.getUser().getId()) && (!collectionData.isPublic()) ){
             throw new BadRequestException(messages.getMessage("Collection.notPublic"));
         }
         
