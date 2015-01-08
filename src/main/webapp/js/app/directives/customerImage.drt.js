@@ -2,17 +2,11 @@
 
 angular.module('photoplatform')
     .controller('customerImageModalCtrl', ['$scope', '$modalInstance', 'imageData', function($scope, $modalInstance, imageData ){
-
-        //dirty hotfix
-        if(imageData.metadata == "test metadata")
-        {
-            imageData.metadata = "{}";
-        }
-        var exif = imageData.metadata;
-        exif = '{"Metadata":' + exif + '}';
-        imageData.metadata = JSON.parse(exif).Metadata;
-        $scope.image = imageData;
-        console.log( imageData );
+        var copyImageData = angular.copy(imageData);
+        var exif = '{"Metadata":' + copyImageData.metadata + '}';
+        copyImageData.metadata = JSON.parse(exif).Metadata;
+        $scope.image = copyImageData;
+        console.log(copyImageData);
 
         $scope.close = function(){
             console.log('Closing imageModal');
