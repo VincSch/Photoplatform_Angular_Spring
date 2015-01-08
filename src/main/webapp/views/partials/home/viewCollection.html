@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-md-10" ng-controller="ViewCollectionCtrl" ng-init="getCollectionsData()">
+        <div class="row">
+            <div class="page-header">
+                <h2>Album: {{collectionName}}</h2>
+                <p>{{collectionDescription}}</p>
+            </div>
+        </div>
+          <div class="row">
+            <div class="col-md-3" ng-repeat="image in images">
+                <div class="row" customerimage="image"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -31,6 +31,9 @@ photoplatform.config([
         }).when('/view/showcase/:userId', {
             templateUrl: '/views/partials/home/viewShowcase.html',
             controller: 'ViewShowcaseCtrl'
+        }).when('/collection/:collectionId', {
+            templateUrl: '/views/partials/home/viewCollection.html',
+            controller: 'ViewCollectionCtrl'
         }).when('/profile/password/reset', {
             templateUrl: '/views/partials/home/passwordreset.html',
             controller: 'AuthCtrl'
@@ -64,9 +67,6 @@ photoplatform.config([
         }).when('/profile/photograph/image', {
             templateUrl: '/views/partials/profile/photographer/image/image.html',
             controller: 'ImageCtrl'
-        }).when('/collection/:collectionId', {
-            templateUrl: '/views/partials/collection/images.html',
-            controller: 'ViewCollectionCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
             controller: ''
