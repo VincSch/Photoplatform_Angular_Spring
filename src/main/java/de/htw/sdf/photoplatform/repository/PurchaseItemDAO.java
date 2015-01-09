@@ -3,6 +3,7 @@
  */
 package de.htw.sdf.photoplatform.repository;
 
+import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
@@ -27,4 +28,16 @@ public interface PurchaseItemDAO extends GenericDAO<PurchaseItem> {
      * @return list of shopping cart's.
      */
     List<PurchaseItem> findByUserAndPurchasedFilter(User user, Boolean purchased);
+
+    /**
+     * Find PurchaseItem bei user and purchased filter.
+     * <p/>
+     * If purchased true, returns all images, which the user has purchased!
+     * If purchased false, return all images, which the user want to buy!
+     *
+     * @param user  user
+     * @param image image.
+     * @return list of shopping cart's.
+     */
+    PurchaseItem findByUserAndImage(User user, Image image);
 }
