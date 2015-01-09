@@ -81,7 +81,6 @@ public class PhotographerController extends BaseAPIController {
      * @throws java.io.IOException   input output exception.
      * @throws AbstractBaseException the exception
      */
-    //@RequestMapping(value = Endpoints.COLLECTIONS_ID_IMAGES, method = RequestMethod.PUT)
     @RequestMapping(value = Endpoints.COLLECTIONS_ID_IMAGES, method = RequestMethod.PUT)
     @ResponseBody
     public String addImageToCollection(@PathVariable Long collectionId, @RequestParam(required = true) List<Long> imageIds)

@@ -106,6 +106,7 @@ public class ResourceUtility {
         return collection;
     }
 
+
     /**
      * Returns collection without images.
      *

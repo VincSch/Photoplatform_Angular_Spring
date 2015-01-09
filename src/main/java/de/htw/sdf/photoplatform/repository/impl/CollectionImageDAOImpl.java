@@ -66,6 +66,23 @@ public class CollectionImageDAOImpl extends GenericDAOImpl<CollectionImage>
         return (List<CollectionImage>) query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public CollectionImage findCollectionImagesBy(Long imageId) {
+        StringBuilder queryBuilder = initCollectionAndImagesSelect();
+        queryBuilder.append("WHERE image.id = :imageId ");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("imageId", imageId);
+        try {
+            return (CollectionImage) query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
     private StringBuilder initCollectionAndImagesSelect() {
         StringBuilder queryBuilder = new StringBuilder(
                 "SELECT DISTINCT(collectionImage) FROM CollectionImage collectionImage ");

@@ -3,8 +3,11 @@
  */
 package de.htw.sdf.photoplatform.manager.impl;
 
+import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
+import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.PurchaseManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
+import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
@@ -34,6 +37,19 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
         purchaseItem.setPurchased(Boolean.FALSE);
         purchaseItemDAO.create(purchaseItem);
         return purchaseItem;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PurchaseItem addToShoppingCart(User user, Long imageId) throws ManagerException {
+        CollectionImage collectionImage = collectionImageDAO.findCollectionImagesBy(imageId);
+        if (collectionImage == null || !collectionImage.getCollection().isPublic()) {
+            //if you don't hack the system, should never be true :)
+            throw new ManagerException(AbstractBaseException.NOT_FOUND);
+        }
+        return addToShoppingCart(user, collectionImage.getImage());
     }
 
     /**

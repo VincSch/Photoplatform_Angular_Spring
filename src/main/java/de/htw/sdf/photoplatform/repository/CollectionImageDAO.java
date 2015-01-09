@@ -33,4 +33,12 @@ public interface CollectionImageDAO extends GenericDAO<CollectionImage> {
      * @return list of collection with images.
      */
     List<CollectionImage> findCollectionImagesBy(Boolean isCollectionPublic);
+
+    /**
+     * Returns collectionImage for corresponded image id.
+     *
+     * @param imageId image id.
+     * @return collectionImage for corresponded image id.
+     */
+    CollectionImage findCollectionImagesBy(Long imageId);
 }

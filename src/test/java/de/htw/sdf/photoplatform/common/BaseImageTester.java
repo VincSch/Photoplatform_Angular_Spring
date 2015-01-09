@@ -18,6 +18,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseImageTester extends BaseTester {
@@ -150,6 +151,12 @@ public abstract class BaseImageTester extends BaseTester {
             userImage.setImage(image);
             userImageDAO.create(userImage);
         }
+    }
+
+    protected void createUserImage(User user, User owner, Image image) {
+        List<Image> images = new ArrayList<>();
+        images.add(image);
+        createUserImage(user, owner, images);
     }
 
     protected Collection createCollection(User owner, String name, Boolean isPublic) {

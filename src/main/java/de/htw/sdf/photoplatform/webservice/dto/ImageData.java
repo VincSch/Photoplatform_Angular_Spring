@@ -3,11 +3,10 @@
  */
 package de.htw.sdf.photoplatform.webservice.dto;
 
-import java.io.Serializable;
-
-import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+
+import java.io.Serializable;
 
 /**
  * Data transfer object to get and update image data.
@@ -38,7 +37,7 @@ public class ImageData extends ResponseMessageData implements Serializable {
     private String mobilePath;
 
     private UserData userData;
-    
+
     private Long collectionId;
 
     private Boolean isAdded;
@@ -75,14 +74,9 @@ public class ImageData extends ResponseMessageData implements Serializable {
         this.thumbnailPath = image.getThumbPath();
         this.smallPath = image.getSmallThumbPath();
         this.mobilePath = image.getMobileThumbPath();
-
-        if(!image.getCollectionImages().isEmpty())
-        {
-        	this.collectionId = image.getCollectionImages().get(0).getCollection().getId();
-        }
-        else 
-        {
-        	this.collectionId = (long) -1;
+        this.collectionId = -1L;
+        if (!image.getCollectionImages().isEmpty()) {
+            this.collectionId = image.getCollectionImages().get(0).getCollection().getId();
         }
     }
 
@@ -194,7 +188,7 @@ public class ImageData extends ResponseMessageData implements Serializable {
 
     /**
      * Returns thumbnail path - enhanced desktop view.
-     *
+     * <p/>
      * by image click.
      *
      * @return thumbnail path.
@@ -265,7 +259,7 @@ public class ImageData extends ResponseMessageData implements Serializable {
     public void setUserData(UserData userData) {
         this.userData = userData;
     }
-    
+
     /**
      * Returns the collection id.
      *
@@ -286,8 +280,9 @@ public class ImageData extends ResponseMessageData implements Serializable {
 
     /**
      * Is added to collection.
-     *
+     * <p/>
      * True if added.
+     *
      * @return added status.
      */
     public Boolean getAdded() {

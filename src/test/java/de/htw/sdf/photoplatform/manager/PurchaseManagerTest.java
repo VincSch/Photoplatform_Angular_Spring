@@ -1,6 +1,8 @@
 package de.htw.sdf.photoplatform.manager;
 
 import de.htw.sdf.photoplatform.common.BaseImageTester;
+import de.htw.sdf.photoplatform.exception.common.ManagerException;
+import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
@@ -71,6 +73,53 @@ public class PurchaseManagerTest extends BaseImageTester {
         Assert.assertTrue(cartItems.isEmpty());
         customerImages = purchaseManager.getUserImages(photographer);
         Assert.assertTrue(customerImages.isEmpty());
+    }
+
+    @Test
+    public void testAddImageToShoppingCartByImageId() {
+        //Init test data.
+        Image nature = createDefaultImage("Natur", "Natur", "natur.jpg");
+        try {
+            purchaseManager.addToShoppingCart(customer, nature.getId());
+            Assert.fail();
+        } catch (ManagerException e) {
+            //Exception, because the image is not added to collection!
+            Assert.assertNotNull(e);
+        }
+
+        Collection natureCollection = createCollection(photographer, "NaturSammlung", Boolean.FALSE);
+        try {
+            createUserImage(photographer, photographer, nature);
+            photographerManager.addImageToCollection(photographer.getId(), natureCollection.getId(), nature.getId());
+        } catch (ManagerException e) {
+            Assert.fail();
+        }
+
+        try {
+            purchaseManager.addToShoppingCart(customer, nature.getId());
+            Assert.fail();
+        } catch (ManagerException e) {
+            //Exception, because the collection is not public!
+            Assert.assertNotNull(e);
+        }
+
+        try {
+            photographerManager.updateCollectionsPublicValue(photographer.getId(), natureCollection.getId(), Boolean.TRUE);
+        } catch (ManagerException e) {
+            Assert.fail();
+        }
+
+        try {
+            PurchaseItem item = purchaseManager.addToShoppingCart(customer, nature.getId());
+            Assert.assertNotNull(item);
+        } catch (ManagerException e) {
+            Assert.fail("Should be no exception.");
+        }
+
+        //Rollback
+        collectionImageDAO.deleteAll();
+        collectionDAO.deleteAll();
+        userImageDAO.deleteAll();
     }
 
     @Test

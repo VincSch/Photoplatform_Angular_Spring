@@ -3,6 +3,7 @@
  */
 package de.htw.sdf.photoplatform.manager;
 
+import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
@@ -24,6 +25,18 @@ public interface PurchaseManager {
      * @return created PurchaseItem.
      */
     PurchaseItem addToShoppingCart(final User user, final Image image);
+
+    /**
+     * Add image to shopping cart.
+     * <p/>
+     * Find an collectionImage by image id and check if collection is public.
+     *
+     * @param user    user.
+     * @param imageId id of image.
+     * @return created PurchaseItem.
+     * @throws ManagerException if image not found or collection is not public.
+     */
+    PurchaseItem addToShoppingCart(final User user, final Long imageId) throws ManagerException;
 
     /**
      * Remove image from shopping cart.
