@@ -29,7 +29,7 @@ public class CollectionData  extends ResponseMessageData implements Serializable
 
     private UserData userdata;
 
-    private ImageData thumbnail;
+    private String thumbnail;
 
     private List<ImageData> images;
 
@@ -61,6 +61,11 @@ public class CollectionData  extends ResponseMessageData implements Serializable
         this.description = collection.getDescription();
         this.images = new ArrayList<>();
         this.isPublic = collection.isPublic();
+
+        if(collection.getThumbnail() != null)
+             this.thumbnail = collection.getThumbnail().getSmallThumbPath();
+        else
+            this.thumbnail = "http://placehold.it/1024x600";
 
         if(includeImages && collection.getCollectionImages() != null){
             for(CollectionImage collectionImage : collection.getCollectionImages()){
@@ -167,7 +172,7 @@ public class CollectionData  extends ResponseMessageData implements Serializable
      *
      * @return image.
      */
-    public ImageData getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
@@ -176,7 +181,7 @@ public class CollectionData  extends ResponseMessageData implements Serializable
      *
      * @param thumbnail image.
      */
-    public void setThumbnail(ImageData thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -180,6 +181,8 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             collectionImage.setCollection(affectedCollection);
             collectionImage.setImage(userImage.getImage());
             collectionImageDAO.create(collectionImage);
+            if (affectedCollection.getCollectionImages().size() == 0)
+                affectedCollection.setThumbnail(userImage.getImage());
             result.add(collectionImage);
 
             if (affectedCollection.isPublic()) {
@@ -228,6 +231,11 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         }
 
         for (CollectionImage collectionImage : collectionImages) {
+            //check thumbnail
+            if (collectionImage.getCollection().getThumbnail() != null &&
+                    collectionImage.getCollection().getThumbnail().getId().equals(collectionImage.getImage().getId())) {
+                updateThumbail(collectionImage);
+            }
             collectionImageDAO.delete(collectionImage);
             //remove image elasticsearch index
             removeImageSearchIndexIfPublic(collectionImage.getCollection(), collectionImage.getImage());
@@ -268,9 +276,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             //check thumbnail
             if (collectionImage.getCollection().getThumbnail() != null &&
                     collectionImage.getCollection().getThumbnail().getId().equals(imageId)) {
-                //remove this image from collection thumbnail.
-                collectionImage.getCollection().setThumbnail(null);
-                collectionDAO.update(collectionImage.getCollection());
+                updateThumbail(collectionImage);
             }
             //remove reference to collection.
             collectionImageDAO.delete(collectionImage);
@@ -361,5 +367,25 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         }
 
         return affectedCollection;
+    }
+
+    private void updateThumbail(CollectionImage collectionImage) {
+        Collection col = collectionDAO.findById(collectionImage.getCollection().getId());
+
+        //check if other image is available
+        if (col.getCollectionImages().size()>1) {
+            //set another thumbnail
+            Iterator<CollectionImage> imgIter = col.getCollectionImages().iterator();
+            CollectionImage possibleThumb = imgIter.next();
+            if (possibleThumb.getId() == collectionImage.getId()) {
+                col.setThumbnail(imgIter.next().getImage());
+            } else {
+                col.setThumbnail(possibleThumb.getImage());
+            }
+        } else {
+            //remove this image from collection thumbnail.
+            col.setThumbnail(null);
+        }
+        collectionDAO.update(col);
     }
 }

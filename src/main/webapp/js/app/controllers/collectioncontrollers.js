@@ -194,7 +194,6 @@ photoplatformControllers.controller('ViewShowcaseCtrl', ['$scope', '$routeParams
             //var requestUserId = 3;
             CollectionService.getShowcaseFrom(start, count, $scope.userId).success(function (collections) {
                 $scope.showcase = collections;
-                console.log("blaa");
             });
         //};
     }
