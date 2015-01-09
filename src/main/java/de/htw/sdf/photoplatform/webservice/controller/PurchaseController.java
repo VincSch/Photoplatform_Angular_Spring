@@ -15,7 +15,6 @@ import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
 import de.htw.sdf.photoplatform.webservice.dto.PurchaseData;
 import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,10 +43,7 @@ public class PurchaseController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.PURCHASES, method = RequestMethod.POST)
     @ResponseBody
-    public void addToShoppingCart(@RequestParam Long imageId, BindingResult bindingResult) throws IOException, AbstractBaseException {
-        if (bindingResult.hasErrors()) {
-            throw new BadRequestException("createCollection", bindingResult);
-        }
+    public void addToShoppingCart(@RequestParam(value = "imageId") Long imageId) throws IOException, AbstractBaseException {
         User user = getAuthenticatedUser();
         try {
             purchaseManager.addToShoppingCart(user, imageId);

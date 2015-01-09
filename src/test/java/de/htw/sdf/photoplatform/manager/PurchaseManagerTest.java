@@ -21,8 +21,6 @@ import java.util.List;
  */
 public class PurchaseManagerTest extends BaseImageTester {
 
-    private static final String PHOTOGRAPH_EMAIL = "sergej@test.de";
-    private static final String CUSTOMER_EMAIL = "peter@test.de";
     private User photographer;
     private User customer;
 

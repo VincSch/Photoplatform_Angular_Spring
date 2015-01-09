@@ -28,6 +28,10 @@ import java.util.List;
 @ContextConfiguration(classes = {Application.class})
 @WebAppConfiguration
 public abstract class BaseTester {
+
+    protected static final String PHOTOGRAPH_EMAIL = "sergej@test.de";
+    protected static final String CUSTOMER_EMAIL = "peter@test.de";
+
     protected Logger log = Logger.getLogger(this.getClass().getName());
 
     @Autowired
