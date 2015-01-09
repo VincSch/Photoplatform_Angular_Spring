@@ -73,6 +73,29 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
      * {@inheritDoc}
      */
     @Override
+    public List<PurchaseItem> removeFromShoppingCart(final User user, final Long purchaseItemId) throws ManagerException {
+        List<PurchaseItem> itemsInShoppingCart = getItemsInShoppingCart(user);
+        List<PurchaseItem> result = new ArrayList<>();
+        for (PurchaseItem item : itemsInShoppingCart) {
+            if (item.getId().equals(purchaseItemId)) {
+                removeFromShoppingCart(item);
+            } else {
+                result.add(item);
+            }
+        }
+
+        if (itemsInShoppingCart.size() == result.size()) {
+            //That mean, the purchaseItem is not found in the list
+            //if you don't hack the system, should never be true :)
+            throw new ManagerException(AbstractBaseException.NOT_FOUND);
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void purchase(List<PurchaseItem> items) {
         for (PurchaseItem item : items) {
             item.setPurchased(Boolean.TRUE);

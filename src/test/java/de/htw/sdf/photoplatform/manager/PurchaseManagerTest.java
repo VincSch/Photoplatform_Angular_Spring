@@ -140,7 +140,13 @@ public class PurchaseManagerTest extends BaseImageTester {
         Assert.assertTrue(cartItems.get(0).getUser().getId().equals(customer.getId()));
         Assert.assertTrue(cartItems.get(0).getImage().getId().equals(mountain.getId()));
 
-        purchaseManager.removeFromShoppingCart(customer, mountain);
+        List<PurchaseItem> restOfItemsInShoppingCart = new ArrayList<>();
+        try {
+            restOfItemsInShoppingCart = purchaseManager.removeFromShoppingCart(customer, cartItems.get(0).getId());
+        } catch (ManagerException e) {
+            Assert.fail();
+        }
+        Assert.assertTrue(restOfItemsInShoppingCart.isEmpty());
         cartItems = purchaseManager.getItemsInShoppingCart(customer);
         Assert.assertTrue(cartItems.isEmpty());
     }

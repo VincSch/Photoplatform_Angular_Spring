@@ -106,6 +106,11 @@ public final class Endpoints {
     public static final String PURCHASES = "/purchases";
 
     /**
+     * images in shopping cart.
+     */
+    public static final String PURCHASES_ID = PURCHASES + "/{purchaseItemId}";
+
+    /**
      * Endpoint for photograph services.
      */
     public static final String COLLECTIONS_PHOTOGRAPHERS = "/collections/photographers";
@@ -236,6 +241,7 @@ public final class Endpoints {
                 restBuilder(USER_BECOME_PHOTOGRAPHER),
                 restBuilder(USERS_IMAGES),
                 restBuilder(PURCHASES),
+                restBuilder(PURCHASES_ID),
                 restBuilder(USERS_CHANGE_PASSWORD)
         };
         return securedEndpoints;
