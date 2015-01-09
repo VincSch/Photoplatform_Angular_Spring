@@ -3,6 +3,7 @@ package de.htw.sdf.photoplatform.common;
 import de.htw.sdf.photoplatform.manager.ImageManager;
 import de.htw.sdf.photoplatform.manager.ImageSearchManager;
 import de.htw.sdf.photoplatform.manager.PhotographerManager;
+import de.htw.sdf.photoplatform.manager.PurchaseManager;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
@@ -45,6 +46,9 @@ public abstract class BaseImageTester extends BaseTester {
 
     @Autowired
     protected ImageManager imageManager;
+
+    @Autowired
+    protected PurchaseManager purchaseManager;
 
     @Autowired
     protected ImageSearchManager imageSearchManager;

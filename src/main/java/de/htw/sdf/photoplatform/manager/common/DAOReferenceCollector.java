@@ -10,6 +10,7 @@ import de.htw.sdf.photoplatform.repository.CategoryDAO;
 import de.htw.sdf.photoplatform.repository.CollectionDAO;
 import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
 import de.htw.sdf.photoplatform.repository.ImageDAO;
+import de.htw.sdf.photoplatform.repository.PurchaseItemDAO;
 import de.htw.sdf.photoplatform.repository.RoleDAO;
 import de.htw.sdf.photoplatform.repository.UserDAO;
 import de.htw.sdf.photoplatform.repository.UserImageDAO;
@@ -45,6 +46,9 @@ public class DAOReferenceCollector {
 
     @Autowired
     protected CollectionImageDAO collectionImageDAO;
+
+    @Autowired
+    protected PurchaseItemDAO purchaseItemDAO;
 
     @Autowired
     protected ElasticsearchTemplate elasticSearchTemplate;

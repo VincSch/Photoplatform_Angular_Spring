@@ -19,10 +19,11 @@ public interface PurchaseManager {
     /**
      * Add image to shopping cart.
      *
-     * @param user  user
-     * @param image image
+     * @param user  user.
+     * @param image image.
+     * @return created PurchaseItem.
      */
-    void addToShoppingCart(final User user, final Image image);
+    PurchaseItem addToShoppingCart(final User user, final Image image);
 
     /**
      * Remove image from shopping cart.
@@ -45,7 +46,7 @@ public interface PurchaseManager {
      * @param items images to buy.
      * @return true, if ok.
      */
-    Boolean purchase(List<PurchaseItem> items);
+    void purchase(List<PurchaseItem> items);
 
     /**
      * Calculate total price of all images.
