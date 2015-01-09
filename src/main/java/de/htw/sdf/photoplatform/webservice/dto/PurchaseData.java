@@ -5,6 +5,7 @@ package de.htw.sdf.photoplatform.webservice.dto;
 
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author Sergej Meister
  */
-public class PurchaseData {
+public class PurchaseData extends ResponseMessageData implements Serializable {
 
     private List<PurchaseItemData> purchaseItems;
     private int totalItems;
