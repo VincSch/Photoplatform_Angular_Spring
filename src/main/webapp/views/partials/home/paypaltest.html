@@ -5,6 +5,13 @@
                 <h2>Paypal Test</h2>
                 <p>OAuthToken: {{OAuthToken}}</p>
             </div>
+                <button type="button" class="btn btn-default"
+                        ng-click="StartPurchase()">Buy
+                </button>
+                
+        <div class="row">
+        	{{StartPurchaseResult}}
+        </div>
         </div>
     </div>
 </div>

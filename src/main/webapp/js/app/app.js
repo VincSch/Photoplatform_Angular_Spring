@@ -70,6 +70,9 @@ photoplatform.config([
         }).when('/paypaltest', {
             templateUrl: '/views/partials/home/paypaltest.html',
             controller: 'PaypalTestCtrl'
+        }).when('/paypaltest/approval', {
+            templateUrl: '/views/partials/home/paypaltest_approval.html',
+            controller: 'PaypalTestCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
             controller: ''
