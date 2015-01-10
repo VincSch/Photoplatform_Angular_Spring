@@ -39,8 +39,14 @@ public class PaypalService extends DAOReferenceCollector {
     @Resource
     private Messages messages;
     
+    /*
+     * OAuth Token with additional information
+     */
     private OAuthTokenCredential OAuthToken;
 
+	/**
+	 * Default Constructor
+	 */
     public PaypalService() {
     	try {
 	    	//Need to be called so ConfigMap is initialized everywhere in the SDK/API, however it still loads the sdk_config file
@@ -52,10 +58,18 @@ public class PaypalService extends DAOReferenceCollector {
     	}
     }
     
+    /*
+     *	Generates a new OAuthToken, replacing the old one
+     */
     private void generateNewOAuthToken() {
     	OAuthToken = new OAuthTokenCredential(PayPalResource.getClientID(), PayPalResource.getClientSecret());
     }
-    
+
+    /*
+     *	Returns a non expired OAuthToken
+     *
+     *	@return valid OAuth Paypal token
+     */
     public String getOAuthToken() throws PayPalRESTException {
     	if((OAuthToken == null) || (OAuthToken.expiresIn() < 0)) {
     		generateNewOAuthToken();
@@ -64,6 +78,14 @@ public class PaypalService extends DAOReferenceCollector {
     	return OAuthToken.getAccessToken();
     }
     
+    /*
+     * Creates a payment on paypal
+     * 
+     * @param Total the total of the purchase.
+     * @param BaseURL The BaseURL where paypal will redirect the buyer after approval or cancel.
+     * 
+     * @returns TBA
+     */
     public String CreatePayment(double Total, String BaseURL) throws AbstractBaseException {
 
     	//Amount
@@ -120,6 +142,14 @@ public class PaypalService extends DAOReferenceCollector {
 		return newPayment.toJSON();
     }
     
+    /*
+     * Executes the payment on paypal, so it is fullfilled
+     * 
+     * @param PaymentId Payment ID of this payment process.
+     * @param PayerID Payer ID of the buyer; provided by the paypal redirect.
+     * 
+     * @returns TBA
+     */
     public String ExecutePayment(String PaymentId, String PayerID) throws AbstractBaseException {
     	Payment payment = new Payment();
     	payment.setId(PaymentId);
