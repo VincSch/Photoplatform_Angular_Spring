@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +42,7 @@ public class PurchaseController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.PURCHASES, method = RequestMethod.POST)
     @ResponseBody
-    public void addToShoppingCart(@RequestParam(value = "imageId") Long imageId) throws IOException, AbstractBaseException {
+    public PurchaseData addToShoppingCart(@RequestParam(value = "imageId") Long imageId) throws IOException, AbstractBaseException {
         User user = getAuthenticatedUser();
         try {
             purchaseManager.addToShoppingCart(user, imageId);
@@ -59,6 +58,8 @@ public class PurchaseController extends BaseAPIController {
 
             throw new BadRequestException(exceptionMsg);
         }
+
+        return getShoppingCartData();
     }
 
     /**
@@ -66,9 +67,9 @@ public class PurchaseController extends BaseAPIController {
      */
     @RequestMapping(value = Endpoints.PURCHASES_ID, method = RequestMethod.DELETE)
     @ResponseBody
-    public void removeFromShoppingCart(@PathVariable(value = "purchaseItemId") Long purchaseItemId) throws IOException, AbstractBaseException {
+    public PurchaseData removeFromShoppingCart(@PathVariable(value = "purchaseItemId") Long purchaseItemId) throws IOException, AbstractBaseException {
         User user = getAuthenticatedUser();
-        List<PurchaseItem> restOfImagesInShoppingCart = new ArrayList<>();
+        List<PurchaseItem> restOfImagesInShoppingCart;
         try {
             restOfImagesInShoppingCart = purchaseManager.removeFromShoppingCart(user, purchaseItemId);
         } catch (ManagerException ex) {
@@ -83,6 +84,9 @@ public class PurchaseController extends BaseAPIController {
 
             throw new BadRequestException(exceptionMsg);
         }
+
+        Double totalPriceAfterDelete = purchaseManager.calculatePrice(restOfImagesInShoppingCart);
+        return ResourceUtility.convertToPurchaseData(restOfImagesInShoppingCart, totalPriceAfterDelete);
     }
 
     /**
