@@ -67,6 +67,9 @@ photoplatform.config([
         }).when('/profile/photograph/image', {
             templateUrl: '/views/partials/profile/photographer/image/image.html',
             controller: 'ImageCtrl'
+        }).when('/paypaltest', {
+            templateUrl: '/views/partials/home/paypaltest.html',
+            controller: 'PaypalTestCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
             controller: ''
