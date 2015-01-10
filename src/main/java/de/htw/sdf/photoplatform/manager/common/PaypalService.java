@@ -2,10 +2,13 @@ package de.htw.sdf.photoplatform.manager.common;
 
 import java.io.File;
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -28,6 +31,8 @@ import com.paypal.core.rest.PayPalResource;
 import de.htw.sdf.photoplatform.common.Messages;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ServiceException;
+import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
 
@@ -81,19 +86,35 @@ public class PaypalService extends DAOReferenceCollector {
     /*
      * Creates a payment on paypal
      * 
-     * @param Total the total of the purchase.
+     * @param Items the to be puchased items.
      * @param BaseURL The BaseURL where paypal will redirect the buyer after approval or cancel.
      * 
-     * @returns TBA
+     * @returns the paypal response as JSON
      */
-    public String CreatePayment(double Total, String BaseURL) throws AbstractBaseException {
+    public String CreatePayment( List<Image> Items, String BaseURL) throws AbstractBaseException {
+    	// Use nulled Local so String.format will use . as decimal delimiter
+    	Locale l = null;
+    	double Total = 0;
+    	
+    	//ItemList
+    	NumberFormat formatter = new DecimalFormat("#0.00");   
+    	List<Item> PaypalItems = new ArrayList<Item>();
+    	for (Image Image : Items) {
+    		Item item = new Item("1", Image.getName(), String.format(l, "%.2f" ,Image.getPrice()), "EUR");
+    		Total = Total + Image.getPrice();
+    		PaypalItems.add(item);
+    	}
+    	
+    	ItemList itemList = new ItemList();
+    	itemList.setItems(PaypalItems);
 
     	//Amount
-    	Amount amount = new Amount("EUR", String.valueOf(Total));
+    	Amount amount = new Amount("EUR", String.format(l, "%.2f" ,Total));
     	
     	//Transaction
     	Transaction transaction = new Transaction();
     	transaction.setAmount(amount);
+    	transaction.setItemList(itemList);
     	transaction.setDescription(messages.getMessage("paypal.transaction.description"));
 
 		List<Transaction> transactions = new ArrayList<Transaction>();
@@ -112,7 +133,7 @@ public class PaypalService extends DAOReferenceCollector {
 		redirectUrls.setCancelUrl(BaseURL + "/paypaltest");
 		redirectUrls.setReturnUrl(BaseURL + "/paypaltest/approval");
 		payment.setRedirectUrls(redirectUrls);
-
+		
     	// Create
 		Payment newPayment;
 		try {
@@ -148,7 +169,7 @@ public class PaypalService extends DAOReferenceCollector {
      * @param PaymentId Payment ID of this payment process.
      * @param PayerID Payer ID of the buyer; provided by the paypal redirect.
      * 
-     * @returns TBA
+     * @returns the paypal response as JSON
      */
     public String ExecutePayment(String PaymentId, String PayerID) throws AbstractBaseException {
     	Payment payment = new Payment();

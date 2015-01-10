@@ -1,5 +1,8 @@
 package de.htw.sdf.photoplatform.webservice.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +17,9 @@ import com.paypal.core.rest.PayPalRESTException;
 
 import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
+import de.htw.sdf.photoplatform.manager.ImageManager;
 import de.htw.sdf.photoplatform.manager.common.PaypalService;
+import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
@@ -24,6 +29,10 @@ public class PaypalTestController extends BaseAPIController {
 
     @Resource
 	private PaypalService paypalService;
+    
+    @Resource
+	private ImageManager imageManager;
+	
 	
     @RequestMapping(value = Endpoints.PAYPALTEST_OAUTHTOKEN, method = RequestMethod.GET)
     @ResponseBody
@@ -40,10 +49,16 @@ public class PaypalTestController extends BaseAPIController {
     @ResponseBody
     public String StartPaypalPurchase(HttpServletRequest request) throws AbstractBaseException {
     	
-    	String BaseURL = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+    	String BaseURL = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();    	
+    	
+    	List<Image> Items = new ArrayList<Image>();
+    	Items.add(imageManager.findById(1));
+    	Items.add(imageManager.findById(2));
+    	Items.add(imageManager.findById(3));
+    	Items.add(imageManager.findById(4));
     	
     	try{
-    		return paypalService.CreatePayment((double)15.75 , BaseURL);
+    		return paypalService.CreatePayment(Items , BaseURL);
     	} catch (AbstractBaseException ex)
     	{
     		return ex.getMessage();
