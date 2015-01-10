@@ -219,6 +219,14 @@ public final class Endpoints {
     /**
      */
     public static final String PAYPALTEST_OAUTHTOKEN = "/paypaltest/token";
+    
+    /**
+     */
+    public static final String PAYPALTEST_PURCHASE = "/paypaltest/purchase";
+    
+    /**
+     */
+    public static final String PAYPALTEST_PURCHASE_APPROVED = "/paypaltest/purchase/approved";
 
     /**
      * Private Endpoint constructor.
