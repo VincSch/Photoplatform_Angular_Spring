@@ -217,6 +217,10 @@ public final class Endpoints {
     public static final String USERS_CHANGE_PASSWORD = "/users/changepassword";
 
     /**
+     */
+    public static final String PAYPALTEST_OAUTHTOKEN = "/paypaltest/token";
+
+    /**
      * Private Endpoint constructor.
      */
     private Endpoints() {
