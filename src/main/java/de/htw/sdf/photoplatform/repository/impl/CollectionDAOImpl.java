@@ -46,7 +46,8 @@ public class CollectionDAOImpl extends GenericDAOImpl<Collection> implements
         Query query = createQuery(queryBuilder.toString());
         query.setParameter(1, collectionId);
         try {
-            return (Collection) query.getSingleResult();
+            Collection col = (Collection) query.getSingleResult();
+            return col;
         } catch (NoResultException nre) {
             return null;
         }

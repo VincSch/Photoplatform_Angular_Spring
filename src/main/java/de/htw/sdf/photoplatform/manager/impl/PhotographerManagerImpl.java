@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -230,13 +229,15 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
                     "The size of image id's is different to size of found images. This should not happen");
         }
 
+        Collection affectedCollection = collectionImages.iterator().next().getCollection();
+        //check thumbnail
+        if (affectedCollection.getThumbnail() != null && imageIds.contains(affectedCollection.getThumbnail().getId())) {
+            updateThumbnail(affectedCollection);
+        }
+
         for (CollectionImage collectionImage : collectionImages) {
-            //check thumbnail
-            if (collectionImage.getCollection().getThumbnail() != null &&
-                    collectionImage.getCollection().getThumbnail().getId().equals(collectionImage.getImage().getId())) {
-                updateThumbail(collectionImage);
-            }
             collectionImageDAO.delete(collectionImage);
+
             //remove image elasticsearch index
             removeImageSearchIndexIfPublic(collectionImage.getCollection(), collectionImage.getImage());
         }
@@ -276,7 +277,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             //check thumbnail
             if (collectionImage.getCollection().getThumbnail() != null &&
                     collectionImage.getCollection().getThumbnail().getId().equals(imageId)) {
-                updateThumbail(collectionImage);
+                updateThumbnail(collectionImage.getCollection());
             }
             //remove reference to collection.
             collectionImageDAO.delete(collectionImage);
@@ -369,23 +370,9 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         return affectedCollection;
     }
 
-    private void updateThumbail(CollectionImage collectionImage) {
-        Collection col = collectionDAO.findById(collectionImage.getCollection().getId());
-
-        //check if other image is available
-        if (col.getCollectionImages().size()>1) {
-            //set another thumbnail
-            Iterator<CollectionImage> imgIter = col.getCollectionImages().iterator();
-            CollectionImage possibleThumb = imgIter.next();
-            if (possibleThumb.getId() == collectionImage.getId()) {
-                col.setThumbnail(imgIter.next().getImage());
-            } else {
-                col.setThumbnail(possibleThumb.getImage());
-            }
-        } else {
-            //remove this image from collection thumbnail.
-            col.setThumbnail(null);
-        }
-        collectionDAO.update(col);
+    private void updateThumbnail(Collection collection) {
+        Image newThumbnail = collectionImageDAO.findNewThumbnail(collection);
+        collection.setThumbnail(newThumbnail);
+        collectionDAO.update(collection);
     }
 }
