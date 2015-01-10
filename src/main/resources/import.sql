@@ -94,14 +94,14 @@ INSERT INTO RES_IMAGE(ID, CREATED_AT, CREATED_BY, UPDATED_AT, UPDATED_BY, DESCRI
 INSERT INTO RES_IMAGE(ID, CREATED_AT, CREATED_BY, UPDATED_AT, UPDATED_BY, DESCRIPTION, IS_ENABLED, IS_PUBLIC, METADATA, MIME, MOBILE_THUMB_PATH, NAME, PATH, PRICE, SMALL_THUMB_PATH, THUMB_PATH) VALUES (54, TIMESTAMP '2015-01-08 16:20:29.257', 'sergej@test.de', TIMESTAMP '2015-01-08 16:26:44.271', NULL, 'Hintergrund', TRUE, FALSE, '[{"description":"Baseline","tag":"Compression Type","directoryName":"Jpeg"},{"description":"8 bits","tag":"Data Precision","directoryName":"Jpeg"},{"description":"2880 pixels","tag":"Image Height","directoryName":"Jpeg"},{"description":"5120 pixels","tag":"Image Width","directoryName":"Jpeg"}]', 'jpeg', '/img/upload/ad8bc4c5eaddcb93d9d353cdda87fead407dcfa8b1170714c584cd4e3a8ad24659733b654be7a9b89f334842c149a2aec017fa9e8d930a513b076e532bff320f.jpeg', 'Blau2', 'upload/cfcfd1f0065f20812e51031bd692544218a8441d74e20053530afa0a1633cc12904cb593cb4bf6707b4ffdef727ae9140e052dc0c15117c684286f4adbd9f9d6.jpeg', 0.1, '/img/upload/6bfe7b32d4f1baf2109a8affd4d342fdd6bf58fbd2852b9f6985cafa1c03eadadd7ddae373d40ea0527b4d5dc1876d22b564d67eadad614c2d088e9148a82877.jpeg', '/img/upload/8c9da453a6ed98f98cd8d9d1eb6cd78f6e859343bf533b4622163960cf43685c6d1c1cba6198ca0dea6471ba49a04456f583cdc5149cf51de97c17bf84465b2f.jpeg');
 
 
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('1','6', 'Natur pur!','Lorem ipsum dolor sit amet.','false');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('2','5', 'Irgendwas!','Lorem ipsum dolor sit amet.','false');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('3','4', 'Mal was Anderes','Lorem ipsum dolor sit amet.','false');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('4','5', 'Schon wieder eine Sammlung','Lorem ipsum dolor sit amet.','false');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('5','6', 'Paar Bilder','Lorem ipsum dolor sit amet.','false');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('6','3', 'Gebierge','Gebirge','true');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('7','3', 'Universum','Universum,Planet,Erde','false');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC) VALUES ('8','3', 'Sonstiges','Sonstiges','true');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('1','6', 'Natur pur!','Lorem ipsum dolor sit amet.','false',NULL);
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('2','5', 'Irgendwas!','Lorem ipsum dolor sit amet.','false',NULL);
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('3','4', 'Mal was Anderes','Lorem ipsum dolor sit amet.','false',NULL);
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('4','5', 'Schon wieder eine Sammlung','Lorem ipsum dolor sit amet.','false',NULL);
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('5','6', 'Paar Bilder','Lorem ipsum dolor sit amet.','false',NULL );
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('6','3', 'Gebierge','Gebirge','true','53');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('7','3', 'Universum','Universum,Planet,Erde','false','47');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('8','3', 'Sonstiges','Sonstiges','true','24');
 
 
 -- images uploaded by photographer. None of them have been bought yet
