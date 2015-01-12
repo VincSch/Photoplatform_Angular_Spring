@@ -99,6 +99,18 @@ photoplatformControllers.controller('CollectionCtrl',
                     $scope.errors = data.errors;
                 });
             };
+
+            /**
+             * Set image as titelimage for collection
+             */
+            $scope.setAsCollectionThumb = function (image) {
+                CollectionService.setAsCollectionThumb($scope.collectionId, image.id).success(function (message) {
+                    $rootScope.success = message;
+                }).error(function (data) {
+                    $scope.log(data.errors);
+                    $scope.errors = data.errors;
+                })
+            };
         }]);
 
 
