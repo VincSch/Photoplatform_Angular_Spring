@@ -70,11 +70,11 @@ photoplatform.config([
         }).when('/cart', {
             templateUrl: '/views/partials/profile/shoppingCart.html',
             controller: ''
-        }).when('/agb', {
-            templateUrl: '/views/partials/profile/agb.html',
+        }).when('/purchase/agb', {
+            templateUrl: '/views/partials/profile/purchase/agb.html',
             controller: ''
-        }).when('/transaction', {
-            templateUrl: '/views/partials/profile/transaction.html',
+        }).when('/purchase/transaction', {
+            templateUrl: '/views/partials/profile/purchase/transaction.html',
             controller: ''
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
