@@ -46,6 +46,9 @@ photoplatform.config([
         }).when('/profile/view', {
             templateUrl: '/views/partials/profile/view.html',
             controller: 'UserCtrl'
+        }).when('/profile/shoppinglist', {
+            templateUrl: '/views/partials/profile/purchase/shoppingList.html',
+            controller: 'ShoppingListCtrl'
         }).when('/profile/admin/edit/user/:userId', {
             templateUrl: '/views/partials/profile/admin/editUser.html',
             controller: 'AdminEditUserCtrl'
