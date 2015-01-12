@@ -4,16 +4,14 @@
 package de.htw.sdf.photoplatform.common;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
 
 public abstract class BaseAPITester extends BaseImageTester {
 
@@ -49,6 +47,21 @@ public abstract class BaseAPITester extends BaseImageTester {
     protected void loginAsPhotograph() throws Exception {
         UserCredential userCredential = new UserCredential();
         userCredential.setEmail("sergej@test.de");
+        userCredential.setPassword("123");
+
+        mockMvc.perform(
+                post("/api/user/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userCredential))
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    }
+
+    /**
+     * Default log in with admin permissions.
+     */
+    protected void loginAsCustomer() throws Exception {
+        UserCredential userCredential = new UserCredential();
+        userCredential.setEmail("peter@test.de");
         userCredential.setPassword("123");
 
         mockMvc.perform(

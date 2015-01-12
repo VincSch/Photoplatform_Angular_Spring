@@ -47,9 +47,23 @@ public interface PurchaseManager {
     void removeFromShoppingCart(final User user, final Image image);
 
     /**
+     * Remove image from shopping cart.
+     *
      * @param item purchaseItem.
      */
     void removeFromShoppingCart(final PurchaseItem item);
+
+    /**
+     * Remove image from shopping cart.
+     * <p/>
+     * Remove image from shopping cart and return the rest of items in shopping cart.
+     *
+     * @param user           affected user.
+     * @param purchaseItemId id of purchaseItem.
+     * @return list of rest items in shopping cart.
+     * @throws ManagerException if purchaseItem not found.
+     */
+    List<PurchaseItem> removeFromShoppingCart(final User user, final Long purchaseItemId) throws ManagerException;
 
     /**
      * Purchase images.
