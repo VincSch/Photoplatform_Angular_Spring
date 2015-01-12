@@ -147,4 +147,22 @@ public class CollectionController extends BaseAPIController {
         return collectionDatas;
     }
 
+    /**
+     * Set Thumbnail of Collection.
+     *
+     * @param collectionId  collection id.
+     * @param imageId  image id.
+     *
+     * @return success message.
+     */
+    @RequestMapping(value = Endpoints.COLLECTIONS_SET_AS_THUMB_IMAGE, method = RequestMethod.PATCH)
+    @ResponseBody
+    public String setAsThumbnail(@PathVariable Long collectionId, @PathVariable Long imageId) {
+
+        Collection col = photographerManager.getCollectionById(collectionId);
+        photographerManager.updateThumbnail(col, imageId);
+
+        return messages.getMessage("Collection.Thumbnail.set.success");
+    }
+
 }

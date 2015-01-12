@@ -101,7 +101,7 @@ public class ResourceUtility {
         collection.setDescription(data.getDescription());
         collection.setUser(owner);
         collection.setPublic(data.getPublic());
-        collection.setThumbnail(null);
+        collection.setThumbnail(data.getThumbnail());
 
         return collection;
     }

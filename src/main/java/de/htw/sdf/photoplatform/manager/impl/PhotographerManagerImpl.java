@@ -15,6 +15,7 @@ import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -132,7 +133,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         collection.setDescription(description);
         // Not public, not in show case
         collection.setPublic(false);
-
+        collection.setThumbnail(null);
         collectionDAO.create(collection);
 
         return collection;
@@ -232,7 +233,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         Collection affectedCollection = collectionImages.iterator().next().getCollection();
         //check thumbnail
         if (affectedCollection.getThumbnail() != null && imageIds.contains(affectedCollection.getThumbnail().getId())) {
-            updateThumbnail(affectedCollection);
+            updateThumbnail(affectedCollection, null);
         }
 
         for (CollectionImage collectionImage : collectionImages) {
@@ -277,7 +278,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             //check thumbnail
             if (collectionImage.getCollection().getThumbnail() != null &&
                     collectionImage.getCollection().getThumbnail().getId().equals(imageId)) {
-                updateThumbnail(collectionImage.getCollection());
+                updateThumbnail(collectionImage.getCollection(), null);
             }
             //remove reference to collection.
             collectionImageDAO.delete(collectionImage);
@@ -370,9 +371,19 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         return affectedCollection;
     }
 
-    private void updateThumbnail(Collection collection) {
-        Image newThumbnail = collectionImageDAO.findNewThumbnail(collection);
-        collection.setThumbnail(newThumbnail);
-        collectionDAO.update(collection);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateThumbnail(Collection collection, Long imageId) {
+        if (imageId == null) {
+            Image newThumbnail = collectionImageDAO.findNewThumbnail(collection);
+            collection.setThumbnail(newThumbnail);
+            collectionDAO.update(collection);
+        } else {
+            Image img = collectionImageDAO.findCollectionImagesBy(imageId).getImage();
+            collection.setThumbnail(img);
+            collectionDAO.update(collection);
+        }
     }
 }

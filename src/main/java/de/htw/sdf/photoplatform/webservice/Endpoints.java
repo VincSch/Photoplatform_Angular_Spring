@@ -147,6 +147,11 @@ public final class Endpoints {
     public static final String COLLECTIONS_DELETE_IMAGE = "/collections/{collectionId}/images/{imageId}";
 
     /**
+     * PUT: set image as thumbnail for collection.
+     */
+    public static final String COLLECTIONS_SET_AS_THUMB_IMAGE = "/collections/setAsThumbnail/{collectionId}/images/{imageId}";
+
+    /**
      * POST: update collection.
      */
     public static final String COLLECTIONS_UPDATE = "/collections/update";
@@ -282,7 +287,8 @@ public final class Endpoints {
                 restBuilder(COLLECTIONS),
                 restBuilder(COLLECTIONS_UPDATE),
                 restBuilder(COLLECTIONS_SHOWCASE),
-                restBuilder(USERS_BECOME_PHOTOGRAPHERS)
+                restBuilder(USERS_BECOME_PHOTOGRAPHERS),
+                restBuilder(COLLECTIONS_SET_AS_THUMB_IMAGE)
         };
         return securedEndpoints;
     }
