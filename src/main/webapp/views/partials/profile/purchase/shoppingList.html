@@ -3,29 +3,34 @@
     <div class="col-md-10">
         <div class="page-header">
             <h2>Ihre Einkäufe</h2>
+
             <p>Hier können Sie bereits gekaufte Artikel durchsuchen und herunterladen.</p>
         </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Vorschau</th>
-            <th>Auflösung</th>
-            <th>Preis</th>
-            <th>gekauft am</th>
-            <th>Download</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="user in photographTableFilteredUsers">
-            <td>{{$index}}</td>
-            <td>{{user.firstName}} {{user.lastName}}</td>
-            <td>{{user.email}}</td>
-            <td draggable="true">
-                <a ng-click="enablePhotographer(user.id)" class="btn btn-primary">aktivieren</a>
-            </td>
-            <td>{{user.email}}</td>
-        </tr>
-        </tbody>
-    </table>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Vorschau</th>
+                <th>Name</th>
+                <th>Beschreibung</th>
+                <th>Preis</th>
+                <th>gekauft am</th>
+                <th>Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="image in images">
+                <td><img customerimage="image" CollectionView="true" class="img-responsive img-rounded" src="{{image.mobilePath}}"></a></td>
+                <td>{{image.name}}</td>
+                <td>{{image.description}}</td>
+                <td>{{image.price}}</td>
+                <td></td>
+                <td>
+                    <button type="submit" class="btn btn-primary"
+                            ng-click="login(email, password)"> download
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
