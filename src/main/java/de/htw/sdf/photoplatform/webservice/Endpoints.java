@@ -167,6 +167,11 @@ public final class Endpoints {
     public static final String COLLECTIONS = "/collections/{collectionId}";
 
     /**
+     * GET: Get an image as byte array
+     */
+    public static final String IMAGE_AS_BYTE = "/image/{id}";
+
+    /**
      * GET: return my showcase.
      */
     public static final String SHOWCASE = "/showcase";
@@ -247,7 +252,8 @@ public final class Endpoints {
                 restBuilder(USERS_IMAGES),
                 restBuilder(PURCHASES),
                 restBuilder(PURCHASES_ID),
-                restBuilder(USERS_CHANGE_PASSWORD)
+                restBuilder(USERS_CHANGE_PASSWORD),
+                restBuilder(IMAGE_AS_BYTE)
         };
         return securedEndpoints;
     }
@@ -265,7 +271,7 @@ public final class Endpoints {
                 restBuilder(USERS_BECOME_PHOTOGRAPHERS),
                 restBuilder(USER_MAKE_ADMIN),
                 restBuilder(USER_LOCK),
-                restBuilder(USER_UNLOCK)
+                restBuilder(USER_UNLOCK),
         };
         return securedEndpoints;
     }

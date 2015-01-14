@@ -8,6 +8,15 @@ angular.module('photoplatform').factory('ShoppingListService', ['$http',
         var urlBase = '/api/';
 
         return {
+            /**
+             * Get image as bytes
+             *
+             * @param image id
+             * @returns {HttpPromise}
+             */
+            getRawImage: function (imageId) {
+                return $http.get(urlBase + 'image/' + imageId);
+            },
 
             /**
              * Get collection

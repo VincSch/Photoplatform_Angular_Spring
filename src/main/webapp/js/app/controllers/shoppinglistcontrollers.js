@@ -11,4 +11,16 @@ photoplatformControllers.controller('ShoppingListCtrl', ['$scope', '$rootScope',
             $rootScope.error(error);
         });
 
+        /**
+         * Get raw image
+         * @param imageId
+         */
+        $scope.downloadImage = function (imageId) {
+            ShoppingListService.getRawImage(imageId).success(function (rawImage) {
+
+            }).error(function (data) {
+                $scope.errors = data.errors;
+            });
+        };
+
     }]);

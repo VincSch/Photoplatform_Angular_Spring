@@ -4,7 +4,7 @@
         <div class="page-header">
             <h2>Ihre Einkäufe</h2>
 
-            <p>Hier können Sie bereits gekaufte Artikel durchsuchen und herunterladen.</p>
+            <p>Hier kannst Du bereits gekaufte Artikel durchsuchen und herunterladen.</p>
         </div>
         <table class="table">
             <thead>
@@ -13,21 +13,19 @@
                 <th>Name</th>
                 <th>Beschreibung</th>
                 <th>Preis</th>
-                <th>gekauft am</th>
-                <th>Download</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="image in images">
-                <td><img customerimage="image" CollectionView="true" class="img-responsive img-rounded" src="{{image.mobilePath}}"></a></td>
+                <td><img class="img-responsive img-rounded" src="{{image.mobilePath}}"></a></td>
                 <td>{{image.name}}</td>
                 <td>{{image.description}}</td>
-                <td>{{image.price}}</td>
-                <td></td>
+                <td>{{image.price}}&#8364;</td>
                 <td>
-                    <button type="submit" class="btn btn-primary"
-                            ng-click="login(email, password)"> download
-                    </button>
+                    <a ng-click="data:image/png;base64,{{downloadImage(image.id)}}" class="btn btn-primary"> per Mail senden
+                    </a>
+                    {{sendImage(image.id)}}
                 </td>
             </tr>
             </tbody>
