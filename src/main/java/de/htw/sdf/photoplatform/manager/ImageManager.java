@@ -14,6 +14,7 @@ import de.htw.sdf.photoplatform.persistence.model.UserImage;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -91,7 +92,7 @@ public interface ImageManager {
      * @return updated image.
      * @throws ManagerException manager exception.
      */
-    Image update(Long imageId, String name, Double price, String description,
+    Image update(Long imageId, String name, BigDecimal price, String description,
         User owner) throws ManagerException;
 
     /**

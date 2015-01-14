@@ -1,7 +1,5 @@
-
-
 angular.module('photoplatform')
-    .controller('customerImageModalCtrl', ['$scope', '$modalInstance', 'imageData', function($scope, $modalInstance, imageData ){
+    .controller('customerImageModalCtrl', ['$scope', '$modalInstance', 'imageData', 'ShoppingListService', function ($scope, $modalInstance, imageData, ShoppingListService) {
 
         var copyImageData = angular.copy(imageData);
         var exif = '{"Metadata":' + copyImageData.metadata + '}';
@@ -9,20 +7,25 @@ angular.module('photoplatform')
         $scope.image = copyImageData;
         console.log(copyImageData);
 
-        $scope.close = function(){
+        $scope.close = function () {
             console.log('Closing imageModal');
             $modalInstance.dismiss('close modal');
-        }
+        };
 
-        $scope.addToCart = function(image){
-            console.log(image);
+        $scope.addToCart = function (imageId) {
+            ShoppingListService.addToShoppingCart(imageId).success(function (data) {
+                $rootScope.user.totalItems = data.totalItems;
+                $scope.close();
+            }).error(function(data){
+                alert(data.message);
+            });
         }
 
     }])
 
-    .directive('customerimage', ['$modal', '$location', function ($modal, $location) {
-    	console.log($location);
-    	
+    .directive('customerimage', ['$rootScope', '$modal', '$location', 'ShoppingListService', function ($rootScope, $modal, $location, ShoppingListService) {
+        console.log($location);
+
         return {
             restrict: 'A',
             templateUrl: '/views/partials/profile/customerImage.html',
@@ -32,27 +35,24 @@ angular.module('photoplatform')
             link: function (scope, elem, attrs) {
 
                 //scope.image = scope.customerimage;
-                
+
                 //Hide Collection and Showcase Link if CollectionView
                 scope.searchResultView = (attrs.collectionview != "true");
                 //console.log(scope.searchResultView);
 
-                scope.openModal = function(imageData){
-
-//                    console.log( imageData );
-
+                scope.openModal = function (imageData) {
                     $modal.open({
-                      templateUrl: '/views/partials/profile/customerImage.mdl.html',
-                      controller: 'customerImageModalCtrl',
-                      windowClass: 'customerImageModal',
-                      size: 'lg',
-                      resolve: {
-                        imageData: function () {
-                          return imageData
+                        templateUrl: '/views/partials/profile/customerImage.mdl.html',
+                        controller: 'customerImageModalCtrl',
+                        windowClass: 'customerImageModal',
+                        size: 'lg',
+                        resolve: {
+                            imageData: function () {
+                                return imageData
+                            }
                         }
-                      }
                     });
-                }
+                };
 
                 scope.goToPhotograph = function (requestUserId) {
                     $location.path("view/showcase/" + requestUserId);
@@ -61,6 +61,14 @@ angular.module('photoplatform')
                 scope.goToCollection = function (collectionId) {
                     $location.path("collection/" + collectionId);
                 };
+
+                scope.addToCart = function (imageId) {
+                    ShoppingListService.addToShoppingCart(imageId).success(function (data) {
+                        $rootScope.user.totalItems = data.totalItems;
+                    }).error(function (data) {
+                        alert(data.message);
+                    });
+                }
             }
         }
     }])

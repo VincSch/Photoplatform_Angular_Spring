@@ -60,7 +60,7 @@
         <li ng-show="isLoggedIn()">
             <a href="/profile/shoppinglist" onclick="fadeOutMenu();">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
-                Warenkorb
+                Meine Bestellungen
             </a>
         </li>
         <li class="sep" ng-hide="isLoggedIn()">
@@ -114,7 +114,7 @@
                     <a class="navbar-right" href="/cart"
                        ng-show="isLoggedIn()">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
-                        Warenkorb
+                        <span>{{user.totalItems}}</span> Warenkorb
                     </a>
                 </li>
                 <li ng-hide="isLoggedIn()">
@@ -252,6 +252,7 @@
 <script src="/js/app/controllers/usercontroller.js"></script>
 <script src="/js/app/controllers/searchcontrollers.js"></script>
 <script src="/js/app/controllers/shoppinglistcontrollers.js"></script>
+<script src="/js/app/controllers/purchasecontroller.js"></script>
 
 <!-- Services -->
 <script src="/js/app/services/auth.js"></script>

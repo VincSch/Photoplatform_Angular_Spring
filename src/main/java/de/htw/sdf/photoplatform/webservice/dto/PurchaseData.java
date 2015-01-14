@@ -6,8 +6,13 @@ package de.htw.sdf.photoplatform.webservice.dto;
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Data transfer object represent shopping cart data.
@@ -16,9 +21,14 @@ import java.util.List;
  */
 public class PurchaseData extends ResponseMessageData implements Serializable {
 
+    public static final NumberFormat NUMBER_FORMAT = NumberFormat.getCurrencyInstance(Locale.GERMANY);
+    static {
+        NUMBER_FORMAT.setMinimumFractionDigits(2);
+    }
+
     private List<PurchaseItemData> purchaseItems;
     private int totalItems;
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
 
     /**
@@ -27,7 +37,7 @@ public class PurchaseData extends ResponseMessageData implements Serializable {
     public PurchaseData() {
         this.purchaseItems = new ArrayList<>();
         this.totalItems = this.purchaseItems.size();
-        this.totalPrice = 0.0;
+        this.totalPrice = new BigDecimal(0.0);
     }
 
     /**
@@ -36,7 +46,7 @@ public class PurchaseData extends ResponseMessageData implements Serializable {
      * @param items      list of domain object <code>PurchaseItem</code>
      * @param totalPrice calculated price.
      */
-    public PurchaseData(List<PurchaseItem> items, Double totalPrice) {
+    public PurchaseData(List<PurchaseItem> items, BigDecimal totalPrice) {
         this.purchaseItems = new ArrayList<>();
         for (PurchaseItem item : items) {
             PurchaseItemData purchaseItemData = new PurchaseItemData(item);
@@ -78,7 +88,7 @@ public class PurchaseData extends ResponseMessageData implements Serializable {
      *
      * @return calculated price of images.
      */
-    public Double getTotalPrice() {
-        return totalPrice;
+    public String getTotalPrice() {
+        return NUMBER_FORMAT.format(totalPrice);
     }
 }

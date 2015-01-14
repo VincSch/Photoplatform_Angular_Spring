@@ -1,9 +1,9 @@
 photoplatformControllers.controller('ImageCtrl',
     ['$scope', '$rootScope', '$location', '$http', '$cookieStore', '$route', 'UserService', 'ImageService', '$modal',
         function ($scope, $rootScope, $location, $http, $cookieStore, $route, UserService, ImageService, $modal) {
-            var user = $cookieStore.get('user');
+            var user = $rootScope.getAuthenticatedUser();
             //if user is not logged in or logged in redirect to login page
-            if (undefined == user || !$rootScope.isLoggedIn()) {
+            if (user == undefined) {
                 $location.path("/login");
                 return;
             }

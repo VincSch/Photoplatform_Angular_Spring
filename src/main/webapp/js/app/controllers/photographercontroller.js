@@ -14,6 +14,13 @@ photoplatformControllers.controller(
         '$route',
         function ($scope, $rootScope, $location, $http, $cookieStore, UserService, PhotographerService, $route) {
 
+            var user = $cookieStore.get('user');
+            //if user is not logged in or logged in redirect to login page
+            if (!user || !user.isPhotographer()) {
+                $location.path("/login");
+                return;
+            }
+
             var start = 0;
             var count = 100;
 
