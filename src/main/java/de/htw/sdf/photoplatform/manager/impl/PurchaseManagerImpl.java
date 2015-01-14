@@ -74,17 +74,19 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
      */
     @Override
     public List<PurchaseItem> removeFromShoppingCart(final User user, final Long purchaseItemId) throws ManagerException {
+        Boolean deletedSuccess = Boolean.FALSE;
         List<PurchaseItem> itemsInShoppingCart = getItemsInShoppingCart(user);
         List<PurchaseItem> result = new ArrayList<>();
         for (PurchaseItem item : itemsInShoppingCart) {
             if (item.getId().equals(purchaseItemId)) {
                 removeFromShoppingCart(item);
+                deletedSuccess = Boolean.TRUE;
             } else {
                 result.add(item);
             }
         }
 
-        if (itemsInShoppingCart.size() == result.size()) {
+        if (!deletedSuccess) {
             //That mean, the purchaseItem is not found in the list
             //if you don't hack the system, should never be true :)
             throw new ManagerException(AbstractBaseException.NOT_FOUND);
