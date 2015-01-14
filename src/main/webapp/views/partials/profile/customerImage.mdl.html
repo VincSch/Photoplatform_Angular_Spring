@@ -7,24 +7,19 @@
     <img ng-src="{{image.thumbnailPath}}" />
     <div class="container">
         <div class="row">
-            <div align="left" class="col-md-6">
+            <div align="left" class="col-md-4 col-xs-4">
                 <p></p>
                 <p>Titel: {{image.name}}</p>
                 <p>Beschreibung: {{image.description}}</p>
                 <p>Preis: {{image.price}} €</p>
             </div>
-            <div align="left" class="col-md-6">
-                <p></p>
+            <p></p>
                 <!--<p>{{image.metadata.3.description}}</p>-->
-                <div class="row">
-                    <div align="right" class="col-md-6">
-                        <div ng-repeat="tag in image.metadata">{{tag.tag}}:</div>
-                    </div>
-                    <div align="left" class="col-md-6">
-                        <div ng-repeat="tag in image.metadata">{{tag.description}}</div>
-                    </div>
-                </div>
-
+            <div align="right" class="col-md-4 col-xs-4">
+                <div ng-repeat="tag in image.metadata">{{tag.tag}}:</div>
+            </div>
+            <div align="left" class="col-md-4 col-xs-4">
+                <div ng-repeat="tag in image.metadata">{{tag.description}}</div>
             </div>
         </div>
     </div>

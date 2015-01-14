@@ -100,6 +100,7 @@ public class PurchaseController extends BaseAPIController {
     @RequestMapping(value = Endpoints.PURCHASES, method = RequestMethod.GET)
     @ResponseBody
     public PurchaseData getShoppingCartData() {
+
         User user = getAuthenticatedUser();
         List<PurchaseItem> itemInShoppingCart = purchaseManager.getItemsInShoppingCart(user);
         Double totalPrice = purchaseManager.calculatePrice(itemInShoppingCart);

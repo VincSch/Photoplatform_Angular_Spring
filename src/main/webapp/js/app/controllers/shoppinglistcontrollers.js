@@ -11,5 +11,4 @@ photoplatformControllers.controller('ShoppingListCtrl', ['$scope', '$rootScope',
             $rootScope.error(error);
         });
 
-    }])
-;
+    }]);
