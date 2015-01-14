@@ -23,9 +23,9 @@
                 <td>{{image.description}}</td>
                 <td>{{image.price}}&#8364;</td>
                 <td>
-                    <a ng-click="data:image/png;base64,{{downloadImage(image.id)}}" class="btn btn-primary"> per Mail senden
+                    <a target="_blank" ng-href="/api/image/{{image.id}}/{{encodedToken}}" class="btn btn-primary">
+                        download
                     </a>
-                    {{sendImage(image.id)}}
                 </td>
             </tr>
             </tbody>

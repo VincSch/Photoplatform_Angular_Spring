@@ -6,6 +6,7 @@ import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifReader;
+import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.manager.HashManager;
 import de.htw.sdf.photoplatform.manager.ImageManager;
@@ -14,6 +15,7 @@ import de.htw.sdf.photoplatform.manager.UserManager;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
@@ -30,6 +32,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -78,6 +83,7 @@ public class ImageController extends BaseAPIController {
     @Resource
     private HashManager hashManager;
 
+
     @PostConstruct
     public void initIt() throws Exception {
         UPLOAD_THUMB_PREFIX = servletContext.getRealPath("/") + THUMB_PREFIX;
@@ -125,12 +131,12 @@ public class ImageController extends BaseAPIController {
     }
 
     @RequestMapping(value = Endpoints.IMAGE_AS_BYTE, method = RequestMethod.GET)
-         public
-         @ResponseBody
-         ResponseEntity<byte[]> getImageAsByte(
-                    @RequestParam Long imageId) {
+    public
+    @ResponseBody
+    ResponseEntity<byte[]> getImageAsByte(
+            @PathVariable String imageId, @PathVariable String secToken) throws AbstractBaseException{
 
-        Image requestedImage = imageManager.findById(imageId);
+        Image requestedImage = imageManager.findById(Long.valueOf(imageId));
         File file = new File(requestedImage.getPath());
         InputStream in = null;
         try {
@@ -141,14 +147,28 @@ public class ImageController extends BaseAPIController {
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
-
+        String authToken = decodeToken(secToken);
+        String username = TokenUtils.getUserNameFromToken(authToken);
+        UserDetails user = userManager.findByName(username);
         try {
-            return new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+            if (!TokenUtils.validateToken(authToken, user)) {
+                throw new BadRequestException(
+                        "Bad Request!");
+            } else {
+                return new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+            }
         } catch (IOException e) {
             log.error(e.getMessage());
         }
 
         return null;
+    }
+
+    private String decodeToken(String token) {
+        String replacedAt = token.replace("(at)", "@");
+        String replacedDP = replacedAt.replace("(dot)", ".");
+        String encodedToken = replacedDP.replace("(colon)", ":");
+        return encodedToken;
     }
 
     @RequestMapping(value = "/photographer/upload", method = RequestMethod.POST)

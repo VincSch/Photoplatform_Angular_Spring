@@ -2,8 +2,8 @@
  * AuthService.
  * Login, register and passwordLost and passwordReset.
  */
-angular.module('photoplatform').factory('ShoppingListService', ['$http',
-    function ($http) {
+angular.module('photoplatform').factory('ShoppingListService', ['$http', '$rootScope',
+    function ($http, $rootScope) {
 
         var urlBase = '/api/';
 
@@ -15,6 +15,7 @@ angular.module('photoplatform').factory('ShoppingListService', ['$http',
              * @returns {HttpPromise}
              */
             getRawImage: function (imageId) {
+                $http.defaults.headers.common[xAuthTokenHeaderName] = $rootScope.user.secToken;
                 return $http.get(urlBase + 'image/' + imageId);
             },
 

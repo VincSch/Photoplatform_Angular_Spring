@@ -169,7 +169,7 @@ public final class Endpoints {
     /**
      * GET: Get an image as byte array
      */
-    public static final String IMAGE_AS_BYTE = "/image/{id}";
+    public static final String IMAGE_AS_BYTE = "/image/{imageId}/{secToken}";
 
     /**
      * GET: return my showcase.
@@ -253,7 +253,7 @@ public final class Endpoints {
                 restBuilder(PURCHASES),
                 restBuilder(PURCHASES_ID),
                 restBuilder(USERS_CHANGE_PASSWORD),
-                restBuilder(IMAGE_AS_BYTE)
+                //restBuilder(IMAGE_AS_BYTE)
         };
         return securedEndpoints;
     }
