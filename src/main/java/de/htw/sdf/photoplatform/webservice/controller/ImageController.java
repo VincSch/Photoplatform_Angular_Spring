@@ -35,6 +35,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.codec.Hex;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,6 +45,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -134,7 +136,7 @@ public class ImageController extends BaseAPIController {
     public
     @ResponseBody
     ResponseEntity<byte[]> getImageAsByte(
-            @PathVariable String imageId, @PathVariable String secToken) throws AbstractBaseException{
+            @PathVariable String imageId, @PathVariable String userId, @PathVariable String secToken) throws AbstractBaseException {
 
         Image requestedImage = imageManager.findById(Long.valueOf(imageId));
         File file = new File(requestedImage.getPath());
@@ -147,11 +149,18 @@ public class ImageController extends BaseAPIController {
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
-        String authToken = decodeToken(secToken);
-        String username = TokenUtils.getUserNameFromToken(authToken);
-        UserDetails user = userManager.findByName(username);
+        User user = userManager.findById(Long.valueOf(userId));
+        String secHash = "";
         try {
-            if (!TokenUtils.validateToken(authToken, user)) {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            if (user.getSecToken() != null) {
+                secHash = new String(Hex.encode(messageDigest.digest(user.getSecToken().getBytes())));
+            } else {
+                throw new BadRequestException(
+                        "This link expired!");
+            }
+
+            if (!secToken.equals(secHash)) {
                 throw new BadRequestException(
                         "Bad Request!");
             } else {
@@ -159,16 +168,11 @@ public class ImageController extends BaseAPIController {
             }
         } catch (IOException e) {
             log.error(e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            log.error(e.getMessage());
         }
 
         return null;
-    }
-
-    private String decodeToken(String token) {
-        String replacedAt = token.replace("(at)", "@");
-        String replacedDP = replacedAt.replace("(dot)", ".");
-        String encodedToken = replacedDP.replace("(colon)", ":");
-        return encodedToken;
     }
 
     @RequestMapping(value = "/photographer/upload", method = RequestMethod.POST)

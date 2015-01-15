@@ -3,6 +3,7 @@ var photoplatform = angular.module('photoplatform',
     [
         'ngRoute',
         'ngCookies',
+        'angular-md5',
         'photoplatformControllers',
         'ui.bootstrap'
     ]);
@@ -134,6 +135,7 @@ photoplatform.config([
     });
 
     $rootScope.logout = function () {
+        UserService.logout($rootScope.user);
         delete $rootScope.user;
         delete $http;
 

@@ -67,6 +67,11 @@ public final class Endpoints {
     public static final String USER_PASSWORD_RESET = "/user/password/reset";
 
     /**
+     * POST: Reset password.
+     */
+    public static final String USER_LOGOUT = "/user/logout";
+
+    /**
      * USER_BECOME_PHOTOGRAPHER.
      */
     public static final String USER_BECOME_PHOTOGRAPHER = "/user/becomePhotographer";
@@ -169,7 +174,7 @@ public final class Endpoints {
     /**
      * GET: Get an image as byte array
      */
-    public static final String IMAGE_AS_BYTE = "/image/{imageId}/{secToken}";
+    public static final String IMAGE_AS_BYTE = "/image/{imageId}/{userId}/{secToken}";
 
     /**
      * GET: return my showcase.
@@ -253,6 +258,7 @@ public final class Endpoints {
                 restBuilder(PURCHASES),
                 restBuilder(PURCHASES_ID),
                 restBuilder(USERS_CHANGE_PASSWORD),
+                restBuilder(USER_LOGOUT),
                 //restBuilder(IMAGE_AS_BYTE)
         };
         return securedEndpoints;

@@ -1,17 +1,11 @@
 /**
  * Image search controller.
  */
-photoplatformControllers.controller('ShoppingListCtrl', ['$scope', '$rootScope', 'ShoppingListService', '$location',
-    function ($scope, $rootScope, ShoppingListService, $location) {
+photoplatformControllers.controller('ShoppingListCtrl', ['$scope', '$rootScope', 'ShoppingListService', '$location', 'md5',
+    function ($scope, $rootScope, ShoppingListService, $location, md5) {
 
-        $scope.encodedToken = encode($rootScope.user.secToken);
-
-        function encode(token){
-            var replacedAt = token.replace("@", "(at)");
-            var replacedDP = replacedAt.replace(".", "(dot)");
-            var encodedToken = replacedDP.replace(":", "(colon)");
-            return encodedToken
-        }
+        $scope.encodedToken = md5.createHash($rootScope.user.secToken);
+        $scope.userId = $rootScope.user.id;
 
         ShoppingListService.getPurchasedImages().success(function (images) {
             $scope.images = images;
