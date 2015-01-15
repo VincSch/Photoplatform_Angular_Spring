@@ -1,0 +1,34 @@
+<div class="row" ng-controller="ShoppingListCtrl">
+    <div class="col-md-2" ng-include src="'/views/partials/profile/sidebar.html'"></div>
+    <div class="col-md-10">
+        <div class="page-header">
+            <h2>Ihre Einkäufe</h2>
+
+            <p>Hier kannst Du bereits gekaufte Artikel durchsuchen und herunterladen.</p>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Vorschau</th>
+                <th>Name</th>
+                <th>Beschreibung</th>
+                <th>Preis</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="image in images">
+                <td><img class="img-responsive img-rounded" src="{{image.mobilePath}}"></a></td>
+                <td>{{image.name}}</td>
+                <td>{{image.description}}</td>
+                <td>{{image.price}}&#8364;</td>
+                <td>
+                    <a target="_blank" ng-href="/api/image/{{image.id}}/{{userId}}/{{encodedToken}}" class="btn btn-primary">
+                        download
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

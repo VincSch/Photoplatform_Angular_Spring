@@ -32,10 +32,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.persistence.NoResultException;
@@ -97,7 +94,7 @@ public class AuthenticationController extends BaseAPIController {
         User user = (User) this.userDetailsService
                 .loadUserByUsername(userCredential.getEmail());
         user.setSecToken(TokenUtils.createToken(user));
-
+        userManager.update(user);
         return new UserData(user);
     }
 
@@ -201,6 +198,17 @@ public class AuthenticationController extends BaseAPIController {
                     throw new BadRequestException("Bad request");
             }
         }
+    }
+
+    /**
+     * logout
+     */
+    @RequestMapping(value = Endpoints.USER_LOGOUT, method = RequestMethod.POST)
+    public boolean logout(@RequestBody UserData userDTO) throws IOException, NotFoundException, BadRequestException {
+        User user = userManager.findById(Long.valueOf(userDTO.getId()));
+        user.setSecToken(null);
+        userManager.update(user);
+        return true;
     }
 
 }

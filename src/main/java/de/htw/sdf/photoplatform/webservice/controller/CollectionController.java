@@ -74,9 +74,15 @@ public class CollectionController extends BaseAPIController {
             throw new BadRequestException(exceptionMsg);
         }
         
+        if(collectionData == null)
+        {
+        	throw new RuntimeException(messages.getMessage("Collection.notValid"));
+        }
+        
         //Check if Collection is public or i am the owner
+        //it is not public and i have an logged in user and he is not the owner
         User authenticatedUser = getAuthenticatedUser();
-        if((authenticatedUser.getId() != collectionData.getUser().getId()) && (!collectionData.isPublic()) ){
+        if((!collectionData.isPublic()) && ((authenticatedUser != null) && (authenticatedUser.getId() != collectionData.getUser().getId()))){
             throw new BadRequestException(messages.getMessage("Collection.notPublic"));
         }
         
@@ -145,6 +151,24 @@ public class CollectionController extends BaseAPIController {
         }
 
         return collectionDatas;
+    }
+
+    /**
+     * Set Thumbnail of Collection.
+     *
+     * @param collectionId  collection id.
+     * @param imageId  image id.
+     *
+     * @return success message.
+     */
+    @RequestMapping(value = Endpoints.COLLECTIONS_SET_AS_THUMB_IMAGE, method = RequestMethod.PATCH)
+    @ResponseBody
+    public String setAsThumbnail(@PathVariable Long collectionId, @PathVariable Long imageId) {
+
+        Collection col = photographerManager.getCollectionById(collectionId);
+        photographerManager.updateThumbnail(col, imageId);
+
+        return messages.getMessage("Collection.Thumbnail.set.success");
     }
 
 }

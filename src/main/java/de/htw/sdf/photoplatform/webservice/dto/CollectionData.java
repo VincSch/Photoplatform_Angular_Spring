@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.htw.sdf.photoplatform.persistence.model.Image;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import de.htw.sdf.photoplatform.persistence.model.Collection;
@@ -29,7 +30,7 @@ public class CollectionData  extends ResponseMessageData implements Serializable
 
     private UserData userdata;
 
-    private ImageData thumbnail;
+    private Image thumbnail;
 
     private List<ImageData> images;
 
@@ -61,6 +62,12 @@ public class CollectionData  extends ResponseMessageData implements Serializable
         this.description = collection.getDescription();
         this.images = new ArrayList<>();
         this.isPublic = collection.isPublic();
+
+        if(collection.getThumbnail() != null)
+             this.thumbnail = collection.getThumbnail();
+        else {
+            this.thumbnail = null;
+        }
 
         if(includeImages && collection.getCollectionImages() != null){
             for(CollectionImage collectionImage : collection.getCollectionImages()){
@@ -167,7 +174,7 @@ public class CollectionData  extends ResponseMessageData implements Serializable
      *
      * @return image.
      */
-    public ImageData getThumbnail() {
+    public Image getThumbnail() {
         return thumbnail;
     }
 
@@ -176,7 +183,7 @@ public class CollectionData  extends ResponseMessageData implements Serializable
      *
      * @param thumbnail image.
      */
-    public void setThumbnail(ImageData thumbnail) {
+    public void setThumbnail(Image thumbnail) {
         this.thumbnail = thumbnail;
     }
 

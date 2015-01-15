@@ -15,6 +15,7 @@ import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
+import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -132,7 +133,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         collection.setDescription(description);
         // Not public, not in show case
         collection.setPublic(false);
-
+        collection.setThumbnail(null);
         collectionDAO.create(collection);
 
         return collection;
@@ -180,6 +181,8 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             collectionImage.setCollection(affectedCollection);
             collectionImage.setImage(userImage.getImage());
             collectionImageDAO.create(collectionImage);
+            if (affectedCollection.getCollectionImages().size() == 0)
+                affectedCollection.setThumbnail(userImage.getImage());
             result.add(collectionImage);
 
             if (affectedCollection.isPublic()) {
@@ -227,8 +230,15 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
                     "The size of image id's is different to size of found images. This should not happen");
         }
 
+        Collection affectedCollection = collectionImages.iterator().next().getCollection();
+        //check thumbnail
+        if (affectedCollection.getThumbnail() != null && imageIds.contains(affectedCollection.getThumbnail().getId())) {
+            updateThumbnail(affectedCollection, null);
+        }
+
         for (CollectionImage collectionImage : collectionImages) {
             collectionImageDAO.delete(collectionImage);
+
             //remove image elasticsearch index
             removeImageSearchIndexIfPublic(collectionImage.getCollection(), collectionImage.getImage());
         }
@@ -268,9 +278,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             //check thumbnail
             if (collectionImage.getCollection().getThumbnail() != null &&
                     collectionImage.getCollection().getThumbnail().getId().equals(imageId)) {
-                //remove this image from collection thumbnail.
-                collectionImage.getCollection().setThumbnail(null);
-                collectionDAO.update(collectionImage.getCollection());
+                updateThumbnail(collectionImage.getCollection(), null);
             }
             //remove reference to collection.
             collectionImageDAO.delete(collectionImage);
@@ -361,5 +369,21 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         }
 
         return affectedCollection;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateThumbnail(Collection collection, Long imageId) {
+        if (imageId == null) {
+            Image newThumbnail = collectionImageDAO.findNewThumbnail(collection);
+            collection.setThumbnail(newThumbnail);
+            collectionDAO.update(collection);
+        } else {
+            Image img = collectionImageDAO.findCollectionImagesBy(imageId).getImage();
+            collection.setThumbnail(img);
+            collectionDAO.update(collection);
+        }
     }
 }

@@ -17,6 +17,10 @@ angular.module('photoplatform').factory(
                 return $http.post(urlBase + '/becomePhotographer', user);
             };
 
+            userService.logout = function (user) {
+                return $http.post(urlBase + '/logout', user);
+            };
+
             userService.update = function (user) {
                 return $http.post(urlBase + '/update', user);
             };

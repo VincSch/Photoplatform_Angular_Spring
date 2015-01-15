@@ -219,4 +219,12 @@ public interface PhotographerManager {
      * @return list of images.
      */
     List<UserImage> getImagesWithoutCollection(final User photograph);
+
+    /**
+     * Update Thumbnail of collection.
+     *
+     * @param collection to update
+     * @param imageId new thumbnail, if null a random new thumbnail will be chosen
+     */
+    void  updateThumbnail(Collection collection, Long imageId);
 }

@@ -61,5 +61,12 @@ angular.module('photoplatform')
                 return $http.get('/api/' + 'viewshowcase', {params: {'start': start, 'count': count, 'requestUserId': requestUserId }});
             };
 
+            collectionService.setAsCollectionThumb = function (collectionId, imageId) {
+                return $http({
+                    method: 'PATCH',
+                    url: urlBase + '/setAsThumbnail/' + collectionId + '/images/' + imageId,
+                });
+            };
+
             return collectionService;
         }]);

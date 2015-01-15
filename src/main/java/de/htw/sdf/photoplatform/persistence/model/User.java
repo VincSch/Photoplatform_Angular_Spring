@@ -53,7 +53,7 @@ public class User extends AbstractBaseAuditEntity implements UserDetails {
     @Column(nullable = true)
     private PhotographerData photographerData;
 
-    @Transient
+    @Column(name = "SEC_TOKEN", nullable = true)
     private String secToken;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")

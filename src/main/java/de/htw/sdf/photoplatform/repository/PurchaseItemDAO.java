@@ -40,4 +40,5 @@ public interface PurchaseItemDAO extends GenericDAO<PurchaseItem> {
      * @return list of shopping cart's.
      */
     PurchaseItem findByUserAndImage(User user, Image image);
+
 }

@@ -3,7 +3,7 @@
          src="'/views/partials/profile/sidebar.html'"></div>
     <div class="col-md-10">
         <div class="page-header">
-            <h2>Willkommen {{user.username}}</h2>
+            <h2>Willkommen {{user.firstName}} {{user.lastName}}</h2>
         </div>
         <div class="row" ng-controller="ImageSearchCtrl" ng-include
              src="'/views/partials/imageSearchBar.html'"></div>
@@ -42,35 +42,9 @@
                 <div class="row">
                     <div class="col-md-3" ng-repeat="image in recomendationFilteredImages">
                         <!--<div class="row" ng-include src="'/views/partials/home/customerImage.html'"></div>-->
-                        <div class="row" customerimage="image"></div>
+                        <div customerimage="image"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-
-        <!-- My Images-->
-        <div class="row">
-            <div class="col-xs-12 col-md-12">
-                <hr>
-                <h3>Meine Käufe</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-3">
-                <img src="http://placehold.it/300x300" class="img-responsive">
-
-                <p class="text-center">Fotograf</p>
-            </div>
-            <div class="col-xs-12 col-md-3">
-                <img src="http://placehold.it/300x300" class="img-responsive">
-
-                <p class="text-center">Fotograf</p>
-            </div>
-            <div class="col-xs-12 col-md-3">
-                <img src="http://placehold.it/300x300" class="img-responsive">
-
-                <p class="text-center">Fotograf</p>
             </div>
         </div>
     </div>

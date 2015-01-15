@@ -6,7 +6,9 @@
 
 package de.htw.sdf.photoplatform.repository;
 
+import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
+import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.repository.common.GenericDAO;
 
 import java.util.List;
@@ -41,4 +43,18 @@ public interface CollectionImageDAO extends GenericDAO<CollectionImage> {
      * @return collectionImage for corresponded image id.
      */
     CollectionImage findCollectionImagesBy(Long imageId);
+
+    /**
+     * Returns first collectionImage by collectionId and image not equal currentThumbnailId.
+     * <p/>
+     * It's a help method's to find a new thumbnail for collection.
+     * Check, where collection contain collection id and
+     * image id's is not currentThumbnailId.
+     * <p/>
+     * Result can be null, if collection has exact one image, and this is current thumbnail.
+     *
+     * @param collection affected collection.
+     * @return new image for collection image.
+     */
+    Image findNewThumbnail(final Collection collection);
 }

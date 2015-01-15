@@ -67,6 +67,11 @@ public final class Endpoints {
     public static final String USER_PASSWORD_RESET = "/user/password/reset";
 
     /**
+     * POST: Reset password.
+     */
+    public static final String USER_LOGOUT = "/user/logout";
+
+    /**
      * USER_BECOME_PHOTOGRAPHER.
      */
     public static final String USER_BECOME_PHOTOGRAPHER = "/user/becomePhotographer";
@@ -104,6 +109,11 @@ public final class Endpoints {
      * images in shopping cart.
      */
     public static final String PURCHASES = "/purchases";
+
+    /**
+     * images in shopping cart.
+     */
+    public static final String PURCHASES_ID = PURCHASES + "/{purchaseItemId}";
 
     /**
      * Endpoint for photograph services.
@@ -147,6 +157,11 @@ public final class Endpoints {
     public static final String COLLECTIONS_DELETE_IMAGE = "/collections/{collectionId}/images/{imageId}";
 
     /**
+     * PUT: set image as thumbnail for collection.
+     */
+    public static final String COLLECTIONS_SET_AS_THUMB_IMAGE = "/collections/setAsThumbnail/{collectionId}/images/{imageId}";
+
+    /**
      * POST: update collection.
      */
     public static final String COLLECTIONS_UPDATE = "/collections/update";
@@ -155,6 +170,11 @@ public final class Endpoints {
      * DELETE: Delete collection
      */
     public static final String COLLECTIONS = "/collections/{collectionId}";
+
+    /**
+     * GET: Get an image as byte array
+     */
+    public static final String IMAGE_AS_BYTE = "/image/{imageId}/{userId}/{secToken}";
 
     /**
      * GET: return my showcase.
@@ -248,7 +268,10 @@ public final class Endpoints {
                 restBuilder(USER_BECOME_PHOTOGRAPHER),
                 restBuilder(USERS_IMAGES),
                 restBuilder(PURCHASES),
-                restBuilder(USERS_CHANGE_PASSWORD)
+                restBuilder(PURCHASES_ID),
+                restBuilder(USERS_CHANGE_PASSWORD),
+                restBuilder(USER_LOGOUT),
+                //restBuilder(IMAGE_AS_BYTE)
         };
         return securedEndpoints;
     }
@@ -266,7 +289,7 @@ public final class Endpoints {
                 restBuilder(USERS_BECOME_PHOTOGRAPHERS),
                 restBuilder(USER_MAKE_ADMIN),
                 restBuilder(USER_LOCK),
-                restBuilder(USER_UNLOCK)
+                restBuilder(USER_UNLOCK),
         };
         return securedEndpoints;
     }
@@ -294,7 +317,8 @@ public final class Endpoints {
                 restBuilder(COLLECTIONS),
                 restBuilder(COLLECTIONS_UPDATE),
                 restBuilder(COLLECTIONS_SHOWCASE),
-                restBuilder(USERS_BECOME_PHOTOGRAPHERS)
+                restBuilder(USERS_BECOME_PHOTOGRAPHERS),
+                restBuilder(COLLECTIONS_SET_AS_THUMB_IMAGE)
         };
         return securedEndpoints;
     }

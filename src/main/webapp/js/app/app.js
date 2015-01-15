@@ -3,6 +3,7 @@ var photoplatform = angular.module('photoplatform',
     [
         'ngRoute',
         'ngCookies',
+        'angular-md5',
         'photoplatformControllers',
         'ui.bootstrap'
     ]);
@@ -46,6 +47,9 @@ photoplatform.config([
         }).when('/profile/view', {
             templateUrl: '/views/partials/profile/view.html',
             controller: 'UserCtrl'
+        }).when('/profile/shoppinglist', {
+            templateUrl: '/views/partials/profile/purchase/shoppingList.html',
+            controller: 'ShoppingListCtrl'
         }).when('/profile/admin/edit/user/:userId', {
             templateUrl: '/views/partials/profile/admin/editUser.html',
             controller: 'AdminEditUserCtrl'
@@ -67,6 +71,15 @@ photoplatform.config([
         }).when('/profile/photograph/image', {
             templateUrl: '/views/partials/profile/photographer/image/image.html',
             controller: 'ImageCtrl'
+        }).when('/cart', {
+            templateUrl: '/views/partials/profile/shoppingCart.html',
+            controller: ''
+        }).when('/purchase/agb', {
+            templateUrl: '/views/partials/profile/purchase/agb.html',
+            controller: ''
+        }).when('/purchase/transaction', {
+            templateUrl: '/views/partials/profile/purchase/transaction.html',
+            controller: ''
         }).when('/paypaltest', {
             templateUrl: '/views/partials/home/paypaltest.html',
             controller: 'PaypalTestCtrl'
@@ -128,6 +141,7 @@ photoplatform.config([
     });
 
     $rootScope.logout = function () {
+        UserService.logout($rootScope.user);
         delete $rootScope.user;
         delete $http;
 

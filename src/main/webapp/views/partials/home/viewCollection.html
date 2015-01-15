@@ -1,16 +1,20 @@
 <div class="row">
     <div class="col-md-10" ng-controller="ViewCollectionCtrl" ng-init="getCollectionsData()">
-        <div class="row" ng-show="show">
+        <div  ng-show="show">
             <div class="page-header">
                 <h2>Album: {{collectionName}}</h2>
                 <p>Sammlung von <a href="/view/showcase/{{photographer.id}}">{{photographer.firstName}} {{photographer.lastName}}</a></p>
                 <p>{{collectionDescription}}</p>
             </div>
-	          <div class="row">
-	            <div class="col-md-3" ng-repeat="image in images">
-	                <div class="row" customerimage="image" CollectionView="true" ></div>
-	            </div>
-	        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4" ng-repeat="image in images">
+                            <div customerimage="image" CollectionView="true"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

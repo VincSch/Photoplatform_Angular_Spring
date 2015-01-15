@@ -15,13 +15,36 @@
 </div>
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="home-hero-unit hero-unit" align="center">
-    <h1>Willkommen Gast</h1>
+    <h1>Willkommen auf der Photoplattform</h1>
 
     <p>Auf dieser Seite können Sie Bilder kaufen und verkaufen.</p>
 
-    <p><a href="#/register" class="btn btn-primary btn-large">Werde Mitglied!</a></p>
-    <br>
-
     <div class="row" ng-include src="'/views/partials/imageSearchBar.html'"></div>
+
+    <div class="row">
+        <hr>
+        <div class="col-md-4">
+            <h2>Registrieren</h2>
+
+            <p>Werde Mitglied und verkaufe oder kaufe Fotos! Du kannst dich nach der Registrierung als Photograph bewerben!</p>
+
+            <p><a class="btn" href="/register">werde jetzt Mitglied.. »</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Suchen</h2>
+
+            <p>Du bist bereits bei uns angemeldet und möchtest ein neues Foto kaufen? Dann benutz die Suche auf der Startseite oder gehe direkt zu deinem Profil</p>
+
+            <p><a class="btn" href="/profile">zu meinem Profil »</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Passwort vergessen?</h2>
+
+            <p>Du hast dein Passwort vergessen? Keine Panik benutz einfach den folgenden Link und stelle dein Passwort wiederher.</p>
+
+            <p><a class="btn" href="#" data-toggle="modal" data-target="#passwordLost">Passwort zurücksetzen »</a></p>
+        </div>
+    </div>
+
 </div>
 

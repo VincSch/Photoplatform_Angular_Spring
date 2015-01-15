@@ -2,6 +2,7 @@
 
 angular.module('photoplatform')
     .controller('customerImageModalCtrl', ['$scope', '$modalInstance', 'imageData', function($scope, $modalInstance, imageData ){
+
         var copyImageData = angular.copy(imageData);
         var exif = '{"Metadata":' + copyImageData.metadata + '}';
         copyImageData.metadata = JSON.parse(exif).Metadata;

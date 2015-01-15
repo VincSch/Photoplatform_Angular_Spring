@@ -22,12 +22,12 @@ import java.util.List;
  */
 @Repository
 @Transactional
-public class PurchaseItemImpl extends GenericDAOImpl<PurchaseItem> implements PurchaseItemDAO {
+public class PurchaseItemDAOImpl extends GenericDAOImpl<PurchaseItem> implements PurchaseItemDAO {
 
     /**
      * Collection DAO constructor.
      */
-    public PurchaseItemImpl() {
+    public PurchaseItemDAOImpl() {
         super();
         setClazz(PurchaseItem.class);
     }
