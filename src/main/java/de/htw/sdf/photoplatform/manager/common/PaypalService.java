@@ -39,6 +39,28 @@ import de.htw.sdf.photoplatform.webservice.Endpoints;
 @Service
 public class PaypalService extends DAOReferenceCollector {
 	
+	public class PaypalCreatePaymentResult {
+		
+		private String PaymentID;
+		private String RedirectURL;
+		
+		public PaypalCreatePaymentResult(String PaymentID, String RedirectURL)
+		{
+			this.PaymentID = PaymentID;
+			this.RedirectURL = RedirectURL;
+		}
+		
+		public String GetPaymentID()
+		{
+			return PaymentID;
+		}
+		
+		public String GetRedirectURL()
+		{
+			return RedirectURL;
+		}		
+	}
+	
 	private Logger Log = Logger.getLogger(PaypalService.class.getName());
 
     @Resource
@@ -89,9 +111,9 @@ public class PaypalService extends DAOReferenceCollector {
      * @param Items the to be puchased items.
      * @param BaseURL The BaseURL where paypal will redirect the buyer after approval or cancel.
      * 
-     * @returns the paypal response as JSON
+     * @returns the payment id and redirect url
      */
-    public String CreatePayment( List<Image> Items, String BaseURL) throws AbstractBaseException {
+    public PaypalCreatePaymentResult CreatePayment( List<Image> Items, String BaseURL) throws AbstractBaseException {
     	// Use nulled Local so String.format will use . as decimal delimiter
     	Locale l = null;
     	double Total = 0;
@@ -144,23 +166,28 @@ public class PaypalService extends DAOReferenceCollector {
     		Log.error("Error while trying to create Paypal Payment: " + ex.getMessage());
     		throw new ServiceException(AbstractBaseException.PAYPAL_REST_ERROR);
 		}
-		/*
+		
+		String RedirectURL = "";
+		
 		// Get redirect link to paypal page
 		Iterator<Links> links = newPayment.getLinks().iterator();
 		while (links.hasNext()) {
 			Links link = links.next();
 			if (link.getRel().equalsIgnoreCase("approval_url")) {
 		    	// return to redirect
-				return  link.getHref();
+				RedirectURL = link.getHref();
 			}
 		}
-
-		//Null means no redirect something went wrong
-		Log.warn("No paypal redirect link found!");
-		return null;	
-		*/
 		
-		return newPayment.toJSON();
+		if(RedirectURL.isEmpty())
+		{
+			Log.warn("No paypal redirect link found!");
+    		throw new ServiceException(AbstractBaseException.PAYPAL_REST_ERROR);
+		}
+		
+		return new PaypalCreatePaymentResult(newPayment.getId(), RedirectURL);
+		
+		//return newPayment.toJSON();
     }
     
     /*
@@ -169,9 +196,8 @@ public class PaypalService extends DAOReferenceCollector {
      * @param PaymentId Payment ID of this payment process.
      * @param PayerID Payer ID of the buyer; provided by the paypal redirect.
      * 
-     * @returns the paypal response as JSON
      */
-    public String ExecutePayment(String PaymentId, String PayerID) throws AbstractBaseException {
+    public void ExecutePayment(String PaymentId, String PayerID) throws AbstractBaseException {
     	Payment payment = new Payment();
     	payment.setId(PaymentId);
     	
@@ -188,6 +214,6 @@ public class PaypalService extends DAOReferenceCollector {
     		throw new ServiceException(AbstractBaseException.PAYPAL_REST_ERROR);
 		}
 		
-		return FullfilledPayment.toJSON();
+		//return FullfilledPayment.toJSON();
     }
 }
