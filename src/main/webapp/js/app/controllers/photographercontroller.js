@@ -16,7 +16,7 @@ photoplatformControllers.controller(
 
             var user = $cookieStore.get('user');
             //if user is not logged in or logged in redirect to login page
-            if (!user || !user.isPhotographer()) {
+            if (user == undefined || !$rootScope.isLoggedIn()) {
                 $location.path("/login");
                 return;
             }
