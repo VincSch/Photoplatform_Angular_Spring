@@ -25,13 +25,7 @@ photoplatformControllers.controller(
                     $rootScope.user = user;
                     $http.defaults.headers.common[xAuthTokenHeaderName] = user.secToken;
                     $cookieStore.put('user', user);
-                    console.log(user);
-                    if ($rootScope.isCustomer())
-                        $location.path("/profile");
-                    if ($rootScope.isPhotographer())
-                        $location.path("/profile");
-                    if ($rootScope.isAdmin())
-                        $location.path("/profile");
+                    $location.path("/profile");
                 }).error(function (data) {
                     $scope.errors = data.errors;
                 });

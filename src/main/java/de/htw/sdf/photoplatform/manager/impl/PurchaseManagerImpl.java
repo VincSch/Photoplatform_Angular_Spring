@@ -14,6 +14,7 @@ import de.htw.sdf.photoplatform.persistence.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,14 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
      */
     @Override
     public PurchaseItem addToShoppingCart(User user, Long imageId) throws ManagerException {
+        List<PurchaseItem> itemsInShoppingCart = getItemsInShoppingCart(user);
+        // check if already in shopping cart
+        for (PurchaseItem item : itemsInShoppingCart) {
+            if (item.getImage().getId().equals(imageId)) {
+                throw new ManagerException(ManagerException.BAD_REQUEST);
+            }
+        }
+
         CollectionImage collectionImage = collectionImageDAO.findCollectionImagesBy(imageId);
         if (collectionImage == null || !collectionImage.getCollection().isPublic()) {
             //if you don't hack the system, should never be true :)
@@ -109,10 +118,10 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
      * {@inheritDoc}
      */
     @Override
-    public Double calculatePrice(List<PurchaseItem> images) {
-        Double result = 0.0;
+    public BigDecimal calculatePrice(List<PurchaseItem> images) {
+        BigDecimal result =  new BigDecimal(0.0);
         for (PurchaseItem item : images) {
-            result = result + item.getImage().getPrice();
+            result = result.add(item.getImage().getPrice());
         }
 
         return result;

@@ -11,7 +11,7 @@
                 <p></p>
                 <p>Titel: {{image.name}}</p>
                 <p>Beschreibung: {{image.description}}</p>
-                <p>Preis: {{image.price}} €</p>
+                <p>Preis: {{image.priceAsString}}</p>
             </div>
             <p></p>
                 <!--<p>{{image.metadata.3.description}}</p>-->
@@ -35,7 +35,7 @@
 
             </div>
             <div class="col-md-6">
-                <button class="btn btn-warning" ng-click="addToCart(image)">In Warenkorb</button>
+                <button class="btn btn-warning" ng-click="addToCart(image.id)">In Warenkorb</button>
                 <button class="btn btn-primary" ng-click="close()">Schließen</button>
             </div>
         </div>

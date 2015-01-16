@@ -78,6 +78,13 @@
                 {{user.firstName}}
             </a>
         </li>
+        <li ng-show="isLoggedIn()"
+            ng-click="$root.activeListGroupItem = 'profile'" ng-class="{active: activeListGroupItem == 'order'}">
+            <a href="/profile/shoppinglist" onclick="fadeOutMenu();">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                Meine Bestellungen
+            </a>
+        </li>
         <li class="sep" ng-hide="isLoggedIn()">
             <a href="/login" onclick="fadeOutMenu();"
                ng-click="$root.activeListGroupItem = 'login'" ng-class="{active: activeListGroupItem == 'login'}">
@@ -142,7 +149,7 @@
                        ng-show="isLoggedIn()"
                        ng-click="$root.activeListGroupItem = 'cart'">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
-                        Warenkorb
+                        <span>{{user.totalItems}}</span> Warenkorb
                     </a>
                 </li>
                 <li ng-hide="isLoggedIn()">
@@ -281,6 +288,7 @@
 <script src="/js/app/controllers/usercontroller.js"></script>
 <script src="/js/app/controllers/searchcontrollers.js"></script>
 <script src="/js/app/controllers/shoppinglistcontrollers.js"></script>
+<script src="/js/app/controllers/purchasecontroller.js"></script>
 
 <!-- Services -->
 <script src="/js/app/services/auth.js"></script>

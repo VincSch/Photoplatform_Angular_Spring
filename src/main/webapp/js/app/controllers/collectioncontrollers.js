@@ -7,9 +7,9 @@ photoplatformControllers.controller('CollectionCtrl',
                 $location.path("/login");
                 return;
             }
-            
+
             $scope.collectionId = $routeParams.collectionId;
-            
+
             var start = 0;
             var count = 100;
 
@@ -17,13 +17,13 @@ photoplatformControllers.controller('CollectionCtrl',
             $scope.images = [];
 
             $scope.copy = angular.copy;
-			
+
 			/**
 			 * Get collections data
 			 */
 			 $scope.getCollectionsData = function() {
 			 	CollectionService.getCollection($scope.collectionId).success(function (data) {
-                    $scope.collectionName = data.name; 
+                    $scope.collectionName = data.name;
                     $scope.collectionDescription = data.description;
                     $scope.images = data.images;
                 }).error(function (data) {
@@ -31,7 +31,7 @@ photoplatformControllers.controller('CollectionCtrl',
                     $scope.errors = data.errors;
                 });
 			 };
-			
+
             /**
              * Get all collections images.
              */
@@ -117,12 +117,12 @@ photoplatformControllers.controller('CollectionCtrl',
 /**
  * Get specific public collection
  */
-photoplatformControllers.controller('ViewCollectionCtrl', 
-	['$scope', '$rootScope', '$location', '$http', '$cookieStore', '$route', '$rootScope', '$routeParams', '$modal', 'UserService', 'ImageService', 'CollectionService', 
+photoplatformControllers.controller('ViewCollectionCtrl',
+	['$scope', '$rootScope', '$location', '$http', '$cookieStore', '$route', '$rootScope', '$routeParams', '$modal', 'UserService', 'ImageService', 'CollectionService',
 		function ($scope, $rootScope, $location, $http, $cookieStore, $route, $rootScope, $routeParams, $modal, UserService, ImageService, CollectionService) {
-        	    
+
             $scope.collectionId = $routeParams.collectionId;
-           	
+
             // Photographer collection
             $scope.images = [];
             $scope.show = false;
@@ -132,7 +132,7 @@ photoplatformControllers.controller('ViewCollectionCtrl',
 			 $scope.getCollectionsData = function() {
 			 	CollectionService.getCollection($scope.collectionId).success(function (data) {
 			 	console.log(data);
-                    $scope.collectionName = data.name; 
+                    $scope.collectionName = data.name;
                     $scope.photographer = data.userdata;
                     $scope.collectionDescription = data.description;
                     $scope.images = data.images;
@@ -159,7 +159,7 @@ photoplatformControllers.controller('ImagesModalCtrl', function ($scope, $rootSc
     }).error(function (data) {
         $scope.log(data.errors);
         $scope.errors = data.errors;
-    })
+    });
 
     $scope.ok = function () {
         var imageIds = [];

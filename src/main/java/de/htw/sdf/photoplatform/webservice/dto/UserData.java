@@ -38,6 +38,7 @@ public class UserData implements Serializable {
     private String iban;
     private String swift;
     private String paypalID;
+    private int totalItems;
 
     private String secToken;
     private List<String> roles;
@@ -313,4 +314,17 @@ public class UserData implements Serializable {
      */
     public void setPaypalID(String paypalID) { this.paypalID = paypalID; }
 
+    /**
+     * @return the totalItems
+     */
+    public int getTotalItems() {
+        return totalItems;
+    }
+
+    /**
+     * @param totalItems the totalItems to set
+     */
+    public void setTotalItems(int totalItems) {
+        this.totalItems = totalItems;
+    }
 }
