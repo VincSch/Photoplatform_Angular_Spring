@@ -18,7 +18,7 @@
     <ul>
         <li ng-show="isAdmin()">
             <a href="/profile/admin" onclick="fadeOutMenu();">
-                <span class="glyphicon glyphicon-wranch"></span>
+                <span class="glyphicon glyphicon-wrench"></span>
                 <!--<i class="fa fa-user"></i> -->
                 Admin Einstellungen
             </a>
@@ -76,13 +76,6 @@
                ng-click="$root.activeListGroupItem = 'profile'" ng-class="{active: activeListGroupItem == 'profile'}">
                 <span class="glyphicon glyphicon-user"></span>
                 {{user.firstName}}
-            </a>
-        </li>
-        <li ng-show="isLoggedIn()"
-            ng-click="$root.activeListGroupItem = 'profile'" ng-class="{active: activeListGroupItem == 'order'}">
-            <a href="/profile/shoppinglist" onclick="fadeOutMenu();">
-                <span class="glyphicon glyphicon-shopping-cart"></span>
-                Meine Bestellungen
             </a>
         </li>
         <li class="sep" ng-hide="isLoggedIn()">
