@@ -8,10 +8,19 @@ angular.module('photoplatform').factory('ShoppingListService', ['$http', '$rootS
         var urlBase = '/api/';
 
         return {
+            /**
+             * Get all shopping cart data
+             * @returns {HttpPromise}
+             */
             getShoppingCartData : function () {
-                return $http.get(urlBase);
+                return $http.get(urlBase + "purchases");
             },
 
+            /**
+             * Add item to shopping cart
+             * @param imageId
+             * @returns {*}
+             */
             addToShoppingCart: function (imageId) {
                 return $http({
                     url: urlBase + 'purchases',
@@ -22,9 +31,15 @@ angular.module('photoplatform').factory('ShoppingListService', ['$http', '$rootS
                 });
             },
 
+            /**
+             * Remove item from shopping cart
+             * @param imageId
+             * @returns {HttpPromise}
+             */
             removeFromShoppingCart: function (imageId) {
                 return $http.delete(urlBase + "/purchases/" + imageId);
-            }
+            },
+
             /**
              * Get image as bytes
              *

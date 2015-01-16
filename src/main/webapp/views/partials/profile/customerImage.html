@@ -1,5 +1,5 @@
 <div class="thumbnail" id="image-{{image.id}}" ng-init="status = {editing : false }">
-    <img src="{{image.smallPath}}" class="img-responsive img-rounded"
+    <img ng-src="{{image.smallPath}}" class="img-responsive img-rounded"
          onerror="this.src='http://placehold.it/300x300'"
          ng-click="openModal(image)">
 

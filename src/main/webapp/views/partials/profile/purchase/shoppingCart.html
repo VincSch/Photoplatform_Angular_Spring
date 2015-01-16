@@ -6,7 +6,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div ng-hide="hoppingCart.purchaseItems.length">
+            <div ng-hide="shoppingCart.purchaseItems.length">
                 <p>Ihr Warenkorb is leer</p>
             </div>
             <div ng-show="shoppingCart.purchaseItems.length">
@@ -22,7 +22,7 @@
                         <td>
                             <div class="media">
                                 <a class="media-left" href="#">
-                                    <img src="{{item.image.mobilePath}}" alt="{{item.image.name}}"
+                                    <img ng-src="{{item.image.mobilePath}}" alt="{{item.image.name}}"
                                          class="img-responsive">
                                 </a>
 
