@@ -15,6 +15,7 @@ import de.htw.sdf.photoplatform.webservice.dto.PurchaseData;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -185,7 +186,7 @@ public class ResourceUtility {
      * @param items items in shopping cart.
      * @return list of collection data.
      */
-    public static PurchaseData convertToPurchaseData(List<PurchaseItem> items, Double totalPrice) {
+    public static PurchaseData convertToPurchaseData(List<PurchaseItem> items, BigDecimal totalPrice) {
         return new PurchaseData(items, totalPrice);
     }
 }

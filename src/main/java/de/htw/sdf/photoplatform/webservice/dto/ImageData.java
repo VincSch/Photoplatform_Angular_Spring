@@ -7,6 +7,7 @@ import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * Data transfer object to get and update image data.
@@ -22,7 +23,9 @@ public class ImageData extends ResponseMessageData implements Serializable {
 
     private String description;
 
-    private Double price;
+    private BigDecimal price;
+
+    private String priceAsString;
 
     private String mime;
 
@@ -68,7 +71,7 @@ public class ImageData extends ResponseMessageData implements Serializable {
         this.id = image.getId();
         this.name = image.getName();
         this.description = image.getDescription();
-        this.price = image.getPrice();
+        setPrice(image.getPrice());
         this.mime = image.getMime();
         this.metadata = image.getMetaData();
         this.thumbnailPath = image.getThumbPath();
@@ -139,7 +142,7 @@ public class ImageData extends ResponseMessageData implements Serializable {
      *
      * @return image price.
      */
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -148,8 +151,27 @@ public class ImageData extends ResponseMessageData implements Serializable {
      *
      * @param price image price.
      */
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
+        setPriceAsString(price);
+    }
+
+    /**
+     * Returns price of image.
+     *
+     * @return image price.
+     */
+    public String getPriceAsString() {
+        return priceAsString;
+    }
+
+    /**
+     * Sets image price.
+     *
+     * @param price image price.
+     */
+    public void setPriceAsString(BigDecimal price) {
+        this.priceAsString = PurchaseData.NUMBER_FORMAT.format(price);
     }
 
     public String getMime() {

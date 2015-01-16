@@ -72,7 +72,7 @@ photoplatform.config([
             templateUrl: '/views/partials/profile/photographer/image/image.html',
             controller: 'ImageCtrl'
         }).when('/cart', {
-            templateUrl: '/views/partials/profile/shoppingCart.html',
+            templateUrl: '/views/partials/profile/purchase/shoppingCart.html',
             controller: ''
         }).when('/purchase/agb', {
             templateUrl: '/views/partials/profile/purchase/agb.html',
@@ -143,11 +143,9 @@ photoplatform.config([
     $rootScope.logout = function () {
         UserService.logout($rootScope.user);
         delete $rootScope.user;
-        delete $http;
-
-        $http.defaults.headers.common[xAuthTokenHeaderName];
+        delete $http.defaults.headers.common[xAuthTokenHeaderName];
         $cookieStore.remove('user');
-        $location.path("/login");
+        $location.path("/");
     };
 
     /* Try getting valid user from cookie or go to login page */

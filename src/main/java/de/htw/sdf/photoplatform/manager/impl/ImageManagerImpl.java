@@ -39,6 +39,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -136,7 +137,7 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
      * {@inheritDoc}
      */
     @Override
-    public Image update(Long imageId, String name, Double price,
+    public Image update(Long imageId, String name, BigDecimal price,
                         String description, User owner) throws ManagerException {
         if (imageId == null) {
             throw new ManagerException(

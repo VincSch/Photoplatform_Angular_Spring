@@ -1,0 +1,43 @@
+<div class="container" ng-controller="PurchaseCtrl" ng-init="getShoppingCartData()">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Warenkorb</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div ng-hide="shoppingCart.purchaseItems.length">
+                <p>Ihr Warenkorb is leer</p>
+            </div>
+            <div ng-show="shoppingCart.purchaseItems.length">
+                <table class="table">
+                    <tr>
+                        <th>#</th>
+                        <th>Vorschau</th>
+                        <th>Preis</th>
+                        <th>Aktion</th>
+                    </tr>
+                    <tr ng-repeat="item in shoppingCart.purchaseItems">
+                        <td>{{$index + 1}}</td>
+                        <td>
+                            <div class="media">
+                                <a class="media-left" href="#">
+                                    <img ng-src="{{item.image.mobilePath}}" alt="{{item.image.name}}"
+                                         class="img-responsive">
+                                </a>
+
+                                <div class="media-body">
+                                    <h4 class="media-heading">{{item.image.name}}</h4>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span>{{item.image.priceAsString}}</span></td>
+                        <td><a href="#" ng-click="removeFromShoppingCart(item.id)">Löschen</a></td>
+                    </tr>
+                </table>
+                <div class="well">Summe ({{shoppingCart.totalItems}} Bilder): <h2><span class="label label-success">{{shoppingCart.totalPrice}} EUR</span></h2></div>
+                <a href="/purchase/agb" class="btn btn-success" role="button">Weiter</a>
+            </div>
+        </div>
+    </div>
+</div>

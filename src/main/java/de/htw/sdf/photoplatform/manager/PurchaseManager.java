@@ -9,6 +9,7 @@ import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -96,7 +97,7 @@ public interface PurchaseManager {
      * @param images list of images to buy.
      * @return total price of all images.
      */
-    Double calculatePrice(List<PurchaseItem> images);
+    BigDecimal calculatePrice(List<PurchaseItem> images);
 
 
     /**

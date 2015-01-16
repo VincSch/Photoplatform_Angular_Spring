@@ -17,6 +17,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public class Image extends AbstractBaseAuditEntity {
     private boolean enabled;
 
     @Column(name = "PRICE", precision = 10, scale = 2)
-    private Double price;
+    private BigDecimal price;
 
     @Column(name = "PATH", unique = true)
     private String path;
@@ -150,7 +151,7 @@ public class Image extends AbstractBaseAuditEntity {
      *
      * @return image price.
      */
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -159,7 +160,7 @@ public class Image extends AbstractBaseAuditEntity {
      *
      * @param price image price.
      */
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

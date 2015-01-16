@@ -29,6 +29,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,9 @@ public class PurchaseController extends BaseAPIController {
             switch (ex.getCode()) {
                 case AbstractBaseException.NOT_FOUND:
                     exceptionMsg = messages.getMessage("SystemHack");
+                    break;
+                case AbstractBaseException.BAD_REQUEST:
+                    exceptionMsg = messages.getMessage("Purchase.InShoppingCart");
                     break;
                 default:
                     throw new RuntimeException("Unhandled error");
@@ -95,7 +99,7 @@ public class PurchaseController extends BaseAPIController {
             throw new BadRequestException(exceptionMsg);
         }
 
-        Double totalPriceAfterDelete = purchaseManager.calculatePrice(restOfImagesInShoppingCart);
+        BigDecimal totalPriceAfterDelete = purchaseManager.calculatePrice(restOfImagesInShoppingCart);
         return ResourceUtility.convertToPurchaseData(restOfImagesInShoppingCart, totalPriceAfterDelete);
     }
 
@@ -113,7 +117,7 @@ public class PurchaseController extends BaseAPIController {
 
         User user = getAuthenticatedUser();
         List<PurchaseItem> itemInShoppingCart = purchaseManager.getItemsInShoppingCart(user);
-        Double totalPrice = purchaseManager.calculatePrice(itemInShoppingCart);
+        BigDecimal totalPrice = purchaseManager.calculatePrice(itemInShoppingCart);
         return ResourceUtility.convertToPurchaseData(itemInShoppingCart, totalPrice);
     }
 

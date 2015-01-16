@@ -154,7 +154,7 @@ photoplatformControllers.controller(
         function ($scope, $routeParams, $rootScope, $location, $http, $cookieStore, UserService, $route) {
             //if user is not logged in or authorized redirect to login page
             var user = $cookieStore.get('user');
-            if (undefined == user || !$rootScope.isLoggedIn()) {
+            if (undefined == user || !$rootScope.isLoggedIn() || !$rootScope.isAdmin()) {
                 $location.path("/login");
                 return;
             }

@@ -12,21 +12,17 @@ import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.NotFoundException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
+import de.htw.sdf.photoplatform.manager.PurchaseManager;
 import de.htw.sdf.photoplatform.manager.UserManager;
+import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
-import de.htw.sdf.photoplatform.webservice.dto.PasswordResetDto;
-import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
-import de.htw.sdf.photoplatform.webservice.dto.UserData;
-import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
+import de.htw.sdf.photoplatform.webservice.dto.*;
+import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,6 +34,7 @@ import javax.annotation.Resource;
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * This controller generates the token that must be present in subsequent REST
@@ -52,6 +49,9 @@ public class AuthenticationController extends BaseAPIController {
     @Resource
     @Qualifier(value = "myAuthManager")
     private AuthenticationManager authenticationManager;
+
+    @Resource
+    private PurchaseManager purchaseManager;
 
     @Resource
     private UserDetailsService userDetailsService;
@@ -95,7 +95,14 @@ public class AuthenticationController extends BaseAPIController {
                 .loadUserByUsername(userCredential.getEmail());
         user.setSecToken(TokenUtils.createToken(user));
         userManager.update(user);
-        return new UserData(user);
+
+        UserData userData = new UserData(user);
+
+        // Get TotalItems
+        List<PurchaseItem> itemInShoppingCart = purchaseManager.getItemsInShoppingCart(user);
+        userData.setTotalItems(itemInShoppingCart.size());
+
+        return userData;
     }
 
     /**

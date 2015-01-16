@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,20 +154,21 @@ public class PurchaseManagerTest extends BaseImageTester {
     public void testPurchase() {
         //Init test data.
         Image nature = initDefaultImage("Natur", Boolean.TRUE, Boolean.TRUE, "natur.jpg");
-        Double naturePrice = 5.8;
+        BigDecimal naturePrice = new BigDecimal(5.8);
         nature.setPrice(naturePrice);
         imageDAO.create(nature);
         purchaseManager.addToShoppingCart(customer, nature);
         Image mountain = initDefaultImage("Berg", Boolean.TRUE, Boolean.TRUE, "berg.jpg");
-        Double mountainPrice = 3.32;
+        BigDecimal mountainPrice = new BigDecimal(3.32);
         mountain.setPrice(mountainPrice);
         imageDAO.create(mountain);
         purchaseManager.addToShoppingCart(customer, mountain);
         List<PurchaseItem> cartItems = purchaseManager.getItemsInShoppingCart(customer);
         Assert.assertTrue(cartItems.size() == 2);
 
-        Double totalPrice = purchaseManager.calculatePrice(cartItems);
-        Assert.assertTrue(totalPrice == naturePrice + mountainPrice);
+        BigDecimal totalPrice = purchaseManager.calculatePrice(cartItems);
+        naturePrice = naturePrice.add(mountainPrice);
+        Assert.assertTrue(totalPrice.setScale(2, BigDecimal.ROUND_HALF_UP).compareTo(naturePrice.setScale(2, BigDecimal.ROUND_HALF_UP)) == 0);
 
         purchaseManager.purchase(cartItems);
         cartItems = purchaseManager.getItemsInShoppingCart(customer);

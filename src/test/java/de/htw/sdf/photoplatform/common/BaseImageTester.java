@@ -18,6 +18,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +89,7 @@ public abstract class BaseImageTester extends BaseTester {
 //        image.setSmallThumbPath("");
 //        image.setMobileThumbPath("");
 //        image.setThumbPath("");
-        final double price = 10.18;
+        final BigDecimal price = new BigDecimal(10.18);
         image.setPrice(price);
 
         return image;

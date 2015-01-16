@@ -169,7 +169,7 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
         }
 
         for (UserImage userImage : imagesToAdd) {
-            if (userImage.getImage().getPrice() == null || userImage.getImage().getPrice() <= 0) {
+            if (userImage.getImage().getPrice() == null || userImage.getImage().getPrice().doubleValue() <= 0) {
                 throw new ManagerException(AbstractBaseException.IMAGE_PRICE_EMPTY);
             }
 
