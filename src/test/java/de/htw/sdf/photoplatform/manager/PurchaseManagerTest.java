@@ -167,7 +167,8 @@ public class PurchaseManagerTest extends BaseImageTester {
         Assert.assertTrue(cartItems.size() == 2);
 
         BigDecimal totalPrice = purchaseManager.calculatePrice(cartItems);
-        Assert.assertTrue(totalPrice.equals(naturePrice.add(mountainPrice)));
+        naturePrice = naturePrice.add(mountainPrice);
+        Assert.assertTrue(totalPrice.setScale(2, BigDecimal.ROUND_HALF_UP).compareTo(naturePrice.setScale(2, BigDecimal.ROUND_HALF_UP)) == 0);
 
         purchaseManager.purchase(cartItems);
         cartItems = purchaseManager.getItemsInShoppingCart(customer);
