@@ -23,69 +23,95 @@
                 Admin Einstellungen
             </a>
         </li>
+        <li ng-show="isLoggedIn()">
+            <a href="/profile/view" onclick="fadeOutMenu();"
+               ng-click="$root.activeListGroupItem = 'view'" ng-class="{active: activeListGroupItem == 'view'}">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <!--<i ng-show="isPhotographer()" class="fa fa-folder-open-o"></i>-->
+                Profildaten
+            </a>
+        </li>
+        <li ng-show="isLoggedIn()">
+            <a href="/profile/shoppinglist" onclick="fadeOutMenu();"
+               ng-click="$root.activeListGroupItem = 'shoppinglist'" ng-class="{active: activeListGroupItem == 'shoppinglist'}">
+                <span class="glyphicon glyphicon-usd"></span>
+                <!--<i ng-show="isPhotographer()" class="fa fa-folder-open-o"></i>-->
+                Einkäufe
+            </a>
+        </li>
         <li ng-show="isPhotographer()">
-            <a href="/profile/photograph/showcase" onclick="fadeOutMenu();">
+            <a href="/profile/photograph/showcase" onclick="fadeOutMenu();"
+               ng-click="$root.activeListGroupItem = 'showcase'" ng-class="{active: activeListGroupItem == 'showcase'}">
                 <span class="glyphicon glyphicon-film"></span>
                 <!--<i ng-show="isPhotographer()" class="fa fa-folder-open-o"></i>-->
-                Mein Showcase
+                Showcase
             </a>
         </li>
         <li ng-show="isPhotographer()">
-            <a href="/profile/photograph/collection" onclick="fadeOutMenu();">
+            <a href="/profile/photograph/collection" onclick="fadeOutMenu();"
+               ng-click="$root.activeListGroupItem = 'collection'" ng-class="{active: activeListGroupItem == 'collection'}">
                 <span class="glyphicon glyphicon-book"></span>
                 <!--<i ng-show="isPhotographer()" class="fa fa-bar-chart-o"></i>-->
-                Sammlungen <span class="badge">14</span>
+                Sammlungen
             </a>
         </li>
         <li ng-show="isPhotographer()">
-            <a href="/profile/photograph/image" onclick="fadeOutMenu();">
+            <a href="/profile/photograph/image" onclick="fadeOutMenu();"
+               ng-click="$root.activeListGroupItem = 'image'" ng-class="{active: activeListGroupItem == 'image'}">
                 <span class="glyphicon glyphicon-picture"></span>
                 <!--<i class="fa fa-envelope" ng-show="isPhotographer()"></i>-->
-                Fotos <span class="badge">55</span>
+                Fotos
             </a>
         </li>
         <li ng-show="isCustomer()">
-            <a href="/profile/photograph/register" onclick="fadeOutMenu();">
-                <span class="glyphicon glyphicon-pencil"></span>
+            <a href="/profile/photograph/register" onclick="fadeOutMenu();"
+               ng-click="$root.activeListGroupItem = 'photoRegister'" ng-class="{active: activeListGroupItem == 'photoRegister'}">
+                <span class="glyphicon glyphicon-camera"></span>
                 <!--<i class="fa fa-envelope"></i>-->
                 Fotograph werden
             </a>
         </li>
         <li ng-show="isLoggedIn()">
-            <a href="/profile" onclick="fadeOutMenu();">
+            <a href="/profile" onclick="fadeOutMenu();"
+               ng-click="$root.activeListGroupItem = 'profile'" ng-class="{active: activeListGroupItem == 'profile'}">
                 <span class="glyphicon glyphicon-user"></span>
                 {{user.firstName}}
             </a>
         </li>
-        <li ng-show="isLoggedIn()">
-            <a href="/profile/shoppinglist" onclick="fadeOutMenu();">
-                <span class="glyphicon glyphicon-shopping-cart"></span>
-                Warenkorb
-            </a>
-        </li>
         <li class="sep" ng-hide="isLoggedIn()">
-
-            <a href="/login" onclick="fadeOutMenu();">
+            <a href="/login" onclick="fadeOutMenu();"
+               ng-click="$root.activeListGroupItem = 'login'" ng-class="{active: activeListGroupItem == 'login'}">
                 <span class="glyphicon glyphicon-log-in"></span>
                 Anmelden
             </a>
         </li>
+        <li ng-show="isLoggedIn()">
+            <a href="/cart" onclick="fadeOutMenu();"
+               ng-click="$root.activeListGroupItem = 'cart'" ng-class="{active: activeListGroupItem == 'cart'}">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                Warenkorb
+            </a>
+        </li>
         <li ng-hide="isLoggedIn()">
-            <span class="glyphicon glyphicon-pencil"></span>
             <a class="navbar-right" href="#"
                data-toggle="modal" data-target="#passwordLost">
+                <span class="glyphicon glyphicon-flash"></span>
                 Passwort vergessen?
             </a>
         </li>
         <li ng-hide="isLoggedIn()">
-            <span class="glyphicon glyphicon-pencil"></span>
             <a class="navbar-right" onclick="fadeOutMenu();"
-               href="/register">Registrierung</a>
+               href="/register"
+               ng-click="$root.activeListGroupItem = 'register'" ng-class="{active: activeListGroupItem == 'register'}">
+                <span class="glyphicon glyphicon-pencil"></span>
+                Registrierung
+            </a>
         </li>
         <li class="sep" ng-show="isLoggedIn()">
-            <span class="glyphicon glyphicon-log-out"></span>
-            <a class="navbar-right"
-               ng-click="logout();fadeOutMenu();">Abmelden</a>
+            <a class="navbar-right" href="/" onclick="fadeOutMenu();"
+               ng-click="logout(); ">
+                <span class="glyphicon glyphicon-log-out"></span>
+                Abmelden</a>
         </li>
     </ul>
 </nav>
@@ -105,6 +131,7 @@
                 <!--<li class="active"><a href="#">Home</a></li>-->
                 <li ng-show="isLoggedIn()">
                     <a class="navbar-link"
+                       ng-click="$root.activeListGroupItem = 'profile'"
                        href="/profile">
                         <span class="glyphicon glyphicon-user"></span>
                         {{user.firstName}}
@@ -112,7 +139,8 @@
                 </li>
                 <li>
                     <a class="navbar-right" href="/cart"
-                       ng-show="isLoggedIn()">
+                       ng-show="isLoggedIn()"
+                       ng-click="$root.activeListGroupItem = 'cart'">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         Warenkorb
                     </a>
@@ -125,6 +153,7 @@
                 </li>
                 <li ng-hide="isLoggedIn()">
                     <a class="navbar-right"
+                       ng-click="$root.activeListGroupItem = 'register'"
                        href="/register">Registrierung</a>
                 </li>
                 <li ng-show="isLoggedIn()">

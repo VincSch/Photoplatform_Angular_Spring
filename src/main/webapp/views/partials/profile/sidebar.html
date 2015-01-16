@@ -2,33 +2,34 @@
             <span class="pull-right" id="slide-submenu">
                 <i class="fa fa-times"></i>
             </span>
-    <a href="/profile/view" class="list-group-item">
-        <i class="fa fa-comment-o"></i> Mein Profil
+    <a href="/profile/view" class="list-group-item"
+       ng-click="$root.activeListGroupItem = 'view'" ng-class="{active: activeListGroupItem == 'view'}">
+        Profildaten
     </a>
-    <a href="/profile/shoppinglist" class="list-group-item">
-        <i class="fa fa-search"></i> Meine Einkäufe
+    <a href="/profile/shoppinglist" class="list-group-item"
+       ng-click="$root.activeListGroupItem = 'shoppinglist'" ng-class="{active: activeListGroupItem == 'shoppinglist'}">
+        Einkäufe
     </a>
-    <a href="/profile/admin" ng-show="isAdmin()" class="list-group-item">
-        <i class="fa fa-user"></i> Admin Einstellungen
+    <a href="/profile/admin" ng-show="isAdmin()" class="list-group-item"
+       ng-click="$root.activeListGroupItem = 'admin'" ng-class="{active: activeListGroupItem == 'admin'}">
+        Admin Einstellungen
     </a>
     <a href="/profile/photograph/showcase" ng-show="isPhotographer()"
-       class="list-group-item">
-        <i ng-show="isPhotographer()" class="fa fa-folder-open-o"></i> Mein
-        Showcase
+       class="list-group-item"
+       ng-click="$root.activeListGroupItem = 'showcase'" ng-class="{active: activeListGroupItem == 'showcase'}">
+       Showcase
     </a>
     <a href="/profile/photograph/collection" ng-show="isPhotographer()"
-       class="list-group-item">
-        <i ng-show="isPhotographer()" class="fa fa-bar-chart-o"></i> Sammlungen <span
-            ng-show="isPhotographer()"
-            class="badge">14</span>
+       class="list-group-item" ng-click="$root.activeListGroupItem = 'collection'" ng-class="{active: activeListGroupItem == 'collection'}">
+       Sammlungen
     </a>
     <a href="/profile/photograph/image" ng-show="isPhotographer()"
-       class="list-group-item">
-        <i class="fa fa-envelope" ng-show="isPhotographer()"></i> Fotos <span
-            ng-show="isPhotographer()" class="badge">55</span>
+       class="list-group-item" ng-click="$root.activeListGroupItem = 'image'" ng-class="{active: activeListGroupItem == 'image'}">
+        Fotos
     </a>
     <a href="/profile/photograph/register" ng-hide="isPhotographer()"
-       class="list-group-item">
-        <i class="fa fa-envelope"></i> Fotograph werden
+       class="list-group-item"
+       ng-click="$root.activeListGroupItem = 'photoRegister'" ng-class="{active: activeListGroupItem == 'photoRegister'}">
+        Fotograph werden
     </a>
 </div>
