@@ -33,6 +33,7 @@ public class ViewController {
             "/view/**",
             "/cart",
             "/collection/**",
+            "/purchase/approved",
             "/paypaltest",
             "/paypaltest/**"}, method = RequestMethod.GET)
     public String index() {
