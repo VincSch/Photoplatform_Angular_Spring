@@ -7,15 +7,19 @@ import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.manager.PurchaseManager;
 import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
+import de.htw.sdf.photoplatform.manager.common.PaypalService;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 /**
  * Business logic for purchase.
@@ -26,6 +30,9 @@ import java.util.List;
 @Transactional
 public class PurchaseManagerImpl extends DAOReferenceCollector implements PurchaseManager {
 
+	@Resource
+	private PaypalService paypalService;
+    
     /**
      * {@inheritDoc}
      */
@@ -92,6 +99,61 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
             throw new ManagerException(AbstractBaseException.NOT_FOUND);
         }
         return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String startPurchasePerPaypal(List<PurchaseItem> items, String BaseURL) throws ManagerException
+    {
+    	List<Image> ImageList = new ArrayList<Image>();
+    	for(PurchaseItem item : items)
+    	{
+    		ImageList.add(item.getImage());
+    	}
+    	PaypalService.PaypalCreatePaymentResult Result;
+    	
+        //Create Payment
+    	try {
+    		Result = paypalService.CreatePayment(ImageList, BaseURL);
+    	} catch(AbstractBaseException ex) {
+    		throw new ManagerException(ex.getCode());
+    	}
+    	
+    	//Fill in PaymentID
+    	for(PurchaseItem item : items)
+    	{
+    		item.setPaymentID(Result.GetPaymentID());
+    	}
+    	
+    	//Return redirect url
+    	return Result.GetRedirectURL();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void completePurchasePerPaypal(String PaymentId, String PayerID) throws ManagerException
+    {
+    	List<PurchaseItem> ItemsFromCart = purchaseItemDAO.findByPaymentIdAndPurchasedFilter(PayerID, false);
+    	
+    	//Check if Cart is not changed
+    	//TBA
+    	
+    	//execute/complete payment
+    	try {
+        	paypalService.ExecutePayment(PaymentId, PayerID);
+    	} catch(AbstractBaseException ex) {
+    		throw new ManagerException(ex.getCode());
+    	}
+    	
+    	//Set to purchased where paymentid
+    	for(PurchaseItem item : ItemsFromCart)
+    	{
+    		item.setPurchased(true);
+    	}
     }
 
     /**
