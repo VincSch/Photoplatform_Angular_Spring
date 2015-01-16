@@ -8,11 +8,13 @@ import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.repository.PurchaseItemDAO;
 import de.htw.sdf.photoplatform.repository.common.GenericDAOImpl;
+
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+
 import java.util.List;
 
 /**
@@ -70,5 +72,17 @@ public class PurchaseItemDAOImpl extends GenericDAOImpl<PurchaseItem> implements
         queryBuilder.append("LEFT JOIN FETCH purchaseItem.image image ");
 
         return queryBuilder;
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<PurchaseItem> findByPaymentIdAndPurchasedFilter(String PaymentId, Boolean purchased) {
+        StringBuilder queryBuilder = initQuery();
+        queryBuilder.append("WHERE purchaseItem.paymentID = :paymentId AND ");
+        queryBuilder.append("purchaseItem.purchased = :purchased");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("paymentId", PaymentId);
+        query.setParameter("purchased", purchased);
+        return query.getResultList();
     }
 }
