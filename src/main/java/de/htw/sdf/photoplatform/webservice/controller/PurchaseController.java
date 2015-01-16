@@ -134,7 +134,7 @@ public class PurchaseController extends BaseAPIController {
         return ResourceUtility.convertListToImageData(userImages);
     }
 
-    @RequestMapping(value = Endpoints.PURCHASE_PAYPAL, method = RequestMethod.POST)
+    @RequestMapping(value = Endpoints.PURCHASE_PAYPAL, method = RequestMethod.GET)
     @ResponseBody
     public String StartPaypalPurchase(HttpServletRequest request) throws AbstractBaseException {
     	
@@ -161,7 +161,7 @@ public class PurchaseController extends BaseAPIController {
     @ResponseBody
     public void PaypalPurchaseApproved(
             @RequestParam(required = true, value  = "paymentId") String paymentId,
-            @RequestParam(required = true, value = "PayerID") String payerId,
+            @RequestParam(required = true, value = "payerId") String payerId,
             HttpServletRequest request) throws AbstractBaseException {
 
     	if(!request.isSecure())
