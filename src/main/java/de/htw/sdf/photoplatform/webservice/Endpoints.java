@@ -237,6 +237,16 @@ public final class Endpoints {
     public static final String USERS_CHANGE_PASSWORD = "/users/changepassword";
 
     /**
+     * Do purchase through paypal
+     */
+    public static final String PURCHASE_PAYPAL = "/purchase/paypal";
+    
+    /**
+     * finish purchase through paypal after approval
+     */
+    public static final String PURCHASE_PAYPAL_EXECUTE = "/purchase/paypal/execute";
+    
+    /**
      */
     public static final String PAYPALTEST_OAUTHTOKEN = "/paypaltest/token";
     
