@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponents;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 
@@ -124,7 +125,7 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
     	{
     		ImageList.add(item.getImage());
     	}
-    	PaypalService.PaypalCreatePaymentResult Result;
+    	PaypalService.CreatePaymentResult Result;
 
         UriComponents ApprovedURIComponents = ServletUriComponentsBuilder.fromCurrentContextPath().path("/purchase/approved").build();
         UriComponents CancledURIComponents = ServletUriComponentsBuilder.fromCurrentContextPath().path("/cart").build();
@@ -158,8 +159,18 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
     {
     	List<PurchaseItem> ItemsFromCart = purchaseItemDAO.findByPaymentIdAndPurchasedFilter(PaymentId, Boolean.FALSE);
     	
-    	//Check if Cart is not changed
-    	//TBA
+    	//Check if Cart has not changed
+    	try {
+    		Locale l = null;
+    		String PaypalTotal = paypalService.GetPaymentTotal(PaymentId);
+    		String CartTotal = String.format(l, "%.2f" , calculatePrice(ItemsFromCart));
+    		
+    		if(PaypalTotal.compareToIgnoreCase(CartTotal) != 0) {
+    			throw new ManagerException(AbstractBaseException.CART_HAS_CHANGED);
+    		}
+    	} catch(AbstractBaseException ex) {
+    		throw new ManagerException(ex.getCode());
+    	}
     	
     	//execute/complete payment
     	try {

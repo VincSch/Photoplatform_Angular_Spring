@@ -40,12 +40,12 @@ import de.htw.sdf.photoplatform.webservice.Endpoints;
 @Service
 public class PaypalService extends DAOReferenceCollector {
 	
-	public class PaypalCreatePaymentResult {
+	public class CreatePaymentResult {
 		
 		private String PaymentID;
 		private String RedirectURL;
 		
-		public PaypalCreatePaymentResult(String PaymentID, String RedirectURL)
+		public CreatePaymentResult(String PaymentID, String RedirectURL)
 		{
 			this.PaymentID = PaymentID;
 			this.RedirectURL = RedirectURL;
@@ -115,7 +115,7 @@ public class PaypalService extends DAOReferenceCollector {
      * 
      * @returns the payment id and redirect url
      */
-    public PaypalCreatePaymentResult CreatePayment( List<Image> Items, String ApprovedURL, String CancledURL) throws AbstractBaseException {
+    public CreatePaymentResult CreatePayment(List<Image> Items, String ApprovedURL, String CancledURL) throws AbstractBaseException {
     	// Use nulled Local so String.format will use . as decimal delimiter
     	Locale l = null;
     	BigDecimal Total = new BigDecimal(0.0);
@@ -185,7 +185,7 @@ public class PaypalService extends DAOReferenceCollector {
     		throw new ServiceException(AbstractBaseException.PAYPAL_REST_ERROR);
 		}
 		
-		return new PaypalCreatePaymentResult(newPayment.getId(), RedirectURL);
+		return new CreatePaymentResult(newPayment.getId(), RedirectURL);
 		
 		//return newPayment.toJSON();
     }
@@ -215,5 +215,25 @@ public class PaypalService extends DAOReferenceCollector {
 		}
 		
 		//return FullfilledPayment.toJSON();
+    }
+    
+    public String GetPaymentTotal(String PaymentId) throws AbstractBaseException {
+    	Payment payment;
+		try {
+			payment = Payment.get(getOAuthToken(), PaymentId);
+		} catch(PayPalRESTException ex)
+		{
+			//Error
+    		Log.error("Error while trying to execute Paypal Payment: " + ex.getMessage());
+    		throw new ServiceException(AbstractBaseException.PAYPAL_REST_ERROR);
+		}
+		
+		List<Transaction> transactions = payment.getTransactions();
+		if(transactions.size() > 0)
+		{
+			return transactions.get(0).getAmount().getTotal();
+		}
+		
+		return "0.00";
     }
 }

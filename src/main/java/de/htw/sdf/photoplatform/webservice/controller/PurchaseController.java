@@ -171,9 +171,17 @@ public class PurchaseController extends BaseAPIController {
     	
     	try{
     		purchaseManager.completePurchasePerPaypal(paymentId, payerId);
-    	} catch (AbstractBaseException ex)
-    	{
-            throw new BadRequestException(messages.getMessage("Purchase.error"));
+    	} catch (AbstractBaseException ex) {
+            String exceptionMsg;
+    		switch(ex.getCode()) {
+    		case AbstractBaseException.CART_HAS_CHANGED: 
+                exceptionMsg = messages.getMessage("Purchase.chartHasChanged");
+                break;
+            default:
+            	exceptionMsg = messages.getMessage("Purchase.error");
+                break;
+    		}
+            throw new BadRequestException(exceptionMsg);
     	}
     } 
 
