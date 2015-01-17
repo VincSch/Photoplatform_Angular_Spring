@@ -78,7 +78,7 @@ public class PurchaseItemDAOImpl extends GenericDAOImpl<PurchaseItem> implements
     @Override
     public List<PurchaseItem> findByPaymentIdAndPurchasedFilter(String PaymentId, Boolean purchased) {
         StringBuilder queryBuilder = initQuery();
-        queryBuilder.append("WHERE purchaseItem.paymentID = :paymentId AND ");
+        queryBuilder.append("WHERE purchaseItem.paymentId = :paymentId AND ");
         queryBuilder.append("purchaseItem.purchased = :purchased");
         Query query = createQuery(queryBuilder.toString());
         query.setParameter("paymentId", PaymentId);

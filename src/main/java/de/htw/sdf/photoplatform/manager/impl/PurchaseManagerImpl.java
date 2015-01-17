@@ -13,6 +13,7 @@ import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -141,7 +142,7 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
     	//Fill in PaymentID
     	for(PurchaseItem item : items)
     	{
-    		item.setPaymentID(Result.GetPaymentID());
+    		item.setPaymentId(Result.GetPaymentID());
             purchaseItemDAO.update(item);
     	}
     	
@@ -155,7 +156,7 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
     @Override
     public void completePurchasePerPaypal(String PaymentId, String PayerID) throws ManagerException
     {
-    	List<PurchaseItem> ItemsFromCart = purchaseItemDAO.findByPaymentIdAndPurchasedFilter(PayerID, false);
+    	List<PurchaseItem> ItemsFromCart = purchaseItemDAO.findByPaymentIdAndPurchasedFilter(PaymentId, Boolean.FALSE);
     	
     	//Check if Cart is not changed
     	//TBA
@@ -170,7 +171,7 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
     	//Set to purchased where paymentid
     	for(PurchaseItem item : ItemsFromCart)
     	{
-    		item.setPurchased(true);
+    		item.setPurchased(Boolean.TRUE);
             purchaseItemDAO.update(item);
     	}
     }

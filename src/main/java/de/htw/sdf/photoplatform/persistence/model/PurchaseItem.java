@@ -41,7 +41,7 @@ public class PurchaseItem extends AbstractBaseAuditEntity {
     private Boolean purchased;
     
     @Column(name = "PAYMENTID")
-    private String paymentID;
+    private String paymentId;
 
 
     /**
@@ -101,11 +101,11 @@ public class PurchaseItem extends AbstractBaseAuditEntity {
         this.purchased = purchased;
     }
     
-    public String getPaymentID() {
-    	return this.paymentID;
+    public String getPaymentId() {
+    	return this.paymentId;
     }
     
-    public void setPaymentID(String paymentID) {
-    	this.paymentID = paymentID;
+    public void setPaymentId(String paymentId) {
+    	this.paymentId = paymentId;
     }
 }
