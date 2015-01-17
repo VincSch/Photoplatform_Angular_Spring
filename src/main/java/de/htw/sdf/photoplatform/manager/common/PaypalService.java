@@ -2,6 +2,7 @@ package de.htw.sdf.photoplatform.manager.common;
 
 import java.io.File;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -116,14 +117,13 @@ public class PaypalService extends DAOReferenceCollector {
     public PaypalCreatePaymentResult CreatePayment( List<Image> Items, String BaseURL) throws AbstractBaseException {
     	// Use nulled Local so String.format will use . as decimal delimiter
     	Locale l = null;
-    	double Total = 0;
+    	BigDecimal Total = new BigDecimal(0.0);
     	
-    	//ItemList
-    	NumberFormat formatter = new DecimalFormat("#0.00");   
+    	//ItemList 
     	List<Item> PaypalItems = new ArrayList<Item>();
     	for (Image Image : Items) {
     		Item item = new Item("1", Image.getName(), String.format(l, "%.2f" ,Image.getPrice()), "EUR");
-    		Total = Total + Image.getPrice();
+    		Total = Total.add(Image.getPrice());
     		PaypalItems.add(item);
     	}
     	
@@ -137,7 +137,7 @@ public class PaypalService extends DAOReferenceCollector {
     	Transaction transaction = new Transaction();
     	transaction.setAmount(amount);
     	transaction.setItemList(itemList);
-    	transaction.setDescription(messages.getMessage("paypal.transaction.description"));
+    	transaction.setDescription(messages.getMessage("Paypal.transaction.description"));
 
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		transactions.add(transaction);
