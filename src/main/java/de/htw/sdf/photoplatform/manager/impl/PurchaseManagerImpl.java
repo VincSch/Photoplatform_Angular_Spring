@@ -15,6 +15,8 @@ import de.htw.sdf.photoplatform.persistence.model.User;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -122,10 +124,16 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
     		ImageList.add(item.getImage());
     	}
     	PaypalService.PaypalCreatePaymentResult Result;
-    	
+
+        UriComponents ApprovedURIComponents = ServletUriComponentsBuilder.fromCurrentContextPath().path("/purchase/approved").build();
+        UriComponents CancledURIComponents = ServletUriComponentsBuilder.fromCurrentContextPath().path("/cart").build();
+
+        String ApprovedURL = ApprovedURIComponents.toUriString();
+        String CanceledURL = CancledURIComponents.toUriString();
+        
         //Create Payment
     	try {
-    		Result = paypalService.CreatePayment(ImageList, BaseURL);
+    		Result = paypalService.CreatePayment(ImageList, ApprovedURL, CanceledURL);
     	} catch(AbstractBaseException ex) {
     		throw new ManagerException(ex.getCode());
     	}
@@ -134,6 +142,7 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
     	for(PurchaseItem item : items)
     	{
     		item.setPaymentID(Result.GetPaymentID());
+            purchaseItemDAO.update(item);
     	}
     	
     	//Return redirect url
@@ -162,6 +171,7 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
     	for(PurchaseItem item : ItemsFromCart)
     	{
     		item.setPurchased(true);
+            purchaseItemDAO.update(item);
     	}
     }
 

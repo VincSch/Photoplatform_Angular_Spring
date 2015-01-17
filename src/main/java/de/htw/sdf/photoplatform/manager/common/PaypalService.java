@@ -110,11 +110,12 @@ public class PaypalService extends DAOReferenceCollector {
      * Creates a payment on paypal
      * 
      * @param Items the to be puchased items.
-     * @param BaseURL The BaseURL where paypal will redirect the buyer after approval or cancel.
+     * @param ApprovedURL The url the user is redirected after the payment was approved
+     * @param CancledURL The url the user is redirected after the payment was cancled
      * 
      * @returns the payment id and redirect url
      */
-    public PaypalCreatePaymentResult CreatePayment( List<Image> Items, String BaseURL) throws AbstractBaseException {
+    public PaypalCreatePaymentResult CreatePayment( List<Image> Items, String ApprovedURL, String CancledURL) throws AbstractBaseException {
     	// Use nulled Local so String.format will use . as decimal delimiter
     	Locale l = null;
     	BigDecimal Total = new BigDecimal(0.0);
@@ -148,12 +149,11 @@ public class PaypalService extends DAOReferenceCollector {
     	// Payment
 		Payment payment = new Payment("sale", payer);
 		payment.setTransactions(transactions);
-    	
+		
     	//RedirectURLS
-		Log.info("BaseURL: " + BaseURL);
 		RedirectUrls redirectUrls = new RedirectUrls();
-		redirectUrls.setCancelUrl(BaseURL + "/paypaltest");
-		redirectUrls.setReturnUrl(BaseURL + "/paypaltest/approval");
+		redirectUrls.setCancelUrl(CancledURL);
+		redirectUrls.setReturnUrl(ApprovedURL);
 		payment.setRedirectUrls(redirectUrls);
 		
     	// Create
