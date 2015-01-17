@@ -53,8 +53,18 @@ public abstract class AbstractBaseException extends Exception {
      * Image name is empty.
      */
     public static final int IMAGE_NAME_EMPTY = 21001;
-
-    private static final long serialVersionUID = 1L;
+    
+    /**
+     * Generic Paypal API Error
+     */
+    public static final int PAYPAL_REST_ERROR = 30000; 
+    
+    /**
+     * Generic Paypal API Error
+     */
+    public static final int CART_HAS_CHANGED = 31000; 
+    
+    static final long serialVersionUID = 1L;
 
     protected final Logger log = Logger.getLogger(this.getClass().getName());
 

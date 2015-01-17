@@ -37,9 +37,30 @@ angular.module('photoplatform').factory('ShoppingListService', ['$http', '$rootS
              * @returns {HttpPromise}
              */
             removeFromShoppingCart: function (imageId) {
-                return $http.delete(urlBase + "/purchases/" + imageId);
+                return $http.delete(urlBase + "purchases/" + imageId);
             },
 
+            /**
+             * Starts the payment process through paypal
+             * @returns redirect URL to paypal
+             */
+			startPurchase : function() {
+                return $http.get(urlBase + 'purchase/paypal');
+			},
+			
+            /**
+             * completes the paypal purchase
+             * @param paymentId
+             * @param payerID
+             */
+			executePurchase : function(paymentId, payerId) {
+                return $http({
+                    url: urlBase + 'purchase/paypal/execute',
+                    method: "POST",
+                    params: {'paymentId': paymentId, 'payerId': payerId}
+                });
+			},
+			
             /**
              * Get image as bytes
              *

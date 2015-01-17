@@ -178,6 +178,15 @@
             <artifactId>spring-data-elasticsearch</artifactId>
             <version>1.1.0.RELEASE</version>
         </dependency>
+        
+         <!--***************************************************************************
+            PAYPAL DEPENDENCIES
+            *************************************************************************** -->
+        <dependency>
+    		<groupId>com.paypal.sdk</groupId>
+    		<artifactId>rest-api-sdk</artifactId>
+    		<version>LATEST</version>
+		</dependency>
     </dependencies>
 
     <properties>

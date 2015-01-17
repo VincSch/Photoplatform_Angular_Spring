@@ -8,11 +8,12 @@ photoplatformControllers.controller(
         '$rootScope',
         '$location',
         '$http',
-        '$cookieStore',
+        '$cookieStore', 
+        '$routeParams',
         'UserService',
         'ShoppingListService',
         '$route',
-        function ($scope, $rootScope, $location, $http, $cookieStore, UserService, ShoppingListService, $route) {
+        function ($scope, $rootScope, $location, $http, $cookieStore, $routeParams, UserService, ShoppingListService, $route) {
 
             var user = $cookieStore.get('user');
             //if user is not logged in or logged in redirect to login page
@@ -23,6 +24,7 @@ photoplatformControllers.controller(
 
             var start = 0;
             var count = 100;
+            $scope.noerror = true;
 
             /**
              * Add image to shopping cart
@@ -45,6 +47,34 @@ photoplatformControllers.controller(
                     $scope.shoppingCart.totalPrice = data.totalPrice;
                     $scope.shoppingCart.purchaseItems.splice(index, 1);
                     $rootScope.success = "Bild wurde erfolgreich aus ihren Warenkorb entfernt";
+                });
+            };
+            
+            /**
+             * start purchase process
+             */
+             $scope.startPurchase = function(){
+                ShoppingListService.startPurchase().success(function (data){
+                    location.href = data;
+                }).error(function () {
+            		$scope.noerror = false;
+                });
+            };
+            
+            /**
+             * complete the puchase process
+             */
+             $scope.completePurchase = function(){
+             	if(($routeParams.paymentId == undefined) || ($routeParams.PayerID == undefined))
+             	{
+             		$location.path("/cart");
+             	}
+             	
+                ShoppingListService.executePurchase($routeParams.paymentId, $routeParams.PayerID).success(function (){
+                	$location.$$search = {};
+             		$location.path("/profile/shoppinglist");
+                }).error(function () {
+            		$scope.noerror = false;
                 });
             };
 

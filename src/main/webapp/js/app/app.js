@@ -80,6 +80,12 @@ photoplatform.config([
         }).when('/purchase/transaction', {
             templateUrl: '/views/partials/profile/purchase/transaction.html',
             controller: ''
+        }).when('/purchase/buy', {
+            templateUrl: '/views/partials/profile/purchase/buy.html',
+            controller: 'PurchaseCtrl'
+        }).when('/purchase/approved', {
+            templateUrl: '/views/partials/profile/purchase/approved.html',
+            controller: 'PurchaseCtrl'
         }).when('/', {
             templateUrl: '/views/partials/home/home.html',
             controller: ''

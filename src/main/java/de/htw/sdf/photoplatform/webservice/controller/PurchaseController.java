@@ -6,7 +6,9 @@ package de.htw.sdf.photoplatform.webservice.controller;
 import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
+import de.htw.sdf.photoplatform.manager.ImageManager;
 import de.htw.sdf.photoplatform.manager.PurchaseManager;
+import de.htw.sdf.photoplatform.manager.common.PaypalService;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
@@ -15,6 +17,7 @@ import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
 import de.htw.sdf.photoplatform.webservice.dto.PurchaseData;
 import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,8 +26,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,9 +40,13 @@ import java.util.List;
  */
 @RestController
 public class PurchaseController extends BaseAPIController {
-
+	
     @Resource
-    private PurchaseManager purchaseManager;
+    private PurchaseManager purchaseManager;  
+    
+    @Resource
+	private ImageManager imageManager;
+	
 
     /**
      * Add an image to shopping cart.
@@ -124,5 +134,55 @@ public class PurchaseController extends BaseAPIController {
         return ResourceUtility.convertListToImageData(userImages);
     }
 
+    @RequestMapping(value = Endpoints.PURCHASE_PAYPAL, method = RequestMethod.GET)
+    @ResponseBody
+    public String StartPaypalPurchase(HttpServletRequest request) throws AbstractBaseException {
+    	
+    	if(!request.isSecure())
+    	{
+    		throw new BadRequestException(messages.getMessage("NotSecure"));
+    	}
+    	
+    	String BaseURL = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();    	
+
+        User user = getAuthenticatedUser();
+        List<PurchaseItem> itemsInShoppingCart = purchaseManager.getItemsInShoppingCart(user);
+        
+        try {
+        	return purchaseManager.startPurchasePerPaypal(itemsInShoppingCart, BaseURL);
+        } catch (ManagerException ex)
+        {     
+            throw new BadRequestException(messages.getMessage("Purchase.error"));
+        }
+    	
+    }
+    
+    @RequestMapping(value = Endpoints.PURCHASE_PAYPAL_EXECUTE, method = RequestMethod.POST)
+    @ResponseBody
+    public void PaypalPurchaseApproved(
+            @RequestParam(required = true, value  = "paymentId") String paymentId,
+            @RequestParam(required = true, value = "payerId") String payerId,
+            HttpServletRequest request) throws AbstractBaseException {
+
+    	if(!request.isSecure())
+    	{
+    		throw new BadRequestException(messages.getMessage("NotSecure"));
+    	}
+    	
+    	try{
+    		purchaseManager.completePurchasePerPaypal(paymentId, payerId);
+    	} catch (AbstractBaseException ex) {
+            String exceptionMsg;
+    		switch(ex.getCode()) {
+    		case AbstractBaseException.CART_HAS_CHANGED: 
+                exceptionMsg = messages.getMessage("Purchase.chartHasChanged");
+                break;
+            default:
+            	exceptionMsg = messages.getMessage("Purchase.error");
+                break;
+    		}
+            throw new BadRequestException(exceptionMsg);
+    	}
+    } 
 
 }

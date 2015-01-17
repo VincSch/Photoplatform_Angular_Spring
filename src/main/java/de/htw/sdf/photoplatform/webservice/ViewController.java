@@ -32,7 +32,8 @@ public class ViewController {
             "/becomePhotographer",
             "/view/**",
             "/cart",
-            "/collection/**"}, method = RequestMethod.GET)
+            "/collection/**",
+            "/purchase/approved"}, method = RequestMethod.GET)
     public String index() {
         return "/index.html";
     }

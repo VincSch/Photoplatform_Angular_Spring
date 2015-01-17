@@ -3,6 +3,7 @@
  */
 package de.htw.sdf.photoplatform.manager;
 
+import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
 import de.htw.sdf.photoplatform.persistence.model.Image;
 import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
@@ -66,6 +67,20 @@ public interface PurchaseManager {
      */
     List<PurchaseItem> removeFromShoppingCart(final User user, final Long purchaseItemId) throws ManagerException;
 
+    /**
+     * Starts the purchase process through paypal
+     * 
+     * @param items list of items to be purchased
+     * @param BaseURL the BaseURL for redirect including protocol and port
+     * @return redirect url to paypal
+     */
+    String startPurchasePerPaypal(List<PurchaseItem> items, String BaseURL) throws ManagerException;
+    
+    /**
+     * completes the purchase process through paypal
+     */
+    void completePurchasePerPaypal(String PaymentId, String PayerID) throws ManagerException;
+    
     /**
      * Purchase images.
      * <p/>
