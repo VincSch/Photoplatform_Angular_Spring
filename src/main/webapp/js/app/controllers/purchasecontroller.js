@@ -71,6 +71,7 @@ photoplatformControllers.controller(
              	}
              	
                 ShoppingListService.executePurchase($routeParams.paymentId, $routeParams.PayerID).success(function (){
+                	$location.$$search = {};
              		$location.path("/profile/shoppinglist");
                 }).error(function () {
             		$scope.noerror = false;
