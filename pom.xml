@@ -189,11 +189,10 @@
         </dependency>
 
         <dependency>
-    		<groupId>com.paypal.sdk</groupId>
-    		<artifactId>rest-api-sdk</artifactId>
-    		<version>LATEST</version>
-		</dependency>
-
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>0.12.2</version>
+        </dependency>
     </dependencies>
 
     <properties>
