@@ -5,25 +5,38 @@
 
     <div class="caption">
         <h3 ng-click="openModal(image)">{{image.name}}</h3>
-
-        <p>{{image.description}}</p>
+        von
+        <a ng-click="goToPhotograph(image.userData.id)" ng-show="searchResultView">{{image.userData.firstName}} {{image.userData.lastName}}</a>
+        <br>
+        aus
+        <a ng-click="goToPhotograph(image.userData.id)" ng-show="searchResultView">Sammlung {{image.collectionId}}</a>
+        <!--<p>{{image.description}}</p>-->
 
         <p>Preis: {{image.priceAsString}}</p>
 
+        <div align="right">
+            <button type="button" class="btn btn-primary"
+                    ng-click="addToCart(image.id)">Kaufen
+            </button>
+        </div>
+
+        <!--
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
 
-                <button type="button" class="btn btn-default"
-                        ng-click="addToCart(image.id)">Warenkorb
+
+
+
+                <button type="button" class="btn btn-primary" ng-show="searchResultView"
+                        ng-click="goToCollection(image.collectionId)">Sammlung
                 </button>
 
                 <button type="button" class="btn btn-default" ng-show="searchResultView"
-                        ng-click="goToCollection(image.collectionId)">Sammlung
-                </button>
-                <button type="button" class="btn btn-default" ng-show="searchResultView"
                         ng-click="goToPhotograph(image.userData.id)">{{image.userData.firstName}} {{image.userData.lastName}}
                 </button>
+
             </div>
         </div>
+        -->
     </div>
 </div>
