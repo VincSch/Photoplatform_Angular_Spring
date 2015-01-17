@@ -174,7 +174,7 @@ photoplatformControllers.controller(
 
             $scope.save = function () {
                 UserService.updateUserProfileData($scope.userProfileData).success(function () {
-                    $rootScope.success = "Profil erfolgreich aktualisiert";
+                    $rootScope.success = "Das Profil wurde erfolgreich aktualisiert.";
                 }).error(function (error) {
                     console.log(error);
                     $rootScope.error(error);

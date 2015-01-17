@@ -3,7 +3,9 @@
     <div class="col-md-10" ng-controller="CollectionCtrl" ng-init="getCollectionsData()">
         <div class="row">
             <div class="page-header">
-                <h2>Album: {{collectionName}}</h2>
+                <h2>{{collectionName}}</h2>
+                <p>Hier kannst du Bilder zu deiner Sammlung <strong>{{collectionName}}</strong> hinzufügen oder entfernen. Außerdem kannst du entscheiden welches Bild als Titelbild dieser Sammlung zu sehen sein soll.</p>
+                <p>Beschreibung: <br>{{collectionDescription}}</p>
             </div>
         </div>
         <div class="row"><a class="btn btn-primary" ng-click="open()">Bilder hinzufügen</a></div>

@@ -56,7 +56,7 @@ photoplatformControllers.controller('UserCtrl', ['$scope', '$routeParams', '$roo
          */
         $scope.save = function () {
             UserService.updateUserProfileData($scope.userProfileData).success(function (data) {
-                $rootScope.success = "Profil erfolgreich aktualisiert";
+                $rootScope.success = "Dein Profil wurde erfolgreich aktualisiert.";
             }).error(function (data) {
                 $scope.errors = data.errors;
             });

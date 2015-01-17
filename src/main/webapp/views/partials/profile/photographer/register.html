@@ -30,7 +30,7 @@
                                        type="text" class="form-control" ng-model="pd.company" required>
                             </div>
                             <div class="help-block ng-cloak" ng-show="form.company.$dirty">
-                                <span ng-show="form.company.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="form.company.$error.required">Dieses Feld darf nicht leer sein.</span>
                                 <span ng-show="errors.company">{{errors.company[0]}}</span>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                        ng-model="pd.phone" required="">
                             </div>
                             <div class="help-block ng-cloak" ng-show="form.phone.$dirty">
-                                <span ng-show="form.phone.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="form.phone.$error.required">Dieses Feld darf nicht leer sein.</span>
                                 <span ng-show="errors.phone">{{errors.phone[0]}}</span>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                        ng-model="pd.paypalID" required>
                             </div>
                             <div class="help-block" ng-show="form.paypalID.$dirty">
-                                <span ng-show="form.paypalID.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="form.paypalID.$error.required">Dieses Feld darf nicht leer sein.</span>
                                 <span ng-show="errors.paypalID">{{errors.paypalID[0]}}</span>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                        class="form-control" ng-model="pd.iban" required>
                             </div>
                             <div class="help-block ng-cloak" ng-show="form.iban.$dirty">
-                                <span ng-show="form.iban.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="form.iban.$error.required">Dieses Feld darf nicht leer sein.</span>
                                 <span ng-show="errors.iban">{{errors.iban[0]}}</span>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                        class="form-control" ng-model="pd.swift" required>
                             </div>
                             <div class="help-block ng-cloak" ng-show="form.swift.$dirty">
-                                <span ng-show="form.swift.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="form.swift.$error.required">Dieses Feld darf nicht leer sein.</span>
                                 <span ng-show="errors.swift">{{errors.swift[0]}}</span>
                             </div>
                         </div>

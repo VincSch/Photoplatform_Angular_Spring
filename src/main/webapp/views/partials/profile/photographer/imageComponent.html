@@ -16,7 +16,7 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default"
                                         ng-click="status.editing = true; editImage = copy(image)">
-                                    Bearbeiten
+                                    bearbeiten
                                 </button>
                                 <button type="button" class="btn btn-default"
                                         ng-click="deleteImage(image, $index)">entfernen
@@ -40,7 +40,7 @@
                                            required class="form-control">
                                 </div>
                                 <div class="help-block" ng-show="form.name.$dirty">
-                                    <span ng-show="form.name.$error.required">Dieses Feld wird benötigt</span>
+                                    <span ng-show="form.name.$error.required">Dieses Feld darf nicht leer sein.</span>
                                     <span ng-show="errors.name">{{errors.name[0]}}</span>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     <label for="image-price-{{image.imageId}}"
                                            class="control-label input-group-addon">Preis</label>
                                     <input id="image-price-{{image.imageId}}" type="text"
-                                           ng-model="editImage.price" placeholder="Preis"
+                                           ng-model="editImage.price" placeholder="Preis in €"
                                            class="form-control">
                                 </div>
                                 <div class="help-block" ng-show="form.name.$dirty">
@@ -63,7 +63,7 @@
                                     <label for="collection-desc-{{collection.id}}"
                                            class="control-label input-group-addon">Beschreibung</label>
                                     <textarea id="collection-desc-{{collection.id}}"
-                                              ng-model="editImage.description" placeholder="Beschreibung"
+                                              ng-model="editImage.description" placeholder="Beschreibe dein Bild."
                                               class="form-control"></textarea>
                                 </div>
                                 <div class="help-block" ng-show="form.description.$dirty">

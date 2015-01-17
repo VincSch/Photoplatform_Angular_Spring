@@ -4,13 +4,15 @@
         <div class="row">
             <div class="page-header">
                 <h2>Sammlungsverwaltung</h2>
+                <p>Hier kannst du neue Sammlungen erstellen und bearbeiten, um deine Bilder thematisch zu gruppieren. Nur Sammlungen, die du zu deinem Showcase hinzufügst, sind für andere Nutzer sichtbar.
+                    Diese öffentlichen Sammlungen können mit der Suchfunktion auf der Startseite gefunden werden, daher solltest du darauf achten deinen ihnen einen passenden Namen und Beschreibung zu geben.</p>
             </div>
         </div>
         <div class="row">
             <form name="form" class="form-horizontal" role="form"
                   novalidate>
                 <div class="col-md-10">
-                    <p>Eine neue Sammlung erstellen</p>
+                    <h4>Eine neue Sammlung erstellen.</h4>
 
                     <div class="form-group has-feedback"
                          ng-class="{'has-error' : (form.name.$invalid || errors.name) && form.name.$dirty}">
@@ -22,7 +24,7 @@
                                        placeholder="z.B Winter 2014" required>
                             </div>
                             <div class="help-block" ng-show="form.name.$dirty">
-                                <span ng-show="form.name.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="form.name.$error.required">Dieses Feld darf nicht leer sein.</span>
                                 <span ng-show="errors.name">{{errors.name[0]}}</span>
                             </div>
                         </div>
@@ -34,7 +36,7 @@
                                 <label for="name" class="control-label input-group-addon">Beschreibung</label>
                             <textarea ng-model="c.description" name="description" type="text"
                                       id="description" class="form-control"
-                                      placeholder="z.B Meine besten Winter Bilder"></textarea>
+                                      placeholder="z.B Meine besten Bilder aus dem Winter 2014 in Tirol!"></textarea>
                             </div>
                             <div class="help-block" ng-show="form.description.$dirty">
                                 <span ng-show="errors.description">{{errors.description[0]}}</span>
@@ -52,6 +54,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
+                    <h4>Meine Sammlungen</h4>
                     <div class="col-md-4" ng-repeat="collection in collections">
                         <div class="thumbnail" id="collection-{{collection.id}}" ng-init="status = {editing : false }">
                             <a href="/profile/photograph/collection/{{collection.id}}/{{collection.name}}">
@@ -67,7 +70,7 @@
                                 <div class="btn-toolbar" role="toolbar">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default"
-                                                ng-click="status.editing = true; editCollection = copy(collection)">Bearbeiten
+                                                ng-click="status.editing = true; editCollection = copy(collection)">bearbeiten
                                         </button>
                                         <button type="button" class="btn btn-default"
                                                 ng-click="deleteCollection(collection, $index)">entfernen
@@ -92,7 +95,7 @@
                                                    required class="form-control">
                                         </div>
                                         <div class="help-block" ng-show="form.name.$dirty">
-                                            <span ng-show="form.name.$error.required">Dieses Feld wird benötigt</span>
+                                            <span ng-show="form.name.$error.required">Dieses Feld darf nicht leer sein.</span>
                                             <span ng-show="errors.name">{{errors.name[0]}}</span>
                                         </div>
                                     </div>
@@ -102,7 +105,7 @@
                                             <label for="collection-desc-{{collection.id}}"
                                                    class="control-label input-group-addon">Beschreibung</label>
                                             <textarea id="collection-desc-{{collection.id}}"
-                                                      ng-model="editCollection.description" placeholder="Beschreibung"
+                                                      ng-model="editCollection.description" placeholder="Beschreibe deine Sammlung."
                                                       class="form-control"></textarea>
                                         </div>
                                         <div class="help-block" ng-show="form.description.$dirty">

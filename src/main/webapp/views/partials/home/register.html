@@ -1,7 +1,8 @@
 <div class="page-header">
-    <h2>Registrieren</h2>
+    <h2>Registrierung</h2>
 
-    <p>Als Mitglied bist du in der Lage Fotos zu kaufen. Wenn du eigene Fotos verkaufen möchtest, kannst du dich nach der Registrierung als Photograph bewerben.</p>
+    <p>Hier kannst du dich registrieren! Als Mitglied bist du in der Lage Fotos zu kaufen. <br>
+        Wenn du eigene Fotos verkaufen möchtest, kannst du dich nach der Registrierung als Photograph bewerben.</p>
 </div>
 
 <div class="row">
@@ -17,11 +18,11 @@
                                 <label for="email" class="control-label input-group-addon">E-Mail</label>
                                 <input ng-model="user.email" name="email" type="email"
                                        id="email" class="form-control"
-                                       placeholder="Eine aktive E-Mail-Adresse" required>
+                                       placeholder="deine aktive E-Mail-Adresse" required>
                             </div>
                             <div class="help-block" ng-show="form.email.$dirty">
-                                <span ng-show="form.email.$error.required">Dieses Feld wird benötigt</span>
-                                <span ng-show="!form.email.$error.required && form.email.$error.email">Die E-Mail ist nicht ok</span>
+                                <span ng-show="form.email.$error.required">Dieses Feld darf nicht leer sein.</span>
+                                <span ng-show="!form.email.$error.required && form.email.$error.email">Bitte gib eine valide E-Mail-Adresse ein.</span>
                                 <span ng-show="errors.email">{{errors.email[0]}}</span>
                             </div>
                         </div>
@@ -36,7 +37,7 @@
                                        placeholder="" required>
                             </div>
                             <div class="help-block" ng-show="form.firstName.$dirty">
-                                <span ng-show="form.firstName.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="form.firstName.$error.required">Dieses Feld darf nicht leer sein.</span>
                                 <span ng-show="errors.firstName">{{errors.firstName[0]}}</span>
                             </div>
                         </div>
@@ -51,7 +52,7 @@
                                        placeholder="" required>
                             </div>
                             <div class="help-block" ng-show="form.lastName.$dirty">
-                                <span ng-show="form.lastName.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="form.lastName.$error.required">Dieses Feld darf nicht leer sein.</span>
                                 <span ng-show="errors.lastName">{{errors.lastName[0]}}</span>
                             </div>
                         </div>
@@ -66,7 +67,7 @@
                                        placeholder="Zwischen 3 und 16 Zeichen" required>
                             </div>
                             <div class="help-block" ng-show="form.password.$dirty">
-                                <span ng-show="form.password.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="form.password.$error.required">Dieses Feld darf nicht leer sein.</span>
                                 <span ng-show="errors.password">{{errors.password[0]}}</span>
                             </div>
                         </div>
@@ -86,7 +87,7 @@
                                       aria-hidden="true"></span>
                             </div>
                             <div class="help-block" ng-show="form.passwordConfirm.$dirty">
-                                <span ng-show="form.passwordConfirm.$error.required">Dieses Feld wird benötigt</span>
+                                <span ng-show="form.passwordConfirm.$error.required">Dieses Feld darf nicht leer sein.</span>
                                 <span ng-show="errors.passwordConfirm">{{errors.passwordConfirm[0]}}</span>
                             </div>
                         </div>

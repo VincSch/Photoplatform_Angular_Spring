@@ -53,7 +53,7 @@ photoplatformControllers.controller(
                 AuthService.passwordLost(email).success(function () {
                     $('#passwordLost').modal('toggle');
                     $location.path("/");
-                    $rootScope.success = "Wir haben die eine E-Mail geschickt mit weiteren Informationen!";
+                    $rootScope.success = "Wir haben dir eine E-Mail mit weiteren Informationen gesendet!";
                     $rootScope.transferSuccess = true;
                 }).error(function (data) {
                     $scope.errors = data.errors;
@@ -69,7 +69,7 @@ photoplatformControllers.controller(
                 AuthService.passwordReset(prf).success(function (data) {
                     $location.path("/");
                     $location.search('token', null);
-                    $rootScope.success = "Passwort wurde erfolgreich geändert! Du kannst dich mit deinem neuen jetzt einloggen.";
+                    $rootScope.success = "Dein Passwort wurde erfolgreich geändert! Du kannst dich nun mit deinem neuen Passwort einloggen.";
                     $rootScope.transferSuccess = true;
                 }).error(function (data) {
                     $scope.errors = data.errors;
