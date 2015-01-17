@@ -64,13 +64,13 @@ photoplatformControllers.controller(
             /**
              * complete the puchase process
              */
-             $scope.completePurchase = function(paymentId, PayerID){
-             	if((paymentId == undefined) || (PayerID == undefined))
+             $scope.completePurchase = function(){
+             	if(($routeParams.paymentId == undefined) || ($routeParams.PayerID == undefined))
              	{
              		$location.path("/cart");
              	}
              	
-                ShoppingListService.executePurchase(paymentId, PayerID).success(function (){
+                ShoppingListService.executePurchase($routeParams.paymentId, $routeParams.PayerID).success(function (){
              		$location.path("/profile/shoppinglist");
                 }).error(function () {
             		$scope.noerror = false;
