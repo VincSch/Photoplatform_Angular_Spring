@@ -84,7 +84,7 @@ photoplatform.config([
             templateUrl: '/views/partials/profile/purchase/buy.html',
             controller: 'PurchaseCtrl'
         }).when('/purchase/approved', {
-            templateUrl: '/views/partials/home/profile/purchase/approved.html',
+            templateUrl: '/views/partials/profile/purchase/approved.html',
             controller: 'PurchaseCtrl'
         }).when('/paypaltest', {
             templateUrl: '/views/partials/home/paypaltest.html',
