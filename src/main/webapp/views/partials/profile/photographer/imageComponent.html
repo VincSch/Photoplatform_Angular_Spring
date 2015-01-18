@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-3" ng-repeat="image in images">
+            <div class="col-md-2" ng-repeat="image in images">
                 <div imagecomponent="image"></div>
                 <div class="thumbnail" id="image-{{image.imageId}}" ng-init="status = {editing : false }">
                         <img ng-src="{{image.smallPath}}" class="img-responsive"
@@ -23,7 +23,7 @@
                                     <button type="button" class="btn btn-warning"
                                             ng-click="deleteImage(image, $index)">entfernen
                                     </button>
-                                    <button type="button" class="btn btn-default" ng-hide="collectionName == null"
+                                    <button type="button" class="btn btn-link" ng-hide="collectionName == null"
                                             ng-click="setAsCollectionThumb(image)">
                                         als Titelbild setzen
                                     </button>

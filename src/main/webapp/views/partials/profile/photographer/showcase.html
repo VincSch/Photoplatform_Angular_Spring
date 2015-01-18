@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-4" ng-repeat="collection in showcase">
+                    <div class="col-md-2" ng-repeat="collection in showcase">
                         <div class="thumbnail" id="collection-{{collection.id}}" ng-init="status = {editing : false }">
                             <a href="/profile/photograph/collection/{{collection.id}}/{{collection.name}}">
                                 <img ng-src="{{collection.thumbnail.smallThumbPath == null &&  '/img/template.jpg' || collection.thumbnail.smallThumbPath}}" class="img-responsive">
