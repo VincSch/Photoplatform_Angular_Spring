@@ -118,7 +118,7 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
      * {@inheritDoc}
      */
     @Override
-    public String startPurchasePerPaypal(List<PurchaseItem> items, String BaseURL) throws ManagerException
+    public String startPurchasePerPaypal(List<PurchaseItem> items) throws ManagerException
     {
     	List<Image> ImageList = new ArrayList<Image>();
     	for(PurchaseItem item : items)

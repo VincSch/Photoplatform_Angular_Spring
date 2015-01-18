@@ -142,14 +142,12 @@ public class PurchaseController extends BaseAPIController {
     	{
     		throw new BadRequestException(messages.getMessage("NotSecure"));
     	}
-    	
-    	String BaseURL = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();    	
 
         User user = getAuthenticatedUser();
         List<PurchaseItem> itemsInShoppingCart = purchaseManager.getItemsInShoppingCart(user);
         
         try {
-        	return purchaseManager.startPurchasePerPaypal(itemsInShoppingCart, BaseURL);
+        	return purchaseManager.startPurchasePerPaypal(itemsInShoppingCart);
         } catch (ManagerException ex)
         {     
             throw new BadRequestException(messages.getMessage("Purchase.error"));
