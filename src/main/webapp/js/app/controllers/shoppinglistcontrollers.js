@@ -1,8 +1,8 @@
 /**
  * Image search controller.
  */
-photoplatformControllers.controller('ShoppingListCtrl', ['$scope', '$rootScope', 'ShoppingListService', '$location', 'md5',
-    function ($scope, $rootScope, ShoppingListService, $location, md5) {
+photoplatformControllers.controller('ShoppingListCtrl', ['$scope', '$cookieStore', '$rootScope', 'ShoppingListService', '$location', 'md5',
+    function ($scope, $cookieStore, $rootScope, ShoppingListService, $location, md5) {
 
         var user = $cookieStore.get('user');
         //if user is not logged in or logged in redirect to login page
@@ -10,7 +10,7 @@ photoplatformControllers.controller('ShoppingListCtrl', ['$scope', '$rootScope',
             $location.path("/login");
             return;
         }
-        
+
         $scope.encodedToken = md5.createHash($rootScope.user.secToken);
         $scope.userId = $rootScope.user.id;
 

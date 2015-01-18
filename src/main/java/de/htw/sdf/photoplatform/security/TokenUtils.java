@@ -91,4 +91,14 @@ public class TokenUtils {
         return expires >= System.currentTimeMillis()
                 && signature.equals(signatureToMatch);
     }
+
+    public static boolean expired(String token) {
+        String[] parts = token.split(":");
+        long expires = Long.parseLong(parts[1]);
+        if (expires >= System.currentTimeMillis()) {
+            return false;
+        } else {
+            return false;
+        }
+    }
 }

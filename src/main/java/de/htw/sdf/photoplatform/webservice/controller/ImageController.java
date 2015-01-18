@@ -153,7 +153,7 @@ public class ImageController extends BaseAPIController {
         String secHash = "";
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            if (user.getSecToken() != null) {
+            if (user.getSecToken() != null && !TokenUtils.expired(user.getSecToken())) {
                 secHash = new String(Hex.encode(messageDigest.digest(user.getSecToken().getBytes())));
             } else {
                 throw new BadRequestException(
