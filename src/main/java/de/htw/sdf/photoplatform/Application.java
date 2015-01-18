@@ -154,7 +154,7 @@ public class Application extends WebMvcConfigurerAdapter {
             //File truststore = new ClassPathResource("keystore").getFile();
             connector.setScheme("https");
             connector.setSecure(true);
-            connector.setPort(8443);
+            connector.setPort(8555);
             protocol.setSSLEnabled(true);
             protocol.setKeystoreFile(keystore.getAbsolutePath());
             protocol.setKeystorePass("photoplatform");
