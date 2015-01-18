@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{image.name}}</h3>
+</div>
+
+
+<div class="modal-body">
+    <img ng-src="{{image.thumbnailPath}}" />
+    <div class="container">
+        <div class="row">
+            <div align="left" class="col-md-4 col-xs-4">
+                <p></p>
+                <p>Titel: {{image.name}}</p>
+                <p>Beschreibung: {{image.description}}</p>
+                <p>Preis: {{image.priceAsString}}</p>
+            </div>
+            <p></p>
+                <!--<p>{{image.metadata.3.description}}</p>-->
+            <div align="right" class="col-md-4 col-xs-4">
+                <div ng-repeat="tag in image.metadata">{{tag.tag}}:</div>
+            </div>
+            <div align="left" class="col-md-4 col-xs-4">
+                <div ng-repeat="tag in image.metadata">{{tag.description}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal-footer">
+    <div class="container">
+        <div class="row">
+            <div align="left" class="col-md-6">
+
+
+
+            </div>
+            <div class="col-md-6">
+                <!--<button class="btn btn-warning" ng-click="addToCart(image.id)">In Warenkorb</button>-->
+                <button class="btn btn-primary" ng-click="close()">Schließen</button>
+            </div>
+        </div>
+    </div>
+</div>
