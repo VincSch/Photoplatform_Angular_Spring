@@ -21,7 +21,7 @@
                 <td><img class="img-responsive img-rounded" src="{{image.mobilePath}}"></a></td>
                 <td>{{image.name}}</td>
                 <td>{{image.description}}</td>
-                <td>{{image.price}}&#8364;</td>
+                <td>{{image.priceAsString}}</td>
                 <td>
                     <a target="_blank" ng-href="/api/image/{{image.id}}/{{userId}}/{{encodedToken}}" class="btn btn-primary">
                         download
