@@ -1,0 +1,3 @@
+mysql-import.sql   - sql-script to import data in myssql.
+photoplatform-structure.jpg - database-structure in jpeg format
+photoplatform-structure.vpp - database-structure in visual paradigma format.
