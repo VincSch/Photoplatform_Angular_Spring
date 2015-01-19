@@ -4,7 +4,7 @@
             <div class="col-md-2" ng-repeat="image in images">
                 <div imagecomponent="image"></div>
                 <div class="thumbnail" id="image-{{image.imageId}}" ng-init="status = {editing : false }">
-                        <img ng-src="{{image.smallPath}}" class="img-responsive"
+                        <img class="img-responsive img-rounded" ng-src="{{image.smallPath}}" class="img-responsive"
                              onerror="this.src='http://placehold.it/1024x600'"
                              ng-click="openModal(image)">
                         <div class="caption" ng-show="!status.editing">

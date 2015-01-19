@@ -1,44 +1,76 @@
-<div ng-controller="CarouselDemoCtrl">
-    <div style="width: 100%;">
-        <carousel>
-            <slide ng-repeat="slide in slides" active="slide.active">
-                <img ng-src="{{slide.image}}" style="margin:auto;">
-            </slide>
-        </carousel>
-    </div>
-</div>
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="home-hero-unit hero-unit" align="center">
-    <h1>Willkommen auf der Photoplattform</h1>
+    <div class="jumbotron" style="background-color:#eee" ;>
+        <div class="container">
+            <h2>Willkommen auf der Photoplattform</h2>
 
-    <p>Die Plattform, die es dir ermöglicht Bilder aller Art zu kaufen und eigene Bilder zu verkaufen.</p>
+            <p>Die Plattform, die es dir ermöglicht Bilder aller Art zu kaufen und eigene Bilder zu verkaufen.</p>
 
-    <div class="row" ng-include src="'/views/partials/imageSearchBar.html'"></div>
+            <div class="row" ng-include src="'/views/partials/imageSearchBar.html'"></div>
+            <br>
 
-    <div class="row">
-        <hr>
-        <div class="col-md-4">
-            <h2>Registrieren</h2>
+            <div class="row">
+                <hr>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h4>Registrieren</h4>
 
-            <p>Werde Mitglied und verkaufe oder kaufe Fotos! Du kannst dich nach der Registrierung als Photograph bewerben!</p>
+                            <p>Werde Mitglied und verkaufe oder kaufe Fotos! Wenn du willst, kannst Du dich nach der Registrierung als
+                                Photograph bewerben!</p>
+                            <p><a class="btn" href="/register">werde jetzt Mitglied.. »</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h4>Suchen</h4>
 
-            <p><a class="btn" href="/register">werde jetzt Mitglied.. »</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Suchen</h2>
+                            <p>Du bist bereits bei uns angemeldet und möchtest ein neues Foto kaufen? Dann benutz die
+                                Suche auf
+                                der Startseite oder gehe direkt zu deinem Profil</p>
 
-            <p>Du bist bereits bei uns angemeldet und möchtest ein neues Foto kaufen? Dann benutz die Suche auf der Startseite oder gehe direkt zu deinem Profil</p>
+                            <p><a class="btn" href="/profile">zu meinem Profil »</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h4>Passwort vergessen?</h4>
 
-            <p><a class="btn" href="/profile">zu meinem Profil »</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Passwort vergessen?</h2>
+                            <p>Du hast dein Passwort vergessen? Keine Panik benutz einfach den folgenden Link und stelle
+                                dein
+                                Passwort wiederher.</p>
 
-            <p>Du hast dein Passwort vergessen? Keine Panik benutz einfach den folgenden Link und stelle dein Passwort wiederher.</p>
-
-            <p><a class="btn" href="#" data-toggle="modal" data-target="#passwordLost">Passwort zurücksetzen »</a></p>
+                            <p><a class="btn" href="#" data-toggle="modal" data-target="#passwordLost">Passwort
+                                zurücksetzen
+                                »</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="panel panel-default" style="margin-top:-30px;">
+        <div class="panel-body">
+            <div class="row" ng-controller="ImageSearchCtrl" ng-init="initRecomendationContent()">
+                <div class="col-md-12">
+                    <pagination total-items="recomendationImagesLength"
+                                items-per-page="imagesPerPage"
+                                ng-model="recomendationCurrentPage"
+                                ng-change=""></pagination>
+                    <div class="row">
+                        <div class="col-md-2 box-margin" ng-repeat="image in recomendationFilteredImages">
+                            <!--<div class="row" ng-include src="'/views/partials/home/customerImage.html'"></div>-->
+                            <div customerimage="image"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+    </div>
 </div>
 

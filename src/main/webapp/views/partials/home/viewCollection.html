@@ -1,16 +1,21 @@
-<div class="row">
-    <div class="col-md-10" ng-controller="ViewCollectionCtrl" ng-init="getCollectionsData()">
-        <div  ng-show="show">
-            <div class="page-header">
-                <h2>{{collectionName}}</h2>
-                <p>Dies ist eine Sammlung von <a href="/view/showcase/{{photographer.id}}">{{photographer.firstName}} {{photographer.lastName}}</a>.</p>
-                <p>Beschreibung: <br>{{collectionDescription}}</p>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-2 box-margin" ng-repeat="image in images">
-                            <div customerimage="image" CollectionView="true"></div>
+<div class="jumbotron" style="background-color:#eee" align="center">
+    <div class="row">
+        <div class="col-md-12" ng-controller="ViewCollectionCtrl" ng-init="getCollectionsData()" align="center">
+            <div ng-show="show">
+                <div class="page-header">
+                    <h2>{{collectionName}}</h2>
+
+                    <p>Dies ist eine Sammlung von <a href="/view/showcase/{{photographer.id}}">{{photographer.firstName}}
+                        {{photographer.lastName}}</a>.</p>
+
+                    <p>Beschreibung: <br>{{collectionDescription}}</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2 box-margin" ng-repeat="image in images">
+                                <div customerimage="image" CollectionView="true"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
