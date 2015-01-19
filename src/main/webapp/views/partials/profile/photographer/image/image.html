@@ -29,6 +29,10 @@
                     <br>
 
                     <div id="preview" class="col-md-12">
+                    	<span ng-repeat="file in files">
+                    		<img id="{{file.hash}}" src="#" alt="{{file.name}}" class="preview-img" />
+							<span ng-click="removePreviewImage(file.hash)" class="glyphicon glyphicon-trash"> <span/>
+                    	</span>
                     </div>
                     <br>
                     <div class="row">

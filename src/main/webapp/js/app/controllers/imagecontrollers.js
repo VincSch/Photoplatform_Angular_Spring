@@ -13,6 +13,26 @@ photoplatformControllers.controller('ImageCtrl',
 
             $scope.copy = angular.copy;
             $scope.images = [];
+            $scope.files = [];
+            
+            $scope.removePreviewImage = function(FileHash) {
+				var Index = -1;
+				for(var i = 0; $scope.files.length; i++) {
+					if($scope.files[i].hash == FileHash) {
+						Index = i;
+						break;
+					}
+				}
+				
+				if(Index != -1) {
+					$scope.files.splice(Index, 1);
+				}
+					
+				if($scope.files.length == 0) {
+					$('#preview').hide();
+                    $('#upload').prop('disabled', true);
+				}
+            };
 
             $scope.uploadImage = function () {
                 var param = $scope.files;
@@ -25,7 +45,6 @@ photoplatformControllers.controller('ImageCtrl',
                     .success(function (message) {
                         $scope.modalInstance.close();
                         $('#preview').hide();
-                        $('#preview').html('');
                         $('#upload').prop('disabled', true);
                         $scope.getAllImages();
                         $rootScope.success = message;
@@ -65,6 +84,7 @@ photoplatformControllers.controller('ImageCtrl',
             $scope.updateImage = function (editImage, originImage, status) {
                 //replace comma by dot.
                 editImage.price = ("" + editImage.price).replace(",", ".");
+                console.log(editImage);
                 ImageService.updateImage(editImage).success(function (image) {
                     angular.extend(originImage, image);
                     status.editing = false;
