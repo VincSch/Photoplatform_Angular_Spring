@@ -13,6 +13,7 @@ import de.htw.sdf.photoplatform.manager.common.DAOReferenceCollector;
 import de.htw.sdf.photoplatform.persistence.model.Collection;
 import de.htw.sdf.photoplatform.persistence.model.CollectionImage;
 import de.htw.sdf.photoplatform.persistence.model.Image;
+import de.htw.sdf.photoplatform.persistence.model.PurchaseItem;
 import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.persistence.model.UserImage;
 import de.htw.sdf.photoplatform.repository.CollectionImageDAO;
@@ -284,8 +285,9 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
             collectionImageDAO.delete(collectionImage);
         }
 
+
         if (imagesToDelete.size() > 1) {
-            //The image was bought.
+            //old logic for purchased images.
             //remove only reference to photograph.
             for (UserImage userImage : imagesToDelete) {
                 if (userImage.getOwner().getId().equals(ownerId) &&
@@ -293,12 +295,17 @@ public class PhotographerManagerImpl extends DAOReferenceCollector implements
                     userImageDAO.delete(userImage);
                 }
             }
-        } else {
+        }else {
             UserImage userImage = imagesToDelete.get(0);
-            imageDAO.delete(userImage.getImage());
             userImageDAO.delete(userImage);
+            //new logic for purchased images.
+            if(!purchaseItemDAO.isPurchased(userImage.getImage())){
+                imageDAO.delete(userImage.getImage());
+            }
+            imageSearchManager.deleteIndex(userImage.getImage());
             return true;
         }
+
 
         return false;
     }
