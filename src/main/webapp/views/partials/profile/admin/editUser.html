@@ -50,7 +50,7 @@
                                  ng-class="{'has-error' : (form.company.$error.required || errors.company) && form.company.$dirty}">
                                 <label for="company" class="control-label input-group-addon">Firma</label>
                                 <input name="company" id="company" placeholder="Firma"
-                                       type="text" class="form-control" ng-model="userProfileData.company">
+                                       type="text" class="form-control" ng-model="userProfileData.company" ng-required="isUserPhotographer()">
                             </div>
                             <div class="help-block" ng-show="form.company.$dirty">
                                 <span ng-show="errors.company">{{errors.company[0]}}</span>
@@ -61,7 +61,7 @@
                                  ng-class="{'has-error' : (form.phone.$error.required || errors.phone) && form.phone.$dirty}">
                                 <label for="phone" class="control-label input-group-addon">Telefon</label>
                                 <input name="phone" id="phone" placeholder="Telefon"
-                                       type="text" class="form-control" ng-model="userProfileData.phone">
+                                       type="text" class="form-control" ng-model="userProfileData.phone" ng-required="isUserPhotographer()">
                             </div>
                             <div class="help-block" ng-show="form.phone.$dirty">
                                 <span ng-show="errors.phone">{{errors.phone[0]}}</span>
@@ -84,7 +84,7 @@
                                  ng-class="{'has-error' : (form.paypal.$error.required || errors.paypal) && form.swift.paypal}">
                                 <label for="swift" class="control-label input-group-addon">PayPal</label>
                                 <input name="paypal" id="paypal" placeholder="Paypal-Account"
-                                       type="text" class="form-control" ng-model="userProfileData.paypalID" required>
+                                       type="text" class="form-control" ng-model="userProfileData.paypalID" ng-required="isUserPhotographer()">
                             </div>
                             <div class="help-block" ng-show="form.paypal.$dirty">
                                 <span ng-show="form.paypal.$error.required">Dieses Feld darf nicht leer sein.</span>
@@ -96,7 +96,7 @@
                                  ng-class="{'has-error' : (form.iban.$error.required || errors.iban) && form.iban.$dirty}">
                                 <label for="iban" class="control-label input-group-addon">IBAN</label>
                                 <input name="iban" id="iban" placeholder="IBAN"
-                                       type="text" class="form-control" ng-model="userProfileData.iban" required>
+                                       type="text" class="form-control" ng-model="userProfileData.iban" ng-required="isUserPhotographer()">
                             </div>
                             <div class="help-block" ng-show="form.iban.$dirty">
                                 <span ng-show="form.iban.$error.required">Dieses Feld darf nicht leer sein.</span>
@@ -109,7 +109,7 @@
                                  ng-class="{'has-error' : (form.swift.$error.required || errors.swift) && form.swift.$dirty}">
                                 <label for="swift" class="control-label input-group-addon">SWIFT</label>
                                 <input name="swift" id="swift" placeholder="SWIFT"
-                                       type="text" class="form-control" ng-model="userProfileData.swift" required>
+                                       type="text" class="form-control" ng-model="userProfileData.swift" ng-required="isUserPhotographer()">
                             </div>
                             <div class="help-block" ng-show="form.swift.$dirty">
                                 <span ng-show="form.swift.$error.required">Dieses Feld darf nicht leer sein.</span>
@@ -117,7 +117,7 @@
                             </div>
                             <br>
                         </div>
-                        <input ng-disabled="formNotEdited || form.$invalid" type="submit" value="Speichern" class="btn btn-primary"
+                        <input ng-disabled="form.$pristine || form.$invalid" type="submit" value="Speichern" class="btn btn-primary"
                                ng-click="save()"/>
                         <input type="submit" value="Abbrechen" class="btn btn-primary" ng-click="cancel()"/>
                     </div>

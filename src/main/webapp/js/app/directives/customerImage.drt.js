@@ -23,7 +23,7 @@ angular.module('photoplatform')
 
     }])
 
-    .directive('customerimage', ['$rootScope', '$modal', '$location', 'ShoppingListService', function ($rootScope, $modal, $location, ShoppingListService) {
+    .directive('customerimage', ['$rootScope', '$modal', '$location', '$cookieStore', '$window', 'ShoppingListService', function ($rootScope, $modal, $location, $cookieStore, $window, ShoppingListService) {
         return {
             restrict: 'A',
             templateUrl: '/views/partials/profile/customerImage.html',
@@ -39,6 +39,15 @@ angular.module('photoplatform')
                 //console.log(scope.searchResultView);
 
                 scope.openModal = function (imageData) {
+                //check if user is logged in
+                     var user = $cookieStore.get('user');
+                        if (undefined == user || !$rootScope.isLoggedIn()) {
+                            //$location.path("/login");
+                            $rootScope.error = "Um Bilder vergrößert zu betrachten, logge dich bitte ein!"
+                            $window.scrollTo(0, 0);
+                            return;
+                        }
+
                     $modal.open({
                         templateUrl: '/views/partials/profile/customerImage.mdl.html',
                         controller: 'customerImageModalCtrl',
