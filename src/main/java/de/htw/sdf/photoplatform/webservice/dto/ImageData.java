@@ -153,7 +153,7 @@ public class ImageData extends ResponseMessageData implements Serializable {
      */
     public void setPrice(BigDecimal price) {
         this.price = price;
-        setPriceAsString(price);
+        this.priceAsString = PurchaseData.NUMBER_FORMAT.format(price);
     }
 
     /**
@@ -167,11 +167,12 @@ public class ImageData extends ResponseMessageData implements Serializable {
 
     /**
      * Sets image price.
-     *
+     * Only needed for JSON conversion
+     * 
      * @param price image price.
      */
-    public void setPriceAsString(BigDecimal price) {
-        this.priceAsString = PurchaseData.NUMBER_FORMAT.format(price);
+    public void setPriceAsString(String price) {
+        this.priceAsString = price;
     }
 
     public String getMime() {

@@ -236,6 +236,7 @@ public class ImageManagerImpl extends DAOReferenceCollector implements
         image.setPath(path);
         image.setMime(type);
         image.setCreatedBy(user.getUsername());
+        image.setPrice(new BigDecimal(0));
         String originalPath = image.getPath();
         path = originalPath.split("/\\./")[0];
         BufferedImage imageBuffer = ImageIO
