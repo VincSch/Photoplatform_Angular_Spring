@@ -16,7 +16,7 @@ import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.MultiPartConfigFactory;
+import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -123,7 +123,7 @@ public class Application extends WebMvcConfigurerAdapter {
      */
     @Bean
     public MultipartConfigElement multipartConfigElement() {
-        MultiPartConfigFactory factory = new MultiPartConfigFactory();
+        MultipartConfigFactory factory = new MultipartConfigFactory();
         factory.setMaxFileSize("128MB");
         factory.setMaxRequestSize("128MB");
         return factory.createMultipartConfig();
