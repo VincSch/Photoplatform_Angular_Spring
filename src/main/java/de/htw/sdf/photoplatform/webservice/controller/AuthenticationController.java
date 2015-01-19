@@ -70,9 +70,9 @@ public class AuthenticationController extends BaseAPIController {
     public UserData login(@Valid @RequestBody UserCredential userCredential,
                           BindingResult bindingResult) throws IOException,
             AbstractBaseException {
-
+        String msgUserNotFound = messages.getMessage("User.notFound");
         if (bindingResult.hasErrors()) {
-            throw new BadRequestException("login rejected", bindingResult);
+            throw new BadRequestException(msgUserNotFound, bindingResult);
         }
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
@@ -86,7 +86,7 @@ public class AuthenticationController extends BaseAPIController {
             // User is disabled or locked
             throw new BadRequestException(messages.getMessage("User.locked"));
         } catch (BadCredentialsException | NoResultException ex) {
-            throw new BadRequestException(messages.getMessage("User.notFound"));
+            throw new BadRequestException(msgUserNotFound);
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
