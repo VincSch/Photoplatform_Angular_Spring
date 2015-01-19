@@ -60,7 +60,7 @@ public class Application extends WebMvcConfigurerAdapter {
      */
     public static void main(final String[] args) {
         context = SpringApplication.run(Application.class);
-        context.getBean(StartUpUtil.class).cleanUploadDirectories();
+        //context.getBean(StartUpUtil.class).cleanUploadDirectories();
         //init elastic search indexes, for all images in db.
         //I know, that is no a good idea, but for study project is ok!
         //we don't have a lot of images!
@@ -154,7 +154,7 @@ public class Application extends WebMvcConfigurerAdapter {
             //File truststore = new ClassPathResource("keystore").getFile();
             connector.setScheme("https");
             connector.setSecure(true);
-            connector.setPort(8555);
+            connector.setPort(443);
             protocol.setSSLEnabled(true);
             protocol.setKeystoreFile(keystore.getAbsolutePath());
             protocol.setKeystorePass("photoplatform");
