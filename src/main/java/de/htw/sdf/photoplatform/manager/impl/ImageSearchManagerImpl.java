@@ -10,6 +10,7 @@ import de.htw.sdf.photoplatform.persistence.model.Image;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -132,6 +133,8 @@ public class ImageSearchManagerImpl extends DAOReferenceCollector implements Ima
 
     private Page<Image> executeNativeSearchQuery(QueryBuilder queryBuilder) {
         SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(queryBuilder).build();
+        //dirty bug fix to show all images, without new request on server.
+        searchQuery.setPageable(new PageRequest(0, 1000));
         return elasticSearchTemplate.queryForPage(searchQuery, Image.class);
     }
 }
