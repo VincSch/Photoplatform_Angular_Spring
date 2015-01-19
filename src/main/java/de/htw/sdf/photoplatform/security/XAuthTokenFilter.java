@@ -24,6 +24,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.Collection;
 
@@ -87,6 +89,8 @@ public class XAuthTokenFilter extends GenericFilterBean {
             filterChain.doFilter(arg0, arg1);
         } catch (Exception ex) {
             log.info(ex.getMessage());
+            HttpServletResponse httpServletResponse = (HttpServletResponse) arg1;
+            httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Session Timeout");
         }
     }
 
