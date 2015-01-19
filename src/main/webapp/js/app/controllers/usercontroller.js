@@ -82,7 +82,7 @@ photoplatformControllers.controller('UserCtrl', ['$scope', '$routeParams', '$roo
          */
         $scope.changePassword = function (pw) {
             UserService.changePassword(pw).success(function (user) {
-                $rootScope.success = "Passwort erfolgreich geändert";
+                $rootScope.success = "Das Passwort wurde erfolgreich geändert.";
                 $('#pwModal').modal('hide');
                 // set the new token
                 $rootScope.user = user;
@@ -91,6 +91,9 @@ photoplatformControllers.controller('UserCtrl', ['$scope', '$routeParams', '$roo
             }).error(function (data) {
                 console.log(data);
                 $scope.errors = data.errors;
+                if (data.errors != null) { //suppress error
+                    $rootScope.error = undefined;
+                }
             });
             $location.path("/profile/view");
         };
