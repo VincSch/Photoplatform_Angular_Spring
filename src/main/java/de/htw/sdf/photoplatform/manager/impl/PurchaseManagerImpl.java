@@ -56,6 +56,15 @@ public class PurchaseManagerImpl extends DAOReferenceCollector implements Purcha
      */
     @Override
     public PurchaseItem addToShoppingCart(User user, Long imageId) throws ManagerException {
+
+        List<Image> userImages = getUserImages(user);
+        // check if already purchased
+        for (Image item : userImages) {
+            if (item.getId().equals(imageId)) {
+                throw new ManagerException(ManagerException.ALREADY_PURCHASED);
+            }
+        }
+    	
         List<PurchaseItem> itemsInShoppingCart = getItemsInShoppingCart(user);
         // check if already in shopping cart
         for (PurchaseItem item : itemsInShoppingCart) {

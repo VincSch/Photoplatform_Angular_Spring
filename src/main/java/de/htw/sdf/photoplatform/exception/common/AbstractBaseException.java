@@ -64,6 +64,11 @@ public abstract class AbstractBaseException extends Exception {
      */
     public static final int CART_HAS_CHANGED = 31000; 
     
+    /**
+     * Generic Paypal API Error
+     */
+    public static final int ALREADY_PURCHASED = 31001; 
+    
     static final long serialVersionUID = 1L;
 
     protected final Logger log = Logger.getLogger(this.getClass().getName());

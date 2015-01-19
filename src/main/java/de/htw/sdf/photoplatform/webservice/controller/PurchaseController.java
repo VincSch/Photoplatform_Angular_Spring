@@ -66,6 +66,9 @@ public class PurchaseController extends BaseAPIController {
                 case AbstractBaseException.BAD_REQUEST:
                     exceptionMsg = messages.getMessage("Purchase.InShoppingCart");
                     break;
+                case AbstractBaseException.ALREADY_PURCHASED:
+                    exceptionMsg = messages.getMessage("Purchase.AlreadyPurchased");
+                    break;
                 default:
                     throw new RuntimeException("Unhandled error");
             }
