@@ -74,7 +74,7 @@ public interface PurchaseManager {
      * @param BaseURL the BaseURL for redirect including protocol and port
      * @return redirect url to paypal
      */
-    String startPurchasePerPaypal(List<PurchaseItem> items, String BaseURL) throws ManagerException;
+    String startPurchasePerPaypal(List<PurchaseItem> items) throws ManagerException;
     
     /**
      * completes the purchase process through paypal

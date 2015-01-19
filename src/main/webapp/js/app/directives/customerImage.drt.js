@@ -17,15 +17,13 @@ angular.module('photoplatform')
                 $rootScope.user.totalItems = data.totalItems;
                 $scope.close();
             }).error(function(data){
-                alert(data.message);
+                //alert(data.message);
             });
         }
 
     }])
 
     .directive('customerimage', ['$rootScope', '$modal', '$location', 'ShoppingListService', function ($rootScope, $modal, $location, ShoppingListService) {
-        console.log($location);
-
         return {
             restrict: 'A',
             templateUrl: '/views/partials/profile/customerImage.html',
@@ -66,7 +64,7 @@ angular.module('photoplatform')
                     ShoppingListService.addToShoppingCart(imageId).success(function (data) {
                         $rootScope.user.totalItems = data.totalItems;
                     }).error(function (data) {
-                        alert(data.message);
+                        //alert(data.message);
                     });
                 }
             }
