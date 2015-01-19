@@ -15,6 +15,14 @@ angular.module('photoplatform').factory('ShoppingListService', ['$http', '$rootS
             getShoppingCartData : function () {
                 return $http.get(urlBase + "purchases");
             },
+            
+            /**
+             * Get the number of items in ShoppingCart
+             * @returns {HttpPromise}
+             */
+            getItemsInShoppingCart : function () {
+                return $http.get(urlBase + "purchases/imagenumber");
+            },
 
             /**
              * Add item to shopping cart

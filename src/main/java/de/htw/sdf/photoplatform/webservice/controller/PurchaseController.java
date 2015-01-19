@@ -120,7 +120,22 @@ public class PurchaseController extends BaseAPIController {
         BigDecimal totalPrice = purchaseManager.calculatePrice(itemInShoppingCart);
         return ResourceUtility.convertToPurchaseData(itemInShoppingCart, totalPrice);
     }
-
+    
+    /**
+     * Returns PurchaseData, that represent a shopping cart.
+     * <p/>
+     * PurchaseData include images, total price of all images
+     * and count of all images in shopping cart.
+     *
+     * @return PurchaseData.
+     */
+    @RequestMapping(value = Endpoints.CART_IMAGE_NUMBER, method = RequestMethod.GET)
+    @ResponseBody
+    public int getItemsInShoppingCart() {
+        User user = getAuthenticatedUser();
+        List<PurchaseItem> itemInShoppingCart = purchaseManager.getItemsInShoppingCart(user);
+        return itemInShoppingCart.size();
+    }
     /**
      * Returns all images, which user has purchased.
      *

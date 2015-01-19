@@ -127,8 +127,7 @@ photoplatform.config([
 
         $httpProvider.responseInterceptors.push(interceptor);
 
-    }]).run(function ($rootScope, $http, $location, $cookieStore, UserService) {
-
+    }]).run(function ($rootScope, $http, $location, $cookieStore, UserService, ShoppingListService) {
     //Reset error and success when a new view is loaded
     $rootScope.$on('$viewContentLoaded', function () {
         delete $rootScope.error;
@@ -139,7 +138,15 @@ photoplatform.config([
             $rootScope.transferSuccess = false;
         }
     });
-
+    
+ 	$rootScope.$on('$routeChangeSuccess', function () {
+ 		if ($rootScope.user !== undefined) {
+ 			ShoppingListService.getItemsInShoppingCart().success(function (NumberOfImages) {
+                    $rootScope.user.totalItems = NumberOfImages;
+                    });
+        }
+    });
+    
     $rootScope.logout = function () {
         UserService.logout($rootScope.user);
         delete $rootScope.user;
