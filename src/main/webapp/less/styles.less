@@ -423,8 +423,11 @@ div#darg-and-drop-area {
 }
 
 .custom-alert {
-  width: 50%;
-  float: inherit;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+  width: 100%;
+  magin-left:10px;
 }
 
 .upload-dialog .modal-dialog {
