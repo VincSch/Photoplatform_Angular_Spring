@@ -116,11 +116,11 @@ public class AuthenticationController extends BaseAPIController {
     public void register(@Valid @RequestBody final UserRegister userRegister,
                          BindingResult bindingResult) throws Exception {
         // Check if password match
+        String passwordConfirmMsg = "register exception"; messages.getMessage("Password.confirm");
         if (!userRegister.getPassword().equals(
                 userRegister.getPasswordConfirm())) {
-            bindingResult
-                    .addError(new FieldError("register", "passwordConfirm",
-                            messages.getMessage("Password.confirm")));
+            passwordConfirmMsg = messages.getMessage("Password.confirm");
+            bindingResult.addError(new FieldError("register", "passwordConfirm", passwordConfirmMsg));
         }
 
         if (bindingResult.hasErrors()) {
@@ -128,7 +128,7 @@ public class AuthenticationController extends BaseAPIController {
             log.info("-- register user fail: email = \""
                     + userRegister.getEmail() + "; password=\"**********\";");
 
-            throw new BadRequestException("register", bindingResult);
+            throw new BadRequestException(passwordConfirmMsg, bindingResult);
         }
 
         try {
