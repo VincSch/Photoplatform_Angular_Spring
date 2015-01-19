@@ -17,8 +17,9 @@ function fadeOutMenu() {
     $('body').removeClass('menu-active');
     return false;
 }
-
+/*
 function removePreviewImage(element) {
+console.log(element);
     $('input[type="file"]')[0].files = null;
     //var files = $('input[type="file"]')[0].files;
     //var img = $(element).prev();
@@ -32,3 +33,4 @@ function removePreviewImage(element) {
     $('#preview').html("");
     $('#preview').hide();
 }
+*/
