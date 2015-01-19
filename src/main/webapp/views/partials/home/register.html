@@ -1,106 +1,106 @@
-<div class="page-header">
-    <h2>Registrierung</h2>
+<div class="jumbotron" style="background-color:#eee" align="center">
+    <div class="page-header">
+        <h2>Registrierung</h2>
 
-    <p>Hier kannst du dich registrieren! Als Mitglied bist du in der Lage Fotos zu kaufen. <br>
-        Wenn du eigene Fotos verkaufen möchtest, kannst du dich nach der Registrierung als Photograph bewerben.</p>
-</div>
+        <p>Hier kannst du dich registrieren! Als Mitglied bist du in der Lage Fotos zu kaufen. <br>
+            Wenn du eigene Fotos verkaufen möchtest, kannst du dich nach der Registrierung als Photograph bewerben.</p>
+    </div>
 
-<div class="row">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <form name="form" class="form-horizontal" role="form" ng-controller="AuthCtrl"
-                      novalidate>
-                    <div class="form-group has-feedback"
-                         ng-class="{'has-error' : (form.email.$invalid || errors.email) && form.email.$dirty}">
-                        <div class="col-sm-5">
-                            <div class="input-group">
-                                <label for="email" class="control-label input-group-addon">E-Mail</label>
-                                <input ng-model="user.email" name="email" type="email"
-                                       id="email" class="form-control"
-                                       placeholder="deine aktive E-Mail-Adresse" required>
-                            </div>
-                            <div class="help-block" ng-show="form.email.$dirty">
-                                <span ng-show="form.email.$error.required">Dieses Feld darf nicht leer sein.</span>
-                                <span ng-show="!form.email.$error.required && form.email.$error.email">Bitte gib eine valide E-Mail-Adresse ein.</span>
-                                <span ng-show="errors.email">{{errors.email[0]}}</span>
-                            </div>
+    <div class="row">
+        <div class="col-md-5"><br></div>
+        <div class="col-md-6">
+            <form name="form" class="form-horizontal" role="form" ng-controller="AuthCtrl"
+                  novalidate>
+                <div class="form-group has-feedback"
+                     ng-class="{'has-error' : (form.email.$invalid || errors.email) && form.email.$dirty}">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label for="email" class="control-label input-group-addon">E-Mail</label>
+                            <input ng-model="user.email" name="email" type="email"
+                                   id="email" class="form-control"
+                                   placeholder="deine aktive E-Mail-Adresse" required>
+                        </div>
+                        <div class="help-block" ng-show="form.email.$dirty">
+                            <span ng-show="form.email.$error.required">Dieses Feld darf nicht leer sein.</span>
+                            <span ng-show="!form.email.$error.required && form.email.$error.email">Bitte gib eine valide E-Mail-Adresse ein.</span>
+                            <span ng-show="errors.email">{{errors.email[0]}}</span>
                         </div>
                     </div>
-                    <div class="form-group has-feedback"
-                         ng-class="{'has-error' : (form.firstName.$invalid || errors.firstName) && form.firstName.$dirty}">
-                        <div class="col-sm-5">
-                            <div class="input-group">
-                                <label for="firstName" class="control-label input-group-addon">Vorname</label>
-                                <input ng-model="user.firstName" name="firstName"
-                                       id="firstName" class="form-control"
-                                       placeholder="" required>
-                            </div>
-                            <div class="help-block" ng-show="form.firstName.$dirty">
-                                <span ng-show="form.firstName.$error.required">Dieses Feld darf nicht leer sein.</span>
-                                <span ng-show="errors.firstName">{{errors.firstName[0]}}</span>
-                            </div>
+                </div>
+                <div class="form-group has-feedback"
+                     ng-class="{'has-error' : (form.firstName.$invalid || errors.firstName) && form.firstName.$dirty}">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label for="firstName" class="control-label input-group-addon">Vorname</label>
+                            <input ng-model="user.firstName" name="firstName"
+                                   id="firstName" class="form-control"
+                                   placeholder="" required>
+                        </div>
+                        <div class="help-block" ng-show="form.firstName.$dirty">
+                            <span ng-show="form.firstName.$error.required">Dieses Feld darf nicht leer sein.</span>
+                            <span ng-show="errors.firstName">{{errors.firstName[0]}}</span>
                         </div>
                     </div>
-                    <div class="form-group has-feedback"
-                         ng-class="{'has-error' : (form.lastName.$invalid || errors.lastName) && form.lastName.$dirty}">
-                        <div class="col-sm-5">
-                            <div class="input-group">
-                                <label for="lastName" class="control-label input-group-addon">Nachname</label>
-                                <input ng-model="user.lastName" name="lastName"
-                                       id="lastName" class="form-control"
-                                       placeholder="" required>
-                            </div>
-                            <div class="help-block" ng-show="form.lastName.$dirty">
-                                <span ng-show="form.lastName.$error.required">Dieses Feld darf nicht leer sein.</span>
-                                <span ng-show="errors.lastName">{{errors.lastName[0]}}</span>
-                            </div>
+                </div>
+                <div class="form-group has-feedback"
+                     ng-class="{'has-error' : (form.lastName.$invalid || errors.lastName) && form.lastName.$dirty}">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label for="lastName" class="control-label input-group-addon">Nachname</label>
+                            <input ng-model="user.lastName" name="lastName"
+                                   id="lastName" class="form-control"
+                                   placeholder="" required>
+                        </div>
+                        <div class="help-block" ng-show="form.lastName.$dirty">
+                            <span ng-show="form.lastName.$error.required">Dieses Feld darf nicht leer sein.</span>
+                            <span ng-show="errors.lastName">{{errors.lastName[0]}}</span>
                         </div>
                     </div>
-                    <div class="form-group has-feedback"
-                         ng-class="{'has-error' : (form.password.$invalid || errors.password || errors.passwordConfirm) && form.password.$dirty}">
-                        <div class="col-sm-5">
-                            <div class="input-group">
-                                <label for="password" class="control-label input-group-addon">Passwort</label>
-                                <input ng-model="user.password" name="password" type="password"
-                                       id="password" class="form-control"
-                                       placeholder="Zwischen 3 und 16 Zeichen" required>
-                            </div>
-                            <div class="help-block" ng-show="form.password.$dirty">
-                                <span ng-show="form.password.$error.required">Dieses Feld darf nicht leer sein.</span>
-                                <span ng-show="errors.password">{{errors.password[0]}}</span>
-                            </div>
+                </div>
+                <div class="form-group has-feedback"
+                     ng-class="{'has-error' : (form.password.$invalid || errors.password || errors.passwordConfirm) && form.password.$dirty}">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label for="password" class="control-label input-group-addon">Passwort</label>
+                            <input ng-model="user.password" name="password" type="password"
+                                   id="password" class="form-control"
+                                   placeholder="Zwischen 3 und 16 Zeichen" required>
+                        </div>
+                        <div class="help-block" ng-show="form.password.$dirty">
+                            <span ng-show="form.password.$error.required">Dieses Feld darf nicht leer sein.</span>
+                            <span ng-show="errors.password">{{errors.password[0]}}</span>
                         </div>
                     </div>
-                    <div class="form-group has-feedback"
-                         ng-class="{'has-error' : (form.passwordConfirm.$invalid || errors.passwordConfirm) && form.passwordConfirm.$dirty}">
-                        <div class="col-sm-5">
-                            <div class="input-group">
-                                <label for="passwordConfirm" class="control-label input-group-addon">Passwort
-                                    bestätigen</label>
-                                <input ng-model="user.passwordConfirm" name="passwordConfirm"
-                                       type="password"
-                                       id="passwordConfirm" class="form-control"
-                                       placeholder="" required>
+                </div>
+                <div class="form-group has-feedback"
+                     ng-class="{'has-error' : (form.passwordConfirm.$invalid || errors.passwordConfirm) && form.passwordConfirm.$dirty}">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label for="passwordConfirm" class="control-label input-group-addon">Passwort
+                                bestätigen</label>
+                            <input ng-model="user.passwordConfirm" name="passwordConfirm"
+                                   type="password"
+                                   id="passwordConfirm" class="form-control"
+                                   placeholder="" required>
                                 <span class="error" ng-show="error.errors.passwordConfirm"
                                       class="glyphicon glyphicon-remove form-control-feedback"
                                       aria-hidden="true"></span>
-                            </div>
-                            <div class="help-block" ng-show="form.passwordConfirm.$dirty">
-                                <span ng-show="form.passwordConfirm.$error.required">Dieses Feld darf nicht leer sein.</span>
-                                <span ng-show="errors.passwordConfirm">{{errors.passwordConfirm[0]}}</span>
-                            </div>
+                        </div>
+                        <div class="help-block" ng-show="form.passwordConfirm.$dirty">
+                            <span ng-show="form.passwordConfirm.$error.required">Dieses Feld darf nicht leer sein.</span>
+                            <span ng-show="errors.passwordConfirm">{{errors.passwordConfirm[0]}}</span>
                         </div>
                     </div>
-                    <div class="form-group has-error has-feedback">
-                        <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary" ng-click="register(user)"
-                                    ng-disabled="form.$invalid">Registrieren
-                            </button>
-                        </div>
+                </div>
+                <div class="form-group has-error has-feedback">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary" ng-click="register(user)"
+                                ng-disabled="form.$invalid">Registrieren
+                        </button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
+        <div class="col-md-3"><br></div>
     </div>
 </div>

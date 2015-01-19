@@ -29,6 +29,7 @@ angular.module('photoplatform')
             templateUrl: '/views/partials/profile/customerImage.html',
             scope: {
                 image: '=customerimage'
+
             },
             link: function (scope, elem, attrs) {
 

@@ -2,7 +2,6 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-2" ng-repeat="image in images">
-                <div imagecomponent="image"></div>
                 <div class="thumbnail" id="image-{{image.imageId}}" ng-init="status = {editing : false }">
                         <img class="img-responsive img-rounded" ng-src="{{image.smallPath}}" class="img-responsive"
                              onerror="this.src='http://placehold.it/1024x600'"

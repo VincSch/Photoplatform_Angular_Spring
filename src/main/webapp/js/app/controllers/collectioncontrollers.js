@@ -111,6 +111,25 @@ photoplatformControllers.controller('CollectionCtrl',
                     $scope.errors = data.errors;
                 })
             };
+
+            /**
+            *
+            */
+            $scope.openModal = function (imageData) {
+                console.log("Open");
+                $modal.open({
+                    templateUrl: '/views/partials/profile/photographer/imageComponent.mdl.html',
+                    controller: 'imageComponentModalCtrl',
+                    windowClass: 'imageComponentModal',
+                    size: 'lg',
+                    resolve: {
+                        imageData: function () {
+                            return imageData
+                        }
+                    }
+                });
+            };
+
         }]);
 
 
@@ -208,5 +227,7 @@ photoplatformControllers.controller('ViewShowcaseCtrl', ['$scope', '$routeParams
                 $scope.showcase = collections;
             });
         //};
+
+
     }
 ]);
