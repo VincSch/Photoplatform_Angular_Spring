@@ -1,3 +1,186 @@
+/* ALLe primary-keys ID vom TYPE INT.
+
+UNIQUE-constraint PATH-SMALL_THUMB_PATH, MOBILE_THUMB_PATH etc. in tabelle res_images sind auskommentiert wegen fehlermeldung
+Error Code: 1709. Index column size too large. The maximum column size is 767 bytes.
+*/
+
+DROP DATABASE IF EXISTS `photoplatformdb`;
+-- set increase unique limit from 767 to 3072 bytes
+-- don't work
+SET @@global.innodb_large_prefix = 1;
+CREATE SCHEMA `photoplatformdb` DEFAULT CHARACTER SET utf8mb4 ;
+
+-- SYS_ROLLE
+CREATE TABLE photoplatformdb.SYS_ROLE (
+  ID INT NOT NULL AUTO_INCREMENT,
+  NAME VARCHAR(25) NOT NULL,
+  PRIMARY KEY (ID),
+  UNIQUE INDEX ID_UNIQUE (ID ASC),
+  UNIQUE INDEX ROLE_NAME_UNIQUE (NAME ASC)) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+  
+-- sys_user
+CREATE TABLE photoplatformdb.SYS_USER (
+  ID                    INT NOT NULL AUTO_INCREMENT, 
+  EMAIL                 varchar(100) NOT NULL, 
+  PASSWORD              varchar(255) NOT NULL, 
+  FIRST_NAME            varchar(20), 
+  LAST_NAME             varchar(20), 
+  COMPANY               varchar(255), 
+  PHONE                 varchar(50), 
+  HOMEPAGE              varchar(100), 
+  PAYPALID              varchar(255), 
+  IBAN                  varchar(255), 
+  SWIFT                 varchar(50), 
+  IS_ACCOUNT_NON_LOCKED tinyint(1) NOT NULL, 
+  IS_ENABLED            tinyint(1) NOT NULL, 
+  LOST_PASSWORD_TOKEN   varchar(255), 
+  CREATED_AT            timestamp NULL, 
+  CREATED_BY            varchar(50), 
+  UPDATED_AT            timestamp NULL, 
+  UPDATED_BY            varchar(50), 
+  PRIMARY KEY (ID), 
+  UNIQUE INDEX ID_UNIQUE (ID ASC),
+  UNIQUE INDEX USER_EMAIL_UNIQUE (EMAIL ASC)) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+  
+-- sys_user_rolle
+CREATE TABLE photoplatformdb.SYS_USER_ROLE (
+  ID         INT NOT NULL AUTO_INCREMENT, 
+  USER_ID     INT NOT NULL, 
+  ROLE_ID   INT NOT NULL, 
+  CREATED_AT timestamp NULL, 
+  CREATED_BY varchar(50), 
+  UPDATE_AT  timestamp NULL, 
+  UPDATED_BY varchar(50), 
+  PRIMARY KEY (ID), 
+  UNIQUE INDEX ID_UNIQUE (ID ASC))  ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+  
+-- res_image
+CREATE TABLE photoplatformdb.RES_IMAGE (
+  ID                INT NOT NULL AUTO_INCREMENT, 
+  NAME              varchar(100) NOT NULL, 
+  DESCRIPTION       varchar(500), 
+  IS_PUBLIC         tinyint(1) DEFAULT 0 NOT NULL, 
+  IS_ENABLED        tinyint(1) DEFAULT 1 NOT NULL, 
+  PRICE             real NOT NULL, 
+  MIME              varchar(10) NOT NULL, 
+  METADATA          varchar(1000), 
+  PATH              varchar(500) NOT NULL, 
+  THUMB_PATH        varchar(500) NOT NULL, 
+  SMALL_THUMB_PATH  varchar(500) NOT NULL, 
+  MOBILE_THUMB_PATH varchar(500) NOT NULL, 
+  CREATED_AT        timestamp NULL, 
+  CREATED_BY        varchar(50), 
+  UPDATED_AT        timestamp NULL, 
+  UPDATED_BY        varchar(50), 
+  PRIMARY KEY (ID),
+  UNIQUE INDEX ID_UNIQUE (ID ASC)
+ -- mit unique bekomme ich locale ein fehlermeldung -   Error Code: 1709. Index column size too large. The maximum column size is 767 bytes.
+  -- ,
+  -- UNIQUE INDEX PATH_UNIQUE (PATH ASC),
+  -- UNIQUE INDEX THUMB_PATH_UNIQUE (THUMB_PATH ASC),
+  -- UNIQUE INDEX SMALL_THUMB_PATH_UNIQUE (SMALL_THUMB_PATH ASC),
+  -- UNIQUE INDEX MOBILE_THUMB_PATH_UNIQUE (MOBILE_THUMB_PATH ASC)
+  ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+  
+-- res_user_image
+CREATE TABLE photoplatformdb.RES_USER_IMAGE (
+  ID          INT NOT NULL AUTO_INCREMENT, 
+  IMAGE_ID    INT NOT NULL, 
+  OWNER_ID    INT NOT NULL, 
+  USER_ID     INT NOT NULL, 
+  CREATED_AT  timestamp NULL, 
+  CREATED_BY  varchar(50), 
+  UPDATEED_AT timestamp NULL, 
+  UPDATED_BY  varchar(50), 
+  PRIMARY KEY (ID),
+  UNIQUE INDEX ID_UNIQUE (ID ASC)) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+  
+-- collection_image
+CREATE TABLE photoplatformdb.RES_COLLECTION_IMAGE (
+  ID            INT NOT NULL AUTO_INCREMENT, 
+  COLLECTION_ID INT NOT NULL, 
+  IMAGE_ID      INT NOT NULL, 
+  CREATED_AT    timestamp NULL, 
+  CREATED_BY    varchar(50), 
+  UPDATED_AT    timestamp NULL, 
+  UPDATED_BY    varchar(50), 
+  PRIMARY KEY (ID),
+  UNIQUE INDEX ID_UNIQUE (ID ASC)) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+  
+-- res_collection
+CREATE TABLE photoplatformdb.RES_COLLECTION (
+  ID              INT NOT NULL AUTO_INCREMENT, 
+  IS_PUBLIC       tinyint(1) DEFAULT 0 NOT NULL, 
+  USER_ID         INT NOT NULL, 
+  THUMBNAIL_ID    INT NULL,
+  NAME            varchar(100) NOT NULL, 
+  DESCRIPTION     varchar(500), 
+  CREATED_AT      timestamp NULL, 
+  CREATED_BY      varchar(50), 
+  UPDATED_AT      timestamp NULL, 
+  UPDATED_BY      varchar(50), 
+  PRIMARY KEY (ID),
+  UNIQUE INDEX ID_UNIQUE (ID ASC)) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+  
+-- collection_category  
+CREATE TABLE photoplatformdb.RES_COLLECTION_CATEGORY (
+  ID            INT NOT NULL AUTO_INCREMENT,
+  COLLECTION_ID INT NOT NULL, 
+  CATEGORY_ID   INT NOT NULL, 
+  CREATED_AT    timestamp NULL, 
+  CREATED_BY    varchar(50), 
+  UPDATED_AT    timestamp NULL, 
+  UPDATED_BY    varchar(50), 
+  PRIMARY KEY (ID),
+  UNIQUE INDEX ID_UNIQUE (ID ASC)) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+
+-- res_category
+CREATE TABLE photoplatformdb.RES_CATEGORY (
+  ID          INT NOT NULL AUTO_INCREMENT, 
+  NAME        varchar(100) NOT NULL, 
+  DESCRIPTION varchar(500), 
+  CREATED_AT  timestamp NULL, 
+  CREATED_BY  varchar(50), 
+  UPDATED_AT  timestamp NULL, 
+  UPDATED_BY  varchar(50), 
+  PRIMARY KEY (ID),
+  UNIQUE INDEX ID_UNIQUE (ID ASC),
+  UNIQUE INDEX CATEGRORY_NAME_UNIQUE (NAME ASC)) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+
+-- res_purchases
+CREATE TABLE photoplatformdb.RES_PURCHASES (
+  ID         INT NOT NULL AUTO_INCREMENT,
+  USER_ID    INT NOT NULL, 
+  IMAGE_ID   INT NOT NULL, 
+  PAYMENTID  varchar(255), 
+  PURCHASED  tinyint(1) DEFAULT 0 NOT NULL, 
+  CREATED_AT timestamp NULL, 
+  CREATED_BY varchar(50), 
+  UPDATED_AT timestamp NULL, 
+  UPDATED_BY varchar(50), 
+  PRIMARY KEY (ID),
+  UNIQUE INDEX ID_UNIQUE (ID ASC)) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+
+-- constraints
+ALTER TABLE photoplatformdb.SYS_USER_ROLE ADD INDEX FKSYS_USER_R351537 (USER_ID), ADD CONSTRAINT FKSYS_USER_R351537 FOREIGN KEY (USER_ID) REFERENCES SYS_USER (ID);
+ALTER TABLE photoplatformdb.SYS_USER_ROLE ADD INDEX FKSYS_USER_R697237 (ROLE_ID), ADD CONSTRAINT FKSYS_USER_R697237 FOREIGN KEY (ROLE_ID) REFERENCES SYS_ROLE (ID);
+ALTER TABLE photoplatformdb.RES_USER_IMAGE ADD INDEX FKRES_USER_I209682 (IMAGE_ID), ADD CONSTRAINT FKRES_USER_I209682 FOREIGN KEY (IMAGE_ID) REFERENCES RES_IMAGE (ID);
+ALTER TABLE photoplatformdb.RES_USER_IMAGE ADD INDEX FKRES_USER_I938668 (USER_ID), ADD CONSTRAINT FKRES_USER_I938668 FOREIGN KEY (USER_ID) REFERENCES SYS_USER (ID);
+ALTER TABLE photoplatformdb.RES_COLLECTION_CATEGORY ADD INDEX FKRES_COLLEC252737 (CATEGORY_ID), ADD CONSTRAINT FKRES_COLLEC252737 FOREIGN KEY (CATEGORY_ID) REFERENCES RES_CATEGORY (ID);
+ALTER TABLE photoplatformdb.RES_COLLECTION_IMAGE ADD INDEX FKRES_COLLEC356544 (IMAGE_ID), ADD CONSTRAINT FKRES_COLLEC356544 FOREIGN KEY (IMAGE_ID) REFERENCES RES_IMAGE (ID);
+ALTER TABLE photoplatformdb.RES_COLLECTION ADD INDEX FKRES_COLLEC779509 (USER_ID), ADD CONSTRAINT FKRES_COLLEC779509 FOREIGN KEY (USER_ID) REFERENCES SYS_USER (ID);
+ALTER TABLE photoplatformdb.RES_COLLECTION_IMAGE ADD INDEX FKRES_COLLEC44646 (COLLECTION_ID), ADD CONSTRAINT FKRES_COLLEC44646 FOREIGN KEY (COLLECTION_ID) REFERENCES RES_COLLECTION (ID);
+ALTER TABLE photoplatformdb.RES_COLLECTION_CATEGORY ADD INDEX FKRES_COLLEC735001 (COLLECTION_ID), ADD CONSTRAINT FKRES_COLLEC735001 FOREIGN KEY (COLLECTION_ID) REFERENCES RES_COLLECTION (ID);
+ALTER TABLE photoplatformdb.RES_COLLECTION ADD INDEX collection_thumbnail (THUMBNAIL_ID ), ADD CONSTRAINT collection_thumbnail FOREIGN KEY (THUMBNAIL_ID) REFERENCES RES_IMAGE (ID);
+ALTER TABLE photoplatformdb.RES_COLLECTION_IMAGE ADD INDEX FKRES_COLLEC356545 (IMAGE_ID), ADD CONSTRAINT FKRES_COLLEC356545 FOREIGN KEY (IMAGE_ID) REFERENCES RES_IMAGE (ID);
+ALTER TABLE photoplatformdb.RES_PURCHASES ADD INDEX FKRES_PURCHA965681 (IMAGE_ID), ADD CONSTRAINT FKRES_PURCHA965681 FOREIGN KEY (IMAGE_ID) REFERENCES RES_IMAGE (ID);
+ALTER TABLE photoplatformdb.RES_PURCHASES ADD INDEX FKRES_PURCHA857557 (USER_ID), ADD CONSTRAINT FKRES_PURCHA857557 FOREIGN KEY (USER_ID) REFERENCES SYS_USER (ID);
+
+
+-- INSER DATA
+
+USE photoplatformdb;
+
 -- Role
 INSERT INTO SYS_ROLE(id,name) VALUES (1,'ROLE_ADMIN');
 INSERT INTO SYS_ROLE(id,name) VALUES (2,'ROLE_CUSTOMER');
@@ -34,7 +217,7 @@ INSERT INTO SYS_USER_ROLE (id,user_id,role_id) VALUES (4,4,3);
 INSERT INTO SYS_USER_ROLE (id,user_id,role_id) VALUES (5,5,3);
 -- Eric - Photographer
 INSERT INTO SYS_USER_ROLE (id,user_id,role_id) VALUES (6,6,3);
---BecomePhotographer - Become Photographer
+-- BecomePhotographer - Become Photographer
 INSERT INTO SYS_USER_ROLE (id,user_id,role_id) VALUES (7,7,4);
 
 -- 54 +/- SELECT COUNT(*) FROM PUBLIC.RES_IMAGE;
@@ -94,14 +277,14 @@ INSERT INTO RES_IMAGE(ID, CREATED_AT, CREATED_BY, UPDATED_AT, UPDATED_BY, DESCRI
 INSERT INTO RES_IMAGE(ID, CREATED_AT, CREATED_BY, UPDATED_AT, UPDATED_BY, DESCRIPTION, IS_ENABLED, IS_PUBLIC, METADATA, MIME, MOBILE_THUMB_PATH, NAME, PATH, PRICE, SMALL_THUMB_PATH, THUMB_PATH) VALUES (54, TIMESTAMP '2015-01-08 16:20:29.257', 'sergej@test.de', TIMESTAMP '2015-01-08 16:26:44.271', NULL, 'Hintergrund', TRUE, FALSE, '[{"description":"Baseline","tag":"Compression Type","directoryName":"Jpeg"},{"description":"8 bits","tag":"Data Precision","directoryName":"Jpeg"},{"description":"2880 pixels","tag":"Image Height","directoryName":"Jpeg"},{"description":"5120 pixels","tag":"Image Width","directoryName":"Jpeg"}]', 'jpeg', '/img/upload/ad8bc4c5eaddcb93d9d353cdda87fead407dcfa8b1170714c584cd4e3a8ad24659733b654be7a9b89f334842c149a2aec017fa9e8d930a513b076e532bff320f.jpeg', 'Blau2', 'upload/cfcfd1f0065f20812e51031bd692544218a8441d74e20053530afa0a1633cc12904cb593cb4bf6707b4ffdef727ae9140e052dc0c15117c684286f4adbd9f9d6.jpeg', 0.10, '/img/upload/6bfe7b32d4f1baf2109a8affd4d342fdd6bf58fbd2852b9f6985cafa1c03eadadd7ddae373d40ea0527b4d5dc1876d22b564d67eadad614c2d088e9148a82877.jpeg', '/img/upload/8c9da453a6ed98f98cd8d9d1eb6cd78f6e859343bf533b4622163960cf43685c6d1c1cba6198ca0dea6471ba49a04456f583cdc5149cf51de97c17bf84465b2f.jpeg');
 
 
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('1','6', 'Natur pur!','Lorem ipsum dolor sit amet.','false',NULL);
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('2','5', 'Irgendwas!','Lorem ipsum dolor sit amet.','false',NULL);
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('3','4', 'Mal was Anderes','Lorem ipsum dolor sit amet.','false',NULL);
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('4','5', 'Schon wieder eine Sammlung','Lorem ipsum dolor sit amet.','false',NULL);
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('5','6', 'Paar Bilder','Lorem ipsum dolor sit amet.','false',NULL );
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('6','3', 'Gebierge','Gebirge','true','53');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('7','3', 'Universum','Universum,Planet,Erde','false','47');
-INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('8','3', 'Sonstiges','Sonstiges','true','24');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('1','6', 'Natur pur!','Lorem ipsum dolor sit amet.',false,NULL);
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('2','5', 'Irgendwas!','Lorem ipsum dolor sit amet.',false,NULL);
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('3','4', 'Mal was Anderes','Lorem ipsum dolor sit amet.',false,NULL);
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('4','5', 'Schon wieder eine Sammlung','Lorem ipsum dolor sit amet.',false,NULL);
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('5','6', 'Paar Bilder','Lorem ipsum dolor sit amet.',false,NULL );
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('6','3', 'Gebierge','Gebirge',true,'53');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('7','3', 'Universum','Universum,Planet,Erde',false,'47');
+INSERT INTO RES_COLLECTION (ID,USER_ID,NAME,DESCRIPTION,IS_PUBLIC,THUMBNAIL_ID) VALUES ('8','3', 'Sonstiges','Sonstiges',true,'24');
 
 
 -- images uploaded by photographer. None of them have been bought yet
