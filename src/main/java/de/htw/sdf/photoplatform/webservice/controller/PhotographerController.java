@@ -5,6 +5,7 @@ package de.htw.sdf.photoplatform.webservice.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.htw.sdf.photoplatform.exception.BadRequestException;
 import de.htw.sdf.photoplatform.exception.common.AbstractBaseException;
 import de.htw.sdf.photoplatform.exception.common.ManagerException;
@@ -19,6 +20,7 @@ import de.htw.sdf.photoplatform.webservice.Endpoints;
 import de.htw.sdf.photoplatform.webservice.dto.CollectionData;
 import de.htw.sdf.photoplatform.webservice.dto.ImageData;
 import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,11 +29,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.util.List;
 
 /**
@@ -393,6 +398,10 @@ public class PhotographerController extends BaseAPIController {
         User authenticatedUser = getAuthenticatedUser();
         ImageData response;
         Image updatedImage;
+        
+        //Round Price to only two decimal points and force positive price
+        data.setPrice(data.getPrice().setScale(2, RoundingMode.DOWN).abs());
+        
         try {
             updatedImage = imageManager.update(data.getId(), data.getName(), data.getPrice(), data.getDescription(), authenticatedUser);
         }catch (ManagerException ex) {
