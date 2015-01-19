@@ -42,6 +42,10 @@ photoplatformControllers.controller(
                     $rootScope.transferSuccess = true;
                 }).error(function (data) {
                     $scope.errors = data.errors;
+                    $scope.errors = data.errors;
+                    if (data.errors != null) { //suppress error
+                        $rootScope.error = undefined;
+                    }
                 });
             };
 
@@ -73,6 +77,10 @@ photoplatformControllers.controller(
                     $rootScope.transferSuccess = true;
                 }).error(function (data) {
                     $scope.errors = data.errors;
+                    $scope.errors = data.errors;
+                    if (data.errors != null) { //suppress error
+                        $rootScope.error = undefined;
+                    }
                 });
             };
         }]);

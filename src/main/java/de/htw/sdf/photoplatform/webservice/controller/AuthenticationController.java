@@ -19,8 +19,10 @@ import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
-import de.htw.sdf.photoplatform.webservice.dto.*;
-import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
+import de.htw.sdf.photoplatform.webservice.dto.PasswordResetDto;
+import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
+import de.htw.sdf.photoplatform.webservice.dto.UserData;
+import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -154,7 +156,6 @@ public class AuthenticationController extends BaseAPIController {
      * Recipe by name.
      *
      * @param json the json object
-     * @return the user
      */
     @RequestMapping(value = Endpoints.USER_PASSWORD_LOST, method = RequestMethod.POST)
     public void passwordLost(@RequestBody String json) throws IOException, NotFoundException, BadRequestException {

@@ -21,22 +21,6 @@
                                 <input ng-model="userProfileData.email" name="email" type="email"
                                        id="email" class="form-control" ng-disabled="!editEmail"
                                        placeholder={{userProfileData.email}} required disabled>
-                                <!-- WE DONT WANT YOU TO EDIT YOUR DAMN EMAIL -->
-                                <!--<span class="input-group-btn">
-                                    <button class="btn btn-default" ng-show="!editEmail" type="button"
-                                            ng-click="editEmail=!editEmail">
-                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    </button>
-                                    <button class="btn btn-default" ng-show="editEmail" type="button"
-                                            ng-disabled="form.email.$pristine || form.email.$invalid"
-                                            ng-click="editEmail=!editEmail; save()">
-                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                    </button>
-                                    <button class="btn btn-default" ng-show="editEmail" type="button"
-                                            ng-click="editEmail=!editEmail; cancel()">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    </button>
-                                </span>-->
                             </div>
                             <div class="help-block" ng-show="form.email.$dirty && editEmail">
                                 <span ng-show="form.email.$error.required">Dieses Feld darf nicht leer sein.</span>
