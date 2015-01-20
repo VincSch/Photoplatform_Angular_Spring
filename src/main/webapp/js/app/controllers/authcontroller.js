@@ -27,10 +27,7 @@ photoplatformControllers.controller(
                     $cookieStore.put('user', user);
                     $location.path("/profile");
                 }).error(function (data) {
-                    if (data.error == "Internal Server Error")
-                        $scope.errors = "Login fehlgeschlagen";
-                    else
-                        $scope.errors = data.error;
+                    $scope.errors = data.error;
                 });
             };
 
