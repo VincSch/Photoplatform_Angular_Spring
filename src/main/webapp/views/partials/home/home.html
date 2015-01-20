@@ -14,7 +14,7 @@
                 <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <h4>Registrieren</h4>
+                            <h4><span class="glyphicon glyphicon-check"></span> Registrieren</h4>
 
                             <p>Werde Mitglied und verkaufe oder kaufe Fotos! Wenn du willst, kannst Du dich nach der Registrierung als
                                 Photograph bewerben!</p>
@@ -25,7 +25,7 @@
                 <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <h4>Suchen</h4>
+                            <h4><span class="glyphicon glyphicon-search"></span> Suchen</h4>
 
                             <p>Du bist bereits bei uns angemeldet und möchtest ein neues Foto kaufen? Dann benutz die
                                 Suche auf
@@ -38,7 +38,7 @@
                 <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <h4>Passwort vergessen?</h4>
+                            <h4><span class="glyphicon glyphicon-question-sign"></span> Passwort vergessen?</h4>
 
                             <p>Du hast dein Passwort vergessen? Keine Panik benutz einfach den folgenden Link und stelle
                                 dein
@@ -60,7 +60,9 @@
                     <pagination total-items="recomendationImagesLength"
                                 items-per-page="imagesPerPage"
                                 ng-model="recomendationCurrentPage"
-                                ng-change=""></pagination>
+                                ng-change=""
+                                previous-text="zurück"
+                                next-text="nächste"></pagination>
                     <div class="row">
                         <div class="col-md-2 box-margin" ng-repeat="image in recomendationFilteredImages">
                             <!--<div class="row" ng-include src="'/views/partials/home/customerImage.html'"></div>-->

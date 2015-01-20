@@ -1,16 +1,22 @@
 <div class="row">
     <div class="col-md-2" ng-include src="'/views/partials/profile/sidebar.html'"></div>
     <div class="col-md-9" ng-controller="CollectionCtrl" ng-init="getCollectionsData()">
+        <div class="page-header">
+            <h2>{{collectionName}}</h2>
+
+            <p>Hier kannst du Bilder zu deiner Sammlung <strong>{{collectionName}}</strong> hinzufügen oder entfernen.
+                Außerdem kannst du entscheiden welches Bild als Titelbild dieser Sammlung zu sehen sein soll.</p>
+
+            <p>Beschreibung: <br>{{collectionDescription}}</p>
+        </div>
         <div class="row">
-            <div class="page-header">
-                <h2>{{collectionName}}</h2>
-                <p>Hier kannst du Bilder zu deiner Sammlung <strong>{{collectionName}}</strong> hinzufügen oder entfernen. Außerdem kannst du entscheiden welches Bild als Titelbild dieser Sammlung zu sehen sein soll.</p>
-                <p>Beschreibung: <br>{{collectionDescription}}</p>
+            <div class="col-md-12">
+                <div><a class="btn btn-primary" ng-click="open()">Bilder hinzufügen</a></div>
+                <br>
+
+                <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+                <div ng-include src="'/views/partials/profile/photographer/imageComponent.html'"></div>
             </div>
         </div>
-        <div class="row"><a class="btn btn-primary" ng-click="open()">Bilder hinzufügen</a></div>
-        <br>
-        <div ng-show="selected">Selection from a modal: {{ selected }}</div>
-        <div class="row" ng-include src="'/views/partials/profile/photographer/imageComponent.html'"></div>
     </div>
 </div>

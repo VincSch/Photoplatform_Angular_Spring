@@ -50,6 +50,9 @@ public class PurchaseItemDAOImpl extends GenericDAOImpl<PurchaseItem> implements
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PurchaseItem findByUserAndImage(User user, Image image) {
         StringBuilder queryBuilder = initQuery();
@@ -73,7 +76,10 @@ public class PurchaseItemDAOImpl extends GenericDAOImpl<PurchaseItem> implements
 
         return queryBuilder;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<PurchaseItem> findByPaymentIdAndPurchasedFilter(String PaymentId, Boolean purchased) {
@@ -84,5 +90,26 @@ public class PurchaseItemDAOImpl extends GenericDAOImpl<PurchaseItem> implements
         query.setParameter("paymentId", PaymentId);
         query.setParameter("purchased", purchased);
         return query.getResultList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public Boolean isPurchased(Image image) {
+        StringBuilder queryBuilder = new StringBuilder(
+                "SELECT DISTINCT(purchaseItem) FROM PurchaseItem purchaseItem ");
+        queryBuilder.append("LEFT JOIN FETCH purchaseItem.image image ");
+        queryBuilder.append("WHERE image.id = :imageId AND ");
+        queryBuilder.append("purchaseItem.purchased = :isPurchased");
+        Query query = createQuery(queryBuilder.toString());
+        query.setParameter("imageId", image.getId());
+        query.setParameter("isPurchased", Boolean.TRUE);
+        query.setFirstResult(0);
+        query.setMaxResults(1);
+
+        List<PurchaseItem> firstFoundedItem = query.getResultList();
+        return !firstFoundedItem.isEmpty();
     }
 }

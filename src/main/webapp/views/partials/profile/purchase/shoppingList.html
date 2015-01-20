@@ -11,17 +11,13 @@
             <tr>
                 <th>Vorschau</th>
                 <th>Name</th>
-                <th>Beschreibung</th>
-                <th>Preis</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="image in images">
-                <td><img class="img-responsive img-rounded" src="{{image.mobilePath}}"></a></td>
+                <td><img title="{{image.name}} - {{image.description}} - {{image.priceAsString}}" ‚class="img-responsive img-rounded" src="{{image.mobilePath}}"></a></td>
                 <td>{{image.name}}</td>
-                <td>{{image.description}}</td>
-                <td>{{image.priceAsString}}</td>
                 <td>
                     <a target="_blank" ng-href="/api/image/{{image.id}}/{{userId}}/{{encodedToken}}" class="btn btn-primary">
                         download

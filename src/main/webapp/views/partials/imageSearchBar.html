@@ -22,7 +22,9 @@
                     total-items="foundedImagesLength"
                     items-per-page="foundedImagesPerPage"
                     ng-model="foundedCurrentPage"
-                    ng-change=""></pagination>
+                    ng-change=""
+                    previous-text="zurück"
+                    next-text="nächste"></pagination>
         <div class="row">
             <div class="col-md-2 box-margin" ng-repeat="image in foundedFilterImages">
                 <!--<div class="row" ng-include src="'/views/partials/home/customerImage.html'"></div>-->

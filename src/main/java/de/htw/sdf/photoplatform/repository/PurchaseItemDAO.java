@@ -49,4 +49,13 @@ public interface PurchaseItemDAO extends GenericDAO<PurchaseItem> {
      * @return list of items with that payment id
      */
     List<PurchaseItem> findByPaymentIdAndPurchasedFilter(String PaymentId, Boolean purchased);
+
+    /**
+     * Check, is image purchased!
+     *
+     * @param image image to check.
+     *
+     * @return true, if image once purchased.
+     */
+    Boolean isPurchased(Image image);
 }

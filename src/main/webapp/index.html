@@ -109,7 +109,7 @@
         </li>
         <li class="sep" ng-show="isLoggedIn()">
             <a class="navbar-right" href="/" onclick="fadeOutMenu();"
-               ng-click="logout(); ">
+               ng-click="logout(); $root.activeListGroupItem = '';" >
                 <span class="glyphicon glyphicon-log-out"></span>
                 Abmelden</a>
         </li>
@@ -157,7 +157,7 @@
                        href="/register">Registrierung</a>
                 </li>
                 <li ng-show="isLoggedIn()">
-                    <a class="navbar-right" href="/" ng-click="logout()">Abmelden</a>
+                    <a class="navbar-right" href="/" ng-click="logout(); $root.activeListGroupItem = '';">Abmelden</a>
                 </li>
             </ul>
 

@@ -50,7 +50,6 @@ import java.util.List;
 public class PhotographerController extends BaseAPIController {
 
     private final static String PARAM_COLLECTION_ID = "id";
-    private final static String PARAM_IMAGE_IDS = "imageIds";
     private final static String PARAM_IS_PUBLIC = "isPublic";
 
     @Resource
@@ -327,31 +326,6 @@ public class PhotographerController extends BaseAPIController {
         }
     }
 
-//    /**
-//     * Return list of images belong to photograph.
-//     *
-//     * Filter: true, Return list of images belong to photograph and added to collection.
-//     *         false, Return list of images belong to photograph and not added to collection.
-//     *
-//     * @param isAdded is added to collection.
-//     *
-//     * @return true, Return list of images belong to photograph and added to collection.
-//     *         false, Return list of images belong to photograph and not added to collection.
-//     * @throws java.io.IOException   input output exception.
-//     * @throws AbstractBaseException the exception
-//     */
-//    @RequestMapping(value = Endpoints.PHOTOGRAPHERS_IMAGES, method = RequestMethod.GET)
-//    @ResponseBody
-//    public List<ImageData> getPhotographersImagesByFilter(@RequestParam Boolean isAdded)
-//            throws IOException, AbstractBaseException {
-//        User authenticatedUser = getAuthenticatedUser();
-//            if(!isAdded){
-//                List<UserImage> userImages = photographerManager.getImagesWithoutCollection(authenticatedUser);
-//                return ResourceUtility.convertToImageData(userImages);
-//        }else{
-//            throw new NotImplementedException();
-//        }
-//    }
 
     /**
      * Delete a photograph image.
