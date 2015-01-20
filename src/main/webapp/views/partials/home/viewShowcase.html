@@ -1,5 +1,6 @@
+<div class="jumbotron" style="background-color:#eee" align="center">
 <div class="row">
-    <div class="col-md-10" ng-controller="ViewShowcaseCtrl">
+    <div class="col-md-12" ng-controller="ViewShowcaseCtrl">
         <div class="page-header">
             <h2>Showcase von {{showcase.0.userdata.firstName}} {{showcase.0.userdata.lastName}}</h2>
 
@@ -11,7 +12,7 @@
                     <div class="col-md-2 box-margin" ng-repeat="collection in showcase">
                         <div class="thumbnail" id="collection-{{collection.id}}" ng-init="status = {editing : false }">
                             <a href="/collection/{{collection.id}}">
-                                <img ng-src="{{collection.thumbnail.smallThumbPath == null &&  '/img/template.jpg' || collection.thumbnail.smallThumbPath}}" class="img-responsive">
+                                <img class="img-responsive img-rounded" ng-src="{{collection.thumbnail.smallThumbPath == null &&  '/img/template.jpg' || collection.thumbnail.smallThumbPath}}" class="img-responsive">
                             </a>
 
                             <div class="caption">
@@ -27,4 +28,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

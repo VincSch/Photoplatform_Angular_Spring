@@ -19,8 +19,10 @@ import de.htw.sdf.photoplatform.persistence.model.User;
 import de.htw.sdf.photoplatform.security.TokenUtils;
 import de.htw.sdf.photoplatform.webservice.BaseAPIController;
 import de.htw.sdf.photoplatform.webservice.Endpoints;
-import de.htw.sdf.photoplatform.webservice.dto.*;
-import de.htw.sdf.photoplatform.webservice.util.ResourceUtility;
+import de.htw.sdf.photoplatform.webservice.dto.PasswordResetDto;
+import de.htw.sdf.photoplatform.webservice.dto.UserCredential;
+import de.htw.sdf.photoplatform.webservice.dto.UserData;
+import de.htw.sdf.photoplatform.webservice.dto.UserRegister;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -70,9 +72,9 @@ public class AuthenticationController extends BaseAPIController {
     public UserData login(@Valid @RequestBody UserCredential userCredential,
                           BindingResult bindingResult) throws IOException,
             AbstractBaseException {
-
+        String msgUserNotFound = messages.getMessage("User.notFound");
         if (bindingResult.hasErrors()) {
-            throw new BadRequestException("login rejected", bindingResult);
+            throw new BadRequestException(msgUserNotFound, bindingResult);
         }
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
@@ -86,7 +88,7 @@ public class AuthenticationController extends BaseAPIController {
             // User is disabled or locked
             throw new BadRequestException(messages.getMessage("User.locked"));
         } catch (BadCredentialsException | NoResultException ex) {
-            throw new BadRequestException(messages.getMessage("User.notFound"));
+            throw new BadRequestException(msgUserNotFound);
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -116,11 +118,11 @@ public class AuthenticationController extends BaseAPIController {
     public void register(@Valid @RequestBody final UserRegister userRegister,
                          BindingResult bindingResult) throws Exception {
         // Check if password match
+        String passwordConfirmMsg = "register exception"; messages.getMessage("Password.confirm");
         if (!userRegister.getPassword().equals(
                 userRegister.getPasswordConfirm())) {
-            bindingResult
-                    .addError(new FieldError("register", "passwordConfirm",
-                            messages.getMessage("Password.confirm")));
+            passwordConfirmMsg = messages.getMessage("Password.confirm");
+            bindingResult.addError(new FieldError("register", "passwordConfirm", passwordConfirmMsg));
         }
 
         if (bindingResult.hasErrors()) {
@@ -128,7 +130,7 @@ public class AuthenticationController extends BaseAPIController {
             log.info("-- register user fail: email = \""
                     + userRegister.getEmail() + "; password=\"**********\";");
 
-            throw new BadRequestException("register", bindingResult);
+            throw new BadRequestException(passwordConfirmMsg, bindingResult);
         }
 
         try {
@@ -154,7 +156,6 @@ public class AuthenticationController extends BaseAPIController {
      * Recipe by name.
      *
      * @param json the json object
-     * @return the user
      */
     @RequestMapping(value = Endpoints.USER_PASSWORD_LOST, method = RequestMethod.POST)
     public void passwordLost(@RequestBody String json) throws IOException, NotFoundException, BadRequestException {

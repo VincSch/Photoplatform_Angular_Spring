@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="stylesheet/less" type="text/css" href="/less/styles.less"/>
-    <!-- link rel="stylesheet" type="text/css" href="/css/styles.css" -->
+    <!-- link rel="stylesheet/less" type="text/css" href="/less/styles.less"/ -->
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     <title>Photoplattform</title>
 </head>
 <body>
@@ -109,7 +109,7 @@
         </li>
         <li class="sep" ng-show="isLoggedIn()">
             <a class="navbar-right" href="/" onclick="fadeOutMenu();"
-               ng-click="logout(); ">
+               ng-click="logout(); $root.activeListGroupItem = '';" >
                 <span class="glyphicon glyphicon-log-out"></span>
                 Abmelden</a>
         </li>
@@ -122,7 +122,7 @@
         <div class="navbar-header">
             <div class="menu-trigger"></div>
             <a class="navbar-brand" href="/">
-                <img src="/img/PhotLogoK.png" width="85" height="30" border="0" alt="Home"></a>
+                <img style="padding-bottom:12px; padding-left:13px" src="/img/logo_white.png" width="200" height="40" border="0" alt="Home"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -157,7 +157,7 @@
                        href="/register">Registrierung</a>
                 </li>
                 <li ng-show="isLoggedIn()">
-                    <a class="navbar-right" href="/" ng-click="logout()">Abmelden</a>
+                    <a class="navbar-right" href="/" ng-click="logout(); $root.activeListGroupItem = '';">Abmelden</a>
                 </li>
             </ul>
 
@@ -204,11 +204,7 @@
 </div>
 
 <div class="navbar navbar-default navbar-fixed-bottom">
-    <div style="float:right;">
-        CI-Status:
-        <img src="https://travis-ci.org/VincSch/photoplatform-sdf.svg?branch=master">
-    </div>
-    <p class="navbar-left">Copyright 2014&nbsp;</p>
+    <p style="color:#ffffff;" class="navbar-left">Copyright 2014 Photoplattform</p>
 </div>
 <!-- Lost password dialog -->
 <div class="modal fade" id="passwordLost" tabindex="-1" role="dialog" aria-labelledby="passwordLostLabel"
@@ -256,7 +252,7 @@
 </div>
 <!-- /.modal -->
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.0.0/less.min.js"></script>
+<!-- script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.0.0/less.min.js"></script -->
 
 <script src="/js/jquery/jquery.js"></script>
 <script src="/js/bootstrap/bootstrap.js"></script>
@@ -282,6 +278,7 @@
 <script src="/js/app/controllers/searchcontrollers.js"></script>
 <script src="/js/app/controllers/shoppinglistcontrollers.js"></script>
 <script src="/js/app/controllers/purchasecontroller.js"></script>
+<script src="/js/app/controllers/imagecomponentcontroller.js"></script>
 
 <!-- Services -->
 <script src="/js/app/services/auth.js"></script>
@@ -294,7 +291,7 @@
 <!-- Directives -->
 <script src="/js/app/directives/imagedirectives.js"></script>
 <script src="/js/app/directives/customerImage.drt.js"></script>
-<script src="/js/app/directives/imageComponent.drt.js"></script>
+
 
 <!-- Misc and Common -->
 <script src="/js/main.js"></script>

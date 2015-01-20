@@ -1,6 +1,6 @@
 <div class="row" ng-controller="ShoppingListCtrl">
     <div class="col-md-2" ng-include src="'/views/partials/profile/sidebar.html'"></div>
-    <div class="col-md-10">
+    <div class="col-md-9">
         <div class="page-header">
             <h2>Deine Einkäufe</h2>
 
@@ -11,17 +11,13 @@
             <tr>
                 <th>Vorschau</th>
                 <th>Name</th>
-                <th>Beschreibung</th>
-                <th>Preis</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="image in images">
-                <td><img class="img-responsive img-rounded" src="{{image.mobilePath}}"></a></td>
+                <td><img title="{{image.name}} - {{image.description}} - {{image.priceAsString}}" ‚class="img-responsive img-rounded" src="{{image.mobilePath}}"></a></td>
                 <td>{{image.name}}</td>
-                <td>{{image.description}}</td>
-                <td>{{image.priceAsString}}</td>
                 <td>
                     <a target="_blank" ng-href="/api/image/{{image.id}}/{{userId}}/{{encodedToken}}" class="btn btn-primary">
                         download

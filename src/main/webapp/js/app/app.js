@@ -94,7 +94,7 @@ photoplatform.config([
         });
 
         /* Intercept http errors */
-        var interceptor = function ($rootScope, $q, $location) {
+        var interceptor = function ($rootScope, $cookieStore, $q, $location) {
             function success(response) {
                 return response;
             }
@@ -105,16 +105,20 @@ photoplatform.config([
                 var config = response.config;
                 var method = config.method;
                 var url = config.url;
-
-                if (status == 403) {
+                
+				if(status == 401) {
+        			delete $rootScope.user;
+        			$cookieStore.remove('user');
+                    $location.path("/login");
+                    $rootScope.error = status + "! Session Timeout";				
+				} 
+				else if (status == 403) {
                     $location.path("/login");
                     $rootScope.error = status + " ! Nicht authorisiert";
-                }
-                else {
-                    if (status !== 404) {
-                        var error = method + " on " + url + " failed with status " + status;
-                        $rootScope.error = response.data.message || error;
-                    }
+                }  
+                else if (status !== 404) {
+                	var error = method + " on " + url + " failed with status " + status;
+                    $rootScope.error = response.data.message || error;                  
                 }
 
                 return $q.reject(response);

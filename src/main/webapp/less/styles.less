@@ -278,7 +278,7 @@ div#preview {
     margin: 2px;
     height: 150px;
   }
-  span {
+  span span{
     position: relative;
     z-index: 10;
     top: 65px;
@@ -359,8 +359,20 @@ div#darg-and-drop-area {
  margin-right:0px;
 }
 
+.jumbotron{
+  background-color:#eee;
+}
+
+.searachBar{
+  @media (min-width: 768px) {
+    width: 45%;
+  }
+  width: 90%;
+  magin-left:10px;
+}
+
 .thumbnail {
-  min-height: 340px;
+  min-height: 355px;
   width: 270px;
   > img{
     height: 150px;
@@ -393,9 +405,29 @@ div#darg-and-drop-area {
 
 }
 
+.imageComponentModal{
+  .modal-header{
+  }
+
+  .modal-body {
+    text-align: center;
+    img {
+      display: inline-block;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .modal-footer{
+  }
+}
+
 .custom-alert {
-  width: 50%;
-  float: inherit;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+  width: 100%;
+  magin-left:10px;
 }
 
 .upload-dialog .modal-dialog {

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-2" ng-include src="'/views/partials/profile/sidebar.html'"></div>
-    <div class="col-md-10">
+    <div class="col-md-9">
         <div class="row">
             <div class="col-md-12">
                 <h1>Administrationsmenu</h1>
@@ -37,7 +37,9 @@
                             total-items="photographTableTotalItems"
                             items-per-page="photographTableNumPerPage"
                             ng-model="photographTableCurrentPage"
-                            ng-change="photographTablePageChanged()"></pagination>
+                            ng-change="photographTablePageChanged()"
+                            previous-text="zurück"
+                            next-text="nächste"></pagination>
             </div>
         </div>
         <div class="row">
@@ -98,7 +100,9 @@
                             total-items="userTableTotalItems"
                             items-per-page="userTableNumPerPage"
                             ng-model="userTableCurrentPage"
-                            ng-change="userTablePageChanged()"></pagination>
+                            ng-change="userTablePageChanged()"
+                            previous-text="zurück"
+                            next-text="nächste"></pagination>
             </div>
         </div>
     </div>
