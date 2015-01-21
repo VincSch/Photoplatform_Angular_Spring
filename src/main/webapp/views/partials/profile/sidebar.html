@@ -4,11 +4,11 @@
             </span>
     <a href="/profile/view" class="list-group-item"
        ng-click="$root.activeListGroupItem = 'view'" ng-class="{active: activeListGroupItem == 'view'}">
-        <span class="glyphicon glyphicon-th-list"></span> Profildaten
+        <span class="glyphicon glyphicon-pencil"></span> Profildaten
     </a>
     <a href="/profile/shoppinglist" class="list-group-item"
        ng-click="$root.activeListGroupItem = 'shoppinglist'" ng-class="{active: activeListGroupItem == 'shoppinglist'}">
-        Einkäufe
+        <span class="glyphicon glyphicon-usd"></span>Einkäufe
     </a>
     <a href="/profile/admin" ng-show="isAdmin()" class="list-group-item"
        ng-click="$root.activeListGroupItem = 'admin'" ng-class="{active: activeListGroupItem == 'admin'}">
@@ -17,19 +17,19 @@
     <a href="/profile/photograph/showcase" ng-show="isPhotographer()"
        class="list-group-item"
        ng-click="$root.activeListGroupItem = 'showcase'" ng-class="{active: activeListGroupItem == 'showcase'}">
-       Showcase
+       <span class="glyphicon glyphicon-film">Showcase
     </a>
     <a href="/profile/photograph/collection" ng-show="isPhotographer()"
        class="list-group-item" ng-click="$root.activeListGroupItem = 'collection'" ng-class="{active: activeListGroupItem == 'collection'}">
-       Sammlungen
+       <span class="glyphicon glyphicon-book">Sammlungen
     </a>
     <a href="/profile/photograph/image" ng-show="isPhotographer()"
        class="list-group-item" ng-click="$root.activeListGroupItem = 'image'" ng-class="{active: activeListGroupItem == 'image'}">
-        Fotos
+        <span class="glyphicon glyphicon-picture">Fotos
     </a>
     <a href="/profile/photograph/register" ng-hide="isPhotographer()"
        class="list-group-item"
        ng-click="$root.activeListGroupItem = 'photoRegister'" ng-class="{active: activeListGroupItem == 'photoRegister'}">
-        Fotograph werden
+        <span class="glyphicon glyphicon-check">Fotograph werden
     </a>
 </div>
