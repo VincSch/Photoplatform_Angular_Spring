@@ -105,8 +105,12 @@ photoplatform.config([
                 var config = response.config;
                 var method = config.method;
                 var url = config.url;
-                
-				if(status == 401) {
+
+                if(status == 0) {
+                    $location.path("/");
+                    $rootScope.error = "Backend-Server nicht erreichbar, bitte probiere es später nocheinmal!";
+                }
+                else if(status == 401) {
         			delete $rootScope.user;
         			$cookieStore.remove('user');
                     $location.path("/login");
