@@ -1,5 +1,5 @@
 angular.module('photoplatform')
-    .directive('fileInput', ['$parse', function ($parse) {
+    .directive('fileInput', ['$rootScope', '$parse', function ($rootScope, $parse) {
         console.log("use image directive");
         return {
             restrict: 'A',
@@ -29,12 +29,15 @@ angular.module('photoplatform')
                 }
 
                 elem.bind('change', function () {
-                	console.log("Foooo CHange");
-                	
                 	var NewFiles = elem[0].files;
                 	
                 	for (var i = 0; i < NewFiles.length; i++) {
 						var File = NewFiles.item(i);
+						
+						if(File.type != "image/jpeg") {
+							$rootScope.error = "Es werden nur jpeg-Formate unterstützt!";
+							continue;
+						}
 						
 						File.hash = File.name.slice(0, -4).replace(/[\.\(\)\{\}\\ _#:]/g, '');
 						var reader = new FileReader();

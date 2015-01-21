@@ -194,6 +194,7 @@ public class ImageController extends BaseAPIController {
                         return "false";
                     } catch (ImageProcessingException e) {
                         log.error(e);
+                        return messages.getMessage("Image.upload.error");
                     }
                 } else {
                     return messages.getMessage("Image.upload.error");
